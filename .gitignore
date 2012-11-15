@@ -2,3 +2,6 @@ makefile
 feed*
 *.o
 *.DS_Store
+*.dll
+*.txt
+*.exe
