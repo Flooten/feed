@@ -13,14 +13,14 @@
 namespace feed
 {
     Object::Object(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity)
-        : postion_(postion)
+        : position_(position)
         , size_(size)
         , velocity_(velocity)
     {}
 
     glm::vec2 Object::get_position() const
     {
-        return postion_;
+        return position_;
     }
 
     glm::vec2 Object::get_size() const
@@ -35,7 +35,7 @@ namespace feed
 
     void Object::set_position(const glm::vec2& position)
     {
-        postion_ = position;
+        position_ = position;
     }
 
     void Object::set_size(const glm::vec2& size)
