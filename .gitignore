@@ -1,4 +1,4 @@
 makefile
-feed
+feed*
 *.o
 *.DS_Store
