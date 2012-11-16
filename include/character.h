@@ -4,7 +4,7 @@
  * PROGRAMMERARE: Herman Ekwall
  * DATUM:         2012-11-15
  *
- * BESKRIVNING: Object är den klass som alla föremål som kommer att ritas ut på skärmen ärver ifrån.
+ * BESKRIVNING: Character definerar en karaktär. Förälder till Player, Enemy och Boss. Abstrakt klass.
  *
  */
 
@@ -27,8 +27,6 @@ namespace feed
         void add_health(int value);
         void add_armor(int value);
         virtual void fire() = 0;
-
-        virtual
 
     private:
         int hitpoints;
