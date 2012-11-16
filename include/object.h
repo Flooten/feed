@@ -33,7 +33,7 @@ namespace feed
         virtual void draw() = 0;
 
         // Ej pure virual. Inte implementerad på denna nivå - bättre lösning?
-        virtual void update(unsigned int time){};
+        virtual void update(unsigned int){};
 
     private:
         glm::vec2 position_;
