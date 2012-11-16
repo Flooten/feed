@@ -1,8 +1,9 @@
 #include <iostream>
-//#include <SDL/SDL.h>
+#include <SDL/SDL.h>
 //#include <glm/glm.hpp>
 
 #include "messagequeue.h"
+#include "interactableobject.h"
 
 using namespace feed;
 
@@ -13,6 +14,9 @@ int main(int, char**)
     queue.pushMessage({MessageQueue::Message::FIRE, 9});
     queue.pushMessage({MessageQueue::Message::ADD_HEALTH, 79});
     queue.pushMessage({MessageQueue::Message::ADD_ARMOR, 100});
+
+    SDL_Surface* image;
+    image = SDL_LoadBMP("../data/hello.bmp");
 
     MessageQueue::Message msg;
     while (queue.pullMessage(msg))
