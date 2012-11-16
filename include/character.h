@@ -20,7 +20,8 @@ namespace feed
     class Character : public Object
     {
     public:
-        Character(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity, const SDL_Surface* image, int hitpoints, int armor);
+        Character(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity,
+                  SDL_Surface* image, int hitpoints, int armor);
 
         void set_aim(glm::vec2 aim);
         glm::vec2 get_aim();
@@ -29,9 +30,12 @@ namespace feed
         virtual void fire() = 0;
 
     private:
-        int hitpoints;
-        int armor;
-        glm::vec2 aim;
+        int hitpoints_;
+        int armor_;
+        glm::vec2 aim_;
+
+        const int MAX_HEALTH = 100;
+        const int MAX_ARMOR  = 100;
     };
 
 }
