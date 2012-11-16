@@ -44,13 +44,18 @@ int main(int, char**)
 
     SDL_Init(SDL_INIT_EVERYTHING);
 
-    SDL_Surface* screen = SDL_SetVideoMode(800, 600, 32, SDL_SWSURFACE);
-    SDL_Surface* hello = util::loadImage("data/duke.bmp");
+    SDL_Surface* screen = SDL_SetVideoMode(685, 610, 32, SDL_SWSURFACE);
+    SDL_Surface* duke = util::loadImage("data/duke.bmp");
+    SDL_Surface* cat = util::loadImage("data/cat.bmp");
 
-    SDL_BlitSurface(hello, 0, screen, 0);
+    util::blitSurface(duke, screen, 0, 0);
+    util::blitSurface(cat, screen, 100, 100);
+
     SDL_Flip(screen);
-    SDL_Delay(2000);
+    SDL_Delay(3000);
 
+    SDL_FreeSurface(cat);
+    SDL_FreeSurface(duke);
     SDL_FreeSurface(screen);
     SDL_Quit();
 

@@ -40,5 +40,11 @@ namespace util
 
         return image;
     }
+
+    void blitSurface(SDL_Surface* source, SDL_Surface* destination, int x, int y)
+    {
+        SDL_Rect rect = { static_cast<Sint16>(x), static_cast<Sint16>(y), 0, 0 };
+        SDL_BlitSurface(source, nullptr, destination, &rect);
+    }
 }
 }

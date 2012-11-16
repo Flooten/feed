@@ -23,6 +23,7 @@ namespace util
     // Laddningsfunktioner för bilder
     SDL_Surface* loadImage(const std::string& filename);
     SDL_Surface* loadBmp(const std::string& filename);
+    void blitSurface(SDL_Surface* source, SDL_Surface* destination, int x, int y);
 }
 }
 
