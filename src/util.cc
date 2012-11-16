@@ -7,6 +7,7 @@
  */
 
 #include "util.h"
+#include <SDL/SDL_image.h>
 
 namespace feed
 {
@@ -24,12 +25,12 @@ namespace feed
 
         SDL_Surface* loadImage(const std::string& filename)
         {
-            std::string extension = getFileExtension(filename);
+            SDL_Surface* image = IMG_Load(filename.c_str());
 
-            if (extension == "bmp")
-                return loadBmp(filename);
+            if (image != nullptr)
+                image = SDL_DisplayFormat(image);
 
-            return nullptr;
+            return image;
         }
 
         SDL_Surface* loadBmp(const std::string& filename)
