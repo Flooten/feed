@@ -16,17 +16,17 @@ namespace feed
                             , armor_(armor)
                             {}
 
-    void set_aim(glm::vec2 aim)
+    void Character::set_aim(glm::vec2 aim)
     {
         aim_ = aim;
     }
 
-    glm::vec2 get_aim()
+    glm::vec2 Character::get_aim()
     {
         return aim_;
     }
 
-    void add_health(int value)
+    void Character::add_health(int value)
     {
         if (hitpoints_ + value < MAX_HEALTH)
         {
@@ -36,14 +36,13 @@ namespace feed
             hitpoints_ = MAX_HEALTH;
     }
 
-    void add_health(int value)
+    void Character::add_armor(int value)
     {
-        if (hitpoints_ + value < MAX_HEALTH)
+        if (armor_ + value < MAX_ARMOR)
         {
-            hitpoints_ += value;
+            armor_ += value;
         }
         else
-            hitpoints_ = MAX_HEALTH;
-        }
+            armor_ = MAX_ARMOR;
     }
 }
