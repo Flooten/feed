@@ -55,7 +55,7 @@ int main(int, char**)
     util::blitSurface(alpha, screen, 120, 120);
 
     SDL_Flip(screen);
-    SDL_Delay(3000);
+    SDL_Delay(2000);
 
     SDL_FreeSurface(cat);
     SDL_FreeSurface(duke);

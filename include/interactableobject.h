@@ -7,7 +7,8 @@
  *                Mattias Fransson
  * DATUM:         2012-11-16
  *
- * BESKRIVNING: 
+ * BESKRIVNING: Denna klass definierar föremål som ej är fixa i bakgrunden och är möjliga
+ *              att interagera med.
  *
  */
 
@@ -25,11 +26,10 @@ namespace feed
     public:
         InteractableObject(const glm::vec2& position, const glm::vec2& size, SDL_Surface* image);
 
-        void draw() override final;
+        void draw(SDL_Surface* screen) override final;
         virtual void eventFunction() = 0;
 
     private:
-        SDL_Surface* image_;
     };
 }
 
