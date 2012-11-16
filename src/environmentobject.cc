@@ -48,6 +48,7 @@ namespace feed
 
     void EnvironmentObject::update(unsigned int time)
     {
-
+        position_.x += velocity_.x * time;
+        position_.y += velocity_.y * time;
     }
 }
