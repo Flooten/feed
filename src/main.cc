@@ -49,16 +49,18 @@ int main(int, char**)
     SDL_Surface* screen = SDL_SetVideoMode(685, 610, 32, SDL_SWSURFACE);
     SDL_Surface* duke = util::loadImage("data/duke.bmp");
 
-    EnvironmentObject* envobj = new EnvironmentObject(glm::vec2(100, 100), glm::vec2(100, 100), glm::vec2(10, 10), util::loadImage("data/cat.bmp"));
+    EnvironmentObject* envobj = new EnvironmentObject(glm::vec2(100, 100), glm::vec2(100, 100), glm::vec2(10, 0), util::loadImage("data/cat.bmp"));
 
     util::blitSurface(duke, screen, 0, 0);
     envobj->draw(screen);
     SDL_Flip(screen);
 
-    for (int i = 0; i < 10; ++i)
+    SDL_Delay(1000);
+
+    for (int i = 0; i < 20; ++i)
     {
-        SDL_Delay(500);
-        envobj->update(10);
+        SDL_Delay(10);
+        envobj->update(1);
         util::blitSurface(duke, screen, 0, 0);
         envobj->draw(screen);
         SDL_Flip(screen);
