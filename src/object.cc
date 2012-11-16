@@ -12,10 +12,11 @@
 
 namespace feed
 {
-    Object::Object(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity)
+    Object::Object(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity, SDL_Surface* image)
         : position_(position)
         , size_(size)
         , velocity_(velocity)
+        , image_(image)
     {}
 
     glm::vec2 Object::get_position() const

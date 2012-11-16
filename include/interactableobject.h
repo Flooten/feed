@@ -26,11 +26,10 @@ namespace feed
     public:
         InteractableObject(const glm::vec2& position, const glm::vec2& size, SDL_Surface* image);
 
-        void draw() override final;
+        void draw(SDL_Surface* screen) override final;
         virtual void eventFunction() = 0;
 
     private:
-        SDL_Surface* image_;    // Destrueras i gameworld
     };
 }
 

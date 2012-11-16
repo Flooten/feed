@@ -4,6 +4,7 @@
 
 #include "messagequeue.h"
 #include "interactableobject.h"
+#include "environmentobject.h"
 #include "util.h"
 
 using namespace feed;
@@ -47,15 +48,15 @@ int main(int, char**)
 
     SDL_Surface* screen = SDL_SetVideoMode(685, 610, 32, SDL_SWSURFACE);
     SDL_Surface* duke = util::loadImage("data/duke.bmp");
-    SDL_Surface* cat = util::loadImage("data/cat.bmp");
+
+    EnvironmentObject* envobj = new EnvironmentObject(glm::vec2(100, 100), glm::vec2(100, 100), glm::vec2(0, 0), util::loadImage("data/cat.bmp"));
 
     util::blitSurface(duke, screen, 0, 0);
-    util::blitSurface(cat, screen, 100, 100);
+    envobj->draw(screen);
 
     SDL_Flip(screen);
     SDL_Delay(2000);
 
-    SDL_FreeSurface(cat);
     SDL_FreeSurface(duke);
     SDL_FreeSurface(screen);
     SDL_Quit();
