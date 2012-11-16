@@ -5,42 +5,41 @@
 #include "messagequeue.h"
 #include "interactableobject.h"
 #include "util.h"
+#include "messagequeue.h"
 
 using namespace feed;
 
 int main(int, char**)
 {
-    // MessageQueue queue;
+    MessageQueue::instance()->pushMessage({MessageQueue::Message::FIRE, 9});
+    MessageQueue::instance()->pushMessage({MessageQueue::Message::ADD_HEALTH, 79});
+    MessageQueue::instance()->pushMessage({MessageQueue::Message::ADD_ARMOR, 100});
 
-    // queue.pushMessage({MessageQueue::Message::FIRE, 9});
-    // queue.pushMessage({MessageQueue::Message::ADD_HEALTH, 79});
-    // queue.pushMessage({MessageQueue::Message::ADD_ARMOR, 100});
+    SDL_Surface* image;
+    image = SDL_LoadBMP("../data/hello.bmp");
 
-    // SDL_Surface* image;
-    // image = SDL_LoadBMP("../data/hello.bmp");
+    MessageQueue::Message msg;
+    while (MessageQueue::instance()->pullMessage(msg))
+    {
+        switch (msg.type)
+        {
+            case MessageQueue::Message::FIRE:
+                std::cout << "You fired a " << msg.value << "mm bullet!" << std::endl;
+                break;
 
-    // MessageQueue::Message msg;
-    // while (queue.pullMessage(msg))
-    // {
-    //     switch (msg.type)
-    //     {
-    //         case MessageQueue::Message::FIRE:
-    //             std::cout << "You fired a " << msg.value << "mm bullet!" << std::endl;
-    //             break;
+            case MessageQueue::Message::ADD_HEALTH:
+                std::cout << "You were healed for " << msg.value << " hp!" << std::endl;
+                break;
 
-    //         case MessageQueue::Message::ADD_HEALTH:
-    //             std::cout << "You were healed for " << msg.value << " hp!" << std::endl;
-    //             break;
+            case MessageQueue::Message::ADD_ARMOR:
+                std::cout << "Your armor increased by " << msg.value << " armor!" << std::endl;
+                break;
 
-    //         case MessageQueue::Message::ADD_ARMOR:
-    //             std::cout << "Your armor increased by " << msg.value << " armor!" << std::endl;
-    //             break;
-
-    //         default:
-    //             std::cout << "uhoh" << std::endl;
-    //             break;
-    //     }
-    // }
+            default:
+                std::cout << "uhoh" << std::endl;
+                break;
+        }
+    }
 
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_WM_SetCaption("FEED", nullptr);

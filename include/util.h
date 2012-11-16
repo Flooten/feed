@@ -25,7 +25,8 @@ namespace feed
         SDL_Surface* loadImage(const std::string& filename);
         SDL_Surface* loadBmp(const std::string& filename);
 
-        // "Blittar" source på destination vid position (x, y)
+        // "Blittar" source på destination vid position (x, y).
+        // Vid mer avancerade fall använd SDL_BlitSurface direkt.
         void blitSurface(SDL_Surface* source, SDL_Surface* destination, int x, int y);
     }
 }

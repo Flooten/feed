@@ -34,7 +34,7 @@ namespace feed
 
         virtual void draw(SDL_Surface* screen) = 0;
 
-        // Ej pure virual. Inte implementerad på denna nivå - bättre lösning?
+        // Ej pure virtual. Inte implementerad på denna nivå - bättre lösning?
         virtual void update(unsigned int){};
 
     protected:

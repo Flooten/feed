@@ -33,5 +33,4 @@ namespace feed
     };
 }
 
-
  #endif

@@ -8,7 +8,7 @@
  * DATUM:         2012-11-16
  *
  * BESKRIVNING: Meddelandekö. Tar emot meddelanden från alla object, GameWorld läser kön
- *              och utför instruktionerna.
+ *              och utför instruktionerna. MessageQueue implementeras som en singleton.
  *
  */
 
@@ -45,8 +45,15 @@ namespace feed
         void pushMessage(const Message& msg);
         bool pullMessage(Message& msg);
 
+        static MessageQueue* instance();
+
     private:
+        MessageQueue() = default;
+        MessageQueue(const MessageQueue&) = delete;
+        MessageQueue& operator=(const MessageQueue&) = delete;
+
         std::queue<Message> queue_;
+        static MessageQueue* instance_;
     };
 }
 
