@@ -14,17 +14,18 @@
 #include <SDL/SDL.h>
 #include <string>
 
-namespace feed {
-namespace util
+namespace feed
 {
-    // Strängmanipulation
-    std::string getFileExtension(const std::string& filename);
+    namespace util
+    {
+        // Strängmanipulation
+        std::string getFileExtension(const std::string& filename);
 
-    // Laddningsfunktioner för bilder
-    SDL_Surface* loadImage(const std::string& filename);
-    SDL_Surface* loadBmp(const std::string& filename);
-    void blitSurface(SDL_Surface* source, SDL_Surface* destination, int x, int y);
-}
+        // Laddningsfunktioner för bilder
+        SDL_Surface* loadImage(const std::string& filename);
+        SDL_Surface* loadBmp(const std::string& filename);
+        void blitSurface(SDL_Surface* source, SDL_Surface* destination, int x, int y);
+    }
 }
 
 #endif
