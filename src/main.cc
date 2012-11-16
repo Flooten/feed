@@ -36,6 +36,6 @@ int main(int, char**)
                 break;
         }
     }
-    
+
     return 0;
 }
