@@ -31,7 +31,9 @@ namespace feed
         void set_velocity(const glm::vec2& velocity);
 
         virtual void draw() = 0;
-        virtual void update(unsigned int time) = 0;
+
+        // Ej pure virual. Inte implementerad på denna nivå - bättre lösning?
+        virtual void update(unsigned int time){};
 
     private:
         glm::vec2 position_;
