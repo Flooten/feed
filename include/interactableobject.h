@@ -7,7 +7,8 @@
  *                Mattias Fransson
  * DATUM:         2012-11-16
  *
- * BESKRIVNING: 
+ * BESKRIVNING: Denna klass definierar föremål som ej är fixa i bakgrunden och är möjliga
+ *              att interagera med.
  *
  */
 
@@ -29,9 +30,8 @@ namespace feed
         virtual void eventFunction() = 0;
 
     private:
-        SDL_Surface* image_;
+        SDL_Surface* image_;    // Destrueras i gameworld
     };
 }
-
 
  #endif
