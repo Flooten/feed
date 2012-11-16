@@ -28,7 +28,7 @@ namespace feed
             SDL_Surface* image = IMG_Load(filename.c_str());
 
             if (image != nullptr)
-                image = SDL_DisplayFormat(image);
+                image = SDL_DisplayFormatAlpha(image);
 
             return image;
         }
@@ -38,7 +38,7 @@ namespace feed
             SDL_Surface* image = SDL_LoadBMP(filename.c_str());
 
             if (image != nullptr)
-                image = SDL_DisplayFormatAlpha(image);
+                image = SDL_DisplayFormat(image);
 
             return image;
         }
