@@ -18,7 +18,7 @@ int main(int, char**)
 {
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_WM_SetCaption("FEED", nullptr);
-    SDL_Surface* screen = SDL_SetVideoMode(685, 610, 32, SDL_SWSURFACE);
+    SDL_Surface* screen = SDL_SetVideoMode(1024, 576, 32, SDL_SWSURFACE);
 
     if (!Audio::instance().init())
         std::cout << "Audio error" << std::endl;
