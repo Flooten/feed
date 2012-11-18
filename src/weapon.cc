@@ -10,8 +10,9 @@
 
 namespace feed
 {
-	Weapon::Weapon(int rate_of_fire, int last_fired, int max_clip, int max_ammo, int damage, SDL_Surface* image)
-		: rate_of_fire_(rate_of_fire)
+	Weapon::Weapon(int type, int rate_of_fire, int last_fired, int max_clip, int max_ammo, int damage, SDL_Surface* image)
+		: type_(type)
+        , rate_of_fire_(rate_of_fire)
 		, last_fired_(last_fired)
 		, max_clip_(max_clip)
 		, max_ammo_(max_ammo)
@@ -54,12 +55,17 @@ namespace feed
     	}
     }
 
-    int Weapon::get_clip()
+    int Weapon::get_type() const
+    {
+        return type_;
+    }
+
+    int Weapon::get_clip() const
     {
     	return clip_;
     }
 
-    int Weapon::get_ammo()
+    int Weapon::get_ammo() const
     {
     	return ammo_;
     }
