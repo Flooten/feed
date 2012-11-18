@@ -1,0 +1,38 @@
+/*
+ * FILNAMN:       player.h
+ * PROJEKT:       F.E.E.D.
+ * PROGRAMMERARE: Herman Ekwall
+ * DATUM:         2012-11-16
+ *
+ * BESKRIVNING: Object är den klass som alla föremål som kommer att ritas ut på skärmen ärver ifrån.
+ *
+ */
+
+#ifndef FEED_PLAYER_H
+#define FEED_PLAYER_H
+
+#include <glm/glm.hpp>
+#include <SDL/SDL.h>
+#include "character.h"
+#include "inventory.h"
+
+namespace feed
+{
+    class Player : public Character
+    {
+    public:
+        Player(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity,
+                  SDL_Surface* image, int hitpoints, int armor);
+
+        void addWeapon(Weapon& weapon);
+        int get_inventory_index() const;
+        void set_inventory_index(int index);
+        void fire() override final;
+
+    private:
+        int inventory_index;
+        Inventory inventory;
+    };
+}
+
+#endif
