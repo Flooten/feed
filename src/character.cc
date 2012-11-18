@@ -10,10 +10,12 @@
 namespace feed
 {
     Character::Character(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity,
-                         SDL_Surface* image, int hitpoints, int armor)
+                         SDL_Surface* image, int hitpoints, int armor, int max_health, int max_armor)
                             : Object(position, size, velocity, image)
                             , hitpoints_(hitpoints)
                             , armor_(armor)
+                            , max_health_(max_health)
+                            , max_armor_(max_armor)
                             {}
 
     void Character::set_aim(glm::vec2 aim)
@@ -28,21 +30,21 @@ namespace feed
 
     void Character::add_health(int value)
     {
-        if (hitpoints_ + value < MAX_HEALTH)
+        if (hitpoints_ + value < max_health_)
         {
             hitpoints_ += value;
         }
         else
-            hitpoints_ = MAX_HEALTH;
+            hitpoints_ = max_health_;
     }
 
     void Character::add_armor(int value)
     {
-        if (armor_ + value < MAX_ARMOR)
+        if (armor_ + value < max_armor_)
         {
             armor_ += value;
         }
         else
-            armor_ = MAX_ARMOR;
+            armor_ = max_armor_;
     }
 }
