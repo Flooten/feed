@@ -2,9 +2,7 @@
  * FILNAMN:       player.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
- * DATUM:         2012-11-16
- *
- * BESKRIVNING: Object är den klass som alla föremål som kommer att ritas ut på skärmen ärver ifrån.
+ * DATUM:         2012-11-18
  *
  */
 

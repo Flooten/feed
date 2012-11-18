@@ -4,7 +4,7 @@
  * PROGRAMMERARE: Herman Ekwall
  * DATUM:         2012-11-16
  *
- * BESKRIVNING: Object är den klass som alla föremål som kommer att ritas ut på skärmen ärver ifrån.
+ * BESKRIVNING: Denna klass definierar spelaren. Ärver från Character
  *
  */
 
