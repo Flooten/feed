@@ -10,73 +10,94 @@
 #include "messagequeue.h"
 #include "audio.h"
 
+#include <fstream>
+
 using namespace feed;
 
 int main(int, char**)
 {
-    //Audio::instance().print();
+    SDL_Init(SDL_INIT_EVERYTHING);
+    SDL_WM_SetCaption("FEED", nullptr);
+    SDL_Surface* screen = SDL_SetVideoMode(685, 610, 32, SDL_SWSURFACE);
 
-    MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, 9});
-    MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_HEALTH, 79});
-    MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_ARMOR, 100});
+    if (!Audio::instance().init())
+        std::cout << "Audio error" << std::endl;
 
-    //SDL_Surface* image;
-    //image = SDL_LoadBMP("../data/hello.bmp");
+    Audio::instance().addSoundFx("data/scratch.wav");
+    Audio::instance().addSoundFx("data/high.wav");
+    Audio::instance().addSoundFx("data/medium.wav");
 
-    MessageQueue::Message msg;
-    while (MessageQueue::instance().pullMessage(msg))
-    {
-        switch (msg.type)
-        {
-            case MessageQueue::Message::FIRE:
-                std::cout << "You fired a " << msg.value << "mm bullet!" << std::endl;
-                break;
+    Audio::instance().playSoundFx("data/scratch.wav");
+    SDL_Delay(1000);
+    Audio::instance().playSoundFx("data/medium.wav");
 
-            case MessageQueue::Message::ADD_HEALTH:
-                std::cout << "You were healed for " << msg.value << " hp!" << std::endl;
-                break;
+    SDL_Delay(2000);
 
-            case MessageQueue::Message::ADD_ARMOR:
-                std::cout << "Your armor increased by " << msg.value << " armor!" << std::endl;
-                break;
+    Audio::instance().clear();
+    SDL_FreeSurface(screen);
+    SDL_Quit();
 
-            default:
-                std::cout << "uhoh" << std::endl;
-                break;
-        }
-    }
+    // MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, 9});
+    // MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_HEALTH, 79});
+    // MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_ARMOR, 100});
 
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_WM_SetCaption("FEED", nullptr);
 
-    SDL_Surface* screen = SDL_SetVideoMode(685, 610, 32, SDL_SWSURFACE);
-    SDL_Surface* duke = util::loadImage("data/duke.bmp");
+    // MessageQueue::Message msg;
+    // while (MessageQueue::instance().pullMessage(msg))
+    // {
+    //     switch (msg.type)
+    //     {
+    //         case MessageQueue::Message::FIRE:
+    //             std::cout << "You fired a " << msg.value << "mm bullet!" << std::endl;
+    //             break;
 
-    //EnvironmentObject* envobj = new EnvironmentObject(glm::vec2(100, 100), glm::vec2(100, 100), glm::vec2(10, 0), util::loadImage("data/cat.bmp"));
-    Projectile* projectile = new Projectile(glm::vec2(100, 100), glm::vec2(100, 100), glm::vec2(10, 0), util::loadImage("data/cat.bmp"), 100);
+    //         case MessageQueue::Message::ADD_HEALTH:
+    //             std::cout << "You were healed for " << msg.value << " hp!" << std::endl;
+    //             break;
+
+    //         case MessageQueue::Message::ADD_ARMOR:
+    //             std::cout << "Your armor increased by " << msg.value << " armor!" << std::endl;
+    //             break;
+
+    //         default:
+    //             std::cout << "uhoh" << std::endl;
+    //             break;
+    //     }
+    // }
+
+    // SDL_Init(SDL_INIT_EVERYTHING);
+    // SDL_WM_SetCaption("FEED", nullptr);
+
+    // SDL_Surface* screen = SDL_SetVideoMode(685, 610, 32, SDL_SWSURFACE);
+    // SDL_Surface* duke = util::loadImage("data/duke.bmp");
+
+    // //EnvironmentObject* envobj = new EnvironmentObject(glm::vec2(100, 100), glm::vec2(100, 100), glm::vec2(10, 0), util::loadImage("data/cat.bmp"));
+    // Projectile* projectile = new Projectile(glm::vec2(100, 100), glm::vec2(100, 100), glm::vec2(10, 0), util::loadImage("data/cat.bmp"), 100);
 
 
-    std::cout << "This projectile does " << projectile->get_damage() << " damage." << std::endl;
-    util::blitSurface(duke, screen, 0, 0);
-    projectile->draw(screen);
-    SDL_Flip(screen);
+    // std::cout << "This projectile does " << projectile->get_damage() << " damage." << std::endl;
+    // util::blitSurface(duke, screen, 0, 0);
+    // projectile->draw(screen);
+    // SDL_Flip(screen);
 
-    SDL_Delay(1000);
+    // SDL_Delay(1000);
 
-    for (int i = 0; i < 20; ++i)
-    {
-        SDL_Delay(10);
-        projectile->update(1);
-        util::blitSurface(duke, screen, 0, 0);
-        projectile->draw(screen);
-        SDL_Flip(screen);
-    }
+    // for (int i = 0; i < 20; ++i)
+    // {
+    //     SDL_Delay(10);
+    //     projectile->update(1);
+    //     util::blitSurface(duke, screen, 0, 0);
+    //     projectile->draw(screen);
+    //     SDL_Flip(screen);
+    // }
 
-    SDL_Delay(2000);
+    // SDL_Delay(2000);
 
-    SDL_FreeSurface(duke);
-    SDL_FreeSurface(screen);
-    SDL_Quit();
+    // SDL_FreeSurface(duke);
+    // SDL_FreeSurface(screen);
+    // SDL_Quit();
 
     return 0;
 }

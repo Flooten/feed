@@ -15,9 +15,9 @@ namespace feed
         : InteractableObject(position, size, image)
         , weapon_type_(weapon_type)
     {}
-    
+
     void WeaponContainer::eventFunction()
     {
-    	MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_WEAPON, weapon_type_, this})
+    	MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_WEAPON, weapon_type_, this});
     }
 }
