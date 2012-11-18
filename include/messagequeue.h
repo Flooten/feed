@@ -33,8 +33,11 @@ namespace feed
                 ADD_ARMOR,
                 ADD_WEAPON,
                 CHECKPOINT,
-                PLAYER_DEAD,
-                DEAD
+                NEW_GAME,
+                LOAD_GAME,
+                QUIT_GAME,
+				PLAYER_DEAD,
+				DEAD
             };
 
             Message(int type = 0, int value = 0, Object* sender = nullptr);
