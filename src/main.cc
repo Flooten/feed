@@ -7,20 +7,23 @@
 #include "environmentobject.h"
 #include "util.h"
 #include "messagequeue.h"
+#include "audio.h"
 
 using namespace feed;
 
 int main(int, char**)
 {
-    MessageQueue::instance()->pushMessage({MessageQueue::Message::FIRE, 9});
-    MessageQueue::instance()->pushMessage({MessageQueue::Message::ADD_HEALTH, 79});
-    MessageQueue::instance()->pushMessage({MessageQueue::Message::ADD_ARMOR, 100});
+    //Audio::instance().print();
 
-    SDL_Surface* image;
-    image = SDL_LoadBMP("../data/hello.bmp");
+    MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, 9});
+    MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_HEALTH, 79});
+    MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_ARMOR, 100});
+
+    //SDL_Surface* image;
+    //image = SDL_LoadBMP("../data/hello.bmp");
 
     MessageQueue::Message msg;
-    while (MessageQueue::instance()->pullMessage(msg))
+    while (MessageQueue::instance().pullMessage(msg))
     {
         switch (msg.type)
         {
