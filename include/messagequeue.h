@@ -35,9 +35,9 @@ namespace feed
                 CHECKPOINT,
                 NEW_GAME,
                 LOAD_GAME,
+                QUIT_GAME,
 				PLAYER_DEAD,
-				DEAD,
-                QUIT_GAME
+				DEAD
             };
 
             Message(int type = 0, int value = 0, Object* sender = nullptr);
