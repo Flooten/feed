@@ -32,7 +32,10 @@ namespace feed
                 ADD_HEALTH,
                 ADD_ARMOR,
                 ADD_WEAPON,
-                CHECKPOINT
+                CHECKPOINT,
+                NEW_GAME,
+                LOAD_GAME,
+                QUIT_GAME
             };
 
             Message(int type = 0, int value = 0, Object* sender = nullptr);
