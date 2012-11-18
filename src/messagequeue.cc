@@ -14,13 +14,23 @@
 
 namespace feed
 {
-    MessageQueue* MessageQueue::instance_ = nullptr;
+    ////////////////////
+    // Message
 
     MessageQueue::Message::Message(int type, int value, Object* sender)
         : type(type)
         , value(value)
         , sender(sender)
     {}
+
+    ////////////////////
+    // MessageQueue
+
+    MessageQueue& MessageQueue::instance()
+    {
+        static MessageQueue instance_;
+        return instance_;
+    }
 
     void MessageQueue::pushMessage(const Message& msg)
     {
@@ -36,13 +46,5 @@ namespace feed
         queue_.pop();
 
         return true;
-    }
-
-    MessageQueue* MessageQueue::instance()
-    {
-        if (!instance_)
-            instance_ = new MessageQueue;
-
-        return instance_;
     }
 }

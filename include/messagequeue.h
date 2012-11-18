@@ -42,10 +42,10 @@ namespace feed
             Object* sender = nullptr;
         };
 
+        static MessageQueue& instance();
+
         void pushMessage(const Message& msg);
         bool pullMessage(Message& msg);
-
-        static MessageQueue* instance();
 
     private:
         MessageQueue() = default;
@@ -53,7 +53,6 @@ namespace feed
         MessageQueue& operator=(const MessageQueue&) = delete;
 
         std::queue<Message> queue_;
-        static MessageQueue* instance_;
     };
 }
 

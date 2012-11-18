@@ -28,7 +28,7 @@ namespace feed
 
     	SDL_Surface* get_image();
 
-    	void add_ammo(int value);
+    	void addAmmo(int value);
     	void reload();
     	void fire();
 

@@ -21,7 +21,7 @@ namespace feed
 		{
 			if (inventory_list[i].get_type() == weapon.get_type())
 			{
-				inventory_list[i].add_ammo(weapon.get_ammo());
+				inventory_list[i].addAmmo(weapon.get_ammo());
 				found = 1;
 			}
 		}

@@ -25,7 +25,7 @@ namespace feed
 		return image_;
 	}
     
-    void Weapon::add_ammo(int value)
+    void Weapon::addAmmo(int value)
     {
     	ammo_ += value;
 
