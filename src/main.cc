@@ -8,17 +8,32 @@
 #include "projectile.h"
 #include "util.h"
 #include "messagequeue.h"
+#include "player.h"
+#include "boss.h"
+#include "inventory.h"
 //#include "audio.h"
 
 using namespace feed;
 
 int main(int, char**)
 {
+    SDL_Init(SDL_INIT_EVERYTHING);
+    SDL_WM_SetCaption("FEED", nullptr);
+
     //Audio::instance().print();
 
     MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, 9});
     MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_HEALTH, 79});
     MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_ARMOR, 100});
+
+    // Player
+    glm::vec2 boss_vector(300,300);
+    Inventory das_inventory;
+    Player player(boss_vector, boss_vector, boss_vector, util::loadImage("data/cat.bmp"), 100, 100, 100, 100);
+    Boss boss(boss_vector, boss_vector, boss_vector, util::loadImage("data/cat.bmp"), 100, 100, 100, 100, das_inventory);
+
+    player.add_armor(-200);
+    boss.add_armor(-203);
 
     //SDL_Surface* image;
     //image = SDL_LoadBMP("../data/hello.bmp");
@@ -40,14 +55,20 @@ int main(int, char**)
                 std::cout << "Your armor increased by " << msg.value << " armor!" << std::endl;
                 break;
 
+            case MessageQueue::Message::PLAYER_DEAD:
+                std::cout << "You died " << std::endl;
+                break;
+
+            case MessageQueue::Message::DEAD:
+                std::cout << "Someone else died " << std::endl;
+                break;
+
             default:
                 std::cout << "uhoh" << std::endl;
                 break;
         }
     }
 
-    SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_WM_SetCaption("FEED", nullptr);
 
     SDL_Surface* screen = SDL_SetVideoMode(685, 610, 32, SDL_SWSURFACE);
     SDL_Surface* duke = util::loadImage("data/duke.bmp");

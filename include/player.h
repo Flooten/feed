@@ -25,6 +25,7 @@ namespace feed
                   SDL_Surface* image, int hitpoints, int armor, int max_health, int max_armor);
 
         void addWeapon(Weapon& weapon);
+        void add_health(int value);
         int get_inventory_index() const;
         void set_inventory_index(int index);
         void fire() override final;

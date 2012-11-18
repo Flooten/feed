@@ -26,16 +26,19 @@ namespace feed
         void set_aim(glm::vec2 aim);
         glm::vec2 get_aim() const;
 
-        void add_health(int value);
+        virtual void add_health(int value);
         void add_armor(int value);
+        void draw(SDL_Surface* screen) override final;
         virtual void fire() = 0;
 
-    private:
-        glm::vec2 aim_;
+    protected:
         int hitpoints_;
         int armor_;
         int max_health_;
         int max_armor_;
+
+    private:
+        glm::vec2 aim_;
     };
 }
 
