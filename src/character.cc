@@ -21,7 +21,7 @@ namespace feed
         aim_ = aim;
     }
 
-    glm::vec2 Character::get_aim()
+    glm::vec2 Character::get_aim() const
     {
         return aim_;
     }
