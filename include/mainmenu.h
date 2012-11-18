@@ -33,7 +33,7 @@ namespace feed
     private:
         SDL_Surface* background_ = nullptr;
         std::vector<Button*> button_list_;
-        glm::vec2 position_ = glm::vec2(0, 0);
+        glm::vec2 position_;
 
         static const int X_OFFSET = 70;
         static const int Y_OFFSET = 50;
