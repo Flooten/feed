@@ -18,6 +18,6 @@ namespace feed
     
     void HealthContainer::eventFunction()
     {
-    	MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_ARMOR, health_value_, this});
+    	MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_HEALTH, health_value_, this});
     }
 }
