@@ -48,6 +48,26 @@ namespace feed
         }
     }
 
+    void Menu::handleMouseMotionEvent(const SDL_MouseMotionEvent& event)
+    {
+        Button* colliding_button = collidingButton(glm::vec2(event.x, event.y));
+
+        if (colliding_button != nullptr)
+        {
+
+        }
+    }
+
+    void Menu::handleMouseButtonEvent(const SDL_MouseButtonEvent& event)
+    {
+        Button* colliding_button = collidingButton(glm::vec2(event.x, event.y));
+
+        if (colliding_button != nullptr)
+        {
+            
+        }
+    }
+
     /* 
      *  Private
      */
@@ -55,9 +75,14 @@ namespace feed
     {
         glm::vec2 position;
 
-        position.x = X_OFFSET;
-        position.y = Y_OFFSET + (Button::HEIGHT + Y_SPACING) * index;
+        position.x = position_.x + X_OFFSET;
+        position.y = position_.y + Y_OFFSET + (Button::HEIGHT + Y_SPACING) * index;
 
         return position;
+    }
+
+    Button* Menu::collidingButton(const glm::vec2& position)
+    {
+
     }
 }

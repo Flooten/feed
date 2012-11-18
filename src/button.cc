@@ -16,6 +16,7 @@ namespace feed
      */
     Button::Button(SDL_Surface* background, const Type type)
         : background_(background)
+        , type_(type)
 
     {
         initClips();
@@ -26,20 +27,20 @@ namespace feed
     {
         switch (type_)
         {
-        case Button::Type::NEW_GAME:
+        case Button::NEW_GAME:
             MessageQueue::instance().pushMessage({MessageQueue::Message::NEW_GAME});
             break;
-        case Button::Type::LOAD_GAME:
+        case Button::LOAD_GAME:
             MessageQueue::instance().pushMessage({MessageQueue::Message::LOAD_GAME});
             break;
-        case Button::Type::QUIT_GAME:
+        case Button::QUIT_GAME:
             MessageQueue::instance().pushMessage({MessageQueue::Message::QUIT_GAME});
             break;
         default:
             break;
         }        
     }
-    
+
     // Knappen tänds upp.
     void Button::mouseEntered()
     {

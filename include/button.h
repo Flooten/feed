@@ -45,7 +45,7 @@ namespace feed
         bool active_ = false;
         int type_ = 0;
 
-        void initClips();                   // Initialiserar clips.
+        void initClips();                    // Initialiserar clips.
     };
 }
 

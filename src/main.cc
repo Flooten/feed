@@ -9,6 +9,8 @@
 #include "util.h"
 #include "messagequeue.h"
 #include "audio.h"
+#include "menu.h"
+#include "button.h"
 
 #include <fstream>
 
@@ -18,9 +20,17 @@ int main(int, char**)
 {
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_WM_SetCaption("FEED", nullptr);
-    SDL_Surface* screen = SDL_SetVideoMode(685, 610, 32, SDL_SWSURFACE);
+    SDL_Surface* screen = SDL_SetVideoMode(1024, 576, 32, SDL_SWSURFACE);
 
-    if (!Audio::instance().init())
+    SDL_Surface* duke = util::loadImage("data/duke.bmp");
+
+    Menu menu(duke, glm::vec2((screen->w / 2) - (duke->w / 2), (screen->h / 2) - (duke->h / 2)));
+
+    menu.addButton(new Button(util::loadImage("data/buttontest.png"), Button::QUIT_GAME));
+
+    menu.draw(screen);
+
+    /*if (!Audio::instance().init())
         std::cout << "Audio error" << std::endl;
 
     Audio::instance().addSoundFx("data/scratch.wav");
@@ -33,39 +43,47 @@ int main(int, char**)
 
     SDL_Delay(2000);
 
-    Audio::instance().clear();
-    SDL_FreeSurface(screen);
-    SDL_Quit();
+    Audio::instance().clear();*/
+    SDL_Flip(screen);
+    SDL_Delay(4000);
+
+    menu.getButton(0)->mouseEntered();
+    menu.getButton(0)->pressed();
+    menu.draw(screen);
+    SDL_Flip(screen);
+    SDL_Delay(4000);
+
 
     // MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, 9});
     // MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_HEALTH, 79});
     // MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_ARMOR, 100});
+    
+    MessageQueue::Message msg;
+    while (MessageQueue::instance().pullMessage(msg))
+    {
+        switch (msg.type)
+        {
+            case MessageQueue::Message::FIRE:
+                std::cout << "You fired a " << msg.value << "mm bullet!" << std::endl;
+                break;
 
-    SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_WM_SetCaption("FEED", nullptr);
+            case MessageQueue::Message::ADD_HEALTH:
+                std::cout << "You were healed for " << msg.value << " hp!" << std::endl;
+                break;
 
-    // MessageQueue::Message msg;
-    // while (MessageQueue::instance().pullMessage(msg))
-    // {
-    //     switch (msg.type)
-    //     {
-    //         case MessageQueue::Message::FIRE:
-    //             std::cout << "You fired a " << msg.value << "mm bullet!" << std::endl;
-    //             break;
+            case MessageQueue::Message::ADD_ARMOR:
+                std::cout << "Your armor increased by " << msg.value << " armor!" << std::endl;
+                break;
 
-    //         case MessageQueue::Message::ADD_HEALTH:
-    //             std::cout << "You were healed for " << msg.value << " hp!" << std::endl;
-    //             break;
+            case MessageQueue::Message::QUIT_GAME:
+                std::cout << "The game recieved QUIT" << std::endl;
+                break;
 
-    //         case MessageQueue::Message::ADD_ARMOR:
-    //             std::cout << "Your armor increased by " << msg.value << " armor!" << std::endl;
-    //             break;
-
-    //         default:
-    //             std::cout << "uhoh" << std::endl;
-    //             break;
-    //     }
-    // }
+            default:
+                std::cout << "uhoh" << std::endl;
+                break;
+        }
+    }
 
     // SDL_Init(SDL_INIT_EVERYTHING);
     // SDL_WM_SetCaption("FEED", nullptr);
@@ -95,9 +113,9 @@ int main(int, char**)
 
     // SDL_Delay(2000);
 
-    // SDL_FreeSurface(duke);
-    // SDL_FreeSurface(screen);
-    // SDL_Quit();
+    SDL_FreeSurface(duke);
+    SDL_FreeSurface(screen);
+    SDL_Quit();
 
     return 0;
 }
