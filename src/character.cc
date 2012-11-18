@@ -7,6 +7,7 @@
 
 #include "character.h"
 #include "messagequeue.h"
+#include "util.h"
 
 namespace feed
 {
@@ -60,6 +61,9 @@ namespace feed
 
     void Character::draw(SDL_Surface* screen)
     {
-        // Implementeras senare
+        if (image_ != nullptr)
+        {
+            util::blitSurface(image_, screen, position_.x, position_.y);
+        }
     }
 }
