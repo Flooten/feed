@@ -34,18 +34,23 @@ namespace feed
 
         Button(SDL_Surface* background, const Type type);
 
+        // Setters
+        void set_position(const glm::vec2& position);
+
         void pressed() const;
         void mouseEntered();
         void mouseLeft();
-        void draw(SDL_Surface* screen, const glm::vec2& position);
+        bool isMouseOver(const glm::vec2& mouse_position);
+        void draw(SDL_Surface* screen);
 
     private:
         SDL_Surface* background_ = nullptr;
-        SDL_Rect clip_[2];                   // 0 är inaktiv och 1 är aktiv.
+        SDL_Rect clip_[2];                     // 0 är inaktiv och 1 är aktiv.
+        SDL_Rect position_ = {0, 0, 0, 0};     // Knappens absoluta position
         bool active_ = false;
         int type_ = 0;
 
-        void initClips();                    // Initialiserar clips.
+        void initClips();                      // Initialiserar clips.
     };
 }
 

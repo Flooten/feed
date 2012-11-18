@@ -22,18 +22,24 @@ namespace feed
         initClips();
     }
 
+    void Button::set_position(const glm::vec2& position)
+    {
+        position_.x = position.x;
+        position_.y = position.y;
+    }
+
     // Skickar ett specifikt meddelande till MessageQueue.
     void Button::pressed() const
     {
         switch (type_)
         {
-        case Button::NEW_GAME:
+        case NEW_GAME:
             MessageQueue::instance().pushMessage({MessageQueue::Message::NEW_GAME});
             break;
-        case Button::LOAD_GAME:
+        case LOAD_GAME:
             MessageQueue::instance().pushMessage({MessageQueue::Message::LOAD_GAME});
             break;
-        case Button::QUIT_GAME:
+        case QUIT_GAME:
             MessageQueue::instance().pushMessage({MessageQueue::Message::QUIT_GAME});
             break;
         default:
@@ -53,21 +59,32 @@ namespace feed
         active_ = false;
     }
 
-    void Button::draw(SDL_Surface* screen, const glm::vec2& position)
+    bool Button::isMouseOver(const glm::vec2& mouse_position)
+    {
+        if ((mouse_position.x > position_.x) &&
+            (mouse_position.x < position_.x + WIDTH) &&
+            (mouse_position.y > position_.y) &&
+            (mouse_position.y < position_.y + HEIGHT))
+            // Innanför knappen
+            return true;
+        else
+            // Utanför
+            return false;
+    }
+
+    void Button::draw(SDL_Surface* screen)
     {
         if (background_ != nullptr)
         {
-            SDL_Rect screen_position = {static_cast<short>(position.x), static_cast<short>(position.y), 0, 0};
-
             if (active_)
             {
                 // Rita upplyst knapp
-                SDL_BlitSurface(background_, &clip_[1], screen, &screen_position);
+                SDL_BlitSurface(background_, &clip_[1], screen, &position_);
             }
             else
             {
                 // Rita nedsläckt knapp
-                SDL_BlitSurface(background_, &clip_[0], screen, &screen_position);
+                SDL_BlitSurface(background_, &clip_[0], screen, &position_);
             }
         }
     }

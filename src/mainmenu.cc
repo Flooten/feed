@@ -25,7 +25,9 @@ namespace feed
 
     void Menu::addButton(Button* button)
     {
+        // Lägg till knappen och beräkna dess utritningsposition
         button_list_.push_back(button);
+        button->set_position(calculateButtonPosition(button_list_.size() - 1));
     }
 
     void Menu::removeButton(unsigned int index)
@@ -40,22 +42,25 @@ namespace feed
             // Rita bakgrunden
             util::blitSurface(background_, screen, position_.x, position_.y);
 
-            for (unsigned int i = 0; i < button_list_.size(); ++i)
+            // Rita alla knappar
+            for (auto button : button_list_)
             {
-                // Räkna fram knappens position och rita
-                button_list_.at(i)->draw(screen, calculateButtonPosition(i));
+                button->draw(screen);
             }
         }
     }
 
     void Menu::handleMouseMotionEvent(const SDL_MouseMotionEvent& event)
     {
+        // Nollställ alla knappar
+        for (auto button : button_list_)
+            button->mouseLeft();
+
+        // Hämta knappen som muspekaren är över
         Button* colliding_button = collidingButton(glm::vec2(event.x, event.y));
 
         if (colliding_button != nullptr)
-        {
-
-        }
+            colliding_button->mouseEntered();
     }
 
     void Menu::handleMouseButtonEvent(const SDL_MouseButtonEvent& event)
@@ -63,9 +68,7 @@ namespace feed
         Button* colliding_button = collidingButton(glm::vec2(event.x, event.y));
 
         if (colliding_button != nullptr)
-        {
-            
-        }
+            colliding_button->pressed();
     }
 
     /* 
@@ -83,6 +86,18 @@ namespace feed
 
     Button* Menu::collidingButton(const glm::vec2& position)
     {
+        // Om innanför menyn
+        if ((position.x > position_.x) &&
+            (position.x < position_.x + background_->w) &&
+            (position.y > position_.y) &&
+            (position.y < position_.y + background_->h))
+        {
+            // Gå igenom alla knappar
+            for (auto button : button_list_)
+                if (button->isMouseOver(position))
+                    return button;
+        }
 
+        return nullptr;
     }
 }
