@@ -21,23 +21,25 @@ namespace feed
     {
     public:
         Character(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity,
-                  SDL_Surface* image, int hitpoints, int armor);
+                  SDL_Surface* image, int hitpoints, int armor, int max_health, int max_armor);
 
         void set_aim(glm::vec2 aim);
         glm::vec2 get_aim() const;
-        void add_health(int value);
+
+        virtual void add_health(int value);
         void add_armor(int value);
+        void draw(SDL_Surface* screen) override final;
         virtual void fire() = 0;
 
-    private:
+    protected:
         int hitpoints_;
         int armor_;
+        int max_health_;
+        int max_armor_;
+
+    private:
         glm::vec2 aim_;
-
-        const int MAX_HEALTH = 100;
-        const int MAX_ARMOR  = 100;
     };
-
 }
 
 #endif

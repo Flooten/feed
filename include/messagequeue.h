@@ -4,7 +4,7 @@
  * PROGRAMMERARE: Joel Davidsson
  *                Herman Ekwall
  *                Marcus Eriksson
- *                Mattias Fransson
+ *                Mattias Fransson 9105272612 Y3A
  * DATUM:         2012-11-16
  *
  * BESKRIVNING: Meddelandekö. Tar emot meddelanden från alla object, GameWorld läser kön
@@ -35,6 +35,8 @@ namespace feed
                 CHECKPOINT,
                 NEW_GAME,
                 LOAD_GAME,
+				PLAYER_DEAD,
+				DEAD,
                 QUIT_GAME
             };
 
