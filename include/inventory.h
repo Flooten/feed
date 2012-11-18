@@ -21,11 +21,11 @@ namespace feed
 	public:
 		Inventory();
 
-		void add(Weapon* weapon);
+		void add(const Weapon& weapon);
 		void remove(unsigned int index);
 		Weapon* get_item(unsigned int index);
 	private:
-		std::vector<Weapon*> inventory_list;
+		std::vector<Weapon> inventory_list;
 	};
 
 }

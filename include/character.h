@@ -24,7 +24,7 @@ namespace feed
                   SDL_Surface* image, int hitpoints, int armor);
 
         void set_aim(glm::vec2 aim);
-        glm::vec2 get_aim();
+        glm::vec2 get_aim() const;
         void add_health(int value);
         void add_armor(int value);
         virtual void fire() = 0;

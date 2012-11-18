@@ -15,10 +15,16 @@
 
 namespace feed
 {
+    enum WeaponType
+    {
+        AK45,
+        SMG
+    };
+
     class Weapon
     {
     public:
-    	Weapon(int rate_of_fire, int last_fired, int max_clip, int max_ammo, int damage, SDL_Surface* image);
+    	Weapon(int type, int rate_of_fire, int last_fired, int max_clip, int max_ammo, int damage, SDL_Surface* image);
 
     	SDL_Surface* get_image();
 
@@ -26,9 +32,11 @@ namespace feed
     	void reload();
     	void fire();
 
-    	int get_clip();
-    	int get_ammo();
+        int get_type() const;
+    	int get_clip() const;
+    	int get_ammo() const;
     private:
+        int type_;
     	int rate_of_fire_;
     	int last_fired_;
     	int clip_ = 0;
