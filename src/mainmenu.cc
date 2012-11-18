@@ -6,7 +6,7 @@
  *
  */
 
-#include "menu.h"
+#include "mainmenu.h"
 #include "button.h"
 #include "util.h"
 
