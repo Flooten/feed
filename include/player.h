@@ -2,7 +2,7 @@
  * FILNAMN:       player.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
- * DATUM:         2012-11-16
+ * DATUM:         2012-11-18
  *
  * BESKRIVNING: Denna klass definierar spelaren. Ärver från Character
  *
@@ -22,16 +22,17 @@ namespace feed
     {
     public:
         Player(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity,
-                  SDL_Surface* image, int hitpoints, int armor);
+                  SDL_Surface* image, int hitpoints, int armor, int max_health, int max_armor);
 
         void addWeapon(Weapon& weapon);
+        void add_health(int value);
         int get_inventory_index() const;
         void set_inventory_index(int index);
         void fire() override final;
 
     private:
-        int inventory_index;
-        Inventory inventory;
+        int inventory_index_;
+        Inventory inventory_;
     };
 }
 

@@ -41,8 +41,8 @@ int main(int, char**)
     // MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_HEALTH, 79});
     // MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_ARMOR, 100});
 
-    // //SDL_Surface* image;
-    // //image = SDL_LoadBMP("../data/hello.bmp");
+    SDL_Init(SDL_INIT_EVERYTHING);
+    SDL_WM_SetCaption("FEED", nullptr);
 
     // MessageQueue::Message msg;
     // while (MessageQueue::instance().pullMessage(msg))
