@@ -11,11 +11,12 @@
 
 namespace feed
 {
-    WeaponContainer::WeaponContainer(const glm::vec2& position, const glm::vec2& size, SDL_Surface* image)
-        : Object(position, size, glm::vec2(0, 0), image)
+    WeaponContainer::WeaponContainer(const glm::vec2& position, const glm::vec2& size, SDL_Surface* image, int weapon_type)
+        : InteractableObject(position, size, image)
+        , weapon_type_(weapon_type)
     {}
     
-    void eventFunction()
+    void WeaponContainer::eventFunction()
     {
     	MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_WEAPON, weapon_type_, this})
     }
