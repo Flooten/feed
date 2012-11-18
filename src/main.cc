@@ -28,9 +28,9 @@ int main(int, char**)
 
     // Meny
     Menu menu(duke, glm::vec2((screen->w / 2) - (duke->w / 2), (screen->h / 2) - (duke->h / 2)));
-    menu.addButton(new Button(util::loadImage("data/buttontest.png"), Button::NEW_GAME));
-    menu.addButton(new Button(util::loadImage("data/buttontest.png"), Button::LOAD_GAME));
-    menu.addButton(new Button(util::loadImage("data/buttontest.png"), Button::QUIT_GAME));
+    menu.addButton(new Button(util::loadImage("data/button_new_game.png"), Button::NEW_GAME));
+    menu.addButton(new Button(util::loadImage("data/button_load_game.png"), Button::LOAD_GAME));
+    menu.addButton(new Button(util::loadImage("data/button_exit_game.png"), Button::QUIT_GAME));
 
     // Meddelandekö
     MessageQueue::Message msg;

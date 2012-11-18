@@ -37,8 +37,8 @@ namespace feed
         std::vector<Button*> button_list_;
         glm::vec2 position_;
 
-        static const int X_OFFSET = 200;
-        static const int Y_OFFSET = 50;
+        static const int X_OFFSET = 240;
+        static const int Y_OFFSET = 150;
         static const int Y_SPACING = 20;
 
         glm::vec2 calculateButtonPosition(unsigned int index) const;
