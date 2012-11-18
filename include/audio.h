@@ -1,5 +1,5 @@
 /*
- * FILNAMN:       singleton.h
+ * FILNAMN:       audio.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Mattias Fransson 9105272612 Y3A
  * DATUM:         2012-11-18
@@ -26,13 +26,18 @@ namespace feed
         void clear();
 
         bool addSoundFx(const std::string& filename);
-        void removeSoundFx(const std::string& filename);
-
         bool addMusic(const std::string& filename);
+
+        void removeSoundFx(const std::string& filename);
         void removeMusic(const std::string& filename);
 
         void playSoundFx(const std::string& filename);
         void playMusic(const std::string& filename);
+
+        void toggleMusic();
+
+        bool soundFxExist(const std::string& filename);
+        bool musicExist(const std::string& filename);
 
     private:
         Audio() = default;
