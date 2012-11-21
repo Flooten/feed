@@ -7,7 +7,7 @@
  *                Mattias Fransson
  * DATUM:         2012-11-21
  *
- * BESKRIVNING: State
+ * BESKRIVNING:   Spelets huvudmeny.
  *
  */
 

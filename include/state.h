@@ -7,7 +7,7 @@
  *                Mattias Fransson
  * DATUM:         2012-11-21
  *
- * BESKRIVNING: State
+ * BESKRIVNING:   Abstrakt klass för ett state. States används för att separera delar av feed så som menyer och spelvärlden
  *
  */
 

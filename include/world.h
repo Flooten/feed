@@ -7,7 +7,7 @@
  *                Mattias Fransson
  * DATUM:         2012-11-21
  *
- * BESKRIVNING: State
+ * BESKRIVNING:   World representerar en bana
  *
  */
 
@@ -15,6 +15,13 @@
 #define FEED_WORLD_H
 
 #include "state.h"
+#include "enemy.h"
+#include "projectile.h"
+#include "interactableobject.h"
+#include "environmentobject.h"
+#include "player.h"
+
+#include <vector>
 
 namespace feed
 {
@@ -28,6 +35,13 @@ namespace feed
 
     private:
         int i = 0;
+
+        Player* player_ = nullptr;
+
+        std::vector<Projectile*> projectile_list_;
+        std::vector<Enemy*> enemy_list_;
+        std::vector<EnvironmentObject*> envobject_list_;
+        std::vector<InteractableObject*> intobject_list_;
     };
 }
 

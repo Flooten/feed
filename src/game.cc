@@ -35,22 +35,14 @@ namespace feed
 
     Game::~Game()
     {
-        for (auto element : projectile_list_)
-            delete element;
-
-        for (auto element : enemy_list_)
-            delete element;
-
-        for (auto element : intobject_list_)
-            delete element;
-
-        for (auto element : envobject_list_)
-            delete element;
-
         for (auto& element : image_list_)
             SDL_FreeSurface(element.second);
 
-        delete player_;
+        while (!game_state_.empty())
+        {
+            delete game_state_.top();
+            game_state_.pop();
+        }
 
         Audio::instance().clear();
         SDL_Quit();
