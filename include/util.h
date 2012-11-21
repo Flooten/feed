@@ -13,6 +13,7 @@
 
 #include <SDL/SDL.h>
 #include <string>
+#include <vector>
 
 namespace feed
 {

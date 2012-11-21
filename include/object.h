@@ -23,6 +23,7 @@ namespace feed
     {
     public:
         Object(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity, SDL_Surface* image_);
+        virtual ~Object() {}
 
         glm::vec2 get_position() const;
         glm::vec2 get_size() const;
