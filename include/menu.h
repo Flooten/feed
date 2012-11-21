@@ -2,7 +2,7 @@
  * FILNAMN:       menu.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Marcus Eriksson 910322-1371 Y3A
- * DATUM:         2012-11-18
+ * DATUM:         2012-11-21
  *
  * BESKRIVNING: Välkomstmenyn består av de knappar som användaren
  *              navigerar med hjälp av.
@@ -24,13 +24,13 @@ namespace feed
     {
     public:
         Menu(SDL_Surface* background, const glm::vec2& position);
-        ~Menu();
+        ~Menu() noexcept;
 
         void addButton(Button* button);
         void removeButton(unsigned int index);
+        void handleMouseMotionEvent(const SDL_MouseMotionEvent& event) const;
+        void handleMouseButtonEvent(const SDL_MouseButtonEvent& event) const;
         void draw(SDL_Surface* screen);
-        void handleMouseMotionEvent(const SDL_MouseMotionEvent& event);
-        void handleMouseButtonEvent(const SDL_MouseButtonEvent& event);
 
     private:
         SDL_Surface* background_ = nullptr;
@@ -42,7 +42,6 @@ namespace feed
         static const int Y_SPACING = 20;
 
         glm::vec2 calculateButtonPosition(unsigned int index) const;
-        Button* collidingButton(const glm::vec2& position);
     };
 }
 

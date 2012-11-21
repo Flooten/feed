@@ -2,7 +2,7 @@
  * FILNAMN:       menu.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Marcus Eriksson 910322-1371 Y3A
- * DATUM:         2012-11-18
+ * DATUM:         2012-11-21
  *
  */
 
@@ -12,13 +12,18 @@
 
 namespace feed
 {
+    /*
+     *  Public
+     */
+
     Menu::Menu(SDL_Surface* background, const glm::vec2& position)
         : background_(background)
         , position_(position)
     {}
 
-    Menu::~Menu()
+    Menu::~Menu() noexcept
     {
+        // Avallokera
         for (auto button : button_list_)
             delete button;
     }
@@ -33,6 +38,24 @@ namespace feed
     void Menu::removeButton(unsigned int index)
     {
         button_list_.erase(button_list_.begin() + index);
+    }
+
+    void Menu::handleMouseMotionEvent(const SDL_MouseMotionEvent& event) const
+    {
+        // Låt knapparna hantera eventet
+        for (auto button : button_list_)
+        {
+            button->handleMouseMotionEvent(event);
+        }
+    }
+
+    void Menu::handleMouseButtonEvent(const SDL_MouseButtonEvent& event) const
+    {
+        // Låt knapparna hantera eventet
+        for (auto button : button_list_)
+        {
+            button->handleMouseButtonEvent(event);
+        }
     }
 
     void Menu::draw(SDL_Surface* screen)
@@ -50,30 +73,10 @@ namespace feed
         }
     }
 
-    void Menu::handleMouseMotionEvent(const SDL_MouseMotionEvent& event)
-    {
-        // Nollställ alla knappar
-        for (auto button : button_list_)
-            button->mouseLeft();
-
-        // Hämta knappen som muspekaren är över
-        Button* colliding_button = collidingButton(glm::vec2(event.x, event.y));
-
-        if (colliding_button != nullptr)
-            colliding_button->mouseEntered();
-    }
-
-    void Menu::handleMouseButtonEvent(const SDL_MouseButtonEvent& event)
-    {
-        Button* colliding_button = collidingButton(glm::vec2(event.x, event.y));
-
-        if (colliding_button != nullptr)
-            colliding_button->pressed();
-    }
-
     /* 
      *  Private
      */
+
     glm::vec2 Menu::calculateButtonPosition(unsigned int index) const
     {
         glm::vec2 position;
@@ -82,22 +85,5 @@ namespace feed
         position.y = position_.y + Y_OFFSET + (Button::HEIGHT + Y_SPACING) * index;
 
         return position;
-    }
-
-    Button* Menu::collidingButton(const glm::vec2& position)
-    {
-        // Om innanför menyn
-        if ((position.x > position_.x) &&
-            (position.x < position_.x + background_->w) &&
-            (position.y > position_.y) &&
-            (position.y < position_.y + background_->h))
-        {
-            // Gå igenom alla knappar
-            for (auto button : button_list_)
-                if (button->isMouseOver(position))
-                    return button;
-        }
-
-        return nullptr;
     }
 }
