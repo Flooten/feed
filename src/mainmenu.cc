@@ -1,103 +1,56 @@
 /*
- * FILNAMN:       menu.cc
+ * FILNAMN:       mainmenu.cc
  * PROJEKT:       F.E.E.D.
- * PROGRAMMERARE: Marcus Eriksson 910322-1371 Y3A
- * DATUM:         2012-11-18
+ * PROGRAMMERARE: Joel Davidsson
+ *                Herman Ekwall
+ *                Marcus Eriksson
+ *                Mattias Fransson
+ * DATUM:         2012-11-21
  *
  */
 
 #include "mainmenu.h"
 #include "button.h"
-#include "util.h"
+#include "messagequeue.h"
+
+#include <iostream>
 
 namespace feed
 {
-    Menu::Menu(SDL_Surface* background, const glm::vec2& position)
-        : background_(background)
-        , position_(position)
+    MainMenu::MainMenu(SDL_Surface* background, const glm::vec2& position)
+        : main_(background, position)
     {}
 
-    Menu::~Menu()
+    void MainMenu::draw(SDL_Surface* screen)
     {
-        for (auto button : button_list_)
-            delete button;
+        main_.draw(screen);
     }
 
-    void Menu::addButton(Button* button)
+    void MainMenu::update()
     {
-        // Lägg till knappen och beräkna dess utritningsposition
-        button_list_.push_back(button);
-        button->set_position(calculateButtonPosition(button_list_.size() - 1));
+
     }
 
-    void Menu::removeButton(unsigned int index)
+    void MainMenu::handleSDLEvent(const SDL_Event& event)
     {
-        button_list_.erase(button_list_.begin() + index);
-    }
-
-    void Menu::draw(SDL_Surface* screen)
-    {
-        if (background_ != nullptr)
+        switch (event.type)
         {
-            // Rita bakgrunden
-            util::blitSurface(background_, screen, position_.x, position_.y);
+            case SDL_KEYDOWN:
+                if (event.key.keysym.sym == SDLK_SPACE)
+                    MessageQueue::instance().pushMessage({MessageQueue::Message::NEW_GAME, 0, 0});
+                break;
 
-            // Rita alla knappar
-            for (auto button : button_list_)
-            {
-                button->draw(screen);
-            }
+            default:
+                break;
         }
     }
 
-    void Menu::handleMouseMotionEvent(const SDL_MouseMotionEvent& event)
+    void MainMenu::handleMessage(const MessageQueue::Message& msg)
     {
-        // Nollställ alla knappar
-        for (auto button : button_list_)
-            button->mouseLeft();
-
-        // Hämta knappen som muspekaren är över
-        Button* colliding_button = collidingButton(glm::vec2(event.x, event.y));
-
-        if (colliding_button != nullptr)
-            colliding_button->mouseEntered();
-    }
-
-    void Menu::handleMouseButtonEvent(const SDL_MouseButtonEvent& event)
-    {
-        Button* colliding_button = collidingButton(glm::vec2(event.x, event.y));
-
-        if (colliding_button != nullptr)
-            colliding_button->pressed();
-    }
-
-    /* 
-     *  Private
-     */
-    glm::vec2 Menu::calculateButtonPosition(unsigned int index) const
-    {
-        glm::vec2 position;
-
-        position.x = position_.x + X_OFFSET;
-        position.y = position_.y + Y_OFFSET + (Button::HEIGHT + Y_SPACING) * index;
-
-        return position;
-    }
-
-    Button* Menu::collidingButton(const glm::vec2& position)
-    {
-        // Om innanför menyn
-        if ((position.x > position_.x) &&
-            (position.x < position_.x + background_->w) &&
-            (position.y > position_.y) &&
-            (position.y < position_.y + background_->h))
+        switch (msg.type)
         {
-            // Gå igenom alla knappar
-            for (auto button : button_list_)
-                if (button->isMouseOver(position))
-                    return button;
+            default:
+                break;
         }
-
-        return nullptr;
     }
 }

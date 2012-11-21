@@ -1,4 +1,15 @@
-#include "gameworld.h"
+/*
+ * FILNAMN:       gameworld.h
+ * PROJEKT:       F.E.E.D.
+ * PROGRAMMERARE: Joel Davidsson
+ *                Herman Ekwall
+ *                Marcus Eriksson
+ *                Mattias Fransson
+ * DATUM:         2012-11-21
+ *
+ */
+
+#include "game.h"
 #include "audio.h"
 #include "util.h"
 
@@ -14,7 +25,7 @@ namespace feed
         const char* SCREEN_CAPTION = "F.E.E.D.";
     }
 
-    GameWorld::GameWorld()
+    Game::Game()
     {
         initSDL();
         loadResources();
@@ -22,7 +33,7 @@ namespace feed
         initWorld();
     }
 
-    GameWorld::~GameWorld()
+    Game::~Game()
     {
         for (auto element : projectile_list_)
             delete element;
@@ -40,14 +51,12 @@ namespace feed
             SDL_FreeSurface(element.second);
 
         delete player_;
-        delete main_menu_;
-        delete pause_menu_;
 
         Audio::instance().clear();
         SDL_Quit();
     }
 
-    void GameWorld::run()
+    void Game::run()
     {
         SDL_Event event;
         MessageQueue::Message msg;
@@ -63,7 +72,9 @@ namespace feed
             // AI
             // Kollision
 
-            draw();
+            game_state_.top()->update();
+            game_state_.top()->draw(screen_);
+
             SDL_Flip(screen_);
         }
     }
@@ -72,7 +83,7 @@ namespace feed
      * Private
      */
 
-    void GameWorld::initSDL()
+    void Game::initSDL()
     {
         SDL_Init(SDL_INIT_EVERYTHING);
         SDL_WM_SetCaption(SCREEN_CAPTION, nullptr);
@@ -82,34 +93,26 @@ namespace feed
         Audio::instance().init();
     }
 
-    void GameWorld::loadResources()
+    void Game::loadResources()
     {
         image_list_["screen_bg"] = util::loadImage("data/piratesandfaggots.jpg");
         image_list_["menu_bg"] = util::loadImage("data/duke.bmp");
     }
 
-    void GameWorld::initMenu()
+    void Game::initMenu()
     {
         util::blitSurface(image_list_["screen_bg"], screen_, 0, 0);
 
-        main_menu_ = new Menu(image_list_["menu_bg"], glm::vec2((SCREEN_WIDTH / 2) - (image_list_["menu_bg"]->w / 2),
-                                                           (SCREEN_HEIGHT / 2) - (image_list_["menu_bg"]->h / 2)));
+        game_state_.push(new MainMenu(image_list_["menu_bg"], glm::vec2((SCREEN_WIDTH / 2) - (image_list_["menu_bg"]->w / 2),
+                                                                        (SCREEN_HEIGHT / 2) - (image_list_["menu_bg"]->h / 2))));
     }
 
-    void GameWorld::initWorld()
+    void Game::initWorld()
     {
 
     }
 
-    void GameWorld::draw()
-    {
-        // rita världen
-
-        if (menu_on_)
-            main_menu_->draw(screen_);
-    }
-
-    void GameWorld::handleSDLEvent(const SDL_Event& event)
+    void Game::handleSDLEvent(const SDL_Event& event)
     {
         switch (event.type)
         {
@@ -118,15 +121,26 @@ namespace feed
                 break;
 
             default:
+                game_state_.top()->handleSDLEvent(event);
                 break;
         }
     }
 
-    void GameWorld::handleMessage(const MessageQueue::Message& msg)
+    void Game::handleMessage(const MessageQueue::Message& msg)
     {
         switch (msg.type)
         {
+            case MessageQueue::Message::NEW_GAME:
+                game_state_.push(new World);
+                break;
+
+            case MessageQueue::Message::QUIT_GAME:
+                delete game_state_.top();
+                game_state_.pop();
+                break;
+
             default:
+                game_state_.top()->handleMessage(msg);
                 break;
         }
     }

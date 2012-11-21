@@ -16,6 +16,7 @@
 
 #include "player.h"
 #include "mainmenu.h"
+#include "world.h"
 #include "enemy.h"
 #include "projectile.h"
 #include "interactableobject.h"
@@ -24,16 +25,17 @@
 
 #include <SDL/SDL.h>
 #include <vector>
+#include <stack>
 #include <map>
 #include <string>
 
 namespace feed
 {
-    class GameWorld
+    class Game
     {
     public:
-        GameWorld();
-        ~GameWorld();
+        Game();
+        ~Game();
 
         void run();
 
@@ -42,13 +44,10 @@ namespace feed
         void loadResources();
         void initMenu();
         void initWorld();
-        void draw();
         void handleSDLEvent(const SDL_Event& event);
         void handleMessage(const MessageQueue::Message& msg);
 
         Player* player_ = nullptr;
-        Menu* main_menu_ = nullptr;
-        Menu* pause_menu_ = nullptr;
 
         std::vector<Projectile*> projectile_list_;
         std::vector<Enemy*> enemy_list_;
@@ -59,8 +58,8 @@ namespace feed
         SDL_Surface* screen_;
 
         bool running_ = true;
-        bool ismainmenu = true;
-        bool paused_ = false;
+
+        std::stack<State*> game_state_;
     };
 }
 

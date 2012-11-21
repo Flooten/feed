@@ -28,14 +28,15 @@ namespace feed
         {
             enum
             {
+                NEW_GAME,
+                LOAD_GAME,
+                QUIT_GAME,
+                PAUSE_GAME,
                 FIRE,
                 ADD_HEALTH,
                 ADD_ARMOR,
                 ADD_WEAPON,
                 CHECKPOINT,
-                NEW_GAME,
-                LOAD_GAME,
-                QUIT_GAME,
 				PLAYER_DEAD,
 				DEAD
             };

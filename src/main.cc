@@ -1,9 +1,9 @@
 #include <iostream>
-#include "gameworld.h"
+#include "game.h"
 
 int main(int, char**)
 {
-    feed::GameWorld game;
+    feed::Game game;
 
     game.run();
 
