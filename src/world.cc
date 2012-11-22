@@ -16,7 +16,6 @@ namespace feed
 {
     void World::draw(SDL_Surface* screen)
     {
-        std::cout << "World number " << i << std::endl; 
     }
 
     void World::update()
@@ -29,13 +28,18 @@ namespace feed
         switch (event.type)
         {
             case SDL_KEYDOWN:
-                if (event.key.keysym.sym == SDLK_ESCAPE)
-                    MessageQueue::instance().pushMessage({MessageQueue::Message::QUIT_GAME, 0, 0});
-                break;
+            {
+                switch (event.key.keysym.sym)
+                {
+                    case SDLK_ESCAPE:
+                        MessageQueue::instance().pushMessage({MessageQueue::Message::PAUSE_GAME, 0, 0});
+                        break;
 
-                if (event.key.keysym.sym == SDLK_SPACE)
-                    MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, 0, 0});
+                    default:
+                        break;
+                }
                 break;
+            }
 
             default:
                 break;

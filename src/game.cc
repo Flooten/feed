@@ -89,6 +89,8 @@ namespace feed
     {
         image_list_["screen_bg"] = util::loadImage("data/piratesandfaggots.jpg");
         image_list_["menu_bg"] = util::loadImage("data/duke.bmp");
+
+        Audio::instance().addSoundFx("data/high.wav");
     }
 
     void Game::initMenu()
@@ -128,6 +130,10 @@ namespace feed
 
             case MessageQueue::Message::QUIT_GAME:
                 running_ = false;
+                break;
+
+            case MessageQueue::Message::FIRE:
+                Audio::instance().playSoundFx("data/high.wav");
                 break;
 
             default:
