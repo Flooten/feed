@@ -29,6 +29,7 @@ namespace feed
             enum
             {
                 NEW_GAME,
+                RESUME_GAME,
                 LOAD_GAME,
                 QUIT_GAME,
                 PAUSE_GAME,

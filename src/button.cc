@@ -87,6 +87,10 @@ namespace feed
             MessageQueue::instance().pushMessage({MessageQueue::Message::NEW_GAME});
             break;
 
+        case RESUME_GAME:
+            MessageQueue::instance().pushMessage({MessageQueue::Message::RESUME_GAME});
+            break;
+
         case LOAD_GAME:
             MessageQueue::instance().pushMessage({MessageQueue::Message::LOAD_GAME});
             break;

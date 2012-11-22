@@ -24,6 +24,7 @@ namespace feed
         {
             INVALID,
             NEW_GAME,
+            RESUME_GAME,
             LOAD_GAME,
             QUIT_GAME
         };
