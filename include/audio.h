@@ -25,19 +25,19 @@ namespace feed
         bool init();
         void clear();
 
-        bool addSoundFx(const std::string& filename);
-        bool addMusic(const std::string& filename);
+        bool addSoundFx(const std::string& key, const std::string& filename);
+        bool addMusic(const std::string& key, const std::string& filename);
 
-        void removeSoundFx(const std::string& filename);
-        void removeMusic(const std::string& filename);
+        void removeSoundFx(const std::string& key);
+        void removeMusic(const std::string& key);
 
-        void playSoundFx(const std::string& filename);
-        void playMusic(const std::string& filename);
+        void playSoundFx(const std::string& key);
+        void playMusic(const std::string& key);
 
         void toggleMusic();
 
-        bool soundFxExist(const std::string& filename);
-        bool musicExist(const std::string& filename);
+        bool soundFxExist(const std::string& key);
+        bool musicExist(const std::string& key);
 
     private:
         Audio() = default;

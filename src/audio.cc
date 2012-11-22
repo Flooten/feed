@@ -35,39 +35,39 @@ namespace feed
         Mix_CloseAudio();
     }
 
-    bool Audio::addSoundFx(const std::string& filename)
+    bool Audio::addSoundFx(const std::string& key, const std::string& filename)
     {
-        if (!soundFxExist(filename))
+        if (!soundFxExist(key))
         {
             Mix_Chunk* chunk = Mix_LoadWAV(filename.c_str());
 
             if (chunk == nullptr)
                 return false;
 
-            sound_fx_.insert(std::make_pair(filename, chunk));
+            sound_fx_.insert(std::make_pair(key, chunk));
         }
 
         return true;
     }
 
-    bool Audio::addMusic(const std::string& filename)
+    bool Audio::addMusic(const std::string& key, const std::string& filename)
     {
-        if (!musicExist(filename))
+        if (!musicExist(key))
         {
             Mix_Music* music = Mix_LoadMUS(filename.c_str());
 
             if (music == nullptr)
                 return false;
 
-            music_.insert(std::make_pair(filename, music));
+            music_.insert(std::make_pair(key, music));
         }
 
         return true;
     }
 
-    void Audio::removeSoundFx(const std::string& filename)
+    void Audio::removeSoundFx(const std::string& key)
     {
-        auto it = sound_fx_.find(filename);
+        auto it = sound_fx_.find(key);
         
         if (it != sound_fx_.end())
         {
@@ -76,9 +76,9 @@ namespace feed
         }
     }
 
-    void Audio::removeMusic(const std::string& filename)
+    void Audio::removeMusic(const std::string& key)
     {
-        auto it = music_.find(filename);
+        auto it = music_.find(key);
         
         if (it != music_.end())
         {
@@ -87,17 +87,17 @@ namespace feed
         }
     }
 
-    void Audio::playSoundFx(const std::string& filename)
+    void Audio::playSoundFx(const std::string& key)
     {
-        auto it = sound_fx_.find(filename);
+        auto it = sound_fx_.find(key);
 
         if (it != sound_fx_.end())
             Mix_PlayChannel(-1, it->second, 0);
     }
 
-    void Audio::playMusic(const std::string& filename)
+    void Audio::playMusic(const std::string& key)
     {
-        auto it = music_.find(filename);
+        auto it = music_.find(key);
 
         if (it != music_.end())
             Mix_PlayMusic(it->second, -1);
@@ -111,16 +111,16 @@ namespace feed
             Mix_PauseMusic();
     }
 
-    bool Audio::soundFxExist(const std::string& filename)
+    bool Audio::soundFxExist(const std::string& key)
     {
-        auto it = sound_fx_.find(filename);
+        auto it = sound_fx_.find(key);
 
         return it != sound_fx_.end();
     }
 
-    bool Audio::musicExist(const std::string& filename)
+    bool Audio::musicExist(const std::string& key)
     {
-        auto it = music_.find(filename);
+        auto it = music_.find(key);
 
         return it != music_.end();
     }

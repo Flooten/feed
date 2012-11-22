@@ -14,6 +14,16 @@
 
 namespace feed
 {
+    World::World()
+    {
+        std::cout << "World " << this << " online" << std::endl;
+    }
+
+    World::~World()
+    {
+        std::cout << "World " << this << " dead" << std::endl;
+    }
+
     void World::draw(SDL_Surface* screen)
     {
     }
@@ -33,6 +43,10 @@ namespace feed
                 {
                     case SDLK_ESCAPE:
                         MessageQueue::instance().pushMessage({MessageQueue::Message::PAUSE_GAME, 0, 0});
+                        break;
+
+                    case SDLK_UP:
+                        MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, 0, 0});
                         break;
 
                     default:

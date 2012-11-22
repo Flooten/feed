@@ -90,7 +90,8 @@ namespace feed
         image_list_["screen_bg"] = util::loadImage("data/piratesandfaggots.jpg");
         image_list_["menu_bg"] = util::loadImage("data/duke.bmp");
 
-        Audio::instance().addSoundFx("data/high.wav");
+        Audio::instance().addSoundFx("fire", "data/high.wav");
+        Audio::instance().addMusic("menu_music", "data/sound/feed01.ogg");
     }
 
     void Game::initMenu()
@@ -99,6 +100,8 @@ namespace feed
 
         game_state_.push(new MainMenu(image_list_["menu_bg"], glm::vec2((SCREEN_WIDTH / 2) - (image_list_["menu_bg"]->w / 2),
                                                                         (SCREEN_HEIGHT / 2) - (image_list_["menu_bg"]->h / 2))));
+
+        Audio::instance().playMusic("menu_music");
     }
 
     void Game::initWorld()
@@ -125,6 +128,7 @@ namespace feed
         switch (msg.type)
         {
             case MessageQueue::Message::NEW_GAME:
+                Audio::instance().toggleMusic();
                 game_state_.push(new World);
                 break;
 
@@ -132,8 +136,14 @@ namespace feed
                 running_ = false;
                 break;
 
+            case MessageQueue::Message::PAUSE_GAME:
+                Audio::instance().toggleMusic();
+                delete game_state_.top();
+                game_state_.pop();
+                break;
+
             case MessageQueue::Message::FIRE:
-                Audio::instance().playSoundFx("data/high.wav");
+                Audio::instance().playSoundFx("fire");
                 break;
 
             default:
