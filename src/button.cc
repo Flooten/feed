@@ -99,6 +99,14 @@ namespace feed
             MessageQueue::instance().pushMessage({MessageQueue::Message::QUIT_GAME});
             break;
 
+        case EXIT_TO_MAIN_MENU:
+            MessageQueue::instance().pushMessage({MessageQueue::Message::EXIT_TO_MAIN_MENU});
+            break;
+
+        case CREDITS:
+            MessageQueue::instance().pushMessage({MessageQueue::Message::CREDITS});
+            break;
+
         default:
             break;
         }        

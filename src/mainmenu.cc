@@ -5,15 +5,14 @@
  *                Herman Ekwall
  *                Marcus Eriksson 910322-1371 Y3A
  *                Mattias Fransson
- * DATUM:         2012-11-21
+ * DATUM:         2012-11-22
  *
  */
 
 #include "mainmenu.h"
 #include "button.h"
 #include "messagequeue.h"
-
-#include "util.h"   // Temporär
+#include "resources.h"
 
 #include <iostream>
 
@@ -23,7 +22,10 @@ namespace feed
         : main_(background, position)
     {
         // Temporär lösning, bilderna skall komma ifrån image_list_ egentligen.
-        main_.addButton(new Button(util::loadImage("data/button_exit_game.png") , Button::QUIT_GAME));
+        main_.addButton(new Button(Resources::instance().getImage("button_new_game"), Button::NEW_GAME));
+        main_.addButton(new Button(Resources::instance().getImage("button_load_game"), Button::LOAD_GAME));
+        main_.addButton(new Button(Resources::instance().getImage("button_credits"), Button::CREDITS));
+        main_.addButton(new Button(Resources::instance().getImage("button_quit_game"), Button::QUIT_GAME));
     }
 
     void MainMenu::draw(SDL_Surface* screen)
