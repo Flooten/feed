@@ -47,7 +47,7 @@ namespace feed
         }
     }
 
-    void handleMessage(const MessageQueue::Message& msg)
+    void PauseMenu::handleMessage(const MessageQueue::Message& msg)
     {
         switch (msg.type)
         {
