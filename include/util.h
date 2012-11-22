@@ -14,6 +14,7 @@
 #include <SDL/SDL.h>
 #include <string>
 #include <vector>
+#include <glm/glm.hpp>
 
 namespace feed
 {
@@ -29,6 +30,7 @@ namespace feed
         // "Blittar" source på destination vid position (x, y).
         // Vid mer avancerade fall använd SDL_BlitSurface direkt.
         void blitSurface(SDL_Surface* source, SDL_Surface* destination, int x, int y);
+        void blitSurface(SDL_Surface* source, glm::vec2 size, SDL_Surface* destination, glm::vec2 position);
     }
 }
 

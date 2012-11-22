@@ -48,5 +48,20 @@ namespace feed
             SDL_Rect rect = { static_cast<Sint16>(x), static_cast<Sint16>(y), 0, 0 };
             SDL_BlitSurface(source, nullptr, destination, &rect);
         }
+
+        void blitSurface(SDL_Surface* source, glm::vec2 size, SDL_Surface* destination, glm::vec2 position)
+        {
+            SDL_Rect srcrect;
+            srcrect.w = size.x;
+            srcrect.h = size.y;
+            srcrect.x = 0;
+            srcrect.y = 0;
+
+            SDL_Rect destrect;
+            destrect.x = position.x;
+            destrect.y = position.y;
+
+            SDL_BlitSurface(source, &srcrect, destination, &destrect);
+        }
     }
 }

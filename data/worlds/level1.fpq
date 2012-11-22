@@ -1,0 +1,13 @@
+[images]
+sw data/gfx/sw.png
+se data/gfx/se.png
+ne data/gfx/ne.png
+nw data/gfx/nw.png
+
+[environment_object]
+100 100 128 128 0 0 nw
+228 100 128 128 0 0 ne
+100 228 128 128 0 0 sw
+228 228 128 128 0 0 se
+
+[]

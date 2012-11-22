@@ -11,6 +11,7 @@
 
 #include "game.h"
 #include "audio.h"
+#include "resources.h"
 #include "util.h"
 #include "pausemenu.h"
 
@@ -38,9 +39,6 @@ namespace feed
 
     Game::~Game()
     {
-        for (auto& element : image_list_)
-            SDL_FreeSurface(element.second);
-
         while (!game_state_.empty())
         {
             delete game_state_.top();
@@ -48,6 +46,7 @@ namespace feed
         }
 
         Audio::instance().clear();
+        Resources::instance().clear();
         SDL_Quit();
     }
 
@@ -106,8 +105,13 @@ namespace feed
 
     void Game::loadResources()
     {
-        image_list_["screen_bg"] = util::loadImage("data/piratesandfaggots.jpg");
-        image_list_["menu_bg"] = util::loadImage("data/duke.bmp");
+        Resources::instance().addImage("screen_bg", "data/piratesandfaggots.jpg");
+        Resources::instance().addImage("menu_bg", "data/duke.bmp");
+        
+        Resources::instance().addImage("se", "data/gfx/wall2se.png");
+        Resources::instance().addImage("sw", "data/gfx/wall2sw.png");
+        Resources::instance().addImage("ne", "data/gfx/wall2ne.png");
+        Resources::instance().addImage("nw", "data/gfx/wall2nw.png");
 
         Audio::instance().addSoundFx("fire", "data/high.wav");
         Audio::instance().addMusic("menu_music", "data/sound/feed01.ogg");
@@ -121,10 +125,11 @@ namespace feed
 
     void Game::loadMenu()
     {
-        util::blitSurface(image_list_["screen_bg"], screen_, 0, 0);
+        util::blitSurface(Resources::instance()["screen_bg"], screen_, 0, 0);
 
-        game_state_.push(new MainMenu(image_list_["menu_bg"], glm::vec2((SCREEN_WIDTH / 2) - (image_list_["menu_bg"]->w / 2),
-                                                                        (SCREEN_HEIGHT / 2) - (image_list_["menu_bg"]->h / 2))));
+        game_state_.push(new MainMenu(Resources::instance()["menu_bg"],
+                                      glm::vec2((SCREEN_WIDTH / 2) - (Resources::instance()["menu_bg"]->w / 2),
+                                                (SCREEN_HEIGHT / 2) - (Resources::instance()["menu_bg"]->h / 2))));
 
         Audio::instance().playMusic("menu_music");
     }
@@ -166,8 +171,9 @@ namespace feed
                 break;
 
             case MessageQueue::Message::PAUSE_GAME:
-                game_state_.push(new PauseMenu(image_list_["menu_bg"], glm::vec2((SCREEN_WIDTH / 2) - (image_list_["menu_bg"]->w / 2),
-                                                                                 (SCREEN_HEIGHT / 2) - (image_list_["menu_bg"]->h / 2))));
+                game_state_.push(new PauseMenu(Resources::instance()["menu_bg"],
+                                               glm::vec2((SCREEN_WIDTH / 2) - (Resources::instance()["menu_bg"]->w / 2),
+                                                         (SCREEN_HEIGHT / 2) - (Resources::instance()["menu_bg"]->h / 2))));
                 break;
 
             case MessageQueue::Message::RESUME_GAME:

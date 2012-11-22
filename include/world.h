@@ -41,6 +41,13 @@ namespace feed
         virtual void handleMessage(const MessageQueue::Message& msg) override final;
 
     private:
+        void loadImage(const std::string& str);
+        void loadAudio(const std::string& str);
+        void loadProjectile(const std::string& str);
+        void loadEnemy(const std::string& str);
+        void loadEnvironmentObject(const std::string& str);
+        void loadInteractableObject(const std::string& str);
+
         Player* player_ = nullptr;
 
         std::vector<Projectile*> projectile_list_;

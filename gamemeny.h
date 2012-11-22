@@ -25,3 +25,22 @@ ammo: X: 500-550 Y: 525-550
 
 inventory på X: 600-1000 Y: 500-550
 
+        envobject_list_.push_back(new EnvironmentObject(glm::vec2(164, 164),
+                                                        glm::vec2(64, 64),
+                                                        glm::vec2(0.0f, 0.0f),
+                                                        Resources::instance()["se"]));
+
+        envobject_list_.push_back(new EnvironmentObject(glm::vec2(100, 164),
+                                                        glm::vec2(64, 64),
+                                                        glm::vec2(0, 0),
+                                                        Resources::instance()["sw"]));
+
+        envobject_list_.push_back(new EnvironmentObject(glm::vec2(164, 100),
+                                                        glm::vec2(64, 64),
+                                                        glm::vec2(0, 0),
+                                                        Resources::instance()["ne"]));
+
+        envobject_list_.push_back(new EnvironmentObject(glm::vec2(100, 100),
+                                                        glm::vec2(64, 64),
+                                                        glm::vec2(0, 0),
+                                                        Resources::instance()["nw"]));
