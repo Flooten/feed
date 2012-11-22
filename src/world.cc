@@ -11,9 +11,12 @@
 
 #include "world.h"
 #include "util.h"
+#include "resources.h"
 
 #include <iostream>
-#include <algorithm>
+#include <sstream>
+#include <fstream>
+#include <stdexcept>
 
 namespace feed
 {
@@ -25,6 +28,83 @@ namespace feed
     World::World(const std::string& filename)
     {
         std::cout << "Loading world " << filename << std::endl;
+
+        enum
+        {
+            IMAGES,
+            AUDIO,
+            ENVIRONMENT_OBJECT,
+            INTERACTABLE_OBJECT,
+            CHECKPOINT,
+
+        };
+
+        std::ifstream is(filename.c_str());
+
+        if (!is.is_open())
+            throw std::runtime_error("Failed to load worldfile");
+
+        std::string line;
+        int category;
+
+        while(is.good())
+        {
+            std::getline(is, line, '\n');
+
+            if (line.empty())
+                continue;
+
+            if (line.compare(0, 2, "//") == 0)
+                continue;
+
+            std::cout << "Parsing " << line << std::endl;
+
+            if (line == "[images]")
+            {
+                category = IMAGES;
+                continue;
+            }
+
+            if (line == "[audio]")
+            {
+                category = AUDIO;
+                continue;
+            }
+
+            if (line == "[environment_object]")
+            {
+                category = ENVIRONMENT_OBJECT;
+                continue;
+            }
+
+            if (line == "[interactable_object]")
+            {
+                category = INTERACTABLE_OBJECT;
+                continue;
+            }
+
+            switch (category)
+            {
+                case IMAGES:
+                    loadImage(line);
+                    break;
+
+                case AUDIO:
+                    loadAudio(line);
+                    break;
+
+                case ENVIRONMENT_OBJECT:
+                    loadEnvironmentObject(line);
+                    break;
+
+                case INTERACTABLE_OBJECT:
+                    loadInteractableObject(line);
+                    break;
+
+                default:
+                    break;
+            }
+        }
     }
 
     World::~World()
@@ -32,11 +112,6 @@ namespace feed
         std::cout << "World " << this << " dead" << std::endl;
 
         delete player_;
-
-        // std::remove_if(projectile_list_.begin(), projectile_list_.end(), util::deleteElement<Projectile>);
-        // std::remove_if(enemy_list_.begin(), enemy_list_.end(), util::deleteElement<Enemy>);
-        // std::remove_if(envobject_list_.begin(), envobject_list_.end(), util::deleteElement<EnvironmentObject>);
-        // std::remove_if(intobject_list_.begin(), intobject_list_.end(), util::deleteElement<InteractableObject>);
 
         for (auto e : projectile_list_)
             delete e;
@@ -53,6 +128,9 @@ namespace feed
 
     void World::draw(SDL_Surface* screen)
     {
+        // Rensa screen
+        SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
+
         for (auto projectile : projectile_list_)
             projectile->draw(screen);
 
@@ -65,7 +143,7 @@ namespace feed
         for (auto intobject : intobject_list_)
             intobject->draw(screen);
 
-        std::cout << "Dt: " << loop << " ms" << std::endl;
+        //std::cout << "Dt: " << loop << " ms" << std::endl;
     }
 
     void World::update(Uint32 delta_time)
@@ -98,7 +176,7 @@ namespace feed
                         break;
 
                     case SDLK_UP:
-                        MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, 0, 0});
+                        MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE});
                         break;
 
                     default:
@@ -119,5 +197,66 @@ namespace feed
             default:
                 break;
         }
+    }
+
+    /*
+     * Private
+     */
+
+    void World::loadImage(const std::string& str)
+    {
+        std::string::size_type find = str.find(" ");
+
+        std::string key = str.substr(0, find);
+        std::string filename = str.substr(find + 2);
+
+        Resources::instance().addImage(key, filename);
+    }
+
+    void World::loadAudio(const std::string& str)
+    {
+
+    }
+
+    void World::loadProjectile(const std::string& str)
+    {
+
+    }
+
+    void World::loadEnemy(const std::string& str)
+    {
+
+    }
+
+    void World::loadEnvironmentObject(const std::string& str)
+    {
+        std::stringstream ss(str);
+
+        glm::vec2 pos;
+        glm::vec2 size;
+        glm::vec2 vel;
+        std::string image;
+
+        ss >> pos.x >> pos.y
+           >> size.x >> size.y
+           >> vel.x >> vel.y
+           >> image;
+
+        envobject_list_.push_back(new EnvironmentObject(pos, size, vel, Resources::instance()[image]));
+    }
+
+    void World::loadInteractableObject(const std::string& str)
+    {
+        std::stringstream ss(str);
+
+        glm::vec2 pos;
+        glm::vec2 size;
+        std::string image;
+
+        ss >> pos.x >> pos.y
+           >> size.x >> size.y
+           >> image;
+
+        intobject_list_.push_back(new InteractableObject(pos, size, Resources::instance()[image]));
     }
 }

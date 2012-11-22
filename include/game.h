@@ -44,7 +44,6 @@ namespace feed
         void handleMessage(const MessageQueue::Message& msg);
 
         std::stack<State*> game_state_;
-        std::map<std::string, SDL_Surface*> image_list_;
         std::vector<std::string> world_list_;
         std::size_t current_world_ = 0;
 

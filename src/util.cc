@@ -49,11 +49,19 @@ namespace feed
             SDL_BlitSurface(source, nullptr, destination, &rect);
         }
 
-        template <class T>
-        bool deleteAll(T* p)
+        void blitSurface(SDL_Surface* source, glm::vec2 size, SDL_Surface* destination, glm::vec2 position)
         {
-            delete p;
-            return true;
+            SDL_Rect srcrect;
+            srcrect.w = size.x;
+            srcrect.h = size.y;
+            srcrect.x = 0;
+            srcrect.y = 0;
+
+            SDL_Rect destrect;
+            destrect.x = position.x;
+            destrect.y = position.y;
+
+            SDL_BlitSurface(source, &srcrect, destination, &destrect);
         }
     }
 }
