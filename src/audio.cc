@@ -111,6 +111,24 @@ namespace feed
             Mix_PauseMusic();
     }
 
+    void Audio::pauseMusic()
+    {
+        if (Mix_PlayingMusic() == 1)
+            Mix_PauseMusic();
+    }
+
+    void Audio::resumeMusic()
+    {
+        if (Mix_PausedMusic() == 1)
+            Mix_ResumeMusic();
+    }
+
+    void Audio::stopMusic()
+    {
+        Mix_HaltMusic();
+    }
+
+
     bool Audio::soundFxExist(const std::string& key)
     {
         auto it = sound_fx_.find(key);

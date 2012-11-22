@@ -35,6 +35,9 @@ namespace feed
         void playMusic(const std::string& key);
 
         void toggleMusic();
+        void pauseMusic();
+        void resumeMusic();
+        void stopMusic();
 
         bool soundFxExist(const std::string& key);
         bool musicExist(const std::string& key);

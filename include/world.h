@@ -22,6 +22,7 @@
 #include "player.h"
 
 #include <vector>
+#include <string>
 
 namespace feed
 {
@@ -29,6 +30,8 @@ namespace feed
     {
     public:
         World();
+        World(const std::string& filename);
+
         ~World();
 
         virtual void draw(SDL_Surface* screen) override final;

@@ -22,6 +22,11 @@ namespace feed
         std::cout << "World " << this << " online" << std::endl;
     }
 
+    World::World(const std::string& filename)
+    {
+
+    }
+
     World::~World()
     {
         std::cout << "World " << this << " dead" << std::endl;
@@ -48,10 +53,12 @@ namespace feed
 
     void World::draw(SDL_Surface* screen)
     {
+
     }
 
     void World::update()
     {
+        
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
