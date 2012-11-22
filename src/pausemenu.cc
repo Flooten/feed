@@ -10,6 +10,7 @@
 #include "pausemenu.h"
 #include "button.h"
 #include "util.h"
+#include "resources.h"
 
 namespace feed
 {
@@ -20,8 +21,9 @@ namespace feed
         : menu_(background, position)
     {
         // Lägg till knappar här
-        menu_.addButton(new Button(util::loadImage("data/button_new_game.png"), Button::RESUME_GAME));
-        menu_.addButton(new Button(util::loadImage("data/button_exit_game.png"), Button::QUIT_GAME));
+        menu_.addButton(new Button(Resources::instance().getImage("button_resume_game"), Button::RESUME_GAME));
+        menu_.addButton(new Button(Resources::instance().getImage("button_load_game"), Button::LOAD_GAME));
+        menu_.addButton(new Button(Resources::instance().getImage("button_exit_to_main_menu"), Button::EXIT_TO_MAIN_MENU));
     }
 
     void PauseMenu::draw(SDL_Surface* screen)

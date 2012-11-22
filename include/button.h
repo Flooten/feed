@@ -2,7 +2,7 @@
  * FILNAMN:       button.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Marcus Eriksson   910322-1371     Y3A
- * DATUM:         2012-11-21
+ * DATUM:         2012-11-22
  *
  * BESKRIVNING: En knapp tillåter användaren att komma
  *              åt funktionalitet i spelet.
@@ -26,12 +26,14 @@ namespace feed
             NEW_GAME,
             RESUME_GAME,
             LOAD_GAME,
-            QUIT_GAME
+            QUIT_GAME,
+            EXIT_TO_MAIN_MENU,
+            CREDITS
         };
 
         // Dimensioner
-        static const int WIDTH = 250;
-        static const int HEIGHT = 100;
+        static const int WIDTH = 300;
+        static const int HEIGHT = 60;
 
         Button(SDL_Surface* background, const Type type);
 

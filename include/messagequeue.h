@@ -33,6 +33,8 @@ namespace feed
                 LOAD_GAME,
                 QUIT_GAME,
                 PAUSE_GAME,
+                EXIT_TO_MAIN_MENU,
+                CREDITS,
                 FIRE,
                 ADD_HEALTH,
                 ADD_ARMOR,
