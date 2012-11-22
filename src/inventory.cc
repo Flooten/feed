@@ -17,7 +17,7 @@ namespace feed
 	{
 		bool found = 0;
 
-		for(unsigned int i = 0; i < inventory_list.size(); i++)
+		for(unsigned int i = 0; i < inventory_list.size(); ++i)
 		{
 			if (inventory_list[i].get_type() == weapon.get_type())
 			{

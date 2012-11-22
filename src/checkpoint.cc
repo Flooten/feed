@@ -1,8 +1,9 @@
 /*
- * FILNAMN:       checkoint.cc
+ * FILNAMN:       checkpoint.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
- * DATUM:         2012-11-16
+                  Marcus Eriksson 910322-1371 Y3A
+ * DATUM:         2012-11-22
  *
  */
 
@@ -17,6 +18,7 @@ namespace feed
     
     void Checkpoint::eventFunction()
     {
-    	// MessageQueue::instance().pushMessage({MessageQueue::Message::ADD_ARMOR, , this});
+    	// Skicka meddelandet
+        MessageQueue::instance().pushMessage({MessageQueue::Message::CHECKPOINT});
     }
 }
