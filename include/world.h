@@ -28,6 +28,9 @@ namespace feed
     class World : public State
     {
     public:
+        World();
+        ~World();
+
         virtual void draw(SDL_Surface* screen) override final;
         virtual void update() override final;
         virtual void handleSDLEvent(const SDL_Event& event) override final;
