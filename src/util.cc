@@ -48,5 +48,12 @@ namespace feed
             SDL_Rect rect = { static_cast<Sint16>(x), static_cast<Sint16>(y), 0, 0 };
             SDL_BlitSurface(source, nullptr, destination, &rect);
         }
+
+        template <class T>
+        bool deleteAll(T* p)
+        {
+            delete p;
+            return true;
+        }
     }
 }
