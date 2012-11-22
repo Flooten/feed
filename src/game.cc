@@ -131,7 +131,7 @@ namespace feed
     {
         util::blitSurface(Resources::instance()["screen_bg"], screen_, 0, 0);
 
-        game_state_.push(new MainMenu(Resources::instance()["menu_background"],
+        game_state_.push(new MainMenu(Resources::instance().getImage("menu_background"),
                                       glm::vec2((SCREEN_WIDTH / 2) - (Resources::instance()["menu_background"]->w / 2),
                                                 (SCREEN_HEIGHT / 2) - (Resources::instance()["menu_background"]->h / 2))));
 
