@@ -14,6 +14,8 @@
 #include "util.h"
 #include "pausemenu.h"
 
+#include <SDL/SDL_image.h>
+
 #include <iostream>
 #include <utility>
 
@@ -81,9 +83,17 @@ namespace feed
         SDL_Init(SDL_INIT_EVERYTHING);
         SDL_WM_SetCaption(SCREEN_CAPTION, nullptr);
 
+        // Sätt fönstrets ikon
+        SDL_Surface* icon = IMG_Load("data/icon.png");
+        Uint32 colorkey = SDL_MapRGB(icon->format, 255, 255, 255);
+        SDL_SetColorKey(icon, SDL_SRCCOLORKEY, colorkey);
+        SDL_WM_SetIcon(icon, nullptr);
+
+        // Hämta skärmen
         screen_ = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_SWSURFACE);
 
         Audio::instance().init();
+        SDL_FreeSurface(icon);
     }
 
     void Game::loadResources()
