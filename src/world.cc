@@ -33,6 +33,10 @@ namespace feed
                     MessageQueue::instance().pushMessage({MessageQueue::Message::QUIT_GAME, 0, 0});
                 break;
 
+                if (event.key.keysym.sym == SDLK_SPACE)
+                    MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, 0, 0});
+                break;
+
             default:
                 break;
         }   
