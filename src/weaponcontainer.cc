@@ -11,8 +11,13 @@
 
 namespace feed
 {
-    WeaponContainer::WeaponContainer(const glm::vec2& position, const glm::vec2& size, SDL_Surface* image, int weapon_type)
-        : InteractableObject(position, size, image)
+    WeaponContainer::WeaponContainer(const glm::vec2& position,
+                                     const glm::vec2& size,
+                                     SDL_Surface* image,
+                                     int weapon_type,
+                                     unsigned int nof_animations,
+                                     unsigned int nof_frames)
+        : InteractableObject(position, size, image, nof_animations, nof_frames)
         , weapon_type_(weapon_type)
     {}
 

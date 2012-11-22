@@ -15,8 +15,10 @@ namespace feed
                            const glm::vec2& size,
                            const glm::vec2& velocity,
                            SDL_Surface* image,
-                           int damage)
-        : Object(position, size, velocity, image)
+                           int damage,
+                           unsigned int nof_animations,
+                           unsigned int nof_frames)
+        : Object(position, size, velocity, image, nof_animations, nof_frames)
         , damage_(damage)
     {}
 
@@ -29,7 +31,7 @@ namespace feed
     {
         if (image_ != nullptr)
         {
-            util::blitSurface(image_, screen, position_.x, position_.y);
+            image_->draw(screen, position_);
         }
     }
 
@@ -37,5 +39,10 @@ namespace feed
     {
         position_.x += velocity_.x * time;
         position_.y += velocity_.y * time;
+
+        if (image_ != nullptr)
+        {
+            image_->update(time); 
+        }
     }
 }

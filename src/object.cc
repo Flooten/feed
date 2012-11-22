@@ -8,16 +8,28 @@
  * DATUM:         2012-11-15
  */
 
- #include "object.h"
+#include "object.h"
+#include <iostream>
 
 namespace feed
 {
-    Object::Object(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity, SDL_Surface* image)
+    Object::Object(const glm::vec2& position,
+                   const glm::vec2& size,
+                   const glm::vec2& velocity,
+                   SDL_Surface* image,
+                   unsigned int nof_animations,
+                   unsigned int nof_frames)
         : position_(position)
         , size_(size)
         , velocity_(velocity)
-        , image_(image)
-    {}
+    {
+        std::cout << "Skapar ett object" << std::endl;
+        std::cout << "nof_animations: " << nof_animations << std::endl;
+        std::cout << "nof_frames: " << nof_frames << std::endl;
+
+        image_ = new AnimatedImage(image, nof_animations, nof_frames);
+        std::cout << "Har skapat ett object" << std::endl;
+    }
 
     glm::vec2 Object::get_position() const
     {

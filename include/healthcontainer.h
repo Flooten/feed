@@ -21,7 +21,12 @@ namespace feed
     class HealthContainer : public InteractableObject
     {
     public:
-        HealthContainer(const glm::vec2& position, const glm::vec2& size, SDL_Surface* image, int health_value);
+        HealthContainer(const glm::vec2& position,
+                        const glm::vec2& size,
+                        SDL_Surface* image,
+                        int health_value,
+                        unsigned int nof_animations = 0,
+                        unsigned int nof_frames = 0);
 
         virtual void eventFunction() override final;
     private:

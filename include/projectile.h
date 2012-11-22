@@ -25,7 +25,9 @@ namespace feed
                    const glm::vec2& size,
                    const glm::vec2& velocity,
                    SDL_Surface* image,
-                   int damage);
+                   int damage,
+                   unsigned int nof_animations = 0,
+                   unsigned int nof_frames = 0);
 
         // Getters
         int get_damage() const;

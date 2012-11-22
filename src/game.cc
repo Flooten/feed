@@ -73,7 +73,6 @@ namespace feed
 
             // AI
             // Kollision
-
             game_state_.top()->update(delta_time);
             game_state_.top()->draw(screen_);
 
@@ -144,7 +143,8 @@ namespace feed
         if (current_world_ >= world_list_.size())
             return;
 
-        game_state_.push(new World(world_list_[current_world_]));
+        game_state_.push(new World);
+        // game_state_.push(new World(world_list_[current_world_]));
     }
 
     void Game::handleSDLEvent(const SDL_Event& event)

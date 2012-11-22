@@ -12,14 +12,24 @@
 
 namespace feed
 {
-    Character::Character(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity,
-                         SDL_Surface* image, int hitpoints, int armor, int max_health, int max_armor)
-                            : Object(position, size, velocity, image)
-                            , hitpoints_(hitpoints)
-                            , armor_(armor)
-                            , max_health_(max_health)
-                            , max_armor_(max_armor)
-                            {}
+    Character::Character(const glm::vec2& position,
+                         const glm::vec2& size,
+                         const glm::vec2& velocity,
+                         SDL_Surface* image,
+                         unsigned int nof_animations,
+                         unsigned int nof_frames,
+                         int hitpoints,
+                         int armor,
+                         int max_health,
+                         int max_armor)
+        : Object(position, size, velocity, image, nof_animations, nof_frames)
+        , hitpoints_(hitpoints)
+        , armor_(armor)
+        , max_health_(max_health)
+        , max_armor_(max_armor)
+    {
+        std::cout << "Skapar en character" << std::endl;
+    }
 
     void Character::set_aim(glm::vec2 aim)
     {
@@ -62,33 +72,17 @@ namespace feed
 
     void Character::draw(SDL_Surface* screen)
     {
-        // Sätt clip
-        setClip(counter);
-        setColorkey();
-
-        SDL_Rect position = {static_cast<Sint16>(position_.x), static_cast<Sint16>(position_.y), 0, 0};
-
-        // Uppdatera counter
-        ++counter;
-        if (counter == 7)
-        {
-            counter = 0;
-        }
-
         if (image_ != nullptr)
         {
-            SDL_BlitSurface(image_, &clip_, screen, &position);
+            image_->draw(screen, position_);
         }
     }
 
-    void Character::setClip(int counter)
+    void Character::update(unsigned int time)
     {
-        clip_ = {static_cast<Sint16>(64 * animation), static_cast<Sint16>(64 * counter), IMAGE_WIDTH, IMAGE_HEIGHT};
-    }
-
-    void Character::setColorkey()
-    {
-        Uint32 colorkey = SDL_MapRGB(image_->format, 255, 0, 255);
-        SDL_SetColorKey(image_, SDL_SRCCOLORKEY, colorkey);
+        if (image_ != nullptr)
+        {
+            image_->update(time);
+        }        
     }
 }

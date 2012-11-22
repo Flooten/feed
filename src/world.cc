@@ -33,12 +33,14 @@ namespace feed
     World::World()
     {
         std::cout << "World " << this << " online" << std::endl;
+        player_ = new Player(glm::vec2(500, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("player"), 100, 100, 100, 100, 4, 8);
     }
 
     World::World(const std::string& filename)
     {
         std::cout << "Loading world " << filename << std::endl;
-        player_ = new Player(glm::vec2(100, 100), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("player"), 100, 100, 100, 100);
+
+        // Någonting är fel här!!!
 
         enum
         {
@@ -112,6 +114,7 @@ namespace feed
                     break;
             }
         }
+        std::cout << "Har laddat färdigt" << std::endl;
     }
 
     World::~World()
@@ -158,6 +161,7 @@ namespace feed
 
     void World::update(Uint32 delta_time)
     {
+        std::cout << "Uppdaterar" << std::endl;
         for (auto projectile : projectile_list_)
             projectile->update(delta_time);
 
@@ -169,6 +173,9 @@ namespace feed
 
         for (auto intobject : intobject_list_)
             intobject->update(delta_time);
+
+        if (player_ != nullptr)
+            player_->update(delta_time);
 
         camera += camera_velocity * static_cast<float>(delta_time);
     }
@@ -194,10 +201,12 @@ namespace feed
                         break;
 
                     case SDLK_RIGHT:
+                        player_->setAnimation(Player::WALK_RIGHT);
                         camera_velocity.x = 0.05f;
                         break;
 
                     case SDLK_LEFT:
+                        player_->setAnimation(Player::WALK_LEFT);
                         camera_velocity.x = -0.05f;
                         break;
 
@@ -220,10 +229,12 @@ namespace feed
                         break;
 
                     case SDLK_RIGHT:
+                        player_->setAnimation(Player::STATIONARY_RIGHT);
                         camera_velocity.x = 0.0f;
                         break;
 
                     case SDLK_LEFT:
+                        player_->setAnimation(Player::STATIONARY_LEFT);
                         camera_velocity.x = 0.0f;
                         break;
 

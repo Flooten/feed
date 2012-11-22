@@ -22,8 +22,16 @@ namespace feed
     class Character : public Object
     {
     public:
-        Character(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity,
-                  SDL_Surface* image, int hitpoints, int armor, int max_health, int max_armor);
+        Character(const glm::vec2& position,
+                  const glm::vec2& size,
+                  const glm::vec2& velocity,
+                  SDL_Surface* image,
+                  unsigned int nof_animations,
+                  unsigned int nof_frames,
+                  int hitpoints,
+                  int armor,
+                  int max_health,
+                  int max_armor);
 
         void set_aim(glm::vec2 aim);
         glm::vec2 get_aim() const;
@@ -31,6 +39,7 @@ namespace feed
         virtual void add_health(int value);
         void add_armor(int value);
         void draw(SDL_Surface* screen) override final;
+        void update(unsigned int time) override final;
         virtual void fire() = 0;
 
     protected:
@@ -41,22 +50,6 @@ namespace feed
 
     private:
         glm::vec2 aim_;
-        const unsigned short int IMAGE_WIDTH = 64;
-        const unsigned short int IMAGE_HEIGHT = 64;
-        int counter = 0;
-        
-        enum Animation
-        {
-            WALK_RIGHT,  // = 0
-            WALK_LEFT  // = 1
-        };
-
-        Animation animation = WALK_RIGHT;
-
-        SDL_Rect clip_;
-
-        void setClip(int counter);
-        void setColorkey();
     };
 }
 
