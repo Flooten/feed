@@ -8,6 +8,7 @@
 #include "character.h"
 #include "messagequeue.h"
 #include "util.h"
+#include <iostream>
 
 namespace feed
 {
@@ -61,9 +62,33 @@ namespace feed
 
     void Character::draw(SDL_Surface* screen)
     {
+        // Sätt clip
+        setClip(counter);
+        setColorkey();
+
+        SDL_Rect position = {static_cast<Sint16>(position_.x), static_cast<Sint16>(position_.y), 0, 0};
+
+        // Uppdatera counter
+        ++counter;
+        if (counter == 7)
+        {
+            counter = 0;
+        }
+
         if (image_ != nullptr)
         {
-            util::blitSurface(image_, screen, position_.x, position_.y);
+            SDL_BlitSurface(image_, &clip_, screen, &position);
         }
+    }
+
+    void Character::setClip(int counter)
+    {
+        clip_ = {static_cast<Sint16>(64 * animation), static_cast<Sint16>(64 * counter), IMAGE_WIDTH, IMAGE_HEIGHT};
+    }
+
+    void Character::setColorkey()
+    {
+        Uint32 colorkey = SDL_MapRGB(image_->format, 255, 0, 255);
+        SDL_SetColorKey(image_, SDL_SRCCOLORKEY, colorkey);
     }
 }

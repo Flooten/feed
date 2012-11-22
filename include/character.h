@@ -15,6 +15,8 @@
 #include <SDL/SDL.h>
 #include "object.h"
 
+#include <vector>
+
 namespace feed
 {
     class Character : public Object
@@ -39,6 +41,22 @@ namespace feed
 
     private:
         glm::vec2 aim_;
+        const unsigned short int IMAGE_WIDTH = 64;
+        const unsigned short int IMAGE_HEIGHT = 64;
+        int counter = 0;
+        
+        enum Animation
+        {
+            WALK_RIGHT,  // = 0
+            WALK_LEFT  // = 1
+        };
+
+        Animation animation = WALK_RIGHT;
+
+        SDL_Rect clip_;
+
+        void setClip(int counter);
+        void setColorkey();
     };
 }
 

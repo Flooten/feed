@@ -32,6 +32,7 @@ namespace feed
     World::World(const std::string& filename)
     {
         std::cout << "Loading world " << filename << std::endl;
+        player_ = new Player(glm::vec2(100, 100), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("player"), 100, 100, 100, 100);
 
         enum
         {
@@ -142,6 +143,9 @@ namespace feed
 
         for (auto intobject : intobject_list_)
             intobject->draw(screen);
+
+        if (player_ != nullptr)
+            player_->draw(screen);
 
         //std::cout << "Dt: " << loop << " ms" << std::endl;
     }
