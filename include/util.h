@@ -29,6 +29,10 @@ namespace feed
         // "Blittar" source på destination vid position (x, y).
         // Vid mer avancerade fall använd SDL_BlitSurface direkt.
         void blitSurface(SDL_Surface* source, SDL_Surface* destination, int x, int y);
+
+        // Predikatfunktion för att tömma en STL-container, ex vector som innehåller pekare
+        template <class T>
+        bool deleteElement(T* p);
     }
 }
 

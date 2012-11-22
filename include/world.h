@@ -22,6 +22,7 @@
 #include "player.h"
 
 #include <vector>
+#include <string>
 
 namespace feed
 {
@@ -29,6 +30,8 @@ namespace feed
     {
     public:
         World();
+        World(const std::string& filename);
+
         ~World();
 
         virtual void draw(SDL_Surface* screen) override final;
@@ -37,8 +40,6 @@ namespace feed
         virtual void handleMessage(const MessageQueue::Message& msg) override final;
 
     private:
-        int i = 0;
-
         Player* player_ = nullptr;
 
         std::vector<Projectile*> projectile_list_;
