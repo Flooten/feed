@@ -1,13 +1,13 @@
 // Level 1
 
 [images]
-sw data/gfx/wall2sw.png
-se data/gfx/wall2se.png
-ne data/gfx/wall2ne.png
-nw data/gfx/wall2nw.png
-armor_container data/gfx/armor.png
+sw               data/gfx/wall2sw.png
+se               data/gfx/wall2se.png
+ne               data/gfx/wall2ne.png
+nw               data/gfx/wall2nw.png
+armor_container  data/gfx/armor.png
 health_container data/gfx/red_cross_health.png
-checkpoint data/gfx/lightbulb.png
+checkpoint       data/gfx/lightbulb.png
 
 [environment_object]
 100 100 128 128 0 0 nw
