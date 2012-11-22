@@ -3,8 +3,8 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
  *                Herman Ekwall
- *                Marcus Eriksson
- *                Mattias Fransson 9105272612 Y3A
+ *                Marcus Eriksson   910322-1371     Y3A
+ *                Mattias Fransson  910527-2612     Y3A
  * DATUM:         2012-11-16
  *
  * BESKRIVNING: Meddelandekö. Tar emot meddelanden från alla object, GameWorld läser kön
