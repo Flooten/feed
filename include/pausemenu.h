@@ -24,7 +24,7 @@ namespace feed
         PauseMenu(SDL_Surface* background, const glm::vec2& position);
 
         void draw(SDL_Surface* screen) override final;
-        void update() {}
+        void update(Uint32 delta_time) {}
         void handleSDLEvent(const SDL_Event& event);
         void handleMessage(const MessageQueue::Message& msg);
 

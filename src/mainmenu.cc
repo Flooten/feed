@@ -31,7 +31,7 @@ namespace feed
         main_.draw(screen);
     }
 
-    void MainMenu::update()
+    void MainMenu::update(Uint32 delta_time)
     {
 
     }

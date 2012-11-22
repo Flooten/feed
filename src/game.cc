@@ -32,8 +32,8 @@ namespace feed
     {
         initSDL();
         loadResources();
-        initMenu();
-        initWorld();
+        loadWorldList();
+        loadMenu();
     }
 
     Game::~Game()
@@ -53,11 +53,19 @@ namespace feed
 
     void Game::run()
     {
+        Uint32 delta_time = 0;
+        Uint32 current = 0;
+        Uint32 previous = 0;
+
         SDL_Event event;
         MessageQueue::Message msg;
 
         while (running_)
         {
+            current = SDL_GetTicks();
+            delta_time = current - previous;
+            previous = current;
+
             while (SDL_PollEvent(&event))
                 handleSDLEvent(event);
 
@@ -67,7 +75,7 @@ namespace feed
             // AI
             // Kollision
 
-            game_state_.top()->update();
+            game_state_.top()->update(delta_time);
             game_state_.top()->draw(screen_);
 
             SDL_Flip(screen_);
@@ -105,7 +113,13 @@ namespace feed
         Audio::instance().addMusic("menu_music", "data/sound/feed01.ogg");
     }
 
-    void Game::initMenu()
+    void Game::loadWorldList()
+    {
+        world_list_.push_back("data/worlds/level1.fpq");
+        world_list_.push_back("data/worlds/level2.fpq");
+    }
+
+    void Game::loadMenu()
     {
         util::blitSurface(image_list_["screen_bg"], screen_, 0, 0);
 
@@ -115,9 +129,12 @@ namespace feed
         Audio::instance().playMusic("menu_music");
     }
 
-    void Game::initWorld()
+    void Game::loadWorld()
     {
+        if (current_world_ >= world_list_.size())
+            return;
 
+        game_state_.push(new World(world_list_[current_world_]));
     }
 
     void Game::handleSDLEvent(const SDL_Event& event)
@@ -140,7 +157,8 @@ namespace feed
         {
             case MessageQueue::Message::NEW_GAME:
                 Audio::instance().toggleMusic();
-                game_state_.push(new World);
+                current_world_ = 0;
+                loadWorld();
                 break;
 
             case MessageQueue::Message::QUIT_GAME:

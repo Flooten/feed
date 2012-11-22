@@ -128,7 +128,6 @@ namespace feed
         Mix_HaltMusic();
     }
 
-
     bool Audio::soundFxExist(const std::string& key)
     {
         auto it = sound_fx_.find(key);
