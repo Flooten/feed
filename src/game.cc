@@ -12,6 +12,7 @@
 #include "game.h"
 #include "audio.h"
 #include "util.h"
+#include "pausemenu.h"
 
 #include <iostream>
 #include <utility>
@@ -137,7 +138,11 @@ namespace feed
                 break;
 
             case MessageQueue::Message::PAUSE_GAME:
-                Audio::instance().toggleMusic();
+                game_state_.push(new PauseMenu(image_list_["menu_bg"], glm::vec2((SCREEN_WIDTH / 2) - (image_list_["menu_bg"]->w / 2),
+                                                                                 (SCREEN_HEIGHT / 2) - (image_list_["menu_bg"]->h / 2))));
+                break;
+
+            case MessageQueue::Message::RESUME_GAME:
                 delete game_state_.top();
                 game_state_.pop();
                 break;

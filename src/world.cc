@@ -42,7 +42,7 @@ namespace feed
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_ESCAPE:
-                        MessageQueue::instance().pushMessage({MessageQueue::Message::PAUSE_GAME, 0, 0});
+                        MessageQueue::instance().pushMessage({MessageQueue::Message::PAUSE_GAME});
                         break;
 
                     case SDLK_UP:
