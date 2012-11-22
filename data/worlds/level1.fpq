@@ -1,10 +1,13 @@
 // Level 1
 
 [images]
-sw data/gfx/sw.png
-se data/gfx/se.png
-ne data/gfx/ne.png
-nw data/gfx/nw.png
+sw data/gfx/wall2sw.png
+se data/gfx/wall2se.png
+ne data/gfx/wall2ne.png
+nw data/gfx/wall2nw.png
+armor_container data/gfx/armor.png
+health_container data/gfx/red_cross_health.png
+checkpoint data/gfx/lightbulb.png
 
 [environment_object]
 100 100 128 128 0 0 nw
@@ -14,6 +17,6 @@ nw data/gfx/nw.png
 
 // type pos.x pox.y size.x size.y val img
 [interactable_object]
-health 100 100 50 50 75 hp_container
+health 100 100 50 50 75 health_container
 armor 300 100 50 50 50 armor_container
 checkpoint 400 100 25 25 0 checkpoint

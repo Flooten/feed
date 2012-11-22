@@ -107,11 +107,6 @@ namespace feed
     {
         Resources::instance().addImage("screen_bg", "data/piratesandfaggots.jpg");
         Resources::instance().addImage("menu_bg", "data/duke.bmp");
-        
-        Resources::instance().addImage("se", "data/gfx/wall2se.png");
-        Resources::instance().addImage("sw", "data/gfx/wall2sw.png");
-        Resources::instance().addImage("ne", "data/gfx/wall2ne.png");
-        Resources::instance().addImage("nw", "data/gfx/wall2nw.png");
 
         Audio::instance().addSoundFx("fire", "data/high.wav");
         Audio::instance().addMusic("menu_music", "data/sound/feed01.ogg");

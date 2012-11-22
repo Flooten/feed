@@ -208,9 +208,10 @@ namespace feed
         std::string::size_type find = str.find(" ");
 
         std::string key = str.substr(0, find);
-        std::string filename = str.substr(find + 2);
+        std::string filename = str.substr(find + 1);
 
-        Resources::instance().addImage(key, filename);
+        if (!Resources::instance().addImage(key, filename))
+            return;
     }
 
     void World::loadAudio(const std::string& str)
