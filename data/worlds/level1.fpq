@@ -9,14 +9,24 @@ armor_container  data/gfx/armor.png
 health_container data/gfx/red_cross_health.png
 checkpoint       data/gfx/lightbulb.png
 
+[audio]
+sfx ak45 data/high.wav
+music original-score data/sound/feed01.ogg
+
 [environment_object]
 100 100 128 128 0 0 nw
 228 100 128 128 0 0 ne
 100 228 128 128 0 0 sw
 228 228 128 128 0 0 se
 
-// type pos.x pox.y size.x size.y val img
 [interactable_object]
 health 100 100 50 50 75 health_container
 armor 300 100 50 50 50 armor_container
 checkpoint 400 100 25 25 0 checkpoint
+
+[enemy]
+grunt 150 23
+sniper 73 250
+
+// ???
+[projectile]
