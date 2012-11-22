@@ -113,6 +113,15 @@ namespace feed
         Resources::instance().addImage("ne", "data/gfx/wall2ne.png");
         Resources::instance().addImage("nw", "data/gfx/wall2nw.png");
 
+        // Menybilder
+        Resources::instance().addImage("menu_background", "data/gfx/menu_background.png");
+        Resources::instance().addImage("button_new_game", "data/gfx/button_new_game.png");
+        Resources::instance().addImage("button_resume_game", "data/gfx/button_resume_game.png");
+        Resources::instance().addImage("button_exit_to_main_menu", "data/gfx/button_exit_to_main_menu.png");
+        Resources::instance().addImage("button_load_game", "data/gfx/button_load_game.png");
+        Resources::instance().addImage("button_quit_game", "data/gfx/button_quit_game.png");
+        Resources::instance().addImage("button_credits", "data/gfx/button_credits.png");
+
         Audio::instance().addSoundFx("fire", "data/high.wav");
         Audio::instance().addMusic("menu_music", "data/sound/feed01.ogg");
     }
@@ -127,7 +136,7 @@ namespace feed
     {
         util::blitSurface(Resources::instance()["screen_bg"], screen_, 0, 0);
 
-        game_state_.push(new MainMenu(Resources::instance()["menu_bg"],
+        game_state_.push(new MainMenu(Resources::instance()["menu_background"],
                                       glm::vec2((SCREEN_WIDTH / 2) - (Resources::instance()["menu_bg"]->w / 2),
                                                 (SCREEN_HEIGHT / 2) - (Resources::instance()["menu_bg"]->h / 2))));
 
@@ -171,7 +180,7 @@ namespace feed
                 break;
 
             case MessageQueue::Message::PAUSE_GAME:
-                game_state_.push(new PauseMenu(Resources::instance()["menu_bg"],
+                game_state_.push(new PauseMenu(Resources::instance()["menu_background"],
                                                glm::vec2((SCREEN_WIDTH / 2) - (Resources::instance()["menu_bg"]->w / 2),
                                                          (SCREEN_HEIGHT / 2) - (Resources::instance()["menu_bg"]->h / 2))));
                 break;
