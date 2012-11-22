@@ -127,8 +127,7 @@ namespace feed
                 break;
 
             case MessageQueue::Message::QUIT_GAME:
-                delete game_state_.top();
-                game_state_.pop();
+                running_ = false;
                 break;
 
             default:
