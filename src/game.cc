@@ -91,7 +91,7 @@ namespace feed
         SDL_WM_SetCaption(SCREEN_CAPTION, nullptr);
 
         // Sätt fönstrets ikon
-        SDL_Surface* icon = IMG_Load("data/icon.png");
+        SDL_Surface* icon = IMG_Load("data/gfx/icon.png");
         Uint32 colorkey = SDL_MapRGB(icon->format, 255, 255, 255);
         SDL_SetColorKey(icon, SDL_SRCCOLORKEY, colorkey);
         SDL_WM_SetIcon(icon, nullptr);
@@ -137,8 +137,8 @@ namespace feed
         util::blitSurface(Resources::instance()["screen_bg"], screen_, 0, 0);
 
         game_state_.push(new MainMenu(Resources::instance()["menu_background"],
-                                      glm::vec2((SCREEN_WIDTH / 2) - (Resources::instance()["menu_bg"]->w / 2),
-                                                (SCREEN_HEIGHT / 2) - (Resources::instance()["menu_bg"]->h / 2))));
+                                      glm::vec2((SCREEN_WIDTH / 2) - (Resources::instance()["menu_background"]->w / 2),
+                                                (SCREEN_HEIGHT / 2) - (Resources::instance()["menu_background"]->h / 2))));
 
         Audio::instance().playMusic("menu_music");
     }
@@ -181,13 +181,24 @@ namespace feed
 
             case MessageQueue::Message::PAUSE_GAME:
                 game_state_.push(new PauseMenu(Resources::instance()["menu_background"],
-                                               glm::vec2((SCREEN_WIDTH / 2) - (Resources::instance()["menu_bg"]->w / 2),
-                                                         (SCREEN_HEIGHT / 2) - (Resources::instance()["menu_bg"]->h / 2))));
+                                               glm::vec2((SCREEN_WIDTH / 2) - (Resources::instance()["menu_background"]->w / 2),
+                                                         (SCREEN_HEIGHT / 2) - (Resources::instance()["menu_background"]->h / 2))));
                 break;
 
             case MessageQueue::Message::RESUME_GAME:
                 delete game_state_.top();
                 game_state_.pop();
+                break;
+
+            case MessageQueue::Message::EXIT_TO_MAIN_MENU:
+                if (game_state_.size() == 3)
+                {
+                    for (unsigned int i = 0; i < 2; ++i)
+                    {
+                        delete game_state_.top();
+                        game_state_.pop();
+                    }
+                }                
                 break;
 
             case MessageQueue::Message::FIRE:

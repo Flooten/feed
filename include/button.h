@@ -32,8 +32,8 @@ namespace feed
         };
 
         // Dimensioner
-        static const int WIDTH = 250;
-        static const int HEIGHT = 100;
+        static const int WIDTH = 300;
+        static const int HEIGHT = 60;
 
         Button(SDL_Surface* background, const Type type);
 
