@@ -165,7 +165,7 @@ namespace feed
         switch (msg.type)
         {
             case MessageQueue::Message::NEW_GAME:
-                Audio::instance().toggleMusic();
+                Audio::instance().pauseMusic();
                 current_world_ = 0;
                 loadWorld();
                 break;

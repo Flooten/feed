@@ -11,11 +11,14 @@
 
 #include "world.h"
 #include "util.h"
+#include "audio.h"
 #include "resources.h"
 #include "healthcontainer.h"
 #include "armorcontainer.h"
 #include "weaponcontainer.h"
 #include "checkpoint.h"
+
+#include "camera.h"
 
 #include <iostream>
 #include <sstream>
@@ -24,6 +27,9 @@
 
 namespace feed
 {
+    glm::vec2 camera;
+    glm::vec2 camera_velocity;
+
     World::World()
     {
         std::cout << "World " << this << " online" << std::endl;
@@ -160,7 +166,7 @@ namespace feed
         for (auto intobject : intobject_list_)
             intobject->update(delta_time);
 
-        loop = delta_time;
+        camera += camera_velocity * static_cast<float>(delta_time);
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
@@ -176,12 +182,51 @@ namespace feed
                         break;
 
                     case SDLK_UP:
-                        MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE});
+                        camera_velocity.y = -0.05f;
+                        break;
+
+                    case SDLK_DOWN:
+                        camera_velocity.y = 0.05f;
+                        break;
+
+                    case SDLK_RIGHT:
+                        camera_velocity.x = 0.05f;
+                        break;
+
+                    case SDLK_LEFT:
+                        camera_velocity.x = -0.05f;
                         break;
 
                     default:
                         break;
                 }
+                break;
+            }
+
+            case SDL_KEYUP:
+            {
+                switch (event.key.keysym.sym)
+                {
+                    case SDLK_UP:
+                        camera_velocity.y = 0.0f;
+                        break;
+
+                    case SDLK_DOWN:
+                        camera_velocity.y = 0.0f;
+                        break;
+
+                    case SDLK_RIGHT:
+                        camera_velocity.x = 0.0f;
+                        break;
+
+                    case SDLK_LEFT:
+                        camera_velocity.x = 0.0f;
+                        break;
+
+                    default:
+                        break;
+                }
+                
                 break;
             }
 
@@ -222,7 +267,17 @@ namespace feed
 
     void World::loadAudio(const std::string& str)
     {
+        std::stringstream ss(str);
+        std::string type;
+        std::string key;
+        std::string filename;
 
+        ss >> type >> key >> filename;
+
+        if (type == "sfx")
+            Audio::instance().addSoundFx(key, filename);
+        else if (type == "music")
+            Audio::instance().addMusic(key, filename);
     }
 
     void World::loadProjectile(const std::string& str)
