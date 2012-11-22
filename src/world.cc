@@ -205,10 +205,16 @@ namespace feed
 
     void World::loadImage(const std::string& str)
     {
-        std::string::size_type find = str.find(" ");
+        // std::string::size_type find = str.find(" ");
 
-        std::string key = str.substr(0, find);
-        std::string filename = str.substr(find + 1);
+        // std::string key = str.substr(0, find);
+        // std::string filename = str.substr(find + 1);
+
+        std::stringstream ss(str);
+        std::string key;
+        std::string filename;
+
+        ss >> key >> filename;
 
         if (!Resources::instance().addImage(key, filename))
             return;
