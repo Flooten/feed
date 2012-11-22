@@ -12,6 +12,10 @@
 #include "world.h"
 #include "util.h"
 #include "resources.h"
+#include "healthcontainer.h"
+#include "armorcontainer.h"
+#include "weaponcontainer.h"
+#include "checkpoint.h"
 
 #include <iostream>
 #include <sstream>
@@ -34,9 +38,7 @@ namespace feed
             IMAGES,
             AUDIO,
             ENVIRONMENT_OBJECT,
-            INTERACTABLE_OBJECT,
-            CHECKPOINT,
-
+            INTERACTABLE_OBJECT
         };
 
         std::ifstream is(filename.c_str());
@@ -56,8 +58,6 @@ namespace feed
 
             if (line.compare(0, 2, "//") == 0)
                 continue;
-
-            std::cout << "Parsing " << line << std::endl;
 
             if (line == "[images]")
             {
@@ -249,14 +249,25 @@ namespace feed
     {
         std::stringstream ss(str);
 
+        std::string type;
+        std::string image;
         glm::vec2 pos;
         glm::vec2 size;
-        std::string image;
+        int val;
 
-        ss >> pos.x >> pos.y
+        ss >> type
+           >> pos.x >> pos.y
            >> size.x >> size.y
+           >> val
            >> image;
 
-        intobject_list_.push_back(new InteractableObject(pos, size, Resources::instance()[image]));
+        if (type == "health")
+            intobject_list_.push_back(new HealthContainer(pos, size, Resources::instance()[image], val));
+        else if (type == "armor")
+            intobject_list_.push_back(new ArmorContainer(pos, size, Resources::instance()[image], val));
+        else if (type == "weapon")
+            intobject_list_.push_back(new WeaponContainer(pos, size, Resources::instance()[image], val));
+        else if (type == "checkpoint")
+            intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
     }
 }

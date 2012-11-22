@@ -1,3 +1,5 @@
+// Level 1
+
 [images]
 sw data/gfx/sw.png
 se data/gfx/se.png
@@ -10,4 +12,8 @@ nw data/gfx/nw.png
 100 228 128 128 0 0 sw
 228 228 128 128 0 0 se
 
-[]
+// type pos.x pox.y size.x size.y val img
+[interactable_object]
+health 100 100 50 50 75 hp_container
+armor 300 100 50 50 50 armor_container
+checkpoint 400 100 25 25 0 checkpoint
