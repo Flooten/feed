@@ -21,6 +21,7 @@
 #include "environmentobject.h"
 #include "player.h"
 
+#include <SDL/SDL.h>
 #include <vector>
 #include <string>
 

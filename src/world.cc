@@ -53,6 +53,9 @@ namespace feed
 
     void World::draw(SDL_Surface* screen)
     {
+        // Rensa screen
+        SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
+
         for (auto projectile : projectile_list_)
             projectile->draw(screen);
 
