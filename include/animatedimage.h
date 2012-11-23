@@ -2,7 +2,7 @@
  * FILNAMN:       animation.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Marcus Eriksson   910322-1371     Y3A
- * DATUM:         2012-11-22
+ * DATUM:         2012-11-23
  *
  * BESKRIVNING: Denna klass agerar wrapper åt SDL_Surface
  *              om föremålet eller karaktären skall ha möjlighet
