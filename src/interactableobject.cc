@@ -18,11 +18,11 @@ namespace feed
         : Object(position, size, glm::vec2(0, 0), image)
     {}
 
-    void InteractableObject::draw(SDL_Surface* screen)
-    {
-        if (image_ != nullptr)
-        {
-            util::blitSurface(image_, screen, position_.x, position_.y);
-        }
-    }
+    // void InteractableObject::draw(SDL_Surface* screen)
+    // {
+    //     if (image_ != nullptr)
+    //     {
+    //         util::blitSurface(image_, screen, position_.x, position_.y);
+    //     }
+    // }
 }

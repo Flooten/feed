@@ -25,13 +25,13 @@ namespace feed
         return damage_;
     }
 
-    void Projectile::draw(SDL_Surface* screen)
-    {
-        if (image_ != nullptr)
-        {
-            util::blitSurface(image_, screen, position_.x, position_.y);
-        }
-    }
+    // void Projectile::draw(SDL_Surface* screen)
+    // {
+    //     if (image_ != nullptr)
+    //     {
+    //         util::blitSurface(image_, screen, position_.x, position_.y);
+    //     }
+    // }
 
     void Projectile::update(unsigned int time)
     {

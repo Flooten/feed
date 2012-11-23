@@ -52,7 +52,7 @@ namespace feed
 
     void Game::run()
     {
-        Uint32 delta_time = 0;
+        float delta_time = 0;
         Uint32 current = 0;
         Uint32 previous = 0;
 
@@ -62,7 +62,7 @@ namespace feed
         while (running_)
         {
             current = SDL_GetTicks();
-            delta_time = current - previous;
+            delta_time = static_cast<float>(current - previous) / 1000;
             previous = current;
 
             while (SDL_PollEvent(&event))

@@ -31,7 +31,7 @@ namespace feed
         int get_damage() const;
 
         // Överskuggning
-        void draw(SDL_Surface* screen) override final;  // Möjligt med const?
+        //void draw(SDL_Surface* screen) override final;  // Möjligt med const?
         void update(unsigned int time);
 
     private:

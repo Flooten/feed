@@ -8,7 +8,8 @@
  * DATUM:         2012-11-15
  */
 
- #include "object.h"
+#include "object.h"
+#include "util.h"
 
 namespace feed
 {
@@ -47,5 +48,19 @@ namespace feed
     void Object::set_velocity(const glm::vec2& velocity)
     {
         velocity_ = velocity;
+    }
+
+    void Object::draw(SDL_Surface* screen, const glm::vec2& offset)
+    {
+        if (screen != nullptr)
+            util::blitSurface(image_, size_, screen, position_ - offset);
+    }
+
+    void Object::update(float delta_time)
+    {
+        static glm::vec2 gravity(0.0f, 50.0f);
+
+        velocity_ += gravity * delta_time;
+        position_ += velocity_ * delta_time;
     }
 }

@@ -25,7 +25,7 @@ namespace feed
         virtual ~State() {}
 
         virtual void draw(SDL_Surface* screen) = 0;
-        virtual void update(Uint32 delta_time) = 0;
+        virtual void update(float delta_time) = 0;
         virtual void handleSDLEvent(const SDL_Event& event) = 0;
         virtual void handleMessage(const MessageQueue::Message& msg) = 0;
     };

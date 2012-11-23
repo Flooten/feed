@@ -59,11 +59,11 @@ namespace feed
             armor_ += value;
     }
 
-    void Character::draw(SDL_Surface* screen)
-    {
-        if (image_ != nullptr)
-        {
-            util::blitSurface(image_, screen, position_.x, position_.y);
-        }
-    }
+    // void Character::draw(SDL_Surface* screen)
+    // {
+    //     if (image_ != nullptr)
+    //     {
+    //         util::blitSurface(image_, screen, position_.x, position_.y);
+    //     }
+    // }
 }

@@ -33,10 +33,8 @@ namespace feed
         void set_size(const glm::vec2& size);
         void set_velocity(const glm::vec2& velocity);
 
-        virtual void draw(SDL_Surface* screen) = 0;
-
-        // Ej pure virtual. Inte implementerad på denna nivå - bättre lösning?
-        virtual void update(unsigned int){};
+        void draw(SDL_Surface* screen, const glm::vec2& offset);
+        void update(float delta_time);
 
     protected:
         glm::vec2 position_;

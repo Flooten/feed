@@ -33,7 +33,7 @@ namespace feed
         void set_boundary_end(const glm::vec2& boundary_end);
     
         // Överskuggning
-        void draw(SDL_Surface* screen) override final;     // Testa const här
+        //void draw(SDL_Surface* screen, const glm::vec2& offset) override final;     // Testa const här
         void update(unsigned int time);
 
     private:

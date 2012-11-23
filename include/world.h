@@ -22,6 +22,7 @@
 #include "player.h"
 
 #include <SDL/SDL.h>
+#include <glm/glm.hpp>
 #include <vector>
 #include <string>
 
@@ -36,7 +37,7 @@ namespace feed
         ~World();
 
         virtual void draw(SDL_Surface* screen) override final;
-        virtual void update(Uint32 delta_time) override final;
+        virtual void update(float delta_time) override final;
         virtual void handleSDLEvent(const SDL_Event& event) override final;
         virtual void handleMessage(const MessageQueue::Message& msg) override final;
 
@@ -45,6 +46,7 @@ namespace feed
         void loadAudio(const std::string& str);
         void loadProjectile(const std::string& str);
         void loadEnemy(const std::string& str);
+        void loadPlayer(const std::string& str);
         void loadEnvironmentObject(const std::string& str);
         void loadInteractableObject(const std::string& str);
 
@@ -54,6 +56,8 @@ namespace feed
         std::vector<Enemy*> enemy_list_;
         std::vector<EnvironmentObject*> envobject_list_;
         std::vector<InteractableObject*> intobject_list_;
+
+        glm::vec2 camera_position_;
 
         Uint32 loop;
     };

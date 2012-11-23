@@ -18,8 +18,6 @@
 #include "weaponcontainer.h"
 #include "checkpoint.h"
 
-#include "camera.h"
-
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -27,9 +25,6 @@
 
 namespace feed
 {
-    glm::vec2 camera;
-    glm::vec2 camera_velocity;
-
     World::World()
     {
         std::cout << "World " << this << " online" << std::endl;
@@ -44,7 +39,8 @@ namespace feed
             IMAGES,
             AUDIO,
             ENVIRONMENT_OBJECT,
-            INTERACTABLE_OBJECT
+            INTERACTABLE_OBJECT,
+            PLAYER
         };
 
         std::ifstream is(filename.c_str());
@@ -89,6 +85,12 @@ namespace feed
                 continue;
             }
 
+            if (line == "[player]")
+            {
+                category = PLAYER;
+                continue;
+            }
+
             switch (category)
             {
                 case IMAGES:
@@ -105,6 +107,10 @@ namespace feed
 
                 case INTERACTABLE_OBJECT:
                     loadInteractableObject(line);
+                    break;
+
+                case PLAYER:
+                    loadPlayer(line);
                     break;
 
                 default:
@@ -138,35 +144,42 @@ namespace feed
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
         for (auto projectile : projectile_list_)
-            projectile->draw(screen);
+            projectile->draw(screen, player_->get_position());
 
         for (auto enemy : enemy_list_)
-            enemy->draw(screen);
+            enemy->draw(screen, player_->get_position());
 
         for (auto envobject : envobject_list_)
-            envobject->draw(screen);
+            envobject->draw(screen, player_->get_position());
 
         for (auto intobject : intobject_list_)
-            intobject->draw(screen);
+            intobject->draw(screen, player_->get_position());
+
+        player_->draw(screen, player_->get_position() - glm::vec2(screen->w / 3, screen->h / 2));
 
         //std::cout << "Dt: " << loop << " ms" << std::endl;
     }
 
-    void World::update(Uint32 delta_time)
+    void World::update(float delta_time)
     {
+        player_->update(delta_time);
+
         for (auto projectile : projectile_list_)
             projectile->update(delta_time);
 
         for (auto enemy : enemy_list_)
             enemy->update(delta_time);
 
-        for (auto envobject : envobject_list_)
-            envobject->update(delta_time);
+        // kollisionskontroll
+        glm::vec2 player_pos = player_->get_position();
 
-        for (auto intobject : intobject_list_)
-            intobject->update(delta_time);
+        if (player_pos.y > 400)
+        {
+            player_pos.y = 400;
+            player_->set_position(player_pos);
+        }
 
-        camera += camera_velocity * static_cast<float>(delta_time);
+        //camera += camera_velocity * static_cast<float>(delta_time);
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
@@ -182,19 +195,24 @@ namespace feed
                         break;
 
                     case SDLK_UP:
-                        camera_velocity.y = -0.05f;
+                    {
+                        glm::vec2 vel = player_->get_velocity();
+                        vel.y = -100.0f;
+                        player_->set_velocity(vel);
+                    }
                         break;
 
                     case SDLK_DOWN:
-                        camera_velocity.y = 0.05f;
+                        //camera_velocity.y = 0.05f;
                         break;
 
                     case SDLK_RIGHT:
-                        camera_velocity.x = 0.05f;
+                        player_->set_velocity(glm::vec2(100.0f, 0.0f));
                         break;
 
                     case SDLK_LEFT:
-                        camera_velocity.x = -0.05f;
+                        player_->set_velocity(glm::vec2(-100.0f, 0.0f));
+                        //camera_velocity.x = -0.05f;
                         break;
 
                     default:
@@ -208,25 +226,26 @@ namespace feed
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_UP:
-                        camera_velocity.y = 0.0f;
+                        //camera_velocity.y = 0.0f;
                         break;
 
                     case SDLK_DOWN:
-                        camera_velocity.y = 0.0f;
+                        //camera_velocity.y = 0.0f;
                         break;
 
                     case SDLK_RIGHT:
-                        camera_velocity.x = 0.0f;
+                        player_->set_velocity(glm::vec2(0.0f, 0.0f));
                         break;
 
                     case SDLK_LEFT:
-                        camera_velocity.x = 0.0f;
+                        player_->set_velocity(glm::vec2(0.0f, 0.0f));
+                        //camera_velocity.x = -0.05f;
                         break;
 
                     default:
                         break;
                 }
-                
+
                 break;
             }
 
@@ -287,7 +306,22 @@ namespace feed
 
     void World::loadEnemy(const std::string& str)
     {
+        // fiendetyper?
+    }
 
+    void World::loadPlayer(const std::string& str)
+    {
+        if (player_ == nullptr)
+        {
+            player_ = new Player(glm::vec2(512 - 70, 238 - 70),
+                                 glm::vec2(140, 140),
+                                 glm::vec2(0, 0),
+                                 Resources::instance()["player"],
+                                 100,
+                                 0,
+                                 100,
+                                 100);
+        }
     }
 
     void World::loadEnvironmentObject(const std::string& str)
