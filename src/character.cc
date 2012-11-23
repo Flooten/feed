@@ -27,9 +27,7 @@ namespace feed
         , armor_(armor)
         , max_health_(max_health)
         , max_armor_(max_armor)
-    {
-        std::cout << "Skapar en character" << std::endl;
-    }
+    {}
 
     void Character::set_aim(glm::vec2 aim)
     {

@@ -107,6 +107,8 @@ namespace feed
         Resources::instance().addImage("screen_bg", "data/piratesandfaggots.jpg");
         Resources::instance().addImage("menu_bg", "data/duke.bmp");
         Resources::instance().addImage("player", "data/gfx/player.png");
+        Resources::instance().addImage("fire", "data/gfx/fire.png");
+        Resources::instance().addImage("fireball", "data/gfx/fireball.png");
 
         // Menybilder
         Resources::instance().addImage("menu_background", "data/gfx/menu_background.png");

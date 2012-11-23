@@ -20,7 +20,6 @@ namespace feed
         , nof_animations_(nof_animations)
         , nof_frames_(nof_frames)
     {
-        std::cout << "Skapar en animatedimage" << std::endl;
         if ((nof_animations_ == 0) && (nof_frames_== 0))
             animated = false;
         else

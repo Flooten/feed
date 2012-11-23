@@ -23,12 +23,7 @@ namespace feed
         , size_(size)
         , velocity_(velocity)
     {
-        std::cout << "Skapar ett object" << std::endl;
-        std::cout << "nof_animations: " << nof_animations << std::endl;
-        std::cout << "nof_frames: " << nof_frames << std::endl;
-
         image_ = new AnimatedImage(image, nof_animations, nof_frames);
-        std::cout << "Har skapat ett object" << std::endl;
     }
 
     glm::vec2 Object::get_position() const

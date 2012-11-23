@@ -34,6 +34,8 @@ namespace feed
     {
         std::cout << "World " << this << " online" << std::endl;
         player_ = new Player(glm::vec2(500, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("player"), 100, 100, 100, 100, 4, 8);
+        envobject_list_.push_back(new EnvironmentObject(glm::vec2(600, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire"), 1, 6));
+        envobject_list_.push_back(new EnvironmentObject(glm::vec2(200, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fireball"), 1, 6));
     }
 
     World::World(const std::string& filename)
@@ -114,7 +116,6 @@ namespace feed
                     break;
             }
         }
-        std::cout << "Har laddat färdigt" << std::endl;
     }
 
     World::~World()
@@ -141,6 +142,9 @@ namespace feed
         // Rensa screen
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
+        if (player_ != nullptr)
+            player_->draw(screen);
+
         for (auto projectile : projectile_list_)
             projectile->draw(screen);
 
@@ -151,17 +155,13 @@ namespace feed
             envobject->draw(screen);
 
         for (auto intobject : intobject_list_)
-            intobject->draw(screen);
-
-        if (player_ != nullptr)
-            player_->draw(screen);
+            intobject->draw(screen);        
 
         //std::cout << "Dt: " << loop << " ms" << std::endl;
     }
 
     void World::update(Uint32 delta_time)
     {
-        std::cout << "Uppdaterar" << std::endl;
         for (auto projectile : projectile_list_)
             projectile->update(delta_time);
 
