@@ -9,6 +9,8 @@
 #include "projectile.h"
 #include "util.h"
 
+#include "camera.h"
+
 namespace feed
 {
     Projectile::Projectile(const glm::vec2& position,
@@ -31,7 +33,7 @@ namespace feed
     {
         if (image_ != nullptr)
         {
-            image_->draw(screen, position_);
+            image_->draw(screen, position_ - camera);
         }
     }
 
