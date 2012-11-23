@@ -28,7 +28,6 @@ namespace feed
                            const glm::vec2& size,
                            SDL_Surface* image);
 
-        void draw(SDL_Surface* screen) override final;
         virtual void eventFunction() = 0;
 
     private:

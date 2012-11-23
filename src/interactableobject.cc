@@ -19,12 +19,4 @@ namespace feed
                                            SDL_Surface* image)
         : Object(position, size, glm::vec2(0, 0), image)
     {}
-
-    void InteractableObject::draw(SDL_Surface* screen)
-    {
-        if (image_ != nullptr)
-        {
-            image_->draw(screen, position_);
-        }
-    }
 }

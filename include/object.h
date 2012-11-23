@@ -40,7 +40,7 @@ namespace feed
         void set_velocity(const glm::vec2& velocity);
         void setAnimated(unsigned int nof_animations, unsigned int nof_frames);
 
-        virtual void draw(SDL_Surface* screen) = 0;
+        void draw(SDL_Surface* screen, const glm::vec2& offset);
 
         // Ej pure virtual. Överskuggningsbar.
         virtual void update(unsigned int);

@@ -26,12 +26,4 @@ namespace feed
     {
         return damage_;
     }
-
-    void Projectile::draw(SDL_Surface* screen)
-    {
-        if (image_ != nullptr)
-        {
-            image_->draw(screen, position_ - camera);
-        }
-    }
 }

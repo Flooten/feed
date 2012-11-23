@@ -65,12 +65,4 @@ namespace feed
         else
             armor_ += value;
     }
-
-    void Character::draw(SDL_Surface* screen)
-    {
-        if (image_ != nullptr)
-        {
-            image_->draw(screen, position_);
-        }
-    }
 }

@@ -60,6 +60,12 @@ namespace feed
         velocity_ = velocity;
     }
 
+    void Object::draw(SDL_Surface* screen, const glm::vec2& offset)
+    {
+        if (image_ != nullptr)
+            image_->draw(screen, position_ - offset);
+    }
+
     void Object::update(unsigned int time)
     {
         position_.x += velocity_.x * time;

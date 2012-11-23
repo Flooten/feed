@@ -30,9 +30,6 @@ namespace feed
         // Getters
         int get_damage() const;
 
-        // Överskuggning
-        void draw(SDL_Surface* screen) override final;  // Möjligt med const?
-
     private:
         int damage_;
     };

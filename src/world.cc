@@ -18,8 +18,6 @@
 #include "weaponcontainer.h"
 #include "checkpoint.h"
 
-#include "camera.h"
-
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -27,9 +25,6 @@
 
 namespace feed
 {
-    glm::vec2 camera;
-    glm::vec2 camera_velocity;
-
     World::World()
     {
         std::cout << "World " << this << " online" << std::endl;
@@ -48,7 +43,7 @@ namespace feed
         envobject_list_.push_back(new EnvironmentObject(glm::vec2(600, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire")));
         envobject_list_.back()->setAnimated(1, 6);
 
-        projectile_list_.push_back(new Projectile(glm::vec2(200, 340), glm::vec2(128, 128), glm::vec2(0.1, 0), Resources::instance().getImage("fireball"), 20));
+        projectile_list_.push_back(new Projectile(glm::vec2(200, 340), glm::vec2(128, 128), glm::vec2(1, 0), Resources::instance().getImage("fireball"), 20));
         projectile_list_.back()->setAnimated(1, 6);
 
         enum
@@ -150,21 +145,19 @@ namespace feed
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
         if (player_ != nullptr)
-            player_->draw(screen);
+            player_->draw(screen, player_->get_position() - glm::vec2(screen->w * 0.382, screen->h * 0.618));
 
         for (auto projectile : projectile_list_)
-            projectile->draw(screen);
+            projectile->draw(screen, player_->get_position());
 
         for (auto enemy : enemy_list_)
-            enemy->draw(screen);
+            enemy->draw(screen, player_->get_position());
 
         for (auto envobject : envobject_list_)
-            envobject->draw(screen);
+            envobject->draw(screen, player_->get_position());
 
         for (auto intobject : intobject_list_)
-            intobject->draw(screen);        
-
-        //std::cout << "Dt: " << loop << " ms" << std::endl;
+            intobject->draw(screen, player_->get_position());
     }
 
     void World::update(Uint32 delta_time)
@@ -183,8 +176,6 @@ namespace feed
 
         if (player_ != nullptr)
             player_->update(delta_time);
-
-        camera += camera_velocity * static_cast<float>(delta_time);
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
@@ -200,21 +191,19 @@ namespace feed
                         break;
 
                     case SDLK_UP:
-                        camera_velocity.y = -0.05f;
                         break;
 
                     case SDLK_DOWN:
-                        camera_velocity.y = 0.05f;
                         break;
 
                     case SDLK_RIGHT:
+                        player_->set_velocity(glm::vec2(0.3, 0));
                         player_->setAnimation(Player::WALK_RIGHT);
-                        camera_velocity.x = 0.05f;
                         break;
 
                     case SDLK_LEFT:
+                        player_->set_velocity(glm::vec2(-0.3, 0));
                         player_->setAnimation(Player::WALK_LEFT);
-                        camera_velocity.x = -0.05f;
                         break;
 
                     default:
@@ -228,21 +217,19 @@ namespace feed
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_UP:
-                        camera_velocity.y = 0.0f;
                         break;
 
                     case SDLK_DOWN:
-                        camera_velocity.y = 0.0f;
                         break;
 
                     case SDLK_RIGHT:
+                        player_->set_velocity(glm::vec2(0, 0));
                         player_->setAnimation(Player::STATIONARY_RIGHT);
-                        camera_velocity.x = 0.0f;
                         break;
 
                     case SDLK_LEFT:
+                        player_->set_velocity(glm::vec2(0, 0));
                         player_->setAnimation(Player::STATIONARY_LEFT);
-                        camera_velocity.x = 0.0f;
                         break;
 
                     default:

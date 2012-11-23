@@ -34,9 +34,6 @@ namespace feed
         // Setters
         void set_boundary_start(const glm::vec2& boundary_start);
         void set_boundary_end(const glm::vec2& boundary_end);
-    
-        // Överskuggning
-        void draw(SDL_Surface* screen) override final;     // Testa const här
 
     private:
         glm::vec2 boundary_start_;
