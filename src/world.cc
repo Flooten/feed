@@ -42,9 +42,14 @@ namespace feed
     World::World(const std::string& filename)
     {
         std::cout << "Loading world " << filename << std::endl;
-        player_ = new Player(glm::vec2(500, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("player"), 100, 100, 100, 100, 4, 8);
-        envobject_list_.push_back(new EnvironmentObject(glm::vec2(600, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire"), 1, 6));
-        projectile_list_.push_back(new Projectile(glm::vec2(200, 340), glm::vec2(128, 128), glm::vec2(0.1, 0), Resources::instance().getImage("fireball"), 20, 1, 6));
+        player_ = new Player(glm::vec2(500, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("player"), 100, 100, 100, 100);
+        player_->setAnimated(4, 8);
+
+        envobject_list_.push_back(new EnvironmentObject(glm::vec2(600, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire")));
+        envobject_list_.back()->setAnimated(1, 6);
+
+        projectile_list_.push_back(new Projectile(glm::vec2(200, 340), glm::vec2(128, 128), glm::vec2(0.1, 0), Resources::instance().getImage("fireball"), 20));
+        projectile_list_.back()->setAnimated(1, 6);
 
         enum
         {

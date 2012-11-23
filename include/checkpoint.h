@@ -23,9 +23,7 @@ namespace feed
     public:
         Checkpoint(const glm::vec2& position,
                    const glm::vec2& size,
-                   SDL_Surface* image,
-                   unsigned int nof_animations = 0,
-                   unsigned int nof_frames = 0);
+                   SDL_Surface* image);
 
         virtual void eventFunction() override final;
     private:

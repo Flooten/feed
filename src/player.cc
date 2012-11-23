@@ -19,15 +19,11 @@ namespace feed
                    int hitpoints,
                    int armor,
                    int max_health,
-                   int max_armor,
-                   unsigned int nof_animations,
-                   unsigned int nof_frames)
+                   int max_armor)
         : Character(position,
                     size,
                     velocity,
                     image,
-                    nof_animations,
-                    nof_frames,
                     hitpoints,
                     armor,
                     max_health,

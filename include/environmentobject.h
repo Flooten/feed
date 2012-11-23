@@ -25,9 +25,7 @@ namespace feed
         EnvironmentObject(const glm::vec2& position,
                           const glm::vec2& size,
                           const glm::vec2& velocity,
-                          SDL_Surface* image,
-                          unsigned int nof_animations = 0,
-                          unsigned int nof_frames = 0);
+                          SDL_Surface* image);
 
         // Getters
         glm::vec2 get_boundary_start() const;
@@ -39,7 +37,6 @@ namespace feed
     
         // Överskuggning
         void draw(SDL_Surface* screen) override final;     // Testa const här
-        void update(unsigned int time);
 
     private:
         glm::vec2 boundary_start_;

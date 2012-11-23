@@ -16,13 +16,11 @@ namespace feed
                          const glm::vec2& size,
                          const glm::vec2& velocity,
                          SDL_Surface* image,
-                         unsigned int nof_animations,
-                         unsigned int nof_frames,
                          int hitpoints,
                          int armor,
                          int max_health,
                          int max_armor)
-        : Object(position, size, velocity, image, nof_animations, nof_frames)
+        : Object(position, size, velocity, image)
         , hitpoints_(hitpoints)
         , armor_(armor)
         , max_health_(max_health)
@@ -74,13 +72,5 @@ namespace feed
         {
             image_->draw(screen, position_);
         }
-    }
-
-    void Character::update(unsigned int time)
-    {
-        if (image_ != nullptr)
-        {
-            image_->update(time);
-        }        
     }
 }

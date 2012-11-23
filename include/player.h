@@ -21,13 +21,6 @@ namespace feed
     class Player : public Character
     {
     public:
-        struct RGB
-        {
-            unsigned int r;
-            unsigned int g;
-            unsigned int b;
-        };
-
         Player(const glm::vec2& position,
                const glm::vec2& size,
                const glm::vec2& velocity,
@@ -35,9 +28,7 @@ namespace feed
                int hitpoints,
                int armor,
                int max_health,
-               int max_armor,
-               unsigned int nof_animations = 0,
-               unsigned int nof_frames = 0);
+               int max_armor);
 
         enum Animation
         {

@@ -26,8 +26,6 @@ namespace feed
                   const glm::vec2& size,
                   const glm::vec2& velocity,
                   SDL_Surface* image,
-                  unsigned int nof_animations,
-                  unsigned int nof_frames,
                   int hitpoints,
                   int armor,
                   int max_health,
@@ -39,7 +37,6 @@ namespace feed
         virtual void add_health(int value);
         void add_armor(int value);
         void draw(SDL_Surface* screen) override final;
-        void update(unsigned int time) override final;
         virtual void fire() = 0;
 
     protected:

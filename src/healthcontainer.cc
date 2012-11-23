@@ -14,10 +14,8 @@ namespace feed
     HealthContainer::HealthContainer(const glm::vec2& position,
                                      const glm::vec2& size,
                                      SDL_Surface* image,
-                                     int health_value,
-                                     unsigned int nof_animations,
-                                     unsigned int nof_frames)
-        : InteractableObject(position, size, image, nof_animations, nof_frames)
+                                     int health_value)
+        : InteractableObject(position, size, image)
         , health_value_(health_value)
     {}
     

@@ -14,10 +14,8 @@ namespace feed
     ArmorContainer::ArmorContainer(const glm::vec2& position,
                                    const glm::vec2& size,
                                    SDL_Surface* image,
-                                   int armor_value,
-                                   unsigned int nof_animations,
-                                   unsigned int nof_frames)
-        : InteractableObject(position, size, image, nof_animations, nof_frames)
+                                   int armor_value)
+        : InteractableObject(position, size, image)
         , armor_value_(armor_value)
     {}
     

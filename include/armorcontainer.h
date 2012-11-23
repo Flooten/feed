@@ -24,9 +24,7 @@ namespace feed
         ArmorContainer(const glm::vec2& position,
                        const glm::vec2& size,
                        SDL_Surface* image,
-                       int armor_value,
-                       unsigned int nof_animations = 0,
-                       unsigned int nof_frames = 0);
+                       int armor_value);
 
         virtual void eventFunction() override final;
     private:

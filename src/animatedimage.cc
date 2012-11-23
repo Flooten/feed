@@ -15,19 +15,9 @@ namespace feed
      *  Public
      */
 
-    AnimatedImage::AnimatedImage(SDL_Surface* image, unsigned int nof_animations, unsigned int nof_frames)
+    AnimatedImage::AnimatedImage(SDL_Surface* image)
         : image_sheet_(image)
-        , nof_animations_(nof_animations)
-        , nof_frames_(nof_frames)
-    {
-        if ((nof_animations_ == 0) && (nof_frames_== 0))
-            animated = false;
-        else
-        {
-            frame_width_ = image->w / nof_animations;
-            frame_height_ = image->h / nof_frames;
-        }
-    }
+    {}
 
     void AnimatedImage::setAnimation(unsigned int index)
     {
@@ -41,6 +31,8 @@ namespace feed
         animated = true;
         nof_animations_ = nof_animations;
         nof_frames_ = nof_frames;
+        frame_width_ = image_sheet_->w / nof_animations_;
+        frame_height_ = image_sheet_->h / nof_frames_;
     }
 
     void AnimatedImage::update(unsigned int time)
@@ -66,7 +58,7 @@ namespace feed
 
     void AnimatedImage::draw(SDL_Surface* screen, const glm::vec2 position)
     {
-        SDL_Rect screen_position = {position.x, position.y, 0, 0};
+        SDL_Rect screen_position = {static_cast<Sint16>(position.x),static_cast<Sint16>(position.y), 0, 0};
 
         if (animated)
             SDL_BlitSurface(image_sheet_, &clip_, screen, &screen_position);
@@ -90,8 +82,8 @@ namespace feed
                 ++current_frame_;
 
             // Uppdatera clip
-            clip_ = {frame_width_ * current_animation_,
-                     frame_height_ * current_frame_,
+            clip_ = {static_cast<Sint16>(frame_width_ * current_animation_),
+                     static_cast<Sint16>(frame_height_ * current_frame_),
                      frame_width_,
                      frame_height_};
         }

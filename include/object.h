@@ -27,9 +27,7 @@ namespace feed
         Object(const glm::vec2& position,
                const glm::vec2& size,
                const glm::vec2& velocity,
-               SDL_Surface* image_,
-               unsigned int nof_animations,
-               unsigned int nof_frames);
+               SDL_Surface* image_);
 
         virtual ~Object() {}
 
@@ -40,11 +38,12 @@ namespace feed
         void set_position(const glm::vec2& position);
         void set_size(const glm::vec2& size);
         void set_velocity(const glm::vec2& velocity);
+        void setAnimated(unsigned int nof_animations, unsigned int nof_frames);
 
         virtual void draw(SDL_Surface* screen) = 0;
 
-        // Ej pure virtual. Inte implementerad på denna nivå - bättre lösning?
-        virtual void update(unsigned int){};
+        // Ej pure virtual. Överskuggningsbar.
+        virtual void update(unsigned int);
 
     protected:
         glm::vec2 position_;

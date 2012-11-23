@@ -16,10 +16,8 @@ namespace feed
     EnvironmentObject::EnvironmentObject(const glm::vec2& position,
                                          const glm::vec2& size,
                                          const glm::vec2& velocity,
-                                         SDL_Surface* image,
-                                         unsigned int nof_animations,
-                                         unsigned int nof_frames)
-        : Object(position, size, velocity, image, nof_animations, nof_frames)
+                                         SDL_Surface* image)
+        : Object(position, size, velocity, image)
     {}
 
     /*
@@ -49,14 +47,5 @@ namespace feed
     {
         if (image_ != nullptr)
             image_->draw(screen, position_ - camera);
-    }
-
-    void EnvironmentObject::update(unsigned int time)
-    {
-        position_.x += velocity_.x * time;
-        position_.y += velocity_.y * time;
-
-        if (image_ != nullptr)
-            image_->update(time);
     }
 }

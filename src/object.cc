@@ -16,14 +16,12 @@ namespace feed
     Object::Object(const glm::vec2& position,
                    const glm::vec2& size,
                    const glm::vec2& velocity,
-                   SDL_Surface* image,
-                   unsigned int nof_animations,
-                   unsigned int nof_frames)
+                   SDL_Surface* image)
         : position_(position)
         , size_(size)
         , velocity_(velocity)
     {
-        image_ = new AnimatedImage(image, nof_animations, nof_frames);
+        image_ = new AnimatedImage(image);
     }
 
     glm::vec2 Object::get_position() const
@@ -41,6 +39,12 @@ namespace feed
         return velocity_;
     }
 
+    // Aktiverar animering
+    void Object::setAnimated(unsigned int nof_animations, unsigned int nof_frames)
+    {
+        image_->setAnimated(nof_animations, nof_frames);
+    }
+
     void Object::set_position(const glm::vec2& position)
     {
         position_ = position;
@@ -54,5 +58,14 @@ namespace feed
     void Object::set_velocity(const glm::vec2& velocity)
     {
         velocity_ = velocity;
+    }
+
+    void Object::update(unsigned int time)
+    {
+        position_.x += velocity_.x * time;
+        position_.y += velocity_.y * time;
+
+        if (image_ != nullptr)
+            image_->update(time);
     }
 }

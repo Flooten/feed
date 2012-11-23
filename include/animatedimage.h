@@ -18,7 +18,7 @@ namespace feed
     class AnimatedImage
     {
     public:
-        AnimatedImage(SDL_Surface* image, unsigned int nof_animations, unsigned int nof_frames);
+        AnimatedImage(SDL_Surface* image);
 
         void setAnimation(unsigned int index);
         void setAnimated(unsigned int nof_animations, unsigned int nof_frames);
@@ -28,15 +28,15 @@ namespace feed
 
     private:
         SDL_Surface* image_sheet_;
-        bool animated = true;
+        bool animated = false;
         const unsigned int FPS = 15;
         unsigned int last_draw_ = 0;   // Tid sedan senaste utritning
-        unsigned int frame_width_ = 0;
-        unsigned int frame_height_ = 0;
-        unsigned int nof_animations_ = 0;
-        unsigned int nof_frames_ = 0;
-        unsigned int current_animation_ = 0;
-        unsigned int current_frame_ = 0;
+        unsigned short int frame_width_ = 0;
+        unsigned short int frame_height_ = 0;
+        unsigned short int nof_animations_ = 0;
+        unsigned short int nof_frames_ = 0;
+        unsigned short int current_animation_ = 0;
+        unsigned short int current_frame_ = 0;
         SDL_Rect clip_ = {0, 0, 0, 0};
 
         void advanceFrame();

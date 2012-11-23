@@ -26,12 +26,9 @@ namespace feed
     public:
         InteractableObject(const glm::vec2& position,
                            const glm::vec2& size,
-                           SDL_Surface* image,
-                           unsigned int nof_animations,
-                           unsigned int nof_frames);
+                           SDL_Surface* image);
 
         void draw(SDL_Surface* screen) override final;
-        void update(unsigned int time) override final;
         virtual void eventFunction() = 0;
 
     private:

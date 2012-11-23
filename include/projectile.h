@@ -25,16 +25,13 @@ namespace feed
                    const glm::vec2& size,
                    const glm::vec2& velocity,
                    SDL_Surface* image,
-                   int damage,
-                   unsigned int nof_animations = 0,
-                   unsigned int nof_frames = 0);
+                   int damage);
 
         // Getters
         int get_damage() const;
 
         // Överskuggning
         void draw(SDL_Surface* screen) override final;  // Möjligt med const?
-        void update(unsigned int time);
 
     private:
         int damage_;

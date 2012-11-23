@@ -14,10 +14,8 @@ namespace feed
 {
     Checkpoint::Checkpoint(const glm::vec2& position,
                            const glm::vec2& size,
-                           SDL_Surface* image,
-                           unsigned int nof_animations,
-                           unsigned int nof_frames)
-        : InteractableObject(position, size, image, nof_animations, nof_frames)
+                           SDL_Surface* image)
+        : InteractableObject(position, size, image)
     {}
     
     void Checkpoint::eventFunction()

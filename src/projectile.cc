@@ -17,10 +17,8 @@ namespace feed
                            const glm::vec2& size,
                            const glm::vec2& velocity,
                            SDL_Surface* image,
-                           int damage,
-                           unsigned int nof_animations,
-                           unsigned int nof_frames)
-        : Object(position, size, velocity, image, nof_animations, nof_frames)
+                           int damage)
+        : Object(position, size, velocity, image)
         , damage_(damage)
     {}
 
@@ -34,17 +32,6 @@ namespace feed
         if (image_ != nullptr)
         {
             image_->draw(screen, position_ - camera);
-        }
-    }
-
-    void Projectile::update(unsigned int time)
-    {
-        position_.x += velocity_.x * time;
-        position_.y += velocity_.y * time;
-
-        if (image_ != nullptr)
-        {
-            image_->update(time); 
         }
     }
 }
