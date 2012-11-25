@@ -37,7 +37,7 @@ namespace feed
     World::World(const std::string& filename)
     {
         std::cout << "Loading world " << filename << std::endl;
-        player_ = new Player(glm::vec2(100, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("legs"), 100, 100, 100, 100);
+        player_ = new Player(glm::vec2(350, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("legs"), 100, 100, 100, 100);
         player_->setAnimated(2, 8);
         player_->setTorsoSheet(Resources::instance().getImage("torso"), 2, 25);
 
@@ -146,19 +146,19 @@ namespace feed
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
         if (player_ != nullptr)
-            player_->draw(screen, player_->get_position() - glm::vec2(screen->w * 0.382, screen->h * 0.618));
+            player_->draw(screen, glm::vec2(0,0));//player_->get_position() - glm::vec2(screen->w * 0.382, screen->h * 0.618));
 
         for (auto projectile : projectile_list_)
-            projectile->draw(screen, player_->get_position());
+            projectile->draw(screen, glm::vec2(0,0));//player_->get_position());
 
         for (auto enemy : enemy_list_)
-            enemy->draw(screen, player_->get_position());
+            enemy->draw(screen, glm::vec2(0,0));//player_->get_position());
 
         for (auto envobject : envobject_list_)
-            envobject->draw(screen, player_->get_position());
+            envobject->draw(screen, glm::vec2(0,0));//player_->get_position());
 
         for (auto intobject : intobject_list_)
-            intobject->draw(screen, player_->get_position());
+            intobject->draw(screen, glm::vec2(0,0));//player_->get_position());
     }
 
     void World::update(Uint32 delta_time)
@@ -185,9 +185,10 @@ namespace feed
         {
             case SDL_MOUSEMOTION:
             {
-                std::cout << "Aiming" << std::endl;
                 glm::vec2 position = player_->get_position();
-                player_->set_aim(glm::vec2(abs(event.motion.x - position.x), abs(event.motion.y - position.y)));
+                position.x += player_->get_size().x / 2;
+                position.y += player_->get_size().y / 2;
+                player_->set_aim(glm::vec2(event.motion.x- position.x, event.motion.y - position.y));
                 break;
             }
 

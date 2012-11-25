@@ -49,12 +49,14 @@ namespace feed
     {
         if (index < secondary_.nof_frames_)
             secondary_.current_frame_ = index;
+        setTorsoClip();
     }
 
     void AnimatedImage::setTorsoRotation(unsigned int index)
     {
         if (index < secondary_.nof_animations_)
             secondary_.current_animation_ = index;
+        setTorsoClip();
     }
 
     void AnimatedImage::advanceTorsoFrame()
