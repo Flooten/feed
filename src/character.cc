@@ -29,7 +29,9 @@ namespace feed
 
     void Character::set_aim(glm::vec2 aim)
     {
+        std::cout << "Aiming" << std::endl;
         aim_ = aim;
+        image_->setTorsoFrame(18 - ceil(tan(aim_.y / aim_.x)));
     }
 
     glm::vec2 Character::get_aim() const
