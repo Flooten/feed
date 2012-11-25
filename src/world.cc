@@ -37,8 +37,9 @@ namespace feed
     World::World(const std::string& filename)
     {
         std::cout << "Loading world " << filename << std::endl;
-        player_ = new Player(glm::vec2(100, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("player"), 100, 100, 100, 100);
-        player_->setAnimated(4, 8);
+        player_ = new Player(glm::vec2(100, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("legs"), 100, 100, 100, 100);
+        player_->setAnimated(2, 8);
+        player_->setTorsoSheet(Resources::instance().getImage("torso"), 2, 25);
 
         envobject_list_.push_back(new EnvironmentObject(glm::vec2(600, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire")));
         envobject_list_.back()->setAnimated(1, 6);
@@ -182,6 +183,14 @@ namespace feed
     {
         switch (event.type)
         {
+            case SDL_MOUSEMOTION:
+            {
+                std::cout << "Aiming" << std::endl;
+                glm::vec2 position = player_->get_position();
+                player_->set_aim(glm::vec2(abs(event.motion.x - position.x), abs(event.motion.y - position.y)));
+                break;
+            }
+
             case SDL_KEYDOWN:
             {
                 switch (event.key.keysym.sym)
@@ -197,14 +206,11 @@ namespace feed
                         break;
 
                     case SDLK_RIGHT:
-                        player_->set_velocity(glm::vec2(0.3, 0));
-                        player_->setAnimation(Player::WALK_RIGHT);
+                        player_->setAnimation(Player::STATIONARY_RIGHT);
                         break;
 
                     case SDLK_LEFT:
-                        player_->set_velocity(glm::vec2(-0.3, 0));
-                        player_->setAnimation(Player::WALK_LEFT);
-                        break;
+                        player_->setAnimation(Player::STATIONARY_LEFT);
 
                     default:
                         break;

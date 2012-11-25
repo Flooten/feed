@@ -45,6 +45,11 @@ namespace feed
         image_->setAnimated(nof_animations, nof_frames);
     }
 
+    void Object::setTorsoSheet(SDL_Surface* sheet, unsigned int nof_animations, unsigned int nof_frames)
+    {
+        image_->addTorsoSheet(sheet, nof_animations, nof_frames);
+    }
+
     void Object::set_position(const glm::vec2& position)
     {
         position_ = position;

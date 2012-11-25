@@ -33,12 +33,12 @@ namespace feed
         enum Animation
         {
             STATIONARY_RIGHT,
-            STATIONARY_LEFT,
-            WALK_RIGHT,
-            WALK_LEFT
+            STATIONARY_LEFT
         };        
 
         void setAnimation(Animation animation);
+        void increaseAim();
+        void decreaseAim();
         void addWeapon(Weapon& weapon);
         void add_health(int value);
         int get_inventory_index() const;
