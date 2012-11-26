@@ -376,7 +376,7 @@ namespace feed
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
     }
 
-    bool World::collision(Object* obj1, Object* obj2)
+    bool World::collision(const Object* obj1, const Object* obj2)
     {
         glm::vec2 diff = glm::abs((obj1->get_position() + obj1->get_size()/2.0f) - 
                                   (obj2->get_position() + obj2->get_size()/2.0f));
@@ -386,5 +386,28 @@ namespace feed
             return true;
 
         return 0;
+    }
+
+    bool World::line_of_sight(const Enemy* enemy, const Player* player, const EnvironmentObject* env_object)
+    {
+        glm::vec2 point1 enemy->get_position();
+        glm::vec2 point2 player->get_position();
+        glm::vec2 point3 env_object->get_position();
+        glm::vec2 point4 = env_object->get_position() + envobject->get_size();
+
+        float den  = ((point4.y - point3.y) * (point2.x - point1.x) - (point4.x - point3.x) * (point2.y - point1.y));
+        float num1 = ((point4.x - point3.x) * (point1.y - point3.y) - (point4.y - point3.y) * (point1.x - point3.x));
+        float num2 = ((point2.x - point1.x) * (point1.y - point3.y) - (point2.y - point1.y) * (point1.x - point3.x));
+        float u1 = num1/den;
+        floar u2 = num2/den;
+
+        //if (den == 0 and num1 == 0 and num2 == 0)
+        //    return false;
+        if (den == 0)
+            return true;
+        else if (u1 < 0 or u1 > 1 or u2 < 0 or u2 > 1)
+            return true;
+        else
+            return false;
     }
 }

@@ -50,7 +50,8 @@ namespace feed
         void loadEnvironmentObject(const std::string& str);
         void loadInteractableObject(const std::string& str);
 
-        bool collision(Object* obj1, Object* obj2);
+        bool collision(const Object* obj1, const Object* obj2);
+        bool line_of_sight(const Enemy* enemy, const Player* player);
 
         Player* player_ = nullptr;
 
