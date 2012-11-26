@@ -40,7 +40,8 @@ namespace feed
             AUDIO,
             ENVIRONMENT_OBJECT,
             INTERACTABLE_OBJECT,
-            PLAYER
+            PLAYER,
+            ENEMY
         };
 
         std::ifstream is(filename.c_str());
@@ -91,6 +92,12 @@ namespace feed
                 continue;
             }
 
+            if (line == "[enemy]")
+            {
+                category = ENEMY;
+                continue;
+            }
+
             switch (category)
             {
                 case IMAGES:
@@ -113,6 +120,10 @@ namespace feed
                     loadPlayer(line);
                     break;
 
+                case ENEMY:
+                    loadEnemy(line);
+                    break;
+
                 default:
                     break;
             }
@@ -121,6 +132,10 @@ namespace feed
         // om ingen spelare definierats i banfilen, ladda default
         if (player_ == nullptr)
             ;
+
+        std::cout << "Number of enemies: " << enemy_list_.size() << std::endl;
+        std::cout << "Number of envobjs: " << envobject_list_.size() << std::endl;
+        std::cout << "Number of intobjs: " << intobject_list_.size() << std::endl;
     }
 
     World::~World()
@@ -159,7 +174,6 @@ namespace feed
         for (auto intobject : intobject_list_)
             intobject->draw(screen, player_->get_position());
 
-        //player_->draw(screen, player_->get_position() - glm::vec2(screen->w / 3, screen->h / 2));
         player_->draw(screen, player_->get_position());
         //std::cout << "Dt: " << loop << " ms" << std::endl;
     }
@@ -175,22 +189,8 @@ namespace feed
             enemy->update(delta_time);
 
         for (auto i : envobject_list_)
-        {
-            std::cout << "player: " << player_->get_position().x << " " << player_->get_position().y << std::endl;
-            std::cout << "env:    " << i->get_position().x << " " << i->get_position().y << std::endl;
-
             if (collision(player_, i))
                 std::cout << "collision" << std::endl;
-        }
-
-        // kollisionskontroll
-        glm::vec2 player_pos = player_->get_position();
-
-        if (player_pos.y > 400)
-        {
-            player_pos.y = 400;
-            player_->set_position(player_pos);
-        }
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
@@ -306,7 +306,7 @@ namespace feed
             Audio::instance().addMusic(key, filename);
     }
 
-    void World::loadProjectile(const std::string& str)
+    void World::loadProjectile(const std::string&)
     {
 
     }

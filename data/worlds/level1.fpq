@@ -21,9 +21,9 @@ music original-score data/sound/feed01.ogg
 628 628 128 128 0 0 se
 
 [interactable_object]
-health 100 100 50 50 75 health_container
-armor 300 100 50 50 50 armor_container
-checkpoint 400 100 25 25 0 checkpoint
+//health 100 100 50 50 75 health_container
+//armor 300 100 50 50 50 armor_container
+//checkpoint 400 100 25 25 0 checkpoint
 
 [enemy]
 grunt 100 0
