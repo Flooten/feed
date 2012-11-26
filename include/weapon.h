@@ -35,6 +35,9 @@ namespace feed
         int get_type() const;
     	int get_clip() const;
     	int get_ammo() const;
+
+        static Weapon* CreateWeapon(int type, int max_ammo);
+
     private:
         int type_;
     	int rate_of_fire_;

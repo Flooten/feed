@@ -2,7 +2,7 @@
  * FILNAMN:       util.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Mattias Fransson
- * DATUM:         2012-11-16
+ * DATUM:         2012-11-26
  *
  * BESKRIVNING: Allmänna funktioner som inte direkt kan kopplas till en klass.
  *

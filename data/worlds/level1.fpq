@@ -27,7 +27,7 @@ checkpoint 400 100 25 25 0 checkpoint
 
 [enemy]
 grunt 150 23
-sniper 73 250
+heavy 73 250
 
 [player]
-null
+0 0 140 140 0 0 player 100 0 100 100
