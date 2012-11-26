@@ -52,6 +52,7 @@ namespace feed
 
     void Object::draw(SDL_Surface* screen, const glm::vec2& offset)
     {
+
         glm::vec2 off = offset - glm::vec2(screen->w / 3, screen->h / 2);
 
         if (screen != nullptr)
@@ -60,6 +61,8 @@ namespace feed
 
     void Object::update(float delta_time)
     {
+        glm::vec2 gravity(0.0f, 150.0f);
+        velocity_ += gravity * delta_time;
         position_ += velocity_ * delta_time;
     }
 }

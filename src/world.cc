@@ -17,6 +17,7 @@
 #include "armorcontainer.h"
 #include "weaponcontainer.h"
 #include "checkpoint.h"
+#include "collision.h"
 
 #include <iostream>
 #include <sstream>
@@ -188,16 +189,13 @@ namespace feed
         for (auto enemy : enemy_list_)
             enemy->update(delta_time);
 
-        for (auto i : envobject_list_)
-        {
-            if (collision(player_, i))
-                std::cout << "collision" << std::endl;
-            
-            for (auto j : enemy_list_)
-                if (line_of_sight(j, player_, i))
-                    std::cout << "i see you" << std::endl;
-        }
-    } 
+        // for (auto i : envobject_list_)
+        //     if (collision(player_, i))
+        //         std::cout << "collision" << std::endl;
+
+        for (auto envobject : envobject_list_)
+            handleCollision(player_, envobject);
+    }
 
     void World::handleSDLEvent(const SDL_Event& event)
     {
