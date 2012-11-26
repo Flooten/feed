@@ -310,10 +310,15 @@ namespace feed
 
         ss >> type >> position.x >> position.y;
 
+        Enemy* enemy = nullptr;
+
         if (type == "grunt")
-            enemy_list_.push_back(Enemy::CreateGrunt(position));
+            enemy = Enemy::CreateGrunt(position);
         else if (type == "heavy")
-            enemy_list_.push_back(Enemy::CreateHeavy(position));
+            enemy = Enemy::CreateHeavy(position);
+
+        if (enemy != nullptr)
+            enemy_list_.push_back(enemy);
     }
 
     void World::loadPlayer(const std::string& str)
