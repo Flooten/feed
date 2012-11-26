@@ -59,19 +59,19 @@ namespace feed
         setTorsoClip();
     }
 
-    void AnimatedImage::update(unsigned int time)
+    void AnimatedImage::update(float delta_time)
     {
         if (animated)
         {
-            unsigned int elapsed_time = time + image_properties_.last_draw_;
+            float elapsed_time = delta_time + image_properties_.last_draw_;
 
-            if (elapsed_time >= 1000 / FPS)
+            if (elapsed_time >= 1 / FPS)
             {
                 // Dags att byta frame
                 advanceFrame();
 
                 // Uppdatera tiden
-                image_properties_.last_draw_ = elapsed_time - 1000 / FPS;
+                image_properties_.last_draw_ = elapsed_time - 1 / FPS;
             }
             else
             {
@@ -83,6 +83,8 @@ namespace feed
     void AnimatedImage::draw(SDL_Surface* screen, const glm::vec2 position)
     {
         SDL_Rect screen_position_primary = {static_cast<Sint16>(position.x),static_cast<Sint16>(position.y), 0, 0};
+
+        //std::cout << "" << std::endl;
 
         if (animated)
             SDL_BlitSurface(image_, &image_properties_.clip_, screen, &screen_position_primary);

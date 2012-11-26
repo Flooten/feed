@@ -27,13 +27,13 @@ namespace feed
         void setTopFrame(unsigned int index);
         void setTopRotation(unsigned int index);
 
-        void update(unsigned int time);
+        void update(float delta_time);
         void draw(SDL_Surface* screen, const glm::vec2 position);
 
     private:
         struct AnimationProperties
         {
-            unsigned int last_draw_ = 0;                 // Tid sedan senaste utritning
+            float last_draw_ = 0;                        // Tid sedan senaste utritning
             unsigned short int frame_width_ = 0;
             unsigned short int frame_height_ = 0;
             unsigned short int nof_animations_ = 0;
@@ -47,7 +47,7 @@ namespace feed
         SDL_Surface* top_image_ = nullptr;               // Används för mer komplicerade strukturer
         
         bool animated = false;
-        const unsigned int FPS = 15;
+        const float FPS = 15;
         AnimationProperties image_properties_;
         AnimationProperties top_image_properties_;
 

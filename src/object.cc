@@ -10,6 +10,7 @@
 
 #include "object.h"
 #include "util.h"
+#include <iostream>
 
 namespace feed
 {
@@ -82,6 +83,8 @@ namespace feed
     {
         position_.x += velocity_.x * delta_time;
         position_.y += velocity_.y * delta_time;
+
+        std::cout << "Elapsed time: " << delta_time << std::endl;
 
         if (image_ != nullptr)
             image_->update(delta_time);

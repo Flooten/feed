@@ -255,7 +255,6 @@ namespace feed
             {
                 if (event.button.button == SDL_BUTTON_LEFT)
                 {
-                    std::cout << "Button" << std::endl;
                     // Testar projektilskapning
                     glm::vec2 position = player_->get_center();
 
@@ -263,7 +262,7 @@ namespace feed
                     position.y -= 128 / 2;
 
                     glm::vec2 velocity = player_->get_aim();
-                    velocity *= 0.6;
+                    velocity *= 100;
 
                     projectile_list_.push_back(new Projectile(position, glm::vec2(128, 128), velocity, Resources::instance().getImage("fireball"), 30));
                     projectile_list_.back()->setAnimated(2, 6);
@@ -294,12 +293,12 @@ namespace feed
                         break;
 
                     case SDLK_d:
-                        player_->set_velocity(glm::vec2(0.3, 0));
+                        player_->set_velocity(glm::vec2(30, 0));
                         player_->setAnimation(Player::WALKING_RIGHT);
                         break;
 
                     case SDLK_a:
-                        player_->set_velocity(glm::vec2(-0.3, 0));
+                        player_->set_velocity(glm::vec2(-30, 0));
                         player_->setAnimation(Player::WALKING_LEFT);
                         break;
 
@@ -319,10 +318,14 @@ namespace feed
                     case SDLK_DOWN:
                         break;
 
-                    case SDLK_RIGHT:
+                    case SDLK_d:
+                        player_->set_velocity(glm::vec2(0, 0));
+                        player_->setAnimation(Player::STATIONARY_RIGHT);
                         break;
 
-                    case SDLK_LEFT:
+                    case SDLK_a:
+                        player_->set_velocity(glm::vec2(0, 0));
+                        player_->setAnimation(Player::STATIONARY_LEFT);
                         break;
 
                     default:
