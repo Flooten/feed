@@ -2,7 +2,8 @@
  * FILNAMN:       enemy.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
- * DATUM:         2012-11-18
+ *                Mattias Fransson
+ * DATUM:         2012-11-26
  *
  * BESKRIVNING: Denna klass definierar en fiende. Ärver från Character
  *
@@ -22,12 +23,17 @@ namespace feed
     {
     public:
         Enemy(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity,
-                  SDL_Surface* image, int hitpoints, int armor, int max_health, int max_armor, Weapon& weapon);
+                  SDL_Surface* image, int hitpoints, int armor, int max_health, int max_armor, int weapon_type);
+
+        ~Enemy();
 
         void fire();
 
+        static Enemy* CreateGrunt(const glm::vec2& position);
+        static Enemy* CreateHeavy(const glm::vec2& position);
+
     private:
-        Weapon weapon_;
+        Weapon* weapon_;
     };
 }
 

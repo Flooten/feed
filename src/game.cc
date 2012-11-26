@@ -117,6 +117,10 @@ namespace feed
         Resources::instance().addImage("button_quit_game", "data/gfx/button_quit_game.png");
         Resources::instance().addImage("button_credits", "data/gfx/button_credits.png");
 
+        // Allmänna fiender
+        Resources::instance().addImage("enemy-grunt", "data/armor.png");
+        Resources::instance().addImage("enemy-heavy", "data/lightbulb.png");
+
         Audio::instance().addSoundFx("fire", "data/high.wav");
         Audio::instance().addMusic("menu_music", "data/sound/feed01.ogg");
     }

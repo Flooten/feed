@@ -7,6 +7,8 @@
  */
 
 #include "weapon.h"
+#include "resources.h"
+#include "messagequeue.h"
 
 namespace feed
 {
@@ -68,5 +70,17 @@ namespace feed
     int Weapon::get_ammo() const
     {
     	return ammo_;
+    }
+
+    Weapon* Weapon::CreateWeapon(int type, int max_ammo)
+    {
+        switch (type)
+        {
+            case WeaponType::SMG:
+                return new Weapon(type, 754, 0, 20, max_ammo, 5, Resources::instance()["weapon-smg"]);
+
+            default:
+                return nullptr;
+        }
     }
 }

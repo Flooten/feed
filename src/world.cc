@@ -117,6 +117,10 @@ namespace feed
                     break;
             }
         }
+
+        // om ingen spelare definierats i banfilen, ladda default
+        if (player_ == nullptr)
+            ;
     }
 
     World::~World()
@@ -187,8 +191,6 @@ namespace feed
             player_pos.y = 400;
             player_->set_position(player_pos);
         }
-
-        //camera += camera_velocity * static_cast<float>(delta_time);
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
@@ -278,17 +280,13 @@ namespace feed
 
     void World::loadImage(const std::string& str)
     {
-        // std::string::size_type find = str.find(" ");
-
-        // std::string key = str.substr(0, find);
-        // std::string filename = str.substr(find + 1);
-
         std::stringstream ss(str);
         std::string key;
         std::string filename;
 
         ss >> key >> filename;
 
+        // göra nått här?
         if (!Resources::instance().addImage(key, filename))
             return;
     }
@@ -315,22 +313,46 @@ namespace feed
 
     void World::loadEnemy(const std::string& str)
     {
-        // fiendetyper?
+        std::stringstream ss(str);
+        std::string type;
+        glm::vec2 position;
+
+        ss >> type >> position.x >> position.y;
+
+        Enemy* enemy = nullptr;
+
+        if (type == "grunt")
+            enemy = Enemy::CreateGrunt(position);
+        else if (type == "heavy")
+            enemy = Enemy::CreateHeavy(position);
+
+        if (enemy != nullptr)
+            enemy_list_.push_back(enemy);
     }
 
     void World::loadPlayer(const std::string& str)
     {
-        if (player_ == nullptr)
-        {
-            player_ = new Player(glm::vec2(512 - 70, 238 - 70),
-                                 glm::vec2(140, 140),
-                                 glm::vec2(0, 0),
-                                 Resources::instance()["player"],
-                                 100,
-                                 0,
-                                 100,
-                                 100);
-        }
+        if (player_ != nullptr)
+            delete player_;
+
+        std::stringstream ss(str);
+        glm::vec2 position;
+        glm::vec2 size;
+        glm::vec2 velocity;
+        std::string image;
+        int health;
+        int armor;
+        int max_health;
+        int max_armor;
+
+        ss >> position.x >> position.y
+           >> size.x >> size.y
+           >> velocity.x >> velocity.y
+           >> image
+           >> health >> armor
+           >> max_health >> max_armor;
+
+        player_ = new Player(position, size, velocity, Resources::instance()[image], health, armor, max_health, max_armor);
     }
 
     void World::loadEnvironmentObject(const std::string& str)

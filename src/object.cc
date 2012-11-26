@@ -60,9 +60,6 @@ namespace feed
 
     void Object::update(float delta_time)
     {
-        static glm::vec2 gravity(0.0f, 50.0f);
-
-        velocity_ += gravity * delta_time;
         position_ += velocity_ * delta_time;
     }
 }
