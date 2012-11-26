@@ -38,14 +38,14 @@ namespace feed
     {
         std::cout << "Loading world " << filename << std::endl;
         player_ = new Player(glm::vec2(350, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("legs"), 100, 100, 100, 100);
-        player_->setAnimated(2, 8);
+        player_->setAnimated(4, 8);
         player_->setTorsoSheet(Resources::instance().getImage("torso"), 2, 25);
 
         envobject_list_.push_back(new EnvironmentObject(glm::vec2(600, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire")));
         envobject_list_.back()->setAnimated(1, 6);
 
-        projectile_list_.push_back(new Projectile(glm::vec2(200, 340), glm::vec2(128, 128), glm::vec2(1, 0), Resources::instance().getImage("fireball"), 20));
-        projectile_list_.back()->setAnimated(1, 6);
+        //projectile_list_.push_back(new Projectile(glm::vec2(200, 340), glm::vec2(128, 128), glm::vec2(1, 0), Resources::instance().getImage("fireball"), 20));
+        //projectile_list_.back()->setAnimated(1, 6);
 
         enum
         {
@@ -185,10 +185,38 @@ namespace feed
         {
             case SDL_MOUSEMOTION:
             {
+                // Origo
                 glm::vec2 position = player_->get_position();
                 position.x += player_->get_size().x / 2;
                 position.y += player_->get_size().y / 2;
-                player_->set_aim(glm::vec2(event.motion.x- position.x, event.motion.y - position.y));
+
+                glm::vec2 aim_vec(event.motion.x - position.x, event.motion.y - position.y);
+
+                glm::vec2 player_aim = player_->get_aim();
+
+                float player_velocity_x = player_->get_velocity().x;
+
+                if ((aim_vec.x < 0) && (player_aim.x >= 0))
+                {
+                    // Höger till vänster
+                    // Hämta spelarens hastighet i x-led
+
+                    if (player_velocity_x == 0)
+                        player_->setAnimation(Player::STATIONARY_LEFT);
+                    else
+                        player_->setAnimation(Player::WALKING_LEFT);
+                }
+                else if ((aim_vec.x >= 0) && (player_aim.x < 0))
+                {   
+                    // Vänster till höger
+
+                    if (player_velocity_x == 0)
+                        player_->setAnimation(Player::STATIONARY_RIGHT);
+                    else
+                        player_->setAnimation(Player::WALKING_RIGHT);
+                }
+
+                player_->set_aim(aim_vec);
                 break;
             }
 
@@ -207,11 +235,14 @@ namespace feed
                         break;
 
                     case SDLK_RIGHT:
-                        player_->setAnimation(Player::STATIONARY_RIGHT);
+                        player_->set_velocity(glm::vec2(0.3, 0));
+                        player_->setAnimation(Player::WALKING_RIGHT);
                         break;
 
                     case SDLK_LEFT:
-                        player_->setAnimation(Player::STATIONARY_LEFT);
+                        player_->set_velocity(glm::vec2(-0.3, 0));
+                        player_->setAnimation(Player::WALKING_LEFT);
+                        break;
 
                     default:
                         break;

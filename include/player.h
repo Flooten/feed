@@ -33,7 +33,9 @@ namespace feed
         enum Animation
         {
             STATIONARY_RIGHT,
-            STATIONARY_LEFT
+            STATIONARY_LEFT,
+            WALKING_RIGHT,
+            WALKING_LEFT
         };        
 
         void setAnimation(Animation animation);

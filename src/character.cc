@@ -2,6 +2,7 @@
  * FILNAMN:       character.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
+                  Marcus Eriksson   910322-1371     Y3A
  * DATUM:         2012-11-15
  */
 
@@ -27,12 +28,20 @@ namespace feed
         , max_armor_(max_armor)
     {}
 
+    namespace
+    {
+        const float PI = 3.14159;
+        const int ZERO_DEG_FRAME = 18;
+    }
+
     void Character::set_aim(glm::vec2 aim)
     {
         aim_ = aim;
-        //std::cout << "Angle: " << atan(aim_.y / aim_.x) * 180 / 3.14159 << std::endl;
-        //std::cout << 18 + ceil((atan(aim_.y / aim_.x) * 180 / 3.14159) / 5) << std::endl;
-        image_->setTorsoFrame(18 + ceil((atan(aim_.y / aim_.x) * 180 / 3.14159)) / 5);
+
+        if (aim.x >= 0)
+            image_->setTorsoFrame(ZERO_DEG_FRAME + ceil((atan(aim_.y / aim_.x) * 180 / PI)) / 5);
+        else
+            image_->setTorsoFrame(ZERO_DEG_FRAME + ceil((atan(aim_.y / -(aim_.x)) * 180 / PI)) / 5);
     }
 
     glm::vec2 Character::get_aim() const
