@@ -20,10 +20,17 @@ namespace feed
                            int damage)
         : Object(position, size, velocity, image)
         , damage_(damage)
-    {}
+    {
+        setDirection(RIGHT);
+    }
 
     int Projectile::get_damage() const
     {
         return damage_;
+    }
+
+    void Projectile::setDirection(Direction direction)
+    {
+        image_->setAnimation(direction);
     }
 }

@@ -30,6 +30,14 @@ namespace feed
         // Getters
         int get_damage() const;
 
+        enum Direction
+        {
+            RIGHT,
+            LEFT
+        };
+
+        void setDirection(Direction direction);
+
     private:
         int damage_;
     };

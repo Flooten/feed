@@ -13,6 +13,12 @@
 
 namespace feed
 {
+    namespace
+    {
+        const float PI = 3.14159;
+        const int ZERO_DEG_FRAME = 18;
+    }
+
     Character::Character(const glm::vec2& position,
                          const glm::vec2& size,
                          const glm::vec2& velocity,
@@ -26,22 +32,21 @@ namespace feed
         , armor_(armor)
         , max_health_(max_health)
         , max_armor_(max_armor)
-    {}
-
-    namespace
     {
-        const float PI = 3.14159;
-        const int ZERO_DEG_FRAME = 18;
+        image_->setTopFrame(ZERO_DEG_FRAME);
     }
 
     void Character::set_aim(glm::vec2 aim)
     {
-        aim_ = aim;
+        aim_ = glm::normalize(aim);
+
+        // Normering
+        //aim_ /= aim_.length();
 
         if (aim.x >= 0)
-            image_->setTorsoFrame(ZERO_DEG_FRAME + ceil((atan(aim_.y / aim_.x) * 180 / PI)) / 5);
+            image_->setTopFrame(ZERO_DEG_FRAME + ceil((atan(aim_.y / aim_.x) * 180 / PI)) / 5);
         else
-            image_->setTorsoFrame(ZERO_DEG_FRAME + ceil((atan(aim_.y / -(aim_.x)) * 180 / PI)) / 5);
+            image_->setTopFrame(ZERO_DEG_FRAME + ceil((atan(aim_.y / -(aim_.x)) * 180 / PI)) / 5);
     }
 
     glm::vec2 Character::get_aim() const

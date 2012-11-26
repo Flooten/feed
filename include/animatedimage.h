@@ -22,11 +22,10 @@ namespace feed
 
         void setAnimation(unsigned int index);
         void setAnimated(unsigned int nof_animations, unsigned int nof_frames);
-        void addTorsoSheet(SDL_Surface* sheet, unsigned int nof_animations, unsigned int nof_frames);
-        void setTorsoFrame(unsigned int index);
-        void setTorsoRotation(unsigned int index);
-        void advanceTorsoFrame();
-        void retreatTorsoFrame();
+
+        void addTopImage(SDL_Surface* sheet, unsigned int nof_animations, unsigned int nof_frames);
+        void setTopFrame(unsigned int index);
+        void setTopRotation(unsigned int index);
 
         void update(unsigned int time);
         void draw(SDL_Surface* screen, const glm::vec2 position);
@@ -34,7 +33,7 @@ namespace feed
     private:
         struct AnimationProperties
         {
-            unsigned int last_draw_ = 0;                    // Tid sedan senaste utritning
+            unsigned int last_draw_ = 0;                 // Tid sedan senaste utritning
             unsigned short int frame_width_ = 0;
             unsigned short int frame_height_ = 0;
             unsigned short int nof_animations_ = 0;
@@ -44,16 +43,15 @@ namespace feed
             SDL_Rect clip_ = {0, 0, 0, 0};
         };
 
-        SDL_Surface* image_sheet_primary_ = nullptr;
-        SDL_Surface* image_sheet_secondary_ = nullptr;  // Används för mer komplicerade strukturer
+        SDL_Surface* image_ = nullptr;
+        SDL_Surface* top_image_ = nullptr;               // Används för mer komplicerade strukturer
         
         bool animated = false;
         const unsigned int FPS = 15;
-        AnimationProperties primary_;
-        AnimationProperties secondary_;
+        AnimationProperties image_properties_;
+        AnimationProperties top_image_properties_;
 
         void advanceFrame();
         void setTorsoClip();
-
     };
 }

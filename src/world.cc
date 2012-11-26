@@ -28,10 +28,12 @@ namespace feed
     World::World()
     {
         std::cout << "World " << this << " online" << std::endl;
-        //player_ = new Player(glm::vec2(500, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("player"), 100, 100, 100, 100, 4, 8);
-        //envobject_list_.push_back(new EnvironmentObject(glm::vec2(600, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire"), 1, 6));
-        //envobject_list_.push_back(new EnvironmentObject(glm::vec2(200, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fireball"), 1, 6));
-        //projectile_list_.push_back(new Projectile(glm::vec2(200, 250), glm::vec2(128, 128), glm::vec2(0.1, 0), Resources::instance().getImage("fireball"), 20, 1, 6));
+        player_ = new Player(glm::vec2(350, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("legs"), 100, 100, 100, 100);
+        player_->setAnimated(4, 8);
+        player_->setTopImage(Resources::instance().getImage("torso"), 2, 25);
+
+        envobject_list_.push_back(new EnvironmentObject(glm::vec2(600, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire")));
+        envobject_list_.back()->setAnimated(1, 6);
     }
 
     World::World(const std::string& filename)
@@ -39,13 +41,10 @@ namespace feed
         std::cout << "Loading world " << filename << std::endl;
         player_ = new Player(glm::vec2(350, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("legs"), 100, 100, 100, 100);
         player_->setAnimated(4, 8);
-        player_->setTorsoSheet(Resources::instance().getImage("torso"), 2, 25);
+        player_->setTopImage(Resources::instance().getImage("torso"), 2, 25);
 
         envobject_list_.push_back(new EnvironmentObject(glm::vec2(600, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire")));
         envobject_list_.back()->setAnimated(1, 6);
-
-        //projectile_list_.push_back(new Projectile(glm::vec2(200, 340), glm::vec2(128, 128), glm::vec2(1, 0), Resources::instance().getImage("fireball"), 20));
-        //projectile_list_.back()->setAnimated(1, 6);
 
         enum
         {
@@ -146,19 +145,19 @@ namespace feed
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
         if (player_ != nullptr)
-            player_->draw(screen, glm::vec2(0,0));//player_->get_position() - glm::vec2(screen->w * 0.382, screen->h * 0.618));
+            player_->draw(screen, player_->get_position());
 
         for (auto projectile : projectile_list_)
-            projectile->draw(screen, glm::vec2(0,0));//player_->get_position());
+            projectile->draw(screen, player_->get_position());
 
         for (auto enemy : enemy_list_)
-            enemy->draw(screen, glm::vec2(0,0));//player_->get_position());
+            enemy->draw(screen, player_->get_position());
 
         for (auto envobject : envobject_list_)
-            envobject->draw(screen, glm::vec2(0,0));//player_->get_position());
+            envobject->draw(screen, player_->get_position());
 
         for (auto intobject : intobject_list_)
-            intobject->draw(screen, glm::vec2(0,0));//player_->get_position());
+            intobject->draw(screen, player_->get_position());
     }
 
     void World::update(Uint32 delta_time)
@@ -186,20 +185,21 @@ namespace feed
             case SDL_MOUSEMOTION:
             {
                 // Origo
-                glm::vec2 position = player_->get_position();
-                position.x += player_->get_size().x / 2;
-                position.y += player_->get_size().y / 2;
+                glm::vec2 position = glm::vec2(util::PLAYER_OFFSET_X + player_->get_size().x / 2,
+                                               util::PLAYER_OFFSET_Y + player_->get_size().y / 2);
 
+                // Genererad aim-vektor
                 glm::vec2 aim_vec(event.motion.x - position.x, event.motion.y - position.y);
 
+                // Spelarens nuvarande aim-vektor
                 glm::vec2 player_aim = player_->get_aim();
 
+                // Spelarens hastighet i x-led
                 float player_velocity_x = player_->get_velocity().x;
 
                 if ((aim_vec.x < 0) && (player_aim.x >= 0))
                 {
                     // Höger till vänster
-                    // Hämta spelarens hastighet i x-led
 
                     if (player_velocity_x == 0)
                         player_->setAnimation(Player::STATIONARY_LEFT);
@@ -216,7 +216,33 @@ namespace feed
                         player_->setAnimation(Player::WALKING_RIGHT);
                 }
 
+                // Uppdatera spelares aim-vektor
                 player_->set_aim(aim_vec);
+                break;
+            }
+
+            case SDL_MOUSEBUTTONDOWN:
+            {
+                if (event.button.button == SDL_BUTTON_LEFT)
+                {
+                    // Testar projektilskapning
+                    glm::vec2 position = player_->get_center();
+
+                    position.x -= 128 / 2;
+                    position.y -= 128 / 2;
+
+                    glm::vec2 velocity = player_->get_aim();
+                    velocity *= 0.6;
+
+                    projectile_list_.push_back(new Projectile(position, glm::vec2(128, 128), velocity, Resources::instance().getImage("fireball"), 30));
+                    projectile_list_.back()->setAnimated(2, 6);
+
+                    if (velocity.x < 0)
+                        projectile_list_.back()->setDirection(Projectile::LEFT);
+                    else
+                        projectile_list_.back()->setDirection(Projectile::RIGHT);
+                }
+
                 break;
             }
 
@@ -234,12 +260,12 @@ namespace feed
                     case SDLK_DOWN:
                         break;
 
-                    case SDLK_RIGHT:
+                    case SDLK_d:
                         player_->set_velocity(glm::vec2(0.3, 0));
                         player_->setAnimation(Player::WALKING_RIGHT);
                         break;
 
-                    case SDLK_LEFT:
+                    case SDLK_a:
                         player_->set_velocity(glm::vec2(-0.3, 0));
                         player_->setAnimation(Player::WALKING_LEFT);
                         break;
@@ -252,6 +278,9 @@ namespace feed
 
             case SDL_KEYUP:
             {
+                // Ögonblicksbild av tangentbordet
+                Uint8* keystate = SDL_GetKeyState(nullptr);
+
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_UP:
@@ -260,14 +289,26 @@ namespace feed
                     case SDLK_DOWN:
                         break;
 
-                    case SDLK_RIGHT:
-                        player_->set_velocity(glm::vec2(0, 0));
-                        player_->setAnimation(Player::STATIONARY_RIGHT);
+                    case SDLK_d:
+                        if (!keystate[SDLK_a])
+                        {
+                            player_->set_velocity(glm::vec2(0, 0));
+                            if (player_->get_aim().x < 0)
+                                player_->setAnimation(Player::STATIONARY_LEFT);
+                            else
+                                player_->setAnimation(Player::STATIONARY_RIGHT);
+                        }
                         break;
 
-                    case SDLK_LEFT:
-                        player_->set_velocity(glm::vec2(0, 0));
-                        player_->setAnimation(Player::STATIONARY_LEFT);
+                    case SDLK_a:
+                        if (!keystate[SDLK_d])
+                        {
+                            player_->set_velocity(glm::vec2(0, 0));
+                            if (player_->get_aim().x < 0)
+                                player_->setAnimation(Player::STATIONARY_LEFT);
+                            else
+                                player_->setAnimation(Player::STATIONARY_RIGHT);
+                        }
                         break;
 
                     default:

@@ -20,6 +20,10 @@ namespace feed
 {
     namespace util
     {
+        // util-konstanter
+
+        const int PLAYER_OFFSET_X = 1024 * 0.382;
+        const int PLAYER_OFFSET_Y = 576 * 0.618;
         // Strängmanipulation
         std::string getFileExtension(const std::string& filename);
 

@@ -39,8 +39,6 @@ namespace feed
         };        
 
         void setAnimation(Animation animation);
-        void increaseAim();
-        void decreaseAim();
         void addWeapon(Weapon& weapon);
         void add_health(int value);
         int get_inventory_index() const;

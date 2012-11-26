@@ -30,7 +30,6 @@ namespace feed
                     max_armor)
     {
         setAnimation(STATIONARY_RIGHT);
-        image_->setTorsoFrame(18);
     }
 
     void Player::add_health(int value)
@@ -71,16 +70,6 @@ namespace feed
     {
         image_->setAnimation(animation);
 
-        image_->setTorsoRotation(animation % 2);
+        image_->setTopRotation(animation % 2);
     }
-
-    void Player::increaseAim()
-    {
-        image_->advanceTorsoFrame();
-    }
-
-    void Player::decreaseAim()
-    {
-        image_->retreatTorsoFrame();
-    }
- }
+}
