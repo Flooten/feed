@@ -43,4 +43,4 @@ inventory på X: 600-1000 Y: 500-550
         envobject_list_.push_back(new EnvironmentObject(glm::vec2(100, 100),
                                                         glm::vec2(64, 64),
                                                         glm::vec2(0, 0),
-                                                        Resources::instance()["nw"]));
+                                                        Resources::instance()["nw"]));*/

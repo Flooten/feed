@@ -22,7 +22,10 @@ namespace feed
     class EnvironmentObject : public Object
     {
     public:
-        EnvironmentObject(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity, SDL_Surface* image);
+        EnvironmentObject(const glm::vec2& position,
+                          const glm::vec2& size,
+                          const glm::vec2& velocity,
+                          SDL_Surface* image);
 
         // Getters
         glm::vec2 get_boundary_start() const;

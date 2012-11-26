@@ -21,7 +21,10 @@ namespace feed
     class WeaponContainer : public InteractableObject
     {
     public:
-        WeaponContainer(const glm::vec2& position, const glm::vec2& size, SDL_Surface* image, int weapon_type);
+        WeaponContainer(const glm::vec2& position,
+                        const glm::vec2& size,
+                        SDL_Surface* image,
+                        int weapon_type);
 
         virtual void eventFunction() override final;
     private:

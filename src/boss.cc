@@ -10,11 +10,25 @@
 
 namespace feed
 {
-    Boss::Boss(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity,
-                SDL_Surface* image, int hitpoints, int armor, int max_health, int max_armor, Inventory& inventory)
-                    : Character(position, size, velocity, image, hitpoints, armor, max_health, max_armor)
-                    , inventory_(inventory)
-                    {}
+    Boss::Boss(const glm::vec2& position,
+               const glm::vec2& size,
+               const glm::vec2& velocity,
+               SDL_Surface* image,
+               int hitpoints,
+               int armor,
+               int max_health,
+               int max_armor,
+               Inventory& inventory)
+        : Character(position,
+                    size,
+                    velocity,
+                    image,
+                    hitpoints,
+                    armor,
+                    max_health,
+                    max_armor)
+        , inventory_(inventory)
+    {}
 
     int Boss::get_inventory_index() const
     {

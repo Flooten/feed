@@ -30,9 +30,13 @@ namespace feed
         // Getters
         int get_damage() const;
 
-        // Överskuggning
-        //void draw(SDL_Surface* screen) override final;  // Möjligt med const?
-        void update(unsigned int time);
+        enum Direction
+        {
+            RIGHT,
+            LEFT
+        };
+
+        void setDirection(Direction direction);
 
     private:
         int damage_;

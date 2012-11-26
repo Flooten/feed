@@ -21,9 +21,24 @@ namespace feed
     class Player : public Character
     {
     public:
-        Player(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity,
-                  SDL_Surface* image, int hitpoints, int armor, int max_health, int max_armor);
+        Player(const glm::vec2& position,
+               const glm::vec2& size,
+               const glm::vec2& velocity,
+               SDL_Surface* image,
+               int hitpoints,
+               int armor,
+               int max_health,
+               int max_armor);
 
+        enum Animation
+        {
+            STATIONARY_RIGHT,
+            STATIONARY_LEFT,
+            WALKING_RIGHT,
+            WALKING_LEFT
+        };        
+
+        void setAnimation(Animation animation);
         void addWeapon(Weapon& weapon);
         void add_health(int value);
         int get_inventory_index() const;

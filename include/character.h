@@ -15,13 +15,21 @@
 #include <SDL/SDL.h>
 #include "object.h"
 
+#include <vector>
+
 namespace feed
 {
     class Character : public Object
     {
     public:
-        Character(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity,
-                  SDL_Surface* image, int hitpoints, int armor, int max_health, int max_armor);
+        Character(const glm::vec2& position,
+                  const glm::vec2& size,
+                  const glm::vec2& velocity,
+                  SDL_Surface* image,
+                  int hitpoints,
+                  int armor,
+                  int max_health,
+                  int max_armor);
 
         void set_aim(glm::vec2 aim);
         glm::vec2 get_aim() const;

@@ -11,7 +11,10 @@
 
 namespace feed
 {
-    EnvironmentObject::EnvironmentObject(const glm::vec2& position, const glm::vec2& size, const glm::vec2& velocity, SDL_Surface* image)
+    EnvironmentObject::EnvironmentObject(const glm::vec2& position,
+                                         const glm::vec2& size,
+                                         const glm::vec2& velocity,
+                                         SDL_Surface* image)
         : Object(position, size, velocity, image)
     {}
 
@@ -37,12 +40,6 @@ namespace feed
     {
         boundary_end_ = boundary_end;
     }
-
-    // void EnvironmentObject::draw(SDL_Surface* screen, const glm::vec2& offset)
-    // {
-    //     if (image_ != nullptr)
-    //         util::blitSurface(image_, size_, screen, position_ - offset);
-    // }
 
     void EnvironmentObject::update(unsigned int time)
     {

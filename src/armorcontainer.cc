@@ -11,7 +11,10 @@
 
 namespace feed
 {
-    ArmorContainer::ArmorContainer(const glm::vec2& position, const glm::vec2& size, SDL_Surface* image, int armor_value)
+    ArmorContainer::ArmorContainer(const glm::vec2& position,
+                                   const glm::vec2& size,
+                                   SDL_Surface* image,
+                                   int armor_value)
         : InteractableObject(position, size, image)
         , armor_value_(armor_value)
     {}

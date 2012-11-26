@@ -73,7 +73,6 @@ namespace feed
 
             // AI
             // Kollision
-
             game_state_.top()->update(delta_time);
             game_state_.top()->draw(screen_);
 
@@ -107,6 +106,10 @@ namespace feed
     {
         Resources::instance().addImage("screen_bg", "data/piratesandfaggots.jpg");
         Resources::instance().addImage("menu_bg", "data/duke.bmp");
+        Resources::instance().addImage("legs", "data/gfx/legs.png");
+        Resources::instance().addImage("torso", "data/gfx/torso.png");
+        Resources::instance().addImage("fire", "data/gfx/fire.png");
+        Resources::instance().addImage("fireball", "data/gfx/fireball.png");
 
         // Menybilder
         Resources::instance().addImage("menu_background", "data/gfx/menu_background.png");
@@ -147,7 +150,8 @@ namespace feed
         if (current_world_ >= world_list_.size())
             return;
 
-        game_state_.push(new World(world_list_[current_world_]));
+        game_state_.push(new World);
+        //game_state_.push(new World(world_list_[current_world_]));
     }
 
     void Game::handleSDLEvent(const SDL_Event& event)

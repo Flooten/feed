@@ -11,7 +11,10 @@
 
 namespace feed
 {
-    HealthContainer::HealthContainer(const glm::vec2& position, const glm::vec2& size, SDL_Surface* image, int health_value)
+    HealthContainer::HealthContainer(const glm::vec2& position,
+                                     const glm::vec2& size,
+                                     SDL_Surface* image,
+                                     int health_value)
         : InteractableObject(position, size, image)
         , health_value_(health_value)
     {}

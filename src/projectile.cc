@@ -18,24 +18,17 @@ namespace feed
                            int damage)
         : Object(position, size, velocity, image)
         , damage_(damage)
-    {}
+    {
+        setDirection(RIGHT);
+    }
 
     int Projectile::get_damage() const
     {
         return damage_;
     }
 
-    // void Projectile::draw(SDL_Surface* screen)
-    // {
-    //     if (image_ != nullptr)
-    //     {
-    //         util::blitSurface(image_, screen, position_.x, position_.y);
-    //     }
-    // }
-
-    void Projectile::update(unsigned int time)
+    void Projectile::setDirection(Direction direction)
     {
-        position_.x += velocity_.x * time;
-        position_.y += velocity_.y * time;
+        image_->setAnimation(direction);
     }
 }

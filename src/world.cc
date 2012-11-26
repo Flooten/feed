@@ -18,6 +18,8 @@
 #include "weaponcontainer.h"
 #include "checkpoint.h"
 
+#include "camera.h"
+
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -28,11 +30,23 @@ namespace feed
     World::World()
     {
         std::cout << "World " << this << " online" << std::endl;
+        player_ = new Player(glm::vec2(350, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("legs"), 100, 100, 100, 100);
+        player_->setAnimated(4, 8);
+        player_->setTopImage(Resources::instance().getImage("torso"), 2, 25);
+
+        envobject_list_.push_back(new EnvironmentObject(glm::vec2(600, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire")));
+        envobject_list_.back()->setAnimated(1, 6);
     }
 
     World::World(const std::string& filename)
     {
         std::cout << "Loading world " << filename << std::endl;
+        player_ = new Player(glm::vec2(350, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("legs"), 100, 100, 100, 100);
+        player_->setAnimated(4, 8);
+        player_->setTopImage(Resources::instance().getImage("torso"), 2, 25);
+
+        envobject_list_.push_back(new EnvironmentObject(glm::vec2(600, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire")));
+        envobject_list_.back()->setAnimated(1, 6);
 
         enum
         {
@@ -162,6 +176,9 @@ namespace feed
         // Rensa screen
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
+        if (player_ != nullptr)
+            player_->draw(screen, player_->get_position());
+
         for (auto projectile : projectile_list_)
             projectile->draw(screen, player_->get_position());
 
@@ -173,30 +190,94 @@ namespace feed
 
         for (auto intobject : intobject_list_)
             intobject->draw(screen, player_->get_position());
-
-        player_->draw(screen, player_->get_position());
-        //std::cout << "Dt: " << loop << " ms" << std::endl;
     }
 
     void World::update(float delta_time)
     {
-        player_->update(delta_time);
-
         for (auto projectile : projectile_list_)
             projectile->update(delta_time);
 
         for (auto enemy : enemy_list_)
             enemy->update(delta_time);
 
-        for (auto i : envobject_list_)
-            if (collision(player_, i))
-                std::cout << "collision" << std::endl;
+        for (auto envobject : envobject_list_)
+            envobject->update(delta_time);
+
+        for (auto intobject : intobject_list_)
+            intobject->update(delta_time);
+
+        if (player_ != nullptr)
+            player_->update(delta_time);
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
     {
         switch (event.type)
         {
+            case SDL_MOUSEMOTION:
+            {
+                // Origo
+                glm::vec2 position = glm::vec2(util::PLAYER_OFFSET_X + player_->get_size().x / 2,
+                                               util::PLAYER_OFFSET_Y + player_->get_size().y / 2);
+
+                // Genererad aim-vektor
+                glm::vec2 aim_vec(event.motion.x - position.x, event.motion.y - position.y);
+
+                // Spelarens nuvarande aim-vektor
+                glm::vec2 player_aim = player_->get_aim();
+
+                // Spelarens hastighet i x-led
+                float player_velocity_x = player_->get_velocity().x;
+
+                if ((aim_vec.x < 0) && (player_aim.x >= 0))
+                {
+                    // Höger till vänster
+
+                    if (player_velocity_x == 0)
+                        player_->setAnimation(Player::STATIONARY_LEFT);
+                    else
+                        player_->setAnimation(Player::WALKING_LEFT);
+                }
+                else if ((aim_vec.x >= 0) && (player_aim.x < 0))
+                {   
+                    // Vänster till höger
+
+                    if (player_velocity_x == 0)
+                        player_->setAnimation(Player::STATIONARY_RIGHT);
+                    else
+                        player_->setAnimation(Player::WALKING_RIGHT);
+                }
+
+                // Uppdatera spelares aim-vektor
+                player_->set_aim(aim_vec);
+                break;
+            }
+
+            case SDL_MOUSEBUTTONDOWN:
+            {
+                if (event.button.button == SDL_BUTTON_LEFT)
+                {
+                    // Testar projektilskapning
+                    glm::vec2 position = player_->get_center();
+
+                    position.x -= 128 / 2;
+                    position.y -= 128 / 2;
+
+                    glm::vec2 velocity = player_->get_aim();
+                    velocity *= 0.6;
+
+                    projectile_list_.push_back(new Projectile(position, glm::vec2(128, 128), velocity, Resources::instance().getImage("fireball"), 30));
+                    projectile_list_.back()->setAnimated(2, 6);
+
+                    if (velocity.x < 0)
+                        projectile_list_.back()->setDirection(Projectile::LEFT);
+                    else
+                        projectile_list_.back()->setDirection(Projectile::RIGHT);
+                }
+
+                break;
+            }
+
             case SDL_KEYDOWN:
             {
                 switch (event.key.keysym.sym)
@@ -206,24 +287,21 @@ namespace feed
                         break;
 
                     case SDLK_UP:
-                    {
-                        glm::vec2 vel = player_->get_velocity();
-                        vel.y = -100.0f;
-                        player_->set_velocity(vel);
-                    }
+                        
                         break;
 
                     case SDLK_DOWN:
-                        //camera_velocity.y = 0.05f;
+                       
                         break;
 
-                    case SDLK_RIGHT:
-                        player_->set_velocity(glm::vec2(100.0f, 0.0f));
+                    case SDLK_d:
+                        player_->set_velocity(glm::vec2(0.3, 0));
+                        player_->setAnimation(Player::WALKING_RIGHT);
                         break;
 
-                    case SDLK_LEFT:
-                        player_->set_velocity(glm::vec2(-100.0f, 0.0f));
-                        //camera_velocity.x = -0.05f;
+                    case SDLK_a:
+                        player_->set_velocity(glm::vec2(-0.3, 0));
+                        player_->setAnimation(Player::WALKING_LEFT);
                         break;
 
                     default:
@@ -237,26 +315,25 @@ namespace feed
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_UP:
-                        //camera_velocity.y = 0.0f;
+                        camera_velocity.y = 0.0f;
                         break;
 
                     case SDLK_DOWN:
-                        //camera_velocity.y = 0.0f;
+                        camera_velocity.y = 0.0f;
                         break;
 
                     case SDLK_RIGHT:
-                        player_->set_velocity(glm::vec2(0.0f, 0.0f));
+                        camera_velocity.x = 0.0f;
                         break;
 
                     case SDLK_LEFT:
-                        player_->set_velocity(glm::vec2(0.0f, 0.0f));
-                        //camera_velocity.x = -0.05f;
+                        camera_velocity.x = 0.0f;
                         break;
 
                     default:
                         break;
                 }
-
+                
                 break;
             }
 
@@ -280,13 +357,17 @@ namespace feed
 
     void World::loadImage(const std::string& str)
     {
+        // std::string::size_type find = str.find(" ");
+
+        // std::string key = str.substr(0, find);
+        // std::string filename = str.substr(find + 1);
+
         std::stringstream ss(str);
         std::string key;
         std::string filename;
 
         ss >> key >> filename;
 
-        // göra nått här?
         if (!Resources::instance().addImage(key, filename))
             return;
     }
@@ -306,53 +387,14 @@ namespace feed
             Audio::instance().addMusic(key, filename);
     }
 
-    void World::loadProjectile(const std::string&)
+    void World::loadProjectile(const std::string& str)
     {
 
     }
 
     void World::loadEnemy(const std::string& str)
     {
-        std::stringstream ss(str);
-        std::string type;
-        glm::vec2 position;
 
-        ss >> type >> position.x >> position.y;
-
-        Enemy* enemy = nullptr;
-
-        if (type == "grunt")
-            enemy = Enemy::CreateGrunt(position);
-        else if (type == "heavy")
-            enemy = Enemy::CreateHeavy(position);
-
-        if (enemy != nullptr)
-            enemy_list_.push_back(enemy);
-    }
-
-    void World::loadPlayer(const std::string& str)
-    {
-        if (player_ != nullptr)
-            delete player_;
-
-        std::stringstream ss(str);
-        glm::vec2 position;
-        glm::vec2 size;
-        glm::vec2 velocity;
-        std::string image;
-        int health;
-        int armor;
-        int max_health;
-        int max_armor;
-
-        ss >> position.x >> position.y
-           >> size.x >> size.y
-           >> velocity.x >> velocity.y
-           >> image
-           >> health >> armor
-           >> max_health >> max_armor;
-
-        player_ = new Player(position, size, velocity, Resources::instance()[image], health, armor, max_health, max_armor);
     }
 
     void World::loadEnvironmentObject(const std::string& str)
@@ -396,17 +438,5 @@ namespace feed
             intobject_list_.push_back(new WeaponContainer(pos, size, Resources::instance()[image], val));
         else if (type == "checkpoint")
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
-    }
-
-    bool World::collision(Object* obj1, Object* obj2)
-    {
-        glm::vec2 diff = glm::abs((obj1->get_position() + obj1->get_size()/2.0f) - 
-                                  (obj2->get_position() + obj2->get_size()/2.0f));
-
-        if (diff.x < ((obj1->get_size().x)/2 + (obj2->get_size().x)/2) &&
-            diff.y < ((obj1->get_size().y)/2 + (obj2->get_size().y)/2))
-            return true;
-
-        return 0;
     }
 }

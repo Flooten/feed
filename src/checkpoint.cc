@@ -12,7 +12,9 @@
 
 namespace feed
 {
-    Checkpoint::Checkpoint(const glm::vec2& position, const glm::vec2& size, SDL_Surface* image)
+    Checkpoint::Checkpoint(const glm::vec2& position,
+                           const glm::vec2& size,
+                           SDL_Surface* image)
         : InteractableObject(position, size, image)
     {}
     

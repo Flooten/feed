@@ -21,7 +21,10 @@ namespace feed
     class ArmorContainer : public InteractableObject
     {
     public:
-        ArmorContainer(const glm::vec2& position, const glm::vec2& size, SDL_Surface* image, int armor_value);
+        ArmorContainer(const glm::vec2& position,
+                       const glm::vec2& size,
+                       SDL_Surface* image,
+                       int armor_value);
 
         virtual void eventFunction() override final;
     private:
