@@ -50,6 +50,8 @@ namespace feed
         void loadEnvironmentObject(const std::string& str);
         void loadInteractableObject(const std::string& str);
 
+        bool collision(Object* obj1, Object* obj2);
+
         Player* player_ = nullptr;
 
         std::vector<Projectile*> projectile_list_;

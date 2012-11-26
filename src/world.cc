@@ -159,8 +159,8 @@ namespace feed
         for (auto intobject : intobject_list_)
             intobject->draw(screen, player_->get_position());
 
-        player_->draw(screen, player_->get_position() - glm::vec2(screen->w / 3, screen->h / 2));
-
+        //player_->draw(screen, player_->get_position() - glm::vec2(screen->w / 3, screen->h / 2));
+        player_->draw(screen, player_->get_position());
         //std::cout << "Dt: " << loop << " ms" << std::endl;
     }
 
@@ -173,6 +173,15 @@ namespace feed
 
         for (auto enemy : enemy_list_)
             enemy->update(delta_time);
+
+        for (auto i : envobject_list_)
+        {
+            std::cout << "player: " << player_->get_position().x << " " << player_->get_position().y << std::endl;
+            std::cout << "env:    " << i->get_position().x << " " << i->get_position().y << std::endl;
+
+            if (collision(player_, i))
+                std::cout << "collision" << std::endl;
+        }
 
         // kollisionskontroll
         glm::vec2 player_pos = player_->get_position();
@@ -387,5 +396,17 @@ namespace feed
             intobject_list_.push_back(new WeaponContainer(pos, size, Resources::instance()[image], val));
         else if (type == "checkpoint")
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
+    }
+
+    bool World::collision(Object* obj1, Object* obj2)
+    {
+        glm::vec2 diff = glm::abs((obj1->get_position() + obj1->get_size()/2.0f) - 
+                                  (obj2->get_position() + obj2->get_size()/2.0f));
+
+        if (diff.x < ((obj1->get_size().x)/2 + (obj2->get_size().x)/2) &&
+            diff.y < ((obj1->get_size().y)/2 + (obj2->get_size().y)/2))
+            return true;
+
+        return 0;
     }
 }
