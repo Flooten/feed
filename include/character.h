@@ -36,7 +36,6 @@ namespace feed
 
         virtual void add_health(int value);
         void add_armor(int value);
-        //void draw(SDL_Surface* screen, const glm::vec2& offset) override final;
         virtual void fire() = 0;
 
     protected:

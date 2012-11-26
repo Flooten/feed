@@ -255,6 +255,7 @@ namespace feed
             {
                 if (event.button.button == SDL_BUTTON_LEFT)
                 {
+                    std::cout << "Button" << std::endl;
                     // Testar projektilskapning
                     glm::vec2 position = player_->get_center();
 
@@ -387,6 +388,11 @@ namespace feed
     }
 
     void World::loadEnemy(const std::string& str)
+    {
+
+    }
+
+    void World::loadPlayer(const std::string& str)
     {
 
     }

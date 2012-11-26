@@ -8,6 +8,7 @@
 
 #include "projectile.h"
 #include "util.h"
+#include <iostream>
 
 namespace feed
 {
