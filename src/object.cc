@@ -78,12 +78,12 @@ namespace feed
             image_->draw(screen, position_ - off);
     }
 
-    void Object::update(unsigned int time)
+    void Object::update(float delta_time)
     {
-        position_.x += velocity_.x * time;
-        position_.y += velocity_.y * time;
+        position_.x += velocity_.x * delta_time;
+        position_.y += velocity_.y * delta_time;
 
         if (image_ != nullptr)
-            image_->update(time);
+            image_->update(delta_time);
     }
 }

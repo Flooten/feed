@@ -18,8 +18,6 @@
 #include "weaponcontainer.h"
 #include "checkpoint.h"
 
-#include "camera.h"
-
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -315,19 +313,15 @@ namespace feed
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_UP:
-                        camera_velocity.y = 0.0f;
                         break;
 
                     case SDLK_DOWN:
-                        camera_velocity.y = 0.0f;
                         break;
 
                     case SDLK_RIGHT:
-                        camera_velocity.x = 0.0f;
                         break;
 
                     case SDLK_LEFT:
-                        camera_velocity.x = 0.0f;
                         break;
 
                     default:

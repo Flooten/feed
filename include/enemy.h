@@ -30,7 +30,9 @@ namespace feed
               int armor,
               int max_health,
               int max_armor,
-              Weapon* weapon);
+              int weapon_type);
+
+        ~Enemy();
 
         void fire();
 
