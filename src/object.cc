@@ -52,8 +52,10 @@ namespace feed
 
     void Object::draw(SDL_Surface* screen, const glm::vec2& offset)
     {
+        glm::vec2 off = offset - glm::vec2(screen->w / 3, screen->h / 2);
+
         if (screen != nullptr)
-            util::blitSurface(image_, size_, screen, position_ - offset);
+            util::blitSurface(image_, size_, screen, position_ - off);
     }
 
     void Object::update(float delta_time)
