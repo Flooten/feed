@@ -15,10 +15,10 @@ sfx ak45 data/high.wav
 music original-score data/sound/feed01.ogg
 
 [environment_object]
-500 500 128 128 0 0 nw
-628 500 128 128 0 0 ne
-500 628 128 128 0 0 sw
-628 628 128 128 0 0 se
+0     0 128 128 0 0 nw
+128   0 128 128 0 0 ne
+0   128 128 128 0 0 sw
+128 128 128 128 0 0 se
 
 [interactable_object]
 //health 100 100 50 50 75 health_container
@@ -26,8 +26,8 @@ music original-score data/sound/feed01.ogg
 //checkpoint 400 100 25 25 0 checkpoint
 
 [enemy]
-grunt 100 0
-heavy 155 0
+//grunt 100 0
+//heavy 155 0
 
 [player]
-0 0 140 140 0 0 player 100 0 100 100
+40 -180 140 140 0 0 player 100 0 100 100
