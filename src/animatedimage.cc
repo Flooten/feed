@@ -2,7 +2,7 @@
  * FILNAMN:       animation.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Marcus Eriksson   910322-1371     Y3A
- * DATUM:         2012-11-23
+ * DATUM:         2012-11-26
  *
  */
 
@@ -112,8 +112,10 @@ namespace feed
                 ++image_properties_.current_frame_;
 
             // Uppdatera clip
-            image_properties_.clip_ = {static_cast<Sint16>(image_properties_.frame_width_ * image_properties_.current_animation_),
-                                       static_cast<Sint16>(image_properties_.frame_height_ * image_properties_.current_frame_),
+            image_properties_.clip_ = {static_cast<Sint16>(image_properties_.frame_width_ *
+                                                           image_properties_.current_animation_),
+                                       static_cast<Sint16>(image_properties_.frame_height_ *
+                                                           image_properties_.current_frame_),
                                        image_properties_.frame_width_,
                                        image_properties_.frame_height_};
         }
@@ -121,8 +123,10 @@ namespace feed
 
     void AnimatedImage::setTorsoClip()
     {
-        top_image_properties_.clip_ = {static_cast<Sint16>(top_image_properties_.frame_width_ * top_image_properties_.current_animation_),
-                                       static_cast<Sint16>(top_image_properties_.frame_height_ * top_image_properties_.current_frame_),
+        top_image_properties_.clip_ = {static_cast<Sint16>(top_image_properties_.frame_width_ *
+                                                           top_image_properties_.current_animation_),
+                                       static_cast<Sint16>(top_image_properties_.frame_height_ *
+                                                           top_image_properties_.current_frame_),
                                        top_image_properties_.frame_width_,
                                        top_image_properties_.frame_height_};
     }
