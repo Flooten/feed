@@ -189,9 +189,15 @@ namespace feed
             enemy->update(delta_time);
 
         for (auto i : envobject_list_)
+        {
             if (collision(player_, i))
                 std::cout << "collision" << std::endl;
-    }
+            
+            for (auto j : enemy_list_)
+                if (line_of_sight(j, player_, i))
+                    std::cout << "i see you" << std::endl;
+        }
+    } 
 
     void World::handleSDLEvent(const SDL_Event& event)
     {
@@ -412,16 +418,16 @@ namespace feed
 
     bool World::line_of_sight(const Enemy* enemy, const Player* player, const EnvironmentObject* env_object)
     {
-        glm::vec2 point1 enemy->get_position();
-        glm::vec2 point2 player->get_position();
-        glm::vec2 point3 env_object->get_position();
-        glm::vec2 point4 = env_object->get_position() + envobject->get_size();
+        glm::vec2 point1 = enemy->get_position();
+        glm::vec2 point2 = player->get_position();
+        glm::vec2 point3 = env_object->get_position();
+        glm::vec2 point4 = env_object->get_position() + env_object->get_size();
 
         float den  = ((point4.y - point3.y) * (point2.x - point1.x) - (point4.x - point3.x) * (point2.y - point1.y));
         float num1 = ((point4.x - point3.x) * (point1.y - point3.y) - (point4.y - point3.y) * (point1.x - point3.x));
         float num2 = ((point2.x - point1.x) * (point1.y - point3.y) - (point2.y - point1.y) * (point1.x - point3.x));
         float u1 = num1/den;
-        floar u2 = num2/den;
+        float u2 = num2/den;
 
         //if (den == 0 and num1 == 0 and num2 == 0)
         //    return false;
