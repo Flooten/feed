@@ -1,7 +1,7 @@
 /*
  * FILNAMN:       environmentobject.cc
  * PROJEKT:       F.E.E.D.
- * PROGRAMMERARE: Marcus Eriksson
+ * PROGRAMMERARE: Marcus Eriksson   910322-1371     Y3A
  * DATUM:         2012-11-16
  *
  */
@@ -39,11 +39,5 @@ namespace feed
     void EnvironmentObject::set_boundary_end(const glm::vec2& boundary_end)
     {
         boundary_end_ = boundary_end;
-    }
-
-    void EnvironmentObject::update(unsigned int time)
-    {
-        position_.x += velocity_.x * time;
-        position_.y += velocity_.y * time;
     }
 }

@@ -52,6 +52,6 @@ namespace feed
         AnimationProperties top_image_properties_;
 
         void advanceFrame();
-        void setTorsoClip();
+        void setClip(AnimationProperties& properties);
     };
 }

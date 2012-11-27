@@ -1,8 +1,8 @@
 /*
  * FILNAMN:       environmentobject.h
  * PROJEKT:       F.E.E.D.
- * PROGRAMMERARE: Marcus Eriksson
- * DATUM:         2012-11-16
+ * PROGRAMMERARE: Marcus Eriksson   910322-1371     Y3A
+ * DATUM:         2012-11-27
  *
  * BESKRIVNING: Denna klass definierar föremål som ej är fixa i bakgrunden men ej är möjliga
  *              att interagera med. Dessa objekt har möjlighet att röra sig i världen.
@@ -34,10 +34,6 @@ namespace feed
         // Setters
         void set_boundary_start(const glm::vec2& boundary_start);
         void set_boundary_end(const glm::vec2& boundary_end);
-    
-        // Överskuggning
-        //void draw(SDL_Surface* screen, const glm::vec2& offset) override final;     // Testa const här
-        void update(unsigned int time);
 
     private:
         glm::vec2 boundary_start_;

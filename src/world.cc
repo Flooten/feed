@@ -32,7 +32,7 @@ namespace feed
         player_->setAnimated(4, 8);
         player_->setTopImage(Resources::instance().getImage("torso"), 2, 25);
 
-        envobject_list_.push_back(new EnvironmentObject(glm::vec2(600, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire")));
+        envobject_list_.push_back(new EnvironmentObject(glm::vec2(350, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire")));
         envobject_list_.back()->setAnimated(1, 6);
     }
 
