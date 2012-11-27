@@ -310,6 +310,7 @@ namespace feed
 
             case SDL_KEYUP:
             {
+                Uint8* keystate = SDL_GetKeyState(nullptr);
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_UP:
@@ -319,13 +320,19 @@ namespace feed
                         break;
 
                     case SDLK_d:
-                        player_->set_velocity(glm::vec2(0, 0));
-                        player_->setAnimation(Player::STATIONARY_RIGHT);
+                        if (!keystate[SDLK_a])
+                        {
+                            player_->set_velocity(glm::vec2(0, 0));
+                            player_->setAnimation(Player::STATIONARY_RIGHT);
+                        }
                         break;
 
                     case SDLK_a:
-                        player_->set_velocity(glm::vec2(0, 0));
-                        player_->setAnimation(Player::STATIONARY_LEFT);
+                        if (!keystate[SDLK_d])
+                        {
+                            player_->set_velocity(glm::vec2(0, 0));
+                            player_->setAnimation(Player::STATIONARY_LEFT);
+                        }
                         break;
 
                     default:
