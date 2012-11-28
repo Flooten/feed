@@ -201,7 +201,7 @@ namespace feed
                         delete game_state_.top();
                         game_state_.pop();
                     }
-                }                
+                }
                 break;
 
             case MessageQueue::Message::FIRE:

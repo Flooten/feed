@@ -33,4 +33,5 @@ music original-score data/sound/feed01.ogg
 //heavy 155 0
 
 [player]
-40 -180 140 140 0 0 player 100 0 100 100
+// pos.x pos.y velocity.x velocity.y health armor max_health max_armor
+40 -180 0 0 100 0 100 100
