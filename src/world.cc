@@ -399,14 +399,9 @@ namespace feed
         int health;
         int armor;
 
-
         ss >> position.x >> position.y
            >> velocity.x >> velocity.y
-           >> image
-           >> health >> armor
-           >> max_health >> max_armor;
-
-        //player_ = new Player(position, size, velocity, Resources::instance()[image], health, armor, max_health, max_armor);
+           >> health >> armor;
 
         player_ = new Player(position,
                              glm::vec2(64, 64),
@@ -414,10 +409,10 @@ namespace feed
                              Resources::instance()["legs"],
                              health,
                              armor,
-                             max_health,
-                             max_armor);
+                             util::PLAYER_MAX_HEALTH,
+                             util::PLAYER_MAX_ARMOR);
         player_->setAnimated(4, 8);
-        player_->setTopImage(Resources::instance["torso"], 2, 25);
+        player_->setTopImage(Resources::instance()["torso"], 2, 25);
     }
 
     void World::loadEnvironmentObject(const std::string& str)

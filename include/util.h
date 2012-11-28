@@ -23,6 +23,8 @@ namespace feed
         // util-konstanter
         const int PLAYER_OFFSET_X = 1024 * 0.382;
         const int PLAYER_OFFSET_Y = 576 * 0.618;
+        const int PLAYER_MAX_HEALTH = 100;
+        const int PLAYER_MAX_ARMOR = 100;
         const glm::vec2 GRAVITY = glm::vec2(0, 100.0f);
 
         // Strängmanipulation
