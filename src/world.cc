@@ -133,7 +133,7 @@ namespace feed
             }
         }
 
-        // om ingen spelare definierats i banfilen, ladda default
+        // om ingen spelare definierats i banfilen, ladda default/krasha
         if (player_ == nullptr)
             ;
 
@@ -258,7 +258,7 @@ namespace feed
                     case SDLK_UP:
                     {
                         glm::vec2 vel = player_->get_velocity();
-                        vel.y = -30;
+                        vel.y = -100.0f;
                         player_->set_velocity(vel);
                         break;
                     }
@@ -404,7 +404,7 @@ namespace feed
            >> health >> armor;
 
         player_ = new Player(position,
-                             glm::vec2(64, 64),
+                             glm::vec2(128, 100),
                              velocity,
                              Resources::instance()["legs"],
                              health,

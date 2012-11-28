@@ -71,12 +71,11 @@ namespace feed
             while (MessageQueue::instance().pullMessage(msg))
                 handleMessage(msg);
 
-            // AI
-            // Kollision
-            game_state_.top()->update(delta_time);
             game_state_.top()->draw(screen_);
+            game_state_.top()->update(delta_time);
 
             SDL_Flip(screen_);
+
         }
     }
 
