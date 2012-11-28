@@ -53,7 +53,6 @@ namespace feed
         glm::vec2 playerOrigin();   // Returnerar spelarens mittpunkt
 
         bool collision(Object* obj1, Object* obj2);
-        bool line_of_sight(const Enemy* enemy, const Player* player, const EnvironmentObject* env_object);
 
         Player* player_ = nullptr;
 

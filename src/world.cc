@@ -18,6 +18,7 @@
 #include "weaponcontainer.h"
 #include "checkpoint.h"
 #include "collision.h"
+#include "ai.h"
 
 #include <iostream>
 #include <sstream>
@@ -162,7 +163,7 @@ namespace feed
     {
         // Rensa screen
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
-		
+
 		for (auto projectile : projectile_list_)
             projectile->draw(screen, player_->get_position());
 
@@ -174,13 +175,14 @@ namespace feed
 
         for (auto intobject : intobject_list_)
             intobject->draw(screen, player_->get_position());
-		
+
 		if (player_ != nullptr)
             player_->draw(screen, player_->get_position());
     }
 
     void World::update(float delta_time)
     {
+        bool LOS = true;
         if (player_ != nullptr)
             player_->update(delta_time);
 
@@ -199,10 +201,30 @@ namespace feed
                 for (auto enemy : enemy_list_)
                 {
                     handleCollision(enemy, envobject);
-                    if (line_of_sight(enemy, player_, envobject))
-                        enemy->set_aim(player_->get_position());
+                    if (LOS)
+                        LOS = line_of_sight(enemy, player_, envobject);
                 }
             }
+
+        enemy_list_[0]->set_aim(player_->get_position() - enemy_list_[0]->get_position() );
+
+        if (enemy_list_[0]->get_position().x < player_->get_position().x)
+            enemy_list_[0]->setAnimation(Enemy::STATIONARY_RIGHT);
+        else
+            enemy_list_[0]->setAnimation(Enemy::STATIONARY_LEFT);
+
+
+            if (LOS)
+            {
+                std::cout << "LOS: JA! " << std::endl;
+                enemy_list_[0]->set_aim(player_->get_position());
+            }
+            else
+                std::cout << "LOS: NEJ! " << std::endl;
+
+            std::cout << "Player: x: " << player_->get_position().x << " Player: y: " << player_->get_position().y << std::endl
+                                        << "Enemy: x: " << enemy_list_[0]->get_position().x
+                                        << " Enemy: y: " << enemy_list_[0]->get_position().y << std::endl  << std::endl;
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
@@ -233,7 +255,7 @@ namespace feed
                         player_->setAnimation(Player::WALKING_LEFT);
                 }
                 else if ((aim_vec.x >= 0) && (player_aim.x < 0))
-                {   
+                {
                     // Vänster till höger
 
                     if (player_velocity_x == 0)
@@ -263,13 +285,13 @@ namespace feed
                     case SDLK_UP:
                     {
                         glm::vec2 vel = player_->get_velocity();
-                        vel.y = -30;
+                        vel.y = -100;
                         player_->set_velocity(vel);
                         break;
                     }
 
                     case SDLK_DOWN:
-                       
+
                         break;
 
                     case SDLK_d:
@@ -345,7 +367,7 @@ namespace feed
 
             default:
                 break;
-        }   
+        }
     }
 
     void World::handleMessage(const MessageQueue::Message& msg)
@@ -429,7 +451,7 @@ namespace feed
            >> health >> armor;
 
         player_ = new Player(position,
-                             glm::vec2(64, 64),
+                             glm::vec2(50, 50),
                              velocity,
                              Resources::instance()["legs"],
                              health,
@@ -494,26 +516,5 @@ namespace feed
         return position;
     }
 
-    bool World::line_of_sight(const Enemy* enemy, const Player* player, const EnvironmentObject* env_object)
-    {
-        glm::vec2 point1 = enemy->get_position();
-        glm::vec2 point2 = player->get_position();
-        glm::vec2 point3 = env_object->get_position();
-        glm::vec2 point4 = env_object->get_position() + env_object->get_size();
 
-        float den  = ((point4.y - point3.y) * (point2.x - point1.x) - (point4.x - point3.x) * (point2.y - point1.y));
-        float num1 = ((point4.x - point3.x) * (point1.y - point3.y) - (point4.y - point3.y) * (point1.x - point3.x));
-        float num2 = ((point2.x - point1.x) * (point1.y - point3.y) - (point2.y - point1.y) * (point1.x - point3.x));
-        float u1 = num1/den;
-        float u2 = num2/den;
-
-        //if (den == 0 and num1 == 0 and num2 == 0)
-        //    return false;
-        if (den == 0)
-            return true;
-        else if (u1 < 0 or u1 > 1 or u2 < 0 or u2 > 1)
-            return true;
-        else
-            return false;
-    }
 }
