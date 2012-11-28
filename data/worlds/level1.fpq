@@ -1,4 +1,4 @@
-// Level 1
+// Demo-nivå
 
 [images]
 sw               data/gfx/wall2sw.png
@@ -20,6 +20,9 @@ music original-score data/sound/feed01.ogg
 0   128 128 128 0 0 sw
 128 128 128 128 0 0 se
 
+256   0 128 128 0 0 ne
+256 128 128 128 0 0 se
+
 [interactable_object]
 //health 100 100 50 50 75 health_container
 //armor 300 100 50 50 50 armor_container
@@ -30,4 +33,5 @@ music original-score data/sound/feed01.ogg
 //heavy 155 0
 
 [player]
-40 -180 140 140 0 0 player 100 0 100 100
+// pos.x pos.y velocity.x velocity.y health armor max_health max_armor
+40 -180 0 0 100 0 100 100

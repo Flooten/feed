@@ -410,22 +410,24 @@ namespace feed
 
         std::stringstream ss(str);
         glm::vec2 position;
-        glm::vec2 size;
         glm::vec2 velocity;
-        std::string image;
         int health;
         int armor;
-        int max_health;
-        int max_armor;
 
         ss >> position.x >> position.y
-           >> size.x >> size.y
            >> velocity.x >> velocity.y
-           >> image
-           >> health >> armor
-           >> max_health >> max_armor;
+           >> health >> armor;
 
-        player_ = new Player(position, size, velocity, Resources::instance()[image], health, armor, max_health, max_armor);
+        player_ = new Player(position,
+                             glm::vec2(64, 64),
+                             velocity,
+                             Resources::instance()["legs"],
+                             health,
+                             armor,
+                             util::PLAYER_MAX_HEALTH,
+                             util::PLAYER_MAX_ARMOR);
+        player_->setAnimated(4, 8);
+        player_->setTopImage(Resources::instance()["torso"], 2, 25);
     }
 
     void World::loadEnvironmentObject(const std::string& str)
@@ -480,18 +482,6 @@ namespace feed
                                  util::PLAYER_OFFSET_Y + player_->get_size().y / 2);
 
         return position;
-    }
-
-    bool World::collision(Object* obj1, Object* obj2)
-    {
-        glm::vec2 diff = glm::abs((obj1->get_position() + obj1->get_size()/2.0f) - 
-                                  (obj2->get_position() + obj2->get_size()/2.0f));
-
-        if (diff.x < ((obj1->get_size().x)/2 + (obj2->get_size().x)/2) &&
-            diff.y < ((obj1->get_size().y)/2 + (obj2->get_size().y)/2))
-            return true;
-
-        return 0;
     }
 
     bool World::line_of_sight(const Enemy* enemy, const Player* player, const EnvironmentObject* env_object)
