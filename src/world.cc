@@ -168,7 +168,7 @@ namespace feed
     {
         // Rensa screen
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
-		
+
 		for (auto projectile : projectile_list_)
             projectile->draw(screen, player_->get_position());
 
@@ -180,7 +180,7 @@ namespace feed
 
         for (auto intobject : intobject_list_)
             intobject->draw(screen, player_->get_position());
-		
+
 		if (player_ != nullptr)
             player_->draw(screen, player_->get_position());
     }
@@ -236,7 +236,7 @@ namespace feed
                         player_->setAnimation(Player::WALKING_LEFT);
                 }
                 else if ((aim_vec.x >= 0) && (player_aim.x < 0))
-                {   
+                {
                     // Vänster till höger
 
                     if (player_velocity_x == 0)
@@ -267,7 +267,7 @@ namespace feed
                     }
 
                     case SDLK_DOWN:
-                       
+
                         break;
 
                     case SDLK_d:
@@ -323,7 +323,7 @@ namespace feed
 
             default:
                 break;
-        }   
+        }
     }
 
     void World::handleMessage(const MessageQueue::Message& msg)
@@ -398,22 +398,22 @@ namespace feed
 
         std::stringstream ss(str);
         glm::vec2 position;
-        glm::vec2 size;
         glm::vec2 velocity;
-        std::string image;
         int health;
         int armor;
         int max_health;
         int max_armor;
 
+
         ss >> position.x >> position.y
-           >> size.x >> size.y
            >> velocity.x >> velocity.y
-           >> image
            >> health >> armor
            >> max_health >> max_armor;
 
-        player_ = new Player(position, size, velocity, Resources::instance()[image], health, armor, max_health, max_armor);
+        player_ = new Player(position, glm::vec2(64, 64), velocity, Resources::instance()["legs"], health, armor, max_health, max_armor);
+        player_->setAnimated(4, 8);
+        player_->setTopImage(Resources::instance().getImage("torso"), 2, 25);
+
     }
 
     void World::loadEnvironmentObject(const std::string& str)
@@ -461,7 +461,7 @@ namespace feed
 
     bool World::collision(Object* obj1, Object* obj2)
     {
-        glm::vec2 diff = glm::abs((obj1->get_position() + obj1->get_size()/2.0f) - 
+        glm::vec2 diff = glm::abs((obj1->get_position() + obj1->get_size()/2.0f) -
                                   (obj2->get_position() + obj2->get_size()/2.0f));
 
         if (diff.x < ((obj1->get_size().x)/2 + (obj2->get_size().x)/2) &&
