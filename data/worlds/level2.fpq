@@ -1,0 +1,84 @@
+// Level 2
+
+[images]
+sw               data/gfx/wall2sw.png
+se               data/gfx/wall2se.png
+ne               data/gfx/wall2ne.png
+nw               data/gfx/wall2nw.png
+
+//weapon_container bild på vapen 50X50
+armor_container  data/gfx/armor.png
+health_container data/gfx/red_cross_health.png
+checkpoint       data/gfx/lightbulb.png
+player           data/gfx/icon.png
+
+sq               
+
+[audio]
+sfx ak45 data/high.wav
+music original-score data/sound/feed01.ogg
+
+[environment_object]
+0     0 50 50 0 0 sq
+0    50 50 50 0 0 sq
+0   100 50 50 0 0 sq
+0   150 50 50 0 0 sq
+0   200 50 50 0 0 sq
+0   250 50 50 0 0 sq
+0   300 50 50 0 0 sq
+0   350 50 50 0 0 sq
+0   400 50 50 0 0 sq
+0   450 50 50 0 0 sq
+
+50 450 50 50 0 0 sq
+100 450 50 50 0 0 sq
+150 450 50 50 0 0 sq
+200 450 50 50 0 0 sq
+250 450 50 50 0 0 sq
+300 450 50 50 0 0 sq
+350 450 50 50 0 0 sq
+400 450 50 50 0 0 sq
+450 450 50 50 0 0 sq
+500 450 50 50 0 0 sq
+550 450 50 50 0 0 sq
+600 450 50 50 0 0 sq
+650 450 50 50 0 0 sq
+700 450 50 50 0 0 sq
+750 450 50 50 0 0 sq
+800 450 50 50 0 0 sq
+850 450 50 50 0 0 sq
+900 450 50 50 0 0 sq
+950 450 50 50 0 0 sq
+1000 450 50 50 0 0 sq
+1050 450 50 50 0 0 sq
+1100 450 50 50 0 0 sq
+1150 450 50 50 0 0 sq
+1200 450 50 50 0 0 sq
+1250 450 50 50 0 0 sq
+1300 450 50 50 0 0 sq
+1350 450 50 50 0 0 sq
+1400 450 50 50 0 0 sq
+
+1300 400 50 50 0 0 sq
+1350 400 50 50 0 0 sq
+1350 350 50 50 0 0 sq
+
+1550 450 50 50 0 0 sq
+1600 450 50 50 0 0 sq
+1650 450 50 50 0 0 sq
+1700 450 50 50 0 0 sq
+1750 450 50 50 0 0 sq
+1800 450 50 50 0 0 sq
+
+[interactable_object]
+//weapon 400 300 50 50 100 weapon_container
+//health 100 100 50 50 75 health_container
+//armor 300 100 50 50 50 armor_container
+//checkpoint 400 100 25 25 0 checkpoint
+
+[enemy]
+//grunt 100 0
+//heavy 155 0
+
+[player]
+100 100 0 0 100 100
