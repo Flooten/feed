@@ -214,8 +214,7 @@ namespace feed
             case SDL_MOUSEMOTION:
             {
                 // Origo
-                glm::vec2 position = glm::vec2(util::PLAYER_OFFSET_X + player_->get_size().x / 2,
-                                               util::PLAYER_OFFSET_Y + player_->get_size().y / 2);
+                glm::vec2 position = playerOrigin();
 
                 // Genererad aim-vektor
                 glm::vec2 aim_vec(event.motion.x - position.x, event.motion.y - position.y);
@@ -252,6 +251,11 @@ namespace feed
 
             case SDL_KEYDOWN:
             {
+                int mouse_position_x;
+                int mouse_posttion_y;
+
+                Uint8 mousestate = SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
+
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_ESCAPE:
@@ -271,13 +275,21 @@ namespace feed
                         break;
 
                     case SDLK_d:
+                        if (mouse_position_x < playerOrigin().x)
+                            // Moonwalk
+                            player_->setAnimation(Player::WALKING_LEFT);
+                        else
+                            player_->setAnimation(Player::WALKING_RIGHT);
                         player_->set_velocity(glm::vec2(100, 0));
-                        player_->setAnimation(Player::WALKING_RIGHT);
                         break;
 
                     case SDLK_a:
+                        if (mouse_position_x < playerOrigin().x)
+                            // Moonwalk
+                            player_->setAnimation(Player::WALKING_RIGHT);
+                        else
+                            player_->setAnimation(Player::WALKING_LEFT);
                         player_->set_velocity(glm::vec2(-100, 0));
-                        player_->setAnimation(Player::WALKING_LEFT);
                         break;
 
                     default:
@@ -457,6 +469,17 @@ namespace feed
             intobject_list_.push_back(new WeaponContainer(pos, size, Resources::instance()[image], val));
         else if (type == "checkpoint")
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
+    }
+
+    glm::vec2 World::playerOrigin()
+    {
+        glm::vec2 position;
+
+        if (player_ != nullptr)
+            position = glm::vec2(util::PLAYER_OFFSET_X + player_->get_size().x / 2,
+                                 util::PLAYER_OFFSET_Y + player_->get_size().y / 2);
+
+        return position;
     }
 
     bool World::collision(Object* obj1, Object* obj2)
