@@ -81,10 +81,11 @@ namespace feed
 
     void Object::update(float delta_time)
     {
-        position_.x += velocity_.x * delta_time;
-        position_.y += velocity_.y * delta_time;
+        glm::vec2 gravity(0, 40);
+        velocity_ += gravity * delta_time;
+        position_ += velocity_ * delta_time;
 
-        if (image_ != nullptr)
+		if (image_ != nullptr)
             image_->update(delta_time);
     }
 }

@@ -17,6 +17,7 @@
 #include "armorcontainer.h"
 #include "weaponcontainer.h"
 #include "checkpoint.h"
+#include "collision.h"
 
 #include <iostream>
 #include <sstream>
@@ -32,19 +33,13 @@ namespace feed
         player_->setAnimated(4, 8);
         player_->setTopImage(Resources::instance().getImage("torso"), 2, 25);
 
-        envobject_list_.push_back(new EnvironmentObject(glm::vec2(350, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire")));
+        envobject_list_.push_back(new EnvironmentObject(glm::vec2(450, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire")));
         envobject_list_.back()->setAnimated(1, 6);
     }
 
     World::World(const std::string& filename)
     {
         std::cout << "Loading world " << filename << std::endl;
-        player_ = new Player(glm::vec2(350, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("legs"), 100, 100, 100, 100);
-        player_->setAnimated(4, 8);
-        player_->setTopImage(Resources::instance().getImage("torso"), 2, 25);
-
-        envobject_list_.push_back(new EnvironmentObject(glm::vec2(600, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire")));
-        envobject_list_.back()->setAnimated(1, 6);
 
         enum
         {
@@ -173,11 +168,8 @@ namespace feed
     {
         // Rensa screen
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
-
-        if (player_ != nullptr)
-            player_->draw(screen, player_->get_position());
-
-        for (auto projectile : projectile_list_)
+		
+		for (auto projectile : projectile_list_)
             projectile->draw(screen, player_->get_position());
 
         for (auto enemy : enemy_list_)
@@ -188,10 +180,16 @@ namespace feed
 
         for (auto intobject : intobject_list_)
             intobject->draw(screen, player_->get_position());
+		
+		if (player_ != nullptr)
+            player_->draw(screen, player_->get_position());
     }
 
     void World::update(float delta_time)
     {
+        if (player_ != nullptr)
+            player_->update(delta_time);
+
         for (auto projectile : projectile_list_)
             projectile->update(delta_time);
 
@@ -201,11 +199,12 @@ namespace feed
         for (auto envobject : envobject_list_)
             envobject->update(delta_time);
 
-        for (auto intobject : intobject_list_)
-            intobject->update(delta_time);
+        // for (auto i : envobject_list_)
+        //     if (collision(player_, i))
+        //         std::cout << "collision" << std::endl;
 
-        if (player_ != nullptr)
-            player_->update(delta_time);
+        for (auto envobject : envobject_list_)
+            handleCollision(player_, envobject);
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
@@ -251,31 +250,6 @@ namespace feed
                 break;
             }
 
-            case SDL_MOUSEBUTTONDOWN:
-            {
-                if (event.button.button == SDL_BUTTON_LEFT)
-                {
-                    // Testar projektilskapning
-                    glm::vec2 position = player_->get_center();
-
-                    position.x -= 128 / 2;
-                    position.y -= 128 / 2;
-
-                    glm::vec2 velocity = player_->get_aim();
-                    velocity *= 100;
-
-                    projectile_list_.push_back(new Projectile(position, glm::vec2(128, 128), velocity, Resources::instance().getImage("fireball"), 30));
-                    projectile_list_.back()->setAnimated(2, 6);
-
-                    if (velocity.x < 0)
-                        projectile_list_.back()->setDirection(Projectile::LEFT);
-                    else
-                        projectile_list_.back()->setDirection(Projectile::RIGHT);
-                }
-
-                break;
-            }
-
             case SDL_KEYDOWN:
             {
                 switch (event.key.keysym.sym)
@@ -285,20 +259,24 @@ namespace feed
                         break;
 
                     case SDLK_UP:
-                        
+                    {
+                        glm::vec2 vel = player_->get_velocity();
+                        vel.y = -30;
+                        player_->set_velocity(vel);
                         break;
+                    }
 
                     case SDLK_DOWN:
                        
                         break;
 
                     case SDLK_d:
-                        player_->set_velocity(glm::vec2(30, 0));
+                        player_->set_velocity(glm::vec2(100, 0));
                         player_->setAnimation(Player::WALKING_RIGHT);
                         break;
 
                     case SDLK_a:
-                        player_->set_velocity(glm::vec2(-30, 0));
+                        player_->set_velocity(glm::vec2(-100, 0));
                         player_->setAnimation(Player::WALKING_LEFT);
                         break;
 
@@ -311,6 +289,7 @@ namespace feed
             case SDL_KEYUP:
             {
                 Uint8* keystate = SDL_GetKeyState(nullptr);
+
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_UP:
@@ -338,7 +317,7 @@ namespace feed
                     default:
                         break;
                 }
-                
+
                 break;
             }
 
@@ -362,17 +341,13 @@ namespace feed
 
     void World::loadImage(const std::string& str)
     {
-        // std::string::size_type find = str.find(" ");
-
-        // std::string key = str.substr(0, find);
-        // std::string filename = str.substr(find + 1);
-
         std::stringstream ss(str);
         std::string key;
         std::string filename;
 
         ss >> key >> filename;
 
+        // göra nått här?
         if (!Resources::instance().addImage(key, filename))
             return;
     }
@@ -392,19 +367,53 @@ namespace feed
             Audio::instance().addMusic(key, filename);
     }
 
-    void World::loadProjectile(const std::string& str)
+    void World::loadProjectile(const std::string&)
     {
 
     }
 
     void World::loadEnemy(const std::string& str)
     {
+        std::stringstream ss(str);
+        std::string type;
+        glm::vec2 position;
 
+        ss >> type >> position.x >> position.y;
+
+        Enemy* enemy = nullptr;
+
+        if (type == "grunt")
+            enemy = Enemy::CreateGrunt(position);
+        else if (type == "heavy")
+            enemy = Enemy::CreateHeavy(position);
+
+        if (enemy != nullptr)
+            enemy_list_.push_back(enemy);
     }
 
     void World::loadPlayer(const std::string& str)
     {
+        if (player_ != nullptr)
+            delete player_;
 
+        std::stringstream ss(str);
+        glm::vec2 position;
+        glm::vec2 size;
+        glm::vec2 velocity;
+        std::string image;
+        int health;
+        int armor;
+        int max_health;
+        int max_armor;
+
+        ss >> position.x >> position.y
+           >> size.x >> size.y
+           >> velocity.x >> velocity.y
+           >> image
+           >> health >> armor
+           >> max_health >> max_armor;
+
+        player_ = new Player(position, size, velocity, Resources::instance()[image], health, armor, max_health, max_armor);
     }
 
     void World::loadEnvironmentObject(const std::string& str)
@@ -448,5 +457,40 @@ namespace feed
             intobject_list_.push_back(new WeaponContainer(pos, size, Resources::instance()[image], val));
         else if (type == "checkpoint")
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
+    }
+
+    bool World::collision(Object* obj1, Object* obj2)
+    {
+        glm::vec2 diff = glm::abs((obj1->get_position() + obj1->get_size()/2.0f) - 
+                                  (obj2->get_position() + obj2->get_size()/2.0f));
+
+        if (diff.x < ((obj1->get_size().x)/2 + (obj2->get_size().x)/2) &&
+            diff.y < ((obj1->get_size().y)/2 + (obj2->get_size().y)/2))
+            return true;
+
+        return 0;
+    }
+
+    bool World::line_of_sight(const Enemy* enemy, const Player* player, const EnvironmentObject* env_object)
+    {
+        glm::vec2 point1 = enemy->get_position();
+        glm::vec2 point2 = player->get_position();
+        glm::vec2 point3 = env_object->get_position();
+        glm::vec2 point4 = env_object->get_position() + env_object->get_size();
+
+        float den  = ((point4.y - point3.y) * (point2.x - point1.x) - (point4.x - point3.x) * (point2.y - point1.y));
+        float num1 = ((point4.x - point3.x) * (point1.y - point3.y) - (point4.y - point3.y) * (point1.x - point3.x));
+        float num2 = ((point2.x - point1.x) * (point1.y - point3.y) - (point2.y - point1.y) * (point1.x - point3.x));
+        float u1 = num1/den;
+        float u2 = num2/den;
+
+        //if (den == 0 and num1 == 0 and num2 == 0)
+        //    return false;
+        if (den == 0)
+            return true;
+        else if (u1 < 0 or u1 > 1 or u2 < 0 or u2 > 1)
+            return true;
+        else
+            return false;
     }
 }
