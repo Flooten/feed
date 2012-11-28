@@ -246,9 +246,9 @@ namespace feed
             case SDL_KEYDOWN:
             {
                 int mouse_position_x;
-                int mouse_posttion_y;
+                int mouse_position_y;
 
-                Uint8 mousestate = SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
+                SDL_GetMouseState(&mouse_position_x, &mouse_position_y);
 
                 switch (event.key.keysym.sym)
                 {
@@ -269,22 +269,30 @@ namespace feed
                         break;
 
                     case SDLK_d:
+                    {
                         if (mouse_position_x < playerOrigin().x)
                             // Moonwalk
                             player_->setAnimation(Player::WALKING_LEFT);
                         else
                             player_->setAnimation(Player::WALKING_RIGHT);
-                        player_->set_velocity(glm::vec2(100, 0));
+
+                        float vel_y = player_->get_velocity().y;
+                        player_->set_velocity(glm::vec2(160, vel_y));
                         break;
+                    }
 
                     case SDLK_a:
+                    {
                         if (mouse_position_x >= playerOrigin().x)
                             // Moonwalk
                             player_->setAnimation(Player::WALKING_RIGHT);
                         else
                             player_->setAnimation(Player::WALKING_LEFT);
-                        player_->set_velocity(glm::vec2(-100, 0));
+
+                        float vel_y = player_->get_velocity().y;
+                        player_->set_velocity(glm::vec2(-160, vel_y));
                         break;
+                    }
 
                     default:
                         break;
@@ -297,7 +305,7 @@ namespace feed
                 int mouse_position_x;
                 int mouse_posttion_y;
 
-                Uint8 mousestate = SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
+                SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
                 Uint8* keystate = SDL_GetKeyState(nullptr);
 
                 switch (event.key.keysym.sym)
@@ -316,7 +324,8 @@ namespace feed
                             else
                                 player_->setAnimation(Player::STATIONARY_LEFT);
 
-                            player_->set_velocity(glm::vec2(0, 0));
+                            float vel_y = player_->get_velocity().y;
+                            player_->set_velocity(glm::vec2(0, vel_y));
                         }
                         break;
 
@@ -328,7 +337,8 @@ namespace feed
                             else
                                 player_->setAnimation(Player::STATIONARY_RIGHT);
 
-                            player_->set_velocity(glm::vec2(0, 0));
+                            float vel_y = player_->get_velocity().y;
+                            player_->set_velocity(glm::vec2(0, vel_y));
                         }
                         break;
 
@@ -425,7 +435,7 @@ namespace feed
            >> health >> armor;
 
         player_ = new Player(position,
-                             glm::vec2(128, 100),
+                             glm::vec2(90, 100),
                              velocity,
                              Resources::instance()["legs"],
                              health,

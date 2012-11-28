@@ -75,7 +75,6 @@ namespace feed
             game_state_.top()->update(delta_time);
 
             SDL_Flip(screen_);
-
         }
     }
 
