@@ -29,9 +29,6 @@ namespace feed
     World::World()
     {
         std::cout << "World " << this << " online" << std::endl;
-        player_ = new Player(glm::vec2(350, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("legs"), 100, 100, 100, 100);
-        player_->setAnimated(4, 8);
-        player_->setTopImage(Resources::instance().getImage("torso"), 2, 25);
 
         envobject_list_.push_back(new EnvironmentObject(glm::vec2(450, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire")));
         envobject_list_.back()->setAnimated(1, 6);
@@ -403,17 +400,23 @@ namespace feed
         std::string image;
         int health;
         int armor;
-        int max_health;
-        int max_armor;
 
         ss >> position.x >> position.y
-           >> size.x >> size.y
            >> velocity.x >> velocity.y
-           >> image
-           >> health >> armor
-           >> max_health >> max_armor;
+           >> health >> armor;
 
-        player_ = new Player(position, size, velocity, Resources::instance()[image], health, armor, max_health, max_armor);
+        //player_ = new Player(position, size, velocity, Resources::instance()[image], health, armor, max_health, max_armor);
+
+        player_ = new Player(position,
+                             glm::vec2(64, 64),
+                             velocity,
+                             Resources::instance()["legs"],
+                             health,
+                             armor,
+                             max_health,
+                             max_armor);
+        player_->setAnimated(4, 8);
+        player_->setTopImage(Resources::instance["torso"], 2, 25);
     }
 
     void World::loadEnvironmentObject(const std::string& str)
@@ -457,18 +460,6 @@ namespace feed
             intobject_list_.push_back(new WeaponContainer(pos, size, Resources::instance()[image], val));
         else if (type == "checkpoint")
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
-    }
-
-    bool World::collision(Object* obj1, Object* obj2)
-    {
-        glm::vec2 diff = glm::abs((obj1->get_position() + obj1->get_size()/2.0f) - 
-                                  (obj2->get_position() + obj2->get_size()/2.0f));
-
-        if (diff.x < ((obj1->get_size().x)/2 + (obj2->get_size().x)/2) &&
-            diff.y < ((obj1->get_size().y)/2 + (obj2->get_size().y)/2))
-            return true;
-
-        return 0;
     }
 
     bool World::line_of_sight(const Enemy* enemy, const Player* player, const EnvironmentObject* env_object)

@@ -1,4 +1,4 @@
-// Level 1
+// Demo-nivå
 
 [images]
 sw               data/gfx/wall2sw.png
@@ -19,6 +19,9 @@ music original-score data/sound/feed01.ogg
 128   0 128 128 0 0 ne
 0   128 128 128 0 0 sw
 128 128 128 128 0 0 se
+
+256   0 128 128 0 0 ne
+256 128 128 128 0 0 se
 
 [interactable_object]
 //health 100 100 50 50 75 health_container
