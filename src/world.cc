@@ -29,9 +29,6 @@ namespace feed
     World::World()
     {
         std::cout << "World " << this << " online" << std::endl;
-
-        envobject_list_.push_back(new EnvironmentObject(glm::vec2(450, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire")));
-        envobject_list_.back()->setAnimated(1, 6);
     }
 
     World::World(const std::string& filename)
@@ -165,7 +162,7 @@ namespace feed
     {
         // Rensa screen
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
-
+		
 		for (auto projectile : projectile_list_)
             projectile->draw(screen, player_->get_position());
 
@@ -177,7 +174,7 @@ namespace feed
 
         for (auto intobject : intobject_list_)
             intobject->draw(screen, player_->get_position());
-
+		
 		if (player_ != nullptr)
             player_->draw(screen, player_->get_position());
     }
@@ -196,12 +193,16 @@ namespace feed
         for (auto envobject : envobject_list_)
             envobject->update(delta_time);
 
-        // for (auto i : envobject_list_)
-        //     if (collision(player_, i))
-        //         std::cout << "collision" << std::endl;
-
         for (auto envobject : envobject_list_)
-            handleCollision(player_, envobject);
+            {
+                handleCollision(player_, envobject);
+                for (auto enemy : enemy_list_)
+                {
+                    handleCollision(enemy, envobject);
+                    if (line_of_sight(enemy, player_, envobject))
+                        enemy->set_aim(player_->get_position());
+                }
+            }
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
@@ -211,8 +212,7 @@ namespace feed
             case SDL_MOUSEMOTION:
             {
                 // Origo
-                glm::vec2 position = glm::vec2(util::PLAYER_OFFSET_X + player_->get_size().x / 2,
-                                               util::PLAYER_OFFSET_Y + player_->get_size().y / 2);
+                glm::vec2 position = playerOrigin();
 
                 // Genererad aim-vektor
                 glm::vec2 aim_vec(event.motion.x - position.x, event.motion.y - position.y);
@@ -233,7 +233,7 @@ namespace feed
                         player_->setAnimation(Player::WALKING_LEFT);
                 }
                 else if ((aim_vec.x >= 0) && (player_aim.x < 0))
-                {
+                {   
                     // Vänster till höger
 
                     if (player_velocity_x == 0)
@@ -249,6 +249,11 @@ namespace feed
 
             case SDL_KEYDOWN:
             {
+                int mouse_position_x;
+                int mouse_posttion_y;
+
+                Uint8 mousestate = SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
+
                 switch (event.key.keysym.sym)
                 {
                     case SDLK_ESCAPE:
@@ -264,17 +269,25 @@ namespace feed
                     }
 
                     case SDLK_DOWN:
-
+                       
                         break;
 
                     case SDLK_d:
+                        if (mouse_position_x < playerOrigin().x)
+                            // Moonwalk
+                            player_->setAnimation(Player::WALKING_LEFT);
+                        else
+                            player_->setAnimation(Player::WALKING_RIGHT);
                         player_->set_velocity(glm::vec2(100, 0));
-                        player_->setAnimation(Player::WALKING_RIGHT);
                         break;
 
                     case SDLK_a:
+                        if (mouse_position_x >= playerOrigin().x)
+                            // Moonwalk
+                            player_->setAnimation(Player::WALKING_RIGHT);
+                        else
+                            player_->setAnimation(Player::WALKING_LEFT);
                         player_->set_velocity(glm::vec2(-100, 0));
-                        player_->setAnimation(Player::WALKING_LEFT);
                         break;
 
                     default:
@@ -285,6 +298,10 @@ namespace feed
 
             case SDL_KEYUP:
             {
+                int mouse_position_x;
+                int mouse_posttion_y;
+
+                Uint8 mousestate = SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
                 Uint8* keystate = SDL_GetKeyState(nullptr);
 
                 switch (event.key.keysym.sym)
@@ -298,16 +315,24 @@ namespace feed
                     case SDLK_d:
                         if (!keystate[SDLK_a])
                         {
+                            if (mouse_position_x >= playerOrigin().x)
+                                player_->setAnimation(Player::STATIONARY_RIGHT);
+                            else
+                                player_->setAnimation(Player::STATIONARY_LEFT);
+
                             player_->set_velocity(glm::vec2(0, 0));
-                            player_->setAnimation(Player::STATIONARY_RIGHT);
                         }
                         break;
 
                     case SDLK_a:
                         if (!keystate[SDLK_d])
                         {
+                            if (mouse_position_x < playerOrigin().x)
+                                player_->setAnimation(Player::STATIONARY_LEFT);
+                            else
+                                player_->setAnimation(Player::STATIONARY_RIGHT);
+
                             player_->set_velocity(glm::vec2(0, 0));
-                            player_->setAnimation(Player::STATIONARY_LEFT);
                         }
                         break;
 
@@ -320,7 +345,7 @@ namespace feed
 
             default:
                 break;
-        }
+        }   
     }
 
     void World::handleMessage(const MessageQueue::Message& msg)
@@ -456,6 +481,17 @@ namespace feed
             intobject_list_.push_back(new WeaponContainer(pos, size, Resources::instance()[image], val));
         else if (type == "checkpoint")
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
+    }
+
+    glm::vec2 World::playerOrigin()
+    {
+        glm::vec2 position;
+
+        if (player_ != nullptr)
+            position = glm::vec2(util::PLAYER_OFFSET_X + player_->get_size().x / 2,
+                                 util::PLAYER_OFFSET_Y + player_->get_size().y / 2);
+
+        return position;
     }
 
     bool World::line_of_sight(const Enemy* enemy, const Player* player, const EnvironmentObject* env_object)
