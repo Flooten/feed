@@ -29,12 +29,6 @@ namespace feed
     World::World()
     {
         std::cout << "World " << this << " online" << std::endl;
-        player_ = new Player(glm::vec2(350, 250), glm::vec2(64, 64), glm::vec2(0, 0), Resources::instance().getImage("legs"), 100, 100, 100, 100);
-        player_->setAnimated(4, 8);
-        player_->setTopImage(Resources::instance().getImage("torso"), 2, 25);
-
-        envobject_list_.push_back(new EnvironmentObject(glm::vec2(450, 250), glm::vec2(128, 128), glm::vec2(0, 0), Resources::instance().getImage("fire")));
-        envobject_list_.back()->setAnimated(1, 6);
     }
 
     World::World(const std::string& filename)
@@ -284,7 +278,7 @@ namespace feed
                         break;
 
                     case SDLK_a:
-                        if (mouse_position_x < playerOrigin().x)
+                        if (mouse_position_x >= playerOrigin().x)
                             // Moonwalk
                             player_->setAnimation(Player::WALKING_RIGHT);
                         else
@@ -300,6 +294,10 @@ namespace feed
 
             case SDL_KEYUP:
             {
+                int mouse_position_x;
+                int mouse_posttion_y;
+
+                Uint8 mousestate = SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
                 Uint8* keystate = SDL_GetKeyState(nullptr);
 
                 switch (event.key.keysym.sym)
@@ -313,16 +311,24 @@ namespace feed
                     case SDLK_d:
                         if (!keystate[SDLK_a])
                         {
+                            if (mouse_position_x >= playerOrigin().x)
+                                player_->setAnimation(Player::STATIONARY_RIGHT);
+                            else
+                                player_->setAnimation(Player::STATIONARY_LEFT);
+
                             player_->set_velocity(glm::vec2(0, 0));
-                            player_->setAnimation(Player::STATIONARY_RIGHT);
                         }
                         break;
 
                     case SDLK_a:
                         if (!keystate[SDLK_d])
                         {
+                            if (mouse_position_x < playerOrigin().x)
+                                player_->setAnimation(Player::STATIONARY_LEFT);
+                            else
+                                player_->setAnimation(Player::STATIONARY_RIGHT);
+
                             player_->set_velocity(glm::vec2(0, 0));
-                            player_->setAnimation(Player::STATIONARY_LEFT);
                         }
                         break;
 
