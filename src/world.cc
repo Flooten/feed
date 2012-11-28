@@ -439,7 +439,7 @@ namespace feed
            >> health >> armor;
 
         player_ = new Player(position,
-                             glm::vec2(90, 100),
+                             glm::vec2(90, 150),
                              velocity,
                              Resources::instance()["legs"],
                              health,
@@ -447,7 +447,7 @@ namespace feed
                              util::PLAYER_MAX_HEALTH,
                              util::PLAYER_MAX_ARMOR);
         player_->setAnimated(4, 8);
-        player_->setTopImage(Resources::instance()["torso"], 2, 25);
+        player_->setTopImage(Resources::instance()["player-torso"], 2, 37);
     }
 
     void World::loadEnvironmentObject(const std::string& str)
