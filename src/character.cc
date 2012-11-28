@@ -16,7 +16,7 @@ namespace feed
     {
         const float RAD_TO_DEG = 180 / 3.14159;
         const int DEG_PER_FRAME = 5;
-        const int ZERO_DEG_FRAME = 18;
+        const int ZERO_DEG_FRAME = 19;
     }
 
     Character::Character(const glm::vec2& position,

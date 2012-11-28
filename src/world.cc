@@ -131,7 +131,7 @@ namespace feed
             }
         }
 
-        // om ingen spelare definierats i banfilen, ladda default
+        // om ingen spelare definierats i banfilen, ladda default/krasha
         if (player_ == nullptr)
             ;
 
@@ -272,9 +272,9 @@ namespace feed
             case SDL_KEYDOWN:
             {
                 int mouse_position_x;
-                int mouse_posttion_y;
+                int mouse_position_y;
 
-                Uint8 mousestate = SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
+                SDL_GetMouseState(&mouse_position_x, &mouse_position_y);
 
                 switch (event.key.keysym.sym)
                 {
@@ -285,7 +285,7 @@ namespace feed
                     case SDLK_UP:
                     {
                         glm::vec2 vel = player_->get_velocity();
-                        vel.y = -100;
+                        vel.y = -30;
                         player_->set_velocity(vel);
                         break;
                     }
@@ -295,22 +295,30 @@ namespace feed
                         break;
 
                     case SDLK_d:
+                    {
                         if (mouse_position_x < playerOrigin().x)
                             // Moonwalk
                             player_->setAnimation(Player::WALKING_LEFT);
                         else
                             player_->setAnimation(Player::WALKING_RIGHT);
-                        player_->set_velocity(glm::vec2(100, 0));
+
+                        float vel_y = player_->get_velocity().y;
+                        player_->set_velocity(glm::vec2(160, vel_y));
                         break;
+                    }
 
                     case SDLK_a:
+                    {
                         if (mouse_position_x >= playerOrigin().x)
                             // Moonwalk
                             player_->setAnimation(Player::WALKING_RIGHT);
                         else
                             player_->setAnimation(Player::WALKING_LEFT);
-                        player_->set_velocity(glm::vec2(-100, 0));
+
+                        float vel_y = player_->get_velocity().y;
+                        player_->set_velocity(glm::vec2(-160, vel_y));
                         break;
+                    }
 
                     default:
                         break;
@@ -323,7 +331,7 @@ namespace feed
                 int mouse_position_x;
                 int mouse_posttion_y;
 
-                Uint8 mousestate = SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
+                SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
                 Uint8* keystate = SDL_GetKeyState(nullptr);
 
                 switch (event.key.keysym.sym)
@@ -342,7 +350,8 @@ namespace feed
                             else
                                 player_->setAnimation(Player::STATIONARY_LEFT);
 
-                            player_->set_velocity(glm::vec2(0, 0));
+                            float vel_y = player_->get_velocity().y;
+                            player_->set_velocity(glm::vec2(0, vel_y));
                         }
                         break;
 
@@ -354,7 +363,8 @@ namespace feed
                             else
                                 player_->setAnimation(Player::STATIONARY_RIGHT);
 
-                            player_->set_velocity(glm::vec2(0, 0));
+                            float vel_y = player_->get_velocity().y;
+                            player_->set_velocity(glm::vec2(0, vel_y));
                         }
                         break;
 
@@ -451,7 +461,7 @@ namespace feed
            >> health >> armor;
 
         player_ = new Player(position,
-                             glm::vec2(50, 50),
+                             glm::vec2(64, 64),
                              velocity,
                              Resources::instance()["legs"],
                              health,
@@ -459,7 +469,7 @@ namespace feed
                              util::PLAYER_MAX_HEALTH,
                              util::PLAYER_MAX_ARMOR);
         player_->setAnimated(4, 8);
-        player_->setTopImage(Resources::instance()["torso"], 2, 25);
+        player_->setTopImage(Resources::instance()["player-torso"], 2, 37);
     }
 
     void World::loadEnvironmentObject(const std::string& str)
