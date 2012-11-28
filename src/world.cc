@@ -362,6 +362,10 @@ namespace feed
     {
         switch (msg.type)
         {
+            case MessageQueue::Message::FIRE:
+            {
+                    
+            }
             default:
                 break;
         }
@@ -439,7 +443,7 @@ namespace feed
            >> health >> armor;
 
         player_ = new Player(position,
-                             glm::vec2(90, 150),
+                             glm::vec2(90, 130),
                              velocity,
                              Resources::instance()["legs"],
                              health,
