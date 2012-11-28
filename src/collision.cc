@@ -7,7 +7,7 @@ namespace feed
 {
     bool isIntersecting(const Object* obj1, const Object* obj2)
     {
-        glm::vec2 diff = glm::abs((obj1->get_position() + obj1->get_size() / 2.0f) - 
+        glm::vec2 diff = glm::abs((obj1->get_position() + obj1->get_size() / 2.0f) -
                                   (obj2->get_position() + obj2->get_size() / 2.0f));
 
         if (diff.x < ((obj1->get_size().x) / 2 + (obj2->get_size().x) / 2) &&
@@ -21,7 +21,7 @@ namespace feed
     {
         if (isIntersecting(obj1, obj2))
         {
-            std::cout << "Is colliding" << std::endl;
+            //std::cout << "Is colliding" << std::endl;
 
             glm::vec2 diff = obj1->get_position() - obj2->get_position();
 

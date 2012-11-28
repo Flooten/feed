@@ -12,7 +12,7 @@ health_container data/gfx/red_cross_health.png
 checkpoint       data/gfx/lightbulb.png
 player           data/gfx/icon.png
 
-sq               
+sq
 
 [audio]
 sfx ak45 data/high.wav
@@ -45,6 +45,13 @@ music original-score data/sound/feed01.ogg
 650 450 50 50 0 0 sq
 700 450 50 50 0 0 sq
 750 450 50 50 0 0 sq
+
+
+750  400 50 50 0 0 sq
+750  350 50 50 0 0 sq
+750  300 50 50 0 0 sq
+
+
 800 450 50 50 0 0 sq
 850 450 50 50 0 0 sq
 900 450 50 50 0 0 sq
@@ -77,7 +84,7 @@ music original-score data/sound/feed01.ogg
 //checkpoint 400 100 25 25 0 checkpoint
 
 [enemy]
-//grunt 100 0
+grunt 800 150
 //heavy 155 0
 
 [player]
