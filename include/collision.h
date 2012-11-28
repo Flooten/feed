@@ -33,6 +33,11 @@ namespace feed
             else
                 new_pos.y = obj2->get_position().y + obj2->get_size().y;
 
+            // if (diff.x < 0)
+            //     new_pos.x = obj2->get_position().x - obj1->get_size().x;
+            // else
+            //     new_pos.x = obj2->get_position().x + obj2->get_size().x;
+
             obj1->set_position(new_pos);
         }
     }
