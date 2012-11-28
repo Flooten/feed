@@ -43,7 +43,7 @@ namespace feed
         void setTopImage(SDL_Surface* sheet, unsigned int nof_animations, unsigned int nof_frames);
 
         void draw(SDL_Surface* screen, const glm::vec2& offset);
-        void update(float delta_time);
+        virtual void update(float delta_time);
 
     protected:
         glm::vec2 position_;

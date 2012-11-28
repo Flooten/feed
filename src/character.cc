@@ -82,4 +82,11 @@ namespace feed
         else
             armor_ += value;
     }
+
+    void Character::update(float delta_time)
+    {
+        velocity_ += util::GRAVITY * delta_time;
+
+        Object::update(delta_time);
+    }
 }
