@@ -130,7 +130,7 @@ namespace feed
             }
         }
 
-        // om ingen spelare definierats i banfilen, ladda default
+        // om ingen spelare definierats i banfilen, ladda default/krasha
         if (player_ == nullptr)
             ;
 
@@ -193,12 +193,16 @@ namespace feed
         for (auto envobject : envobject_list_)
             envobject->update(delta_time);
 
-        // for (auto i : envobject_list_)
-        //     if (collision(player_, i))
-        //         std::cout << "collision" << std::endl;
-
         for (auto envobject : envobject_list_)
-            handleCollision(player_, envobject);
+            {
+                handleCollision(player_, envobject);
+                for (auto enemy : enemy_list_)
+                {
+                    handleCollision(enemy, envobject);
+                    if (line_of_sight(enemy, player_, envobject))
+                        enemy->set_aim(player_->get_position());
+                }
+            }
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
@@ -246,9 +250,9 @@ namespace feed
             case SDL_KEYDOWN:
             {
                 int mouse_position_x;
-                int mouse_posttion_y;
+                int mouse_position_y;
 
-                Uint8 mousestate = SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
+                SDL_GetMouseState(&mouse_position_x, &mouse_position_y);
 
                 switch (event.key.keysym.sym)
                 {
@@ -259,7 +263,7 @@ namespace feed
                     case SDLK_UP:
                     {
                         glm::vec2 vel = player_->get_velocity();
-                        vel.y = -30;
+                        vel.y = -100.0f;
                         player_->set_velocity(vel);
                         break;
                     }
@@ -269,22 +273,30 @@ namespace feed
                         break;
 
                     case SDLK_d:
+                    {
                         if (mouse_position_x < playerOrigin().x)
                             // Moonwalk
                             player_->setAnimation(Player::WALKING_LEFT);
                         else
                             player_->setAnimation(Player::WALKING_RIGHT);
-                        player_->set_velocity(glm::vec2(100, 0));
+
+                        float vel_y = player_->get_velocity().y;
+                        player_->set_velocity(glm::vec2(160, vel_y));
                         break;
+                    }
 
                     case SDLK_a:
+                    {
                         if (mouse_position_x >= playerOrigin().x)
                             // Moonwalk
                             player_->setAnimation(Player::WALKING_RIGHT);
                         else
                             player_->setAnimation(Player::WALKING_LEFT);
-                        player_->set_velocity(glm::vec2(-100, 0));
+
+                        float vel_y = player_->get_velocity().y;
+                        player_->set_velocity(glm::vec2(-160, vel_y));
                         break;
+                    }
 
                     default:
                         break;
@@ -297,7 +309,7 @@ namespace feed
                 int mouse_position_x;
                 int mouse_posttion_y;
 
-                Uint8 mousestate = SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
+                SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
                 Uint8* keystate = SDL_GetKeyState(nullptr);
 
                 switch (event.key.keysym.sym)
@@ -316,7 +328,8 @@ namespace feed
                             else
                                 player_->setAnimation(Player::STATIONARY_LEFT);
 
-                            player_->set_velocity(glm::vec2(0, 0));
+                            float vel_y = player_->get_velocity().y;
+                            player_->set_velocity(glm::vec2(0, vel_y));
                         }
                         break;
 
@@ -328,7 +341,8 @@ namespace feed
                             else
                                 player_->setAnimation(Player::STATIONARY_RIGHT);
 
-                            player_->set_velocity(glm::vec2(0, 0));
+                            float vel_y = player_->get_velocity().y;
+                            player_->set_velocity(glm::vec2(0, vel_y));
                         }
                         break;
 
@@ -425,7 +439,7 @@ namespace feed
            >> health >> armor;
 
         player_ = new Player(position,
-                             glm::vec2(64, 64),
+                             glm::vec2(90, 100),
                              velocity,
                              Resources::instance()["legs"],
                              health,
