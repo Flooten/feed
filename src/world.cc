@@ -193,12 +193,16 @@ namespace feed
         for (auto envobject : envobject_list_)
             envobject->update(delta_time);
 
-        // for (auto i : envobject_list_)
-        //     if (collision(player_, i))
-        //         std::cout << "collision" << std::endl;
-
         for (auto envobject : envobject_list_)
-            handleCollision(player_, envobject);
+            {
+                handleCollision(player_, envobject);
+                for (auto enemy : enemy_list_)
+                {
+                    handleCollision(enemy, envobject);
+                    if (line_of_sight(enemy, player_, envobject))
+                        enemy->set_aim(player_->get_position());
+                }
+            }
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
