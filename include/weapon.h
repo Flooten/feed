@@ -45,7 +45,7 @@ namespace feed
 
     private:
         int type_;
-    	int rate_of_fire_;
+    	float rate_of_fire_;
     	float last_fired_;
     	int clip_ = 0;
     	int max_clip_;

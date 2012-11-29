@@ -58,12 +58,11 @@ namespace feed
     void Weapon::update(float delta_time)
     {
         last_fired_ += delta_time;
-        std::cout << last_fired_ << std::endl;
     }
 
     bool Weapon::isReady()
     {
-        if (last_fired_ >= 60 / rate_of_fire_)
+        if (last_fired_ >= 1 / rate_of_fire_)
             return true;
         else
             return false;
@@ -89,10 +88,10 @@ namespace feed
         switch (type)
         {
             case PISTOL:
-                return new Weapon(type, 120, 0, 30, max_ammo, 10, Resources::instance()["weapon-smg"]);
+                return new Weapon(type, 2, 0, 30, max_ammo, 10, Resources::instance()["weapon-smg"]);
 
             case SMG:
-                return new Weapon(type, 754, 0, 20, max_ammo, 5, Resources::instance()["weapon-smg"]);
+                return new Weapon(type, 5, 0, 20, max_ammo, 5, Resources::instance()["weapon-smg"]);
 
             default:
                 return nullptr;

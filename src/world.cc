@@ -177,14 +177,14 @@ namespace feed
 		for (auto projectile : projectile_list_)
             projectile->draw(screen, player_->get_position());
 
-        for (auto enemy : enemy_list_)
-            enemy->draw(screen, player_->get_position());
-
         for (auto envobject : envobject_list_)
             envobject->draw(screen, player_->get_position());
 
         for (auto intobject : intobject_list_)
             intobject->draw(screen, player_->get_position());
+
+        for (auto enemy : enemy_list_)
+            enemy->draw(screen, player_->get_position());
 
 		if (player_ != nullptr)
             player_->draw(screen, player_->get_position());
@@ -223,11 +223,11 @@ namespace feed
                 enemy->fire();
             }
 
-                if (enemy->get_position().x < player_->get_position().x)
-                     enemy->setAnimation(Enemy::STATIONARY_RIGHT);
-                else
-                    enemy->setAnimation(Enemy::STATIONARY_LEFT);
-            };
+            if (enemy->get_position().x < player_->get_position().x)
+                 enemy->setAnimation(Enemy::STATIONARY_RIGHT);
+            else
+                enemy->setAnimation(Enemy::STATIONARY_LEFT);
+        }
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
@@ -291,7 +291,7 @@ namespace feed
                         MessageQueue::instance().pushMessage({MessageQueue::Message::PAUSE_GAME});
                         break;
 
-                    case SDLK_w:
+                    case SDLK_SPACE:
                     {
                         glm::vec2 vel = player_->get_velocity();
                         vel.y = -180.0f;
