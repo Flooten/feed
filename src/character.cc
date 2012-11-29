@@ -4,7 +4,7 @@
  * PROGRAMMERARE: Herman Ekwall
  *                Marcus Eriksson   910322-1371     Y3A
  *                Mattias Fransson
- * DATUM:         2012-11-15
+ * DATUM:         2012-11-29
  */
 
 #include "character.h"
@@ -72,7 +72,8 @@ namespace feed
         }
         else if (hitpoints_ + value <= 0)
         {
-           MessageQueue::instance().pushMessage({MessageQueue::Message::DEAD, 0, this});
+            //MessageQueue::instance().pushMessage({MessageQueue::Message::DEAD, 0, this});
+            isDead();
         }
         else
             hitpoints_ += value;

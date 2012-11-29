@@ -44,6 +44,9 @@ namespace feed
         static Enemy* CreateGrunt(const glm::vec2& position);
         static Enemy* CreateHeavy(const glm::vec2& position);
 
+    protected:
+        void isDead();
+
     private:
         Weapon* weapon_;
         bool seen_player_ = true;

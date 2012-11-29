@@ -205,18 +205,18 @@ namespace feed
             envobject->update(delta_time);
 
         for (auto envobject : envobject_list_)
+        {
+            handleCollision(player_, envobject);
+            for (auto enemy : enemy_list_)
             {
-                handleCollision(player_, envobject);
-                for (auto enemy : enemy_list_)
-                {
-                    handleCollision(enemy, envobject);
-                    if (!(onScreen(enemy, player_)))
-                        enemy->set_seen_player(false);
+                handleCollision(enemy, envobject);
+                if (!(onScreen(enemy, player_)))
+                    enemy->set_seen_player(false);
 
-                    if (enemy->get_seen_player())
-                        enemy->set_seen_player((lineOfSight(enemy, player_, envobject)));
-                }
+                if (enemy->get_seen_player())
+                    enemy->set_seen_player((lineOfSight(enemy, player_, envobject)));
             }
+        }
 
         for (auto enemy : enemy_list_)
         {
@@ -236,12 +236,22 @@ namespace feed
         {
             Projectile* current = projectile_list_[it];
 
+            for (auto envobject : envobject_list_)
+            {
+                if (isIntersecting(current, envobject))
+                {
+                    MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, it, current});
+                    break;
+                }
+            }
+
             for (auto enemy : enemy_list_)
             {
                 if (isIntersecting(current, enemy))
                 {
                     enemy->addHealth(-current->get_damage());
                     MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, it, current});
+                    break;
                 }
             }
         }
@@ -519,7 +529,7 @@ namespace feed
                              util::PLAYER_MAX_ARMOR);
         player_->setAnimated(4, 8);
         player_->setTopImage(Resources::instance()["player-torso"], 2, 37);
-	player_->addWeapon(Weapon::PISTOL);
+	    player_->addWeapon(Weapon::PISTOL);
         player_->set_collision_offset(glm::vec2(50, 50));
     }
 
@@ -576,6 +586,4 @@ namespace feed
 
         return position;
     }
-
-
 }

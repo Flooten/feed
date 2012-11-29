@@ -42,6 +42,7 @@ namespace feed
                 CHECKPOINT,
 				PLAYER_DEAD,
 				ENEMY_DEAD,
+                BOSS_DEAD,
                 PROJECTILE_DEAD,
                 DEAD
             };

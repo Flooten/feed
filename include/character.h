@@ -3,7 +3,7 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
  *                Mattias Fransson
- * DATUM:         2012-11-15
+ * DATUM:         2012-11-29
  *
  * BESKRIVNING: Character definerar en karaktär. Förälder till Player, Enemy och Boss. Abstrakt klass.
  *
@@ -45,7 +45,7 @@ namespace feed
         int get_health() const;
         int getFacing() const;
 
-        virtual void addHealth(int value);
+        void addHealth(int value);
         void addArmor(int value);
         virtual void fire() = 0;
         void setAnimation(Animation animation);
