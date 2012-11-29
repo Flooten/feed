@@ -35,12 +35,12 @@ namespace feed
         glm::vec2 get_size() const;
         glm::vec2 get_velocity() const;
         glm::vec2 get_center() const;
-        glm::vec4 get_bounding_box() const;
+        glm::vec2 get_collision_offset() const;
 
         void set_position(const glm::vec2& position);
         void set_size(const glm::vec2& size);
         void set_velocity(const glm::vec2& velocity);
-        void set_bounding_box(const glm::vec4& bb);
+        void set_collision_offset(const glm::vec2& offset);
         void setAnimated(unsigned int nof_animations, unsigned int nof_frames);
         void setTopImage(SDL_Surface* sheet, unsigned int nof_animations, unsigned int nof_frames);
 
@@ -51,7 +51,7 @@ namespace feed
         glm::vec2 position_;
         glm::vec2 size_;
         glm::vec2 velocity_;
-        glm::vec4 bounding_box_;
+        glm::vec2 collision_offset_;
         AnimatedImage* image_ = nullptr;  // Destrueras i gameworld
     };
 }

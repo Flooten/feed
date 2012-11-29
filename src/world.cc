@@ -196,35 +196,35 @@ namespace feed
             envobject->update(delta_time);
 
         for (auto envobject : envobject_list_)
+        {
+            handleCollision(player_, envobject);
+            for (auto enemy : enemy_list_)
             {
-                handleCollision(player_, envobject);
-                for (auto enemy : enemy_list_)
-                {
-                    handleCollision(enemy, envobject);
-                    if (LOS)
-                        LOS = line_of_sight(enemy, player_, envobject);
-                }
+                handleCollision(enemy, envobject);
+                if (LOS)
+                    LOS = line_of_sight(enemy, player_, envobject);
             }
+        }
 
-        enemy_list_[0]->set_aim(player_->get_position() - enemy_list_[0]->get_position() );
+        // enemy_list_[0]->set_aim(player_->get_position() - enemy_list_[0]->get_position() );
 
-        if (enemy_list_[0]->get_position().x < player_->get_position().x)
-            enemy_list_[0]->setAnimation(Enemy::STATIONARY_RIGHT);
-        else
-            enemy_list_[0]->setAnimation(Enemy::STATIONARY_LEFT);
+        // if (enemy_list_[0]->get_position().x < player_->get_position().x)
+        //     enemy_list_[0]->setAnimation(Enemy::STATIONARY_RIGHT);
+        // else
+        //     enemy_list_[0]->setAnimation(Enemy::STATIONARY_LEFT);
 
 
-            if (LOS)
-            {
-                std::cout << "LOS: JA! " << std::endl;
-                enemy_list_[0]->set_aim(player_->get_position());
-            }
-            else
-                std::cout << "LOS: NEJ! " << std::endl;
+        //     if (LOS)
+        //     {
+        //         std::cout << "LOS: JA! " << std::endl;
+        //         enemy_list_[0]->set_aim(player_->get_position());
+        //     }
+        //     else
+        //         std::cout << "LOS: NEJ! " << std::endl;
 
-            std::cout << "Player: x: " << player_->get_position().x << " Player: y: " << player_->get_position().y << std::endl
-                                        << "Enemy: x: " << enemy_list_[0]->get_position().x
-                                        << " Enemy: y: " << enemy_list_[0]->get_position().y << std::endl  << std::endl;
+        //     std::cout << "Player: x: " << player_->get_position().x << " Player: y: " << player_->get_position().y << std::endl
+        //                                 << "Enemy: x: " << enemy_list_[0]->get_position().x
+        //                                 << " Enemy: y: " << enemy_list_[0]->get_position().y << std::endl  << std::endl;
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
@@ -465,7 +465,7 @@ namespace feed
            >> health >> armor;
 
         player_ = new Player(position,
-                             glm::vec2(90, 150),
+                             glm::vec2(30, 75),
                              velocity,
                              Resources::instance()["legs"],
                              health,
@@ -474,6 +474,7 @@ namespace feed
                              util::PLAYER_MAX_ARMOR);
         player_->setAnimated(4, 8);
         player_->setTopImage(Resources::instance()["player-torso"], 2, 37);
+        player_->set_collision_offset(glm::vec2(50, 50));
     }
 
     void World::loadEnvironmentObject(const std::string& str)
