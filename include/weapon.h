@@ -22,8 +22,8 @@ namespace feed
         enum Type
         {
             PISTOL,
-            AK45,
-            SMG
+            SMG,
+            ENEMY_PISTOL
         };
 
     	Weapon(int type, int rate_of_fire, int last_fired, int max_clip, int max_ammo, int damage, SDL_Surface* image);

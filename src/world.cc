@@ -205,15 +205,15 @@ namespace feed
             envobject->update(delta_time);
 
         for (auto envobject : envobject_list_)
+        {
+            handleCollision(player_, envobject);
+            for (auto enemy : enemy_list_)
             {
-                handleCollision(player_, envobject);
-                for (auto enemy : enemy_list_)
-                {
-                    handleCollision(enemy, envobject);
-                    if (onScreen(enemy, player_) && enemy->get_seen_player())
-                        enemy->set_seen_player(lineOfSight(enemy, player_, envobject));
-                }
+                handleCollision(enemy, envobject);
+                if (onScreen(enemy, player_) && enemy->get_seen_player())
+                    enemy->set_seen_player(lineOfSight(enemy, player_, envobject));
             }
+        }
 
         for (auto enemy : enemy_list_)
         {
@@ -400,11 +400,17 @@ namespace feed
                 switch (msg.value)
                 {
                     case Weapon::PISTOL:
+                    case Weapon::ENEMY_PISTOL:
                         projectile = Projectile::createPistolProjectile(msg.sender);
                         projectile_list_.push_back(projectile);
                         projectile_list_.back()->setAnimated(2, 6);
                         break;
+
+                    default:
+                        break;
                 }
+
+                break;
             }
             default:
                 break;
@@ -492,7 +498,7 @@ namespace feed
                              util::PLAYER_MAX_ARMOR);
         player_->setAnimated(4, 8);
         player_->setTopImage(Resources::instance()["player-torso"], 2, 37);
-	player_->addWeapon(Weapon::PISTOL);
+	    player_->addWeapon(Weapon::PISTOL);
         player_->set_collision_offset(glm::vec2(50, 50));
     }
 
