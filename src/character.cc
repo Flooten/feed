@@ -40,9 +40,6 @@ namespace feed
     {
         aim_ = glm::normalize(aim);
 
-        // Normering
-        //aim_ /= aim_.length();
-
         if (aim.x >= 0)
             image_->setTopFrame(ZERO_DEG_FRAME + ceil((atan(aim_.y / aim_.x) * RAD_TO_DEG)) / DEG_PER_FRAME);
         else

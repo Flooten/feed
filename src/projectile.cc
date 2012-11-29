@@ -42,6 +42,7 @@ namespace feed
 
         // Beräkna allt ovan
 
+
         return new Projectile(position, size, velocity, Resources::instance().getImage("fireball"), 5);
     }
 }
