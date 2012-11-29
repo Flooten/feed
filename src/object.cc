@@ -21,6 +21,7 @@ namespace feed
         : position_(position)
         , size_(size)
         , velocity_(velocity)
+        , bounding_box_(position_.x, position_.y, size_.x, position_.y)
     {
         image_ = new AnimatedImage(image);
     }
@@ -38,6 +39,11 @@ namespace feed
     glm::vec2 Object::get_velocity() const
     {
         return velocity_;
+    }
+
+    glm::vec4 Object::get_bounding_box() const
+    {
+        return bounding_box_;
     }
 
     glm::vec2 Object::get_center() const
@@ -69,6 +75,11 @@ namespace feed
     void Object::set_velocity(const glm::vec2& velocity)
     {
         velocity_ = velocity;
+    }
+
+    void Object::set_bounding_box(const glm::vec4& bounding_box)
+    {
+        bounding_box_ = bounding_box;
     }
 
     void Object::draw(SDL_Surface* screen, const glm::vec2& offset)

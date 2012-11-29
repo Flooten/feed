@@ -263,7 +263,7 @@ namespace feed
                     case SDLK_UP:
                     {
                         glm::vec2 vel = player_->get_velocity();
-                        vel.y = -100.0f;
+                        vel.y = -180.0f;
                         player_->set_velocity(vel);
                         break;
                     }
@@ -439,7 +439,7 @@ namespace feed
            >> health >> armor;
 
         player_ = new Player(position,
-                             glm::vec2(90, 150),
+                             glm::vec2(90, 120),
                              velocity,
                              Resources::instance()["legs"],
                              health,
