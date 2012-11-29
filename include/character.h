@@ -38,7 +38,7 @@ namespace feed
         void add_armor(int value);
         virtual void fire() = 0;
 
-        void update(float delta_time);
+        virtual void update(float delta_time);
 
     protected:
         int hitpoints_;

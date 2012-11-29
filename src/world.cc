@@ -183,7 +183,6 @@ namespace feed
 
     void World::update(float delta_time)
     {
-        bool LOS = true;
         if (player_ != nullptr)
             player_->update(delta_time);
 
@@ -202,31 +201,21 @@ namespace feed
                 for (auto enemy : enemy_list_)
                 {
                     handleCollision(enemy, envobject);
-                    if (LOS)
-                        LOS = lineOfSight(enemy, player_, envobject);
+                    if (enemy->get_seen_player())
+                        enemy->set_seen_player(lineOfSight(enemy, player_, envobject));
                 }
-            }
+            };
 
-            // if (onScreen(enemy_list_[0], player_))
-            //     std::cout << "On Screen" << std::endl;
-
-            if (LOS)
+        for (auto enemy : enemy_list_)
             {
-                std::cout << "LOS: JA! " << std::endl;
+                if (enemy->get_seen_player())
+                    enemy->set_aim(player_->get_position() - enemy->get_position());
 
-                 if (enemy_list_[0]->get_position().x < player_->get_position().x)
-                     enemy_list_[0]->setAnimation(Enemy::STATIONARY_RIGHT);
+                if (enemy->get_position().x < player_->get_position().x)
+                     enemy->setAnimation(Enemy::STATIONARY_RIGHT);
                 else
-                    enemy_list_[0]->setAnimation(Enemy::STATIONARY_LEFT);
-
-                 enemy_list_[0]->set_aim(player_->get_position() - enemy_list_[0]->get_position() );
-            }
-            else
-                std::cout << "LOS: NEJ! " << std::endl;
-
-            // std::cout << "Player: x: " << player_->get_position().x << " Player: y: " << player_->get_position().y << std::endl
-            //                             << "Enemy: x: " << enemy_list_[0]->get_position().x
-            //                             << " Enemy: y: " << enemy_list_[0]->get_position().y << std::endl  << std::endl;
+                    enemy->setAnimation(Enemy::STATIONARY_LEFT);
+            };
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
@@ -284,7 +273,7 @@ namespace feed
                         MessageQueue::instance().pushMessage({MessageQueue::Message::PAUSE_GAME});
                         break;
 
-                    case SDLK_UP:
+                    case SDLK_w:
                     {
                         glm::vec2 vel = player_->get_velocity();
                         vel.y = -100.0f;

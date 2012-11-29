@@ -53,6 +53,23 @@ namespace feed
         image_->setTopRotation(animation % 2);
     }
 
+    bool Enemy::get_seen_player()
+    {
+        return seen_player_;
+    }
+
+    void Enemy::set_seen_player(bool value)
+    {
+        seen_player_ = value;
+    }
+
+    void Enemy::update(float delta_time)
+    {
+        set_seen_player(true);
+
+        Character::update(delta_time);
+    }
+
     Enemy* Enemy::CreateGrunt(const glm::vec2 &position)
     {
         glm::vec2 size(90, 130);
