@@ -139,10 +139,10 @@ namespace feed
         std::cout << "Number of envobjs: " << envobject_list_.size() << std::endl;
         std::cout << "Number of intobjs: " << intobject_list_.size() << std::endl;
 
-        envobject_list_.push_back(new EnvironmentObject(glm::vec2(200,250), glm::vec2(50,50), glm::vec2(50,0), Resources::instance()["sq"]));
+        envobject_list_.push_back(new EnvironmentObject(glm::vec2(200,250), glm::vec2(50,50), glm::vec2(50,0), Resources::instance()["sq"], glm::vec2(200,200), glm::vec2(200,400)));
 
-        envobject_list_.back()->set_boundary_start(glm::vec2(200,250));
-        envobject_list_.back()->set_boundary_end(glm::vec2(900,250));
+        //envobject_list_.back()->set_boundary_start(glm::vec2(400,200));
+        //envobject_list_.back()->set_boundary_end(glm::vec2(400,400));
 
     }
 
@@ -428,7 +428,6 @@ namespace feed
             case MessageQueue::Message::FIRE:
             {
                 Projectile* projectile = nullptr;
-                // Sender är alltid en Character
                 Character* shooter = dynamic_cast<Character*>(msg.sender);
 
                 switch (msg.value)
@@ -444,13 +443,9 @@ namespace feed
                             projectile->setDirection(Projectile::LEFT);
 
                         projectile_list_.push_back(projectile);
-
-                        break;
-
-                    default:
+                        
                         break;
                 }
-
                 break;
             }
 
@@ -545,7 +540,7 @@ namespace feed
            >> health >> armor;
 
         player_ = new Player(position,
-                             glm::vec2(30, 75),
+                             glm::vec2(30, 110),
                              velocity,
                              Resources::instance()["legs"],
                              health,
@@ -611,6 +606,4 @@ namespace feed
 
         return position;
     }
-
-
 }
