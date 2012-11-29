@@ -22,14 +22,13 @@ namespace feed
 {
     bool lineOfSight(const Enemy* enemy, const Player* player, const EnvironmentObject* env_object)
     {
-
-        glm::vec2 point1 = player->get_position();
+        glm::vec2 offset = glm::vec2(50,30);
+        glm::vec2 point1 = player->get_position() + offset;
         glm::vec2 point2 = env_object->get_position();
-        glm::vec2 point3 = enemy->get_position() - point1;
+        glm::vec2 point3 = enemy->get_position() - player->get_position() + offset;
         glm::vec2 point4 = env_object->get_size();
 
-
-        float det  = ((point4.x * point3.y) - (point3.x * point4.y));
+        float det = ((point4.x * point3.y) - (point3.x * point4.y));
             if (det == 0)
                 return true;
 
