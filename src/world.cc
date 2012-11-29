@@ -201,7 +201,7 @@ namespace feed
                 for (auto enemy : enemy_list_)
                 {
                     handleCollision(enemy, envobject);
-                    if (enemy->get_seen_player())
+                    if (onScreen(enemy, player_) && enemy->get_seen_player())
                         enemy->set_seen_player(lineOfSight(enemy, player_, envobject));
                 }
             };
@@ -216,11 +216,6 @@ namespace feed
                 else
                     enemy->setAnimation(Enemy::STATIONARY_LEFT);
             };
-
-            if (onScreen(enemy_list_[0], player_))
-                std::cout << "På skärmen" << std::endl;
-            else
-                std::cout << "Off screen" << std::endl;
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
