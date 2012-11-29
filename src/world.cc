@@ -208,16 +208,12 @@ namespace feed
             handleCollision(player_, envobject);
             for (auto enemy : enemy_list_)
             {
-                handleCollision(player_, envobject);
-                for (auto enemy : enemy_list_)
-                {
-                    handleCollision(enemy, envobject);
-                    if (!(onScreen(enemy, player_)))
-                        enemy->set_seen_player(false);
+                handleCollision(enemy, envobject);
+                if (!(onScreen(enemy, player_)))
+                    enemy->set_seen_player(false);
 
-                    if (enemy->get_seen_player())
-                        enemy->set_seen_player((lineOfSight(enemy, player_, envobject)));
-                }
+                if (enemy->get_seen_player())
+                    enemy->set_seen_player((lineOfSight(enemy, player_, envobject)));
             }
         }
 
