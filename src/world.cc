@@ -285,13 +285,13 @@ namespace feed
                     case SDLK_UP:
                     {
                         glm::vec2 vel = player_->get_velocity();
-                        vel.y = -30;
+                        vel.y = -100.0f;
                         player_->set_velocity(vel);
                         break;
                     }
 
                     case SDLK_DOWN:
-
+                       
                         break;
 
                     case SDLK_d:
@@ -377,13 +377,17 @@ namespace feed
 
             default:
                 break;
-        }
+        }   
     }
 
     void World::handleMessage(const MessageQueue::Message& msg)
     {
         switch (msg.type)
         {
+            case MessageQueue::Message::FIRE:
+            {
+                    
+            }
             default:
                 break;
         }
@@ -461,7 +465,7 @@ namespace feed
            >> health >> armor;
 
         player_ = new Player(position,
-                             glm::vec2(64, 64),
+                             glm::vec2(90, 130),
                              velocity,
                              Resources::instance()["legs"],
                              health,

@@ -38,8 +38,10 @@ namespace feed
 
         void setDirection(Direction direction);
 
+        static Projectile* createPistolProjectile(Object* sender);
+
     private:
-        int damage_;
+        int damage_;  // Överflödig?
     };
 }
 
