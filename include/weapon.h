@@ -15,16 +15,16 @@
 
 namespace feed
 {
-    enum WeaponType
-    {
-        PISTOL,
-        AK45,
-        SMG
-    };
-
     class Weapon
     {
     public:
+        enum Type
+        {
+            PISTOL,
+            AK45,
+            SMG
+        };
+
     	Weapon(int type, int rate_of_fire, int last_fired, int max_clip, int max_ammo, int damage, SDL_Surface* image);
 
     	SDL_Surface* get_image();

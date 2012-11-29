@@ -27,7 +27,6 @@
 
 namespace feed
 {
-
     World::World()
     {
         std::cout << "World " << this << " online" << std::endl;
@@ -181,6 +180,9 @@ namespace feed
         for (auto enemy : enemy_list_)
             enemy->draw(screen, player_->get_position());
 
+        for (auto envobject : envobject_list_)
+            envobject->draw(screen, player_->get_position());
+
         for (auto intobject : intobject_list_)
             intobject->draw(screen, player_->get_position());
 
@@ -211,7 +213,7 @@ namespace feed
                     if (onScreen(enemy, player_) && enemy->get_seen_player())
                         enemy->set_seen_player(lineOfSight(enemy, player_, envobject));
                 }
-            };
+            }
 
         for (auto enemy : enemy_list_)
             {
@@ -229,6 +231,12 @@ namespace feed
     {
         switch (event.type)
         {
+            case SDL_MOUSEBUTTONDOWN:
+            {
+                player_->fire();
+                break;
+            }
+
             case SDL_MOUSEMOTION:
             {
                 // Origo
@@ -289,7 +297,7 @@ namespace feed
                     }
 
                     case SDLK_DOWN:
-
+                       
                         break;
 
                     case SDLK_d:
@@ -375,7 +383,7 @@ namespace feed
 
             default:
                 break;
-        }
+        }   
     }
 
     void World::handleMessage(const MessageQueue::Message& msg)
@@ -384,7 +392,16 @@ namespace feed
         {
             case MessageQueue::Message::FIRE:
             {
+                Projectile* projectile = nullptr;
 
+                switch (msg.value)
+                {
+                    case Weapon::PISTOL:
+                        projectile = Projectile::createPistolProjectile(msg.sender);
+                        projectile_list_.push_back(projectile);
+                        projectile_list_.back()->setAnimated(2, 6);
+                        break;
+                }
             }
             default:
                 break;
@@ -472,6 +489,8 @@ namespace feed
                              util::PLAYER_MAX_ARMOR);
         player_->setAnimated(4, 8);
         player_->setTopImage(Resources::instance()["player-torso"], 2, 37);
+
+        player_->addWeapon(Weapon::PISTOL);
     }
 
     void World::loadEnvironmentObject(const std::string& str)
