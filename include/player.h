@@ -2,7 +2,7 @@
  * FILNAMN:       player.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
- * DATUM:         2012-11-18
+ * DATUM:         2012-11-29
  *
  * BESKRIVNING: Denna klass definierar spelaren. Ärver från Character
  *
@@ -37,12 +37,14 @@ namespace feed
         void set_inventory_index(int index);
 
         void addWeapon(Weapon::Type weapon_type);
-        void addHealth(int value);
+        //void addHealth(int value);
         void fire() override final;
 
         void update(float delta_time) override;
 
     private:
+        void isDead();
+
         int inventory_index_ = 0;
         Inventory inventory_;
     };

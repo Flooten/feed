@@ -2,7 +2,8 @@
  * FILNAMN:       player.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
- * DATUM:         2012-11-18
+ *                Mattias Fransson
+ * DATUM:         2012-11-29
  *
  */
 
@@ -35,19 +36,19 @@ namespace feed
         return inventory_index_;
     }
 
-    void Player::addHealth(int value)
-    {
-        if (hitpoints_ + value > max_health_)
-        {
-            hitpoints_ = max_health_;
-        }
-        else if (hitpoints_ + value <= 0)
-        {
-           MessageQueue::instance().pushMessage({MessageQueue::Message::PLAYER_DEAD});
-        }
-        else
-            hitpoints_ += value;
-    }
+    // void Player::addHealth(int value)
+    // {
+    //     if (hitpoints_ + value > max_health_)
+    //     {
+    //         hitpoints_ = max_health_;
+    //     }
+    //     else if (hitpoints_ + value <= 0)
+    //     {
+    //        MessageQueue::instance().pushMessage({MessageQueue::Message::PLAYER_DEAD});
+    //     }
+    //     else
+    //         hitpoints_ += value;
+    // }
 
     void Player::addWeapon(Weapon::Type weapon_type)
     {
@@ -83,5 +84,13 @@ namespace feed
             weapon->update(delta_time);
 
         Character::update(delta_time);
+    }
+
+    ///////////////
+    // Protected
+
+    void Player::isDead()
+    {
+        MessageQueue::instance().pushMessage({MessageQueue::Message::PLAYER_DEAD, 0, this});
     }
 }

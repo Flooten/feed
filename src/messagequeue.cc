@@ -12,8 +12,6 @@
 #include "messagequeue.h"
 #include "object.h"
 
-#include <iostream>
-
 namespace feed
 {
     ////////////////////

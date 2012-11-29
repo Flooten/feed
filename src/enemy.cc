@@ -4,7 +4,7 @@
  * PROGRAMMERARE: Herman Ekwall
  *                Mattias Fransson
  *                Marcus Eriksson   910322-1371     Y3A
- * DATUM:         2012-11-26
+ * DATUM:         2012-11-29
  *
  */
 
@@ -60,6 +60,17 @@ namespace feed
 
         Character::update(delta_time);
     }
+
+    ////////////////////////
+    // Protected
+
+    void Enemy::isDead()
+    {
+        MessageQueue::instance().pushMessage({MessageQueue::Message::ENEMY_DEAD, 0, this});
+    }
+
+    ////////////////////////
+    // "Factory"-funktioner
 
     Enemy* Enemy::CreateGrunt(const glm::vec2 &position)
     {
