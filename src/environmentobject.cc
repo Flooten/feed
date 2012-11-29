@@ -9,6 +9,8 @@
 #include "environmentobject.h"
 #include "util.h"
 
+#include <iostream>
+
 namespace feed
 {
     EnvironmentObject::EnvironmentObject(const glm::vec2& position,
@@ -39,5 +41,23 @@ namespace feed
     void EnvironmentObject::set_boundary_end(const glm::vec2& boundary_end)
     {
         boundary_end_ = boundary_end;
+    }
+
+    void EnvironmentObject::update(float delta_time)
+    {
+        if( velocity_.x != 0 || velocity_.y != 0)
+        {
+            glm::vec2 new_velocity = glm::abs(velocity_) * glm::normalize(boundary_end_ - boundary_start_);
+            glm::vec2 right_corner(position_.x + size_.x, position_.y);
+
+            if (right_corner.x > boundary_end_.x)
+                velocity_ = - new_velocity;
+            else if (position_.x < boundary_start_.x)
+                velocity_ = new_velocity;
+
+        }
+
+
+        Object::update(delta_time);
     }
 }
