@@ -216,6 +216,11 @@ namespace feed
                 else
                     enemy->setAnimation(Enemy::STATIONARY_LEFT);
             };
+
+            if (onScreen(enemy_list_[0], player_))
+                std::cout << "På skärmen" << std::endl;
+            else
+                std::cout << "Off screen" << std::endl;
     }
 
     void World::handleSDLEvent(const SDL_Event& event)

@@ -30,9 +30,12 @@ namespace feed
 
     bool onScreen(const Object* obj, const Player* player)
     {
+        int obj_x = obj->get_position().x;
+        int player_x = player->get_position().x;
 
-        int delta_x = player->get_position().x - obj->get_position().x;
+        int delta_x =  obj_x - player_x;
 
-        return (   delta_x > util::PLAYER_OFFSET_X ) || ( obj->get_position().x -  player->get_position().x < 1024 - util::PLAYER_OFFSET_X );
+        return ((delta_x < util::SCREEN_WIDTH - util::PLAYER_OFFSET_X && delta_x > 0) ||
+                (- delta_x - obj->get_size().x < util::PLAYER_OFFSET_X && delta_x < 0));
     }
 }
