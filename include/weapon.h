@@ -2,6 +2,7 @@
  * FILNAMN:       weapon.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
+ *                Marcus Eriksson   910322-1371     Y3A
  * DATUM:         2012-11-16
  *
  * BESKRIVNING: 
@@ -31,7 +32,10 @@ namespace feed
 
     	void addAmmo(int value);
     	void reload();
-    	void fire();
+    	void fired();
+        void update(float delta_time);
+
+        bool isReady();
 
         int get_type() const;
     	int get_clip() const;
@@ -41,8 +45,8 @@ namespace feed
 
     private:
         int type_;
-    	int rate_of_fire_;
-    	int last_fired_;
+    	float rate_of_fire_;
+    	float last_fired_;
     	int clip_ = 0;
     	int max_clip_;
     	int ammo_ = 0;

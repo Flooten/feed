@@ -40,6 +40,8 @@ namespace feed
         void addHealth(int value);
         void fire() override final;
 
+        void update(float delta_time) override;
+
     private:
         int inventory_index_ = 0;
         Inventory inventory_;

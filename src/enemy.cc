@@ -3,11 +3,13 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
  *                Mattias Fransson
+ *                Marcus Eriksson   910322-1371     Y3A
  * DATUM:         2012-11-26
  *
  */
 
 #include "enemy.h"
+#include "messagequeue.h"
 #include "resources.h"
 
 namespace feed
@@ -24,15 +26,7 @@ namespace feed
         : Character(position, size, velocity, image, hitpoints, armor, max_health, max_armor)
         , weapon_(nullptr)
     {
-        switch (weapon_type)
-        {
-            case Weapon::SMG:
-                weapon_ = nullptr;
-                break;
-
-            default:
-                break;
-        }
+        weapon_ = Weapon::CreateWeapon(weapon_type, 100);
     }
 
     Enemy::~Enemy()
@@ -43,17 +37,14 @@ namespace feed
     void Enemy::fire()
     {
         if (weapon_ != nullptr)
-            weapon_->fire();
+            if (weapon_->isReady())
+            {
+                MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, weapon_->get_type(), this});
+                weapon_->fired();
+            }
     }
 
-    void Enemy::setAnimation(Animation animation)
-    {
-        image_->setAnimation(animation);
-
-        image_->setTopRotation(animation % 2);
-    }
-
-    bool Enemy::get_seen_player()
+    bool Enemy::get_seen_player() const
     {
         return seen_player_;
     }
@@ -66,6 +57,7 @@ namespace feed
     void Enemy::update(float delta_time)
     {
         set_seen_player(true);
+        weapon_->update(delta_time);
 
         Character::update(delta_time);
     }
@@ -79,7 +71,7 @@ namespace feed
         int armor = 0;
         int max_health = 25;
         int max_armor = 0;
-        int weapon_type = Weapon::SMG;
+        int weapon_type = Weapon::PISTOL;
 
         Enemy* enemy = new Enemy(position, size, velocity, image, hitpoints, armor, max_health, max_armor, weapon_type);
         enemy->setAnimated(4, 8);
@@ -92,7 +84,4 @@ namespace feed
     {
         return nullptr;
     }
-
-
-
 }

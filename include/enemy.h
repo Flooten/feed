@@ -32,20 +32,11 @@ namespace feed
               int max_armor,
               int weapon_type);
 
-        enum Animation
-        {
-            STATIONARY_RIGHT,
-            STATIONARY_LEFT,
-            WALKING_RIGHT,
-            WALKING_LEFT
-        };
-
         ~Enemy();
 
         void fire();
-        void setAnimation(Animation animation);
 
-        bool get_seen_player();
+        bool get_seen_player() const;
         void set_seen_player(bool value);
 
         void update(float delta_time) override;
