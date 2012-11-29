@@ -133,8 +133,7 @@ namespace feed
         }
 
         // om ingen spelare definierats i banfilen, ladda default/krasha
-        if (player_ == nullptr)
-            ;
+        //if (player_ == nullptr)
 
         std::cout << "Number of enemies: " << enemy_list_.size() << std::endl;
         std::cout << "Number of envobjs: " << envobject_list_.size() << std::endl;
@@ -419,6 +418,7 @@ namespace feed
                 switch (msg.value)
                 {
                     case Weapon::PISTOL:
+                    case Weapon::ENEMY_PISTOL:
                         projectile = Projectile::createPistolProjectile(msg.sender);
                         projectile_list_.push_back(projectile);
                         projectile_list_.back()->setAnimated(2, 6);
@@ -427,6 +427,9 @@ namespace feed
                     default:
                         break;
                 }
+
+                break;
+            }
 
             case MessageQueue::Message::DEAD:
             {
