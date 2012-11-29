@@ -27,6 +27,7 @@
 
 namespace feed
 {
+
     World::World()
     {
         std::cout << "World " << this << " online" << std::endl;
@@ -202,11 +203,12 @@ namespace feed
                 {
                     handleCollision(enemy, envobject);
                     if (LOS)
-                        LOS = line_of_sight(enemy, player_, envobject);
+                        LOS = lineOfSight(enemy, player_, envobject);
                 }
             }
 
-
+            // if (onScreen(enemy_list_[0], player_))
+            //     std::cout << "On Screen" << std::endl;
 
             if (LOS)
             {
@@ -222,9 +224,9 @@ namespace feed
             else
                 std::cout << "LOS: NEJ! " << std::endl;
 
-            std::cout << "Player: x: " << player_->get_position().x << " Player: y: " << player_->get_position().y << std::endl
-                                        << "Enemy: x: " << enemy_list_[0]->get_position().x
-                                        << " Enemy: y: " << enemy_list_[0]->get_position().y << std::endl  << std::endl;
+            // std::cout << "Player: x: " << player_->get_position().x << " Player: y: " << player_->get_position().y << std::endl
+            //                             << "Enemy: x: " << enemy_list_[0]->get_position().x
+            //                             << " Enemy: y: " << enemy_list_[0]->get_position().y << std::endl  << std::endl;
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
