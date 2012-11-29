@@ -51,6 +51,7 @@ namespace feed
 
     void Player::addWeapon(Weapon::Type weapon_type)
     {
+        std::cout << "Lägger till ett vapen!" << std::endl;
         inventory_.add(weapon_type);
     }    
 
@@ -65,6 +66,8 @@ namespace feed
         Weapon* weapon = inventory_.get_item(inventory_index_);
 
         if (weapon != nullptr)
+        {
             MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, weapon->get_type(), this});
+        }
     }
 }

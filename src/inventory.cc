@@ -8,6 +8,7 @@
  */
 
 #include "inventory.h"
+#include <iostream>
 
 namespace feed
 {
@@ -25,18 +26,25 @@ namespace feed
 		switch (weapon_type)
         {
             case Weapon::PISTOL:
+            {
+            	bool found = false;
+
 	            for (auto weapon : inventory_list)
 					if (weapon->get_type() == weapon_type)
 					{
 						// Lägg till ammo
 						weapon->addAmmo(30);
+						found = true;
 					}
-					else
-					{
-						// Lägg till vapnet
-						inventory_list.push_back(Weapon::CreateWeapon(Weapon::PISTOL, 100));
-					}
-                break;
+
+				if (!found)
+				{
+					// Lägg till vapnet
+					inventory_list.push_back(Weapon::CreateWeapon(Weapon::PISTOL, 100));
+				}
+
+               break;
+           	}
 
             default:
                 break;

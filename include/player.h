@@ -41,7 +41,7 @@ namespace feed
         void fire() override final;
 
     private:
-        int inventory_index_;
+        int inventory_index_ = 0;
         Inventory inventory_;
     };
 }

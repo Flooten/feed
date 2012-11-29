@@ -25,14 +25,14 @@ namespace feed
                 if (shooter->getFacing() == 0)
                 {
                     // Tittar åt höger
-                    origin.x = shooter->get_position().x + 254;
-                    origin.y = shooter->get_position().y + 210;
+                    origin.x = shooter->get_position().x + 64;
+                    origin.y = shooter->get_position().y + 53;
                 }
                 else
                 {
                     // Tittar åt vänster
-                    origin.x = shooter->get_position().x + 258;
-                    origin.y = shooter->get_position().y + 210;
+                    origin.x = shooter->get_position().x + 65;
+                    origin.y = shooter->get_position().y + 53;
                 }
             }
 
@@ -75,16 +75,24 @@ namespace feed
         glm::vec2 position = getPistolOrigin(shooter);
 
         float angle = getAimingAngle(shooter);
-        int radius = 198;
+        int radius = 49;
 
-        position.x += radius * cos(angle);
-        position.y += radius * sin(angle);
-
-        glm::vec2 size(128, 128);
+        if (shooter->getFacing() == 0)
+        {
+            // Höger
+            position.x += radius * cos(angle);
+            position.y += radius * sin(angle);
+        }
+        else
+        {
+            // Vänster
+            position.x -= radius * cos(angle);
+            position.y -= radius * sin(angle);
+        }
+        
+        glm::vec2 size(16, 16);
         glm::vec2 velocity = shooter->get_aim();
-        velocity *= 100;
-
-        // Beräkna allt ovan
+        velocity *= 1000;
 
         return new Projectile(position, size, velocity, Resources::instance().getImage("fireball"), 5);
     }

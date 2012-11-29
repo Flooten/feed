@@ -203,10 +203,6 @@ namespace feed
                 }
                 break;
 
-            case MessageQueue::Message::FIRE:
-                Audio::instance().playSoundFx("fire");
-                break;
-
             default:
                 game_state_.top()->handleMessage(msg);
                 break;

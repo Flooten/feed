@@ -26,7 +26,7 @@ namespace feed
     {
         switch (weapon_type)
         {
-            case SMG:
+            case Weapon::SMG:
                 weapon_ = nullptr;
                 break;
 
@@ -79,7 +79,7 @@ namespace feed
         int armor = 0;
         int max_health = 25;
         int max_armor = 0;
-        int weapon_type = WeaponType::SMG;
+        int weapon_type = Weapon::SMG;
 
         Enemy* enemy = new Enemy(position, size, velocity, image, hitpoints, armor, max_health, max_armor, weapon_type);
         enemy->setAnimated(4, 8);

@@ -392,7 +392,7 @@ namespace feed
                     case Weapon::PISTOL:
                         projectile = Projectile::createPistolProjectile(msg.sender);
                         projectile_list_.push_back(projectile);
-                        projectile_list_.back()->setAnimated(1, 6);
+                        projectile_list_.back()->setAnimated(2, 6);
                         break;
                 }
             }
