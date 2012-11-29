@@ -410,14 +410,23 @@ namespace feed
             case MessageQueue::Message::FIRE:
             {
                 Projectile* projectile = nullptr;
+                // Sender är alltid en Character
+                Character* shooter = dynamic_cast<Character*>(msg.sender);
 
                 switch (msg.value)
                 {
                     case Weapon::PISTOL:
                     case Weapon::ENEMY_PISTOL:
-                        projectile = Projectile::createPistolProjectile(msg.sender);
+                        projectile = Projectile::createPistolProjectile(shooter);
+                        projectile->setAnimated(2, 6);
+
+                        if (shooter->getFacing() == 0)
+                            projectile->setDirection(Projectile::RIGHT);
+                        else
+                            projectile->setDirection(Projectile::LEFT);
+
                         projectile_list_.push_back(projectile);
-                        projectile_list_.back()->setAnimated(2, 6);
+
                         break;
 
                     default:
@@ -429,7 +438,6 @@ namespace feed
 
             case MessageQueue::Message::DEAD:
             {
-                std::cout << "Object " << msg.sender << " is dead" << std::endl;
                 if (msg.value == 0)
                 {
                     
