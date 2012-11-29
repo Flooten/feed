@@ -205,20 +205,26 @@ namespace feed
             envobject->update(delta_time);
 
         for (auto envobject : envobject_list_)
-        {
-            handleCollision(player_, envobject);
-            for (auto enemy : enemy_list_)
             {
-                handleCollision(enemy, envobject);
-                if (onScreen(enemy, player_) && enemy->get_seen_player())
-                    enemy->set_seen_player(lineOfSight(enemy, player_, envobject));
+                handleCollision(player_, envobject);
+                for (auto enemy : enemy_list_)
+                {
+                    handleCollision(enemy, envobject);
+                    if (!(onScreen(enemy, player_)))
+                        enemy->set_seen_player(false);
+
+                    if (enemy->get_seen_player())
+                        enemy->set_seen_player((lineOfSight(enemy, player_, envobject)));
+                }
             }
-        }
 
         for (auto enemy : enemy_list_)
         {
             if (enemy->get_seen_player())
+            {
                 enemy->set_aim(player_->get_position() - enemy->get_position());
+                enemy->fire();
+            }
 
             if (enemy->get_position().x < player_->get_position().x)
                  enemy->setAnimation(Enemy::STATIONARY_RIGHT);
