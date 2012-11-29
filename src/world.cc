@@ -226,14 +226,16 @@ namespace feed
                 enemy->setAnimation(Enemy::STATIONARY_LEFT);
         }
 
-        for (auto it = projectile_list_.begin(); it != projectile_list_.end(); ++it)
+        for (std::size_t it = 0; it < projectile_list_.size(); ++it)
         {
+            Projectile* current = projectile_list_[it];
+
             for (auto enemy : enemy_list_)
             {
-                if (isIntersecting(*it, enemy))
+                if (isIntersecting(current, enemy))
                 {
-                    enemy->addHealth(-(*it)->get_damage());
-                    MessageQueue::instance().pushMessage({MessageQueue::Message::DEAD, 0, *it});
+                    enemy->addHealth(-current->get_damage());
+                    MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, it, current});
                 }
             }
         }
@@ -417,13 +419,11 @@ namespace feed
                 break;
             }
 
-            case MessageQueue::Message::DEAD:
+            case MessageQueue::Message::PROJECTILE_DEAD:
             {
-                std::cout << "Object " << msg.sender << " is dead" << std::endl;
-                if (msg.value == 0)
-                {
-                    
-                }
+                std::cout << "Projectile " << msg.sender << " is dead" << std::endl;
+                delete msg.sender;
+                projectile_list_.erase(projectile_list_.begin() + msg.value);
                 break;
             }
 

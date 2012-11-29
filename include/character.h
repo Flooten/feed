@@ -53,6 +53,8 @@ namespace feed
         virtual void update(float delta_time);
 
     protected:
+        virtual void isDead() = 0;
+
         int hitpoints_;
         int armor_;
         int max_health_;

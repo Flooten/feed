@@ -5,7 +5,7 @@
  *                Herman Ekwall
  *                Marcus Eriksson   910322-1371     Y3A
  *                Mattias Fransson  910527-2612     Y3A
- * DATUM:         2012-11-16
+ * DATUM:         2012-11-29
  *
  * BESKRIVNING: Meddelandekö. Tar emot meddelanden från alla object, GameWorld läser kön
  *              och utför instruktionerna. MessageQueue implementeras som en singleton.
@@ -41,7 +41,9 @@ namespace feed
                 ADD_WEAPON,
                 CHECKPOINT,
 				PLAYER_DEAD,
-				DEAD
+				ENEMY_DEAD,
+                PROJECTILE_DEAD,
+                DEAD
             };
 
             Message(int type = 0, int value = 0, Object* sender = nullptr);
