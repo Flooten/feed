@@ -46,13 +46,6 @@ namespace feed
             weapon_->fire();
     }
 
-    void Enemy::setAnimation(Animation animation)
-    {
-        image_->setAnimation(animation);
-
-        image_->setTopRotation(animation % 2);
-    }
-
     Enemy* Enemy::CreateGrunt(const glm::vec2 &position)
     {
         glm::vec2 size(50, 50);
@@ -75,7 +68,4 @@ namespace feed
     {
         return nullptr;
     }
-
-
-
 }

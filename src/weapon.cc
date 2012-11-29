@@ -77,7 +77,10 @@ namespace feed
     {
         switch (type)
         {
-            case WeaponType::SMG:
+            case PISTOL:
+                return new Weapon(type, 50, 0, 30, max_ammo, 10, Resources::instance()["weapon-smg"]);
+
+            case SMG:
                 return new Weapon(type, 754, 0, 20, max_ammo, 5, Resources::instance()["weapon-smg"]);
 
             default:

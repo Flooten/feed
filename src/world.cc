@@ -231,6 +231,12 @@ namespace feed
     {
         switch (event.type)
         {
+            case SDL_MOUSEBUTTONDOWN:
+            {
+                player_->fire();
+                break;
+            }
+
             case SDL_MOUSEMOTION:
             {
                 // Origo
@@ -386,7 +392,16 @@ namespace feed
         {
             case MessageQueue::Message::FIRE:
             {
-                    
+                Projectile* projectile = nullptr;
+
+                switch (msg.value)
+                {
+                    case Weapon::PISTOL:
+                        projectile = Projectile::createPistolProjectile(msg.sender);
+                        projectile_list_.push_back(projectile);
+                        projectile_list_.back()->setAnimated(1, 6);
+                        break;
+                }
             }
             default:
                 break;
@@ -474,6 +489,8 @@ namespace feed
                              util::PLAYER_MAX_ARMOR);
         player_->setAnimated(4, 8);
         player_->setTopImage(Resources::instance()["player-torso"], 2, 37);
+
+        player_->addWeapon(Weapon::PISTOL);
     }
 
     void World::loadEnvironmentObject(const std::string& str)

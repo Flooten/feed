@@ -31,12 +31,22 @@ namespace feed
                   int max_health,
                   int max_armor);
 
+        enum Animation
+        {
+            STATIONARY_RIGHT,
+            STATIONARY_LEFT,
+            WALKING_RIGHT,
+            WALKING_LEFT
+        };  
+
         void set_aim(glm::vec2 aim);
         glm::vec2 get_aim() const;
+        int getFacing() const;
 
         virtual void add_health(int value);
         void add_armor(int value);
         virtual void fire() = 0;
+        void setAnimation(Animation animation);
 
         void update(float delta_time);
 
@@ -47,6 +57,7 @@ namespace feed
         int max_armor_;
 
     private:
+        Animation animation_;
         glm::vec2 aim_;
     };
 }

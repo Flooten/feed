@@ -28,21 +28,16 @@ namespace feed
                int hitpoints,
                int armor,
                int max_health,
-               int max_armor);
+               int max_armor);      
 
-        enum Animation
-        {
-            STATIONARY_RIGHT,
-            STATIONARY_LEFT,
-            WALKING_RIGHT,
-            WALKING_LEFT
-        };        
-
-        void setAnimation(Animation animation);
-        void addWeapon(Weapon& weapon);
-        void add_health(int value);
+        // Getters
         int get_inventory_index() const;
+
+        // Setters
         void set_inventory_index(int index);
+
+        void addWeapon(Weapon::Type weapon_type);
+        void add_health(int value);
         void fire() override final;
 
     private:

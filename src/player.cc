@@ -28,8 +28,11 @@ namespace feed
                     armor,
                     max_health,
                     max_armor)
+    {}
+
+    int Player::get_inventory_index() const
     {
-        setAnimation(STATIONARY_RIGHT);
+        return inventory_index_;
     }
 
     void Player::add_health(int value)
@@ -46,15 +49,10 @@ namespace feed
             hitpoints_ += value;
     }
 
-    void Player::addWeapon(Weapon& weapon)
+    void Player::addWeapon(Weapon::Type weapon_type)
     {
-        inventory_.add(weapon);
-    }
-
-    int Player::get_inventory_index() const
-    {
-        return inventory_index_;
-    }
+        inventory_.add(weapon_type);
+    }    
 
     void Player::set_inventory_index(int index)
     {
@@ -64,14 +62,9 @@ namespace feed
     void Player::fire()
     {
         // Skicka meddelande till messagequeue
-        MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, inventory_.get_item(inventory_index_)->get_type(), this});
-        //(inventory_.get_item(inventory_index_))->fire();
-    }
+        Weapon* weapon = inventory_.get_item(inventory_index_);
 
-    void Player::setAnimation(Animation animation)
-    {
-        image_->setAnimation(animation);
-
-        image_->setTopRotation(animation % 2);
+        if (weapon != nullptr)
+            MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, weapon->get_type(), this});
     }
 }
