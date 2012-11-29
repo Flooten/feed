@@ -225,6 +225,18 @@ namespace feed
             else
                 enemy->setAnimation(Enemy::STATIONARY_LEFT);
         }
+
+        for (auto it = projectile_list_.begin(); it != projectile_list_.end(); ++it)
+        {
+            for (auto enemy : enemy_list_)
+            {
+                if (isIntersecting(*it, enemy))
+                {
+                    enemy->addHealth(-(*it)->get_damage());
+                    MessageQueue::instance().pushMessage({MessageQueue::Message::DEAD, 0, *it});
+                }
+            }
+        }
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
@@ -233,9 +245,7 @@ namespace feed
         {
             case SDL_MOUSEBUTTONDOWN:
             {
-                std::cout << "Isolated1" << std::endl;
                 player_->fire();
-                std::cout << "Isolated2" << std::endl;
                 break;
             }
 
@@ -404,18 +414,16 @@ namespace feed
                         projectile_list_.back()->setAnimated(2, 6);
                         break;
                 }
+                break;
             }
 
             case MessageQueue::Message::DEAD:
             {
-                std::string type = "Object";
-                if (Projectile* ptr = dynamic_cast<Projectile*>(msg.sender))
-                    type = "Projectile";
-
-                if (Player* ptr = dynamic_cast<Player*>(msg.sender))
-                    type = "Player";
-
-                std::cout << type << " " << msg.sender << " is dead, from " << msg.value << std::endl;
+                std::cout << "Object " << msg.sender << " is dead" << std::endl;
+                if (msg.value == 0)
+                {
+                    
+                }
                 break;
             }
 
