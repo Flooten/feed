@@ -422,8 +422,6 @@ namespace feed
                 }
                 break;
             }
-<<<<<<< HEAD
-=======
 
             case MessageQueue::Message::DEAD:
             {
@@ -435,7 +433,6 @@ namespace feed
                 break;
             }
 
->>>>>>> origin/master
             default:
                 break;
         }
