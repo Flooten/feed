@@ -2,6 +2,7 @@
  * FILNAMN:       weapon.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
+ *                Marcus Eriksson   910322-1371     Y3A
  * DATUM:         2012-11-16
  *
  */
@@ -9,6 +10,7 @@
 #include "weapon.h"
 #include "resources.h"
 #include "messagequeue.h"
+#include <iostream>
 
 namespace feed
 {
@@ -48,14 +50,23 @@ namespace feed
     	}
     }
 
-    void Weapon::fire()
+    void Weapon::fired()
     {
-    	if (clip_ !=0)
-    	{
-    		--clip_;
+    	last_fired_ = 0;
+    }
 
-            // Skicka meddelande till messagequeue - lägger i player
-    	}
+    void Weapon::update(float delta_time)
+    {
+        last_fired_ += delta_time;
+        std::cout << last_fired_ << std::endl;
+    }
+
+    bool Weapon::isReady()
+    {
+        if (last_fired_ >= 60 / rate_of_fire_)
+            return true;
+        else
+            return false;
     }
 
     int Weapon::get_type() const
@@ -78,7 +89,7 @@ namespace feed
         switch (type)
         {
             case PISTOL:
-                return new Weapon(type, 50, 0, 30, max_ammo, 10, Resources::instance()["weapon-smg"]);
+                return new Weapon(type, 120, 0, 30, max_ammo, 10, Resources::instance()["weapon-smg"]);
 
             case SMG:
                 return new Weapon(type, 754, 0, 20, max_ammo, 5, Resources::instance()["weapon-smg"]);

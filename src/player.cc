@@ -67,7 +67,21 @@ namespace feed
 
         if (weapon != nullptr)
         {
-            MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, weapon->get_type(), this});
+            if (weapon->isReady())
+            {
+                MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, weapon->get_type(), this});
+                weapon->fired();
+            }
         }
+    }
+
+    void Player::update(float delta_time)
+    {
+        Weapon* weapon = inventory_.get_item(inventory_index_);
+
+        if (weapon != nullptr)
+            weapon->update(delta_time);
+
+        Character::update(delta_time);
     }
 }
