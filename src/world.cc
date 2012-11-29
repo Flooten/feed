@@ -454,16 +454,16 @@ namespace feed
                     case Weapon::ENEMY_PISTOL:
                         projectile = Projectile::createPistolProjectile(shooter);
                         projectile->setAnimated(2, 6);
-
-                        if (shooter->getFacing() == 0)
-                            projectile->setDirection(Projectile::RIGHT);
-                        else
-                            projectile->setDirection(Projectile::LEFT);
-
-                        projectile_list_.push_back(projectile);
-                        
                         break;
                 }
+
+                if (shooter->getFacing() == 0)
+                    projectile->setDirection(Projectile::RIGHT);
+                else
+                    projectile->setDirection(Projectile::LEFT);
+
+                projectile_list_.push_back(projectile);
+
                 break;
             }
 
