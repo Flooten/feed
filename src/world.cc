@@ -205,26 +205,51 @@ namespace feed
             envobject->update(delta_time);
 
         for (auto envobject : envobject_list_)
+        {
+            handleCollision(player_, envobject);
+            for (auto enemy : enemy_list_)
             {
-                handleCollision(player_, envobject);
-                for (auto enemy : enemy_list_)
-                {
-                    handleCollision(enemy, envobject);
-                    if (onScreen(enemy, player_) && enemy->get_seen_player())
-                        enemy->set_seen_player(lineOfSight(enemy, player_, envobject));
-                }
+                handleCollision(enemy, envobject);
+                if (onScreen(enemy, player_) && enemy->get_seen_player())
+                    enemy->set_seen_player(lineOfSight(enemy, player_, envobject));
             }
+        }
 
         for (auto enemy : enemy_list_)
-            {
-                if (enemy->get_seen_player())
-                    enemy->set_aim(player_->get_position() - enemy->get_position());
+        {
+            if (enemy->get_seen_player())
+                enemy->set_aim(player_->get_position() - enemy->get_position());
 
-                if (enemy->get_position().x < player_->get_position().x)
-                     enemy->setAnimation(Enemy::STATIONARY_RIGHT);
-                else
-                    enemy->setAnimation(Enemy::STATIONARY_LEFT);
-            };
+            if (enemy->get_position().x < player_->get_position().x)
+                 enemy->setAnimation(Enemy::STATIONARY_RIGHT);
+            else
+                enemy->setAnimation(Enemy::STATIONARY_LEFT);
+        }
+
+        // for (auto projectile : projectile_list_)
+        // {
+        //     for (auto enemy : enemy_list_)
+        //     {
+        //         if (isIntersecting(projectile, enemy))
+        //         {
+        //             enemy->add_health(-projectile->get_damage());
+
+        //         }
+        //     }
+        // }
+
+        for (auto p = projectile_list_.begin(); p != projectile_list_.end(); ++p)
+        {
+            for (auto enemy : enemy_list_)
+            {
+                if (isIntersecting(*p, enemy))
+                {
+                    enemy->addHealth(-(*p)->get_damage());
+                    std::cout << enemy << " - hp: " << enemy->get_health() << std::endl;
+                    MessageQueue::instance().pushMessage({MessageQueue::Message::DEAD, 123, *p});
+                }
+            }
+        }
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
@@ -233,7 +258,9 @@ namespace feed
         {
             case SDL_MOUSEBUTTONDOWN:
             {
+                std::cout << "Isolated1" << std::endl;
                 player_->fire();
+                std::cout << "Isolated2" << std::endl;
                 break;
             }
 
@@ -403,6 +430,20 @@ namespace feed
                         break;
                 }
             }
+
+            case MessageQueue::Message::DEAD:
+            {
+                std::string type = "Object";
+                if (Projectile* ptr = dynamic_cast<Projectile*>(msg.sender))
+                    type = "Projectile";
+
+                if (Player* ptr = dynamic_cast<Player*>(msg.sender))
+                    type = "Player";
+
+                std::cout << type << " " << msg.sender << " is dead, from " << msg.value << std::endl;
+                break;
+            }
+
             default:
                 break;
         }

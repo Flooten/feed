@@ -2,7 +2,8 @@
  * FILNAMN:       character.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
-                  Marcus Eriksson   910322-1371     Y3A
+ *                Marcus Eriksson   910322-1371     Y3A
+ *                Mattias Fransson
  * DATUM:         2012-11-15
  */
 
@@ -53,12 +54,17 @@ namespace feed
         return aim_;
     }
 
+    int Character::get_health() const
+    {
+        return hitpoints_;
+    }
+
     int Character::getFacing() const
     {
         return animation_ % 2;
     }
 
-    void Character::add_health(int value)
+    void Character::addHealth(int value)
     {
         if (hitpoints_ + value > max_health_)
         {
@@ -66,13 +72,13 @@ namespace feed
         }
         else if (hitpoints_ + value <= 0)
         {
-           MessageQueue::instance().pushMessage({MessageQueue::Message::DEAD, 0, this});
+           MessageQueue::instance().pushMessage({MessageQueue::Message::DEAD, 72, this});
         }
         else
             hitpoints_ += value;
     }
 
-    void Character::add_armor(int value)
+    void Character::addArmor(int value)
     {
         if (armor_ + value > max_armor_)
         {
@@ -80,7 +86,7 @@ namespace feed
         }
         else if (armor_ + value < 0)
         {
-            add_health(armor_ + value);
+            addHealth(armor_ + value);
             armor_ = 0;
         }
         else

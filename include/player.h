@@ -37,7 +37,7 @@ namespace feed
         void set_inventory_index(int index);
 
         void addWeapon(Weapon::Type weapon_type);
-        void add_health(int value);
+        void addHealth(int value);
         void fire() override final;
 
     private:
