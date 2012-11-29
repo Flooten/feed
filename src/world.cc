@@ -218,12 +218,23 @@ namespace feed
             }
         }
 
+        for (auto it = intobject_list_.begin(); it != intobject_list_.end(); ++it)
+        {
+            if (isIntersecting(player_, *it))
+            {
+                (*it)->eventFunction();
+                delete *it;
+                intobject_list_.erase(it);
+                break;
+            }
+        }
+
         for (auto enemy : enemy_list_)
         {
             if (enemy->get_seen_player())
             {
                 enemy->set_aim(player_->get_position() - enemy->get_position());
-                //enemy->fire();
+                enemy->fire();
             }
 
             if (enemy->get_position().x < player_->get_position().x)
@@ -236,6 +247,13 @@ namespace feed
         {
             bool found = false;
             Projectile* current = projectile_list_[it];
+
+            if (isIntersecting(current, player_))
+            {
+                player_->addHealth(-current->get_damage());
+                MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, it, current});
+                break;
+            }
 
             for (auto envobject : envobject_list_)
             {
@@ -332,8 +350,8 @@ namespace feed
                         break;
                     }
 
-                    case SDLK_DOWN:
-                       
+                    case SDLK_h:
+                        std::cout << "Player health: " << player_->get_health() << std::endl;
                         break;
 
                     case SDLK_d:
@@ -453,6 +471,21 @@ namespace feed
             {
                 std::cout << "Enemy " << msg.sender << " is dead" << std::endl;
 
+                for (auto it = enemy_list_.begin(); it != enemy_list_.end(); ++it)
+                {
+                    if (*it == msg.sender)
+                    {
+                        delete msg.sender;
+                        enemy_list_.erase(it);
+                        break;
+                    }
+                }
+            }
+
+            case MessageQueue::Message::ADD_HEALTH:
+            {
+                player_->addHealth(msg.value);
+                break;
             }
 
             default:

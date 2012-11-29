@@ -11,6 +11,8 @@
 #include "messagequeue.h"
 #include "util.h"
 
+#include <iostream>
+
 namespace feed
 {
     namespace
@@ -66,6 +68,8 @@ namespace feed
 
     void Character::addHealth(int value)
     {
+        std::cout << "Adding " << value << " health" << std::endl;
+
         if (hitpoints_ + value > max_health_)
         {
             hitpoints_ = max_health_;
