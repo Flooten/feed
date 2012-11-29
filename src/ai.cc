@@ -1,4 +1,15 @@
-#include "util.h"
+/*
+ * FILNAMN:       ai.h
+ * PROJEKT:       F.E.E.D.
+ * PROGRAMMERARE: Joel Davidsson
+ *                Herman Ekwall
+ * DATUM:         2012-11-28
+ *
+ * BESKRIVNING: 
+ *
+ */
+
+ #include "util.h"
 #include "ai.h"
 #include "enemy.h"
 #include "player.h"
