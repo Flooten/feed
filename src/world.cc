@@ -133,8 +133,7 @@ namespace feed
         }
 
         // om ingen spelare definierats i banfilen, ladda default/krasha
-        if (player_ == nullptr)
-            ;
+        //if (player_ == nullptr)
 
         std::cout << "Number of enemies: " << enemy_list_.size() << std::endl;
         std::cout << "Number of envobjs: " << envobject_list_.size() << std::endl;
@@ -142,6 +141,8 @@ namespace feed
 
         envobject_list_.push_back(new EnvironmentObject(glm::vec2(200,250), glm::vec2(50,50), glm::vec2(50,0), Resources::instance()["sq"], glm::vec2(200,200), glm::vec2(200,400)));
 
+        //envobject_list_.back()->set_boundary_start(glm::vec2(400,200));
+        //envobject_list_.back()->set_boundary_end(glm::vec2(400,400));
 
     }
 
@@ -446,15 +447,24 @@ namespace feed
             case MessageQueue::Message::FIRE:
             {
                 Projectile* projectile = nullptr;
+                Character* shooter = dynamic_cast<Character*>(msg.sender);
 
                 switch (msg.value)
                 {
                     case Weapon::PISTOL:
-                        projectile = Projectile::createPistolProjectile(msg.sender);
-                        projectile_list_.push_back(projectile);
-                        projectile_list_.back()->setAnimated(2, 6);
+                    case Weapon::ENEMY_PISTOL:
+                        projectile = Projectile::createPistolProjectile(shooter);
+                        projectile->setAnimated(2, 6);
                         break;
                 }
+
+                if (shooter->getFacing() == 0)
+                    projectile->setDirection(Projectile::RIGHT);
+                else
+                    projectile->setDirection(Projectile::LEFT);
+
+                projectile_list_.push_back(projectile);
+
                 break;
             }
 

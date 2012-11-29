@@ -24,7 +24,6 @@ namespace feed
                  int max_armor,
                  int weapon_type)
         : Character(position, size, velocity, image, hitpoints, armor, max_health, max_armor)
-        , weapon_(nullptr)
     {
         weapon_ = Weapon::CreateWeapon(weapon_type, 100);
     }
@@ -82,7 +81,7 @@ namespace feed
         int armor = 0;
         int max_health = 25;
         int max_armor = 0;
-        int weapon_type = Weapon::PISTOL;
+        int weapon_type = Weapon::ENEMY_PISTOL;
 
         Enemy* enemy = new Enemy(position, size, velocity, image, hitpoints, armor, max_health, max_armor, weapon_type);
         enemy->setAnimated(4, 8);

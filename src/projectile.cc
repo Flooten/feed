@@ -9,7 +9,6 @@
 #include "projectile.h"
 #include "util.h"
 #include "resources.h"
-#include "character.h"
 #include <iostream>             
 
 namespace feed
@@ -67,11 +66,8 @@ namespace feed
         image_->setAnimation(direction);
     }
 
-    Projectile* Projectile::createPistolProjectile(Object* sender)
+    Projectile* Projectile::createPistolProjectile(Character* shooter)
     {
-        // Sender är alltid åtminstone en Character
-        Character* shooter = dynamic_cast<Character*>(sender);
-
         glm::vec2 position = getPistolOrigin(shooter);
 
         float angle = getAimingAngle(shooter);

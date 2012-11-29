@@ -15,12 +15,19 @@
 
 #include <glm/glm.hpp>
 #include "object.h"
+#include "character.h"
 
 namespace feed
 {
     class Projectile : public Object
     {
     public:
+        enum Direction
+        {
+            RIGHT,
+            LEFT
+        };
+
         Projectile(const glm::vec2& position,
                    const glm::vec2& size,
                    const glm::vec2& velocity,
@@ -30,15 +37,9 @@ namespace feed
         // Getters
         int get_damage() const;
 
-        enum Direction
-        {
-            RIGHT,
-            LEFT
-        };
-
         void setDirection(Direction direction);
 
-        static Projectile* createPistolProjectile(Object* sender);
+        static Projectile* createPistolProjectile(Character* shooter);
 
     private:
         int damage_;  // Överflödig?
