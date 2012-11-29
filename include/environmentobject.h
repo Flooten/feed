@@ -27,6 +27,9 @@ namespace feed
                           const glm::vec2& velocity,
                           SDL_Surface* image);
 
+        void update(float delta_time);
+
+
         // Getters
         glm::vec2 get_boundary_start() const;
         glm::vec2 get_boundary_end() const;
@@ -36,8 +39,8 @@ namespace feed
         void set_boundary_end(const glm::vec2& boundary_end);
 
     private:
-        glm::vec2 boundary_start_;
-        glm::vec2 boundary_end_;
+        glm::vec2 boundary_start_ = glm::vec2(0,0);
+        glm::vec2 boundary_end_ = glm::vec2(0,0);
     };
 }
 

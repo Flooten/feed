@@ -34,14 +34,13 @@ namespace feed
         , max_armor_(max_armor)
     {
         image_->setTopFrame(ZERO_DEG_FRAME);
+        animation_ = STATIONARY_RIGHT;
+        setAnimation(animation_);
     }
 
     void Character::set_aim(glm::vec2 aim)
     {
         aim_ = glm::normalize(aim);
-
-        // Normering
-        //aim_ /= aim_.length();
 
         if (aim.x >= 0)
             image_->setTopFrame(ZERO_DEG_FRAME + ceil((atan(aim_.y / aim_.x) * RAD_TO_DEG)) / DEG_PER_FRAME);
@@ -52,6 +51,11 @@ namespace feed
     glm::vec2 Character::get_aim() const
     {
         return aim_;
+    }
+
+    int Character::getFacing() const
+    {
+        return animation_ % 2;
     }
 
     void Character::add_health(int value)
@@ -88,5 +92,12 @@ namespace feed
         velocity_ += util::GRAVITY * delta_time;
 
         Object::update(delta_time);
+    }
+
+    void Character::setAnimation(Animation animation)
+    {
+        animation_ = animation;
+        image_->setAnimation(animation);
+        image_->setTopRotation(animation % 2);
     }
 }

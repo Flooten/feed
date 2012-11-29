@@ -24,8 +24,6 @@ namespace feed
 {
     namespace
     {
-        const int SCREEN_WIDTH = 1024;
-        const int SCREEN_HEIGHT = 576;
         const char* SCREEN_CAPTION = "F.E.E.D.";
     }
 
@@ -94,7 +92,7 @@ namespace feed
         SDL_WM_SetIcon(icon, nullptr);
 
         // Hämta skärmen
-        screen_ = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_SWSURFACE);
+        screen_ = SDL_SetVideoMode(util::SCREEN_WIDTH, util::SCREEN_HEIGHT, 32, SDL_SWSURFACE);
 
         Audio::instance().init();
         SDL_FreeSurface(icon);
@@ -131,8 +129,8 @@ namespace feed
 
     void Game::loadWorldList()
     {
-        world_list_.push_back("data/worlds/level1.fpq");
-        //world_list_.push_back("data/worlds/level2.fpq");
+        //world_list_.push_back("data/worlds/level1.fpq");
+        world_list_.push_back("data/worlds/level2.fpq");
     }
 
     void Game::loadMenu()
@@ -140,8 +138,8 @@ namespace feed
         util::blitSurface(Resources::instance()["screen_bg"], screen_, 0, 0);
 
         game_state_.push(new MainMenu(Resources::instance().getImage("menu_background"),
-                                      glm::vec2((SCREEN_WIDTH / 2) - (Resources::instance()["menu_background"]->w / 2),
-                                                (SCREEN_HEIGHT / 2) - (Resources::instance()["menu_background"]->h / 2))));
+                                      glm::vec2((util::SCREEN_WIDTH / 2) - (Resources::instance()["menu_background"]->w / 2),
+                                                (util::SCREEN_HEIGHT / 2) - (Resources::instance()["menu_background"]->h / 2))));
 
         Audio::instance().playMusic("menu_music");
     }
@@ -153,6 +151,7 @@ namespace feed
 
         //game_state_.push(new World);
         game_state_.push(new World(world_list_[current_world_]));
+
     }
 
     void Game::handleSDLEvent(const SDL_Event& event)
@@ -185,8 +184,8 @@ namespace feed
 
             case MessageQueue::Message::PAUSE_GAME:
                 game_state_.push(new PauseMenu(Resources::instance()["menu_background"],
-                                               glm::vec2((SCREEN_WIDTH / 2) - (Resources::instance()["menu_background"]->w / 2),
-                                                         (SCREEN_HEIGHT / 2) - (Resources::instance()["menu_background"]->h / 2))));
+                                               glm::vec2((util::SCREEN_WIDTH / 2) - (Resources::instance()["menu_background"]->w / 2),
+                                                         (util::SCREEN_HEIGHT / 2) - (Resources::instance()["menu_background"]->h / 2))));
                 break;
 
             case MessageQueue::Message::RESUME_GAME:
@@ -203,10 +202,6 @@ namespace feed
                         game_state_.pop();
                     }
                 }
-                break;
-
-            case MessageQueue::Message::FIRE:
-                Audio::instance().playSoundFx("fire");
                 break;
 
             default:

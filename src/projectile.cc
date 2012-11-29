@@ -9,10 +9,43 @@
 #include "projectile.h"
 #include "util.h"
 #include "resources.h"
-#include <iostream>
+#include "character.h"
+#include <iostream>             
 
 namespace feed
 {
+    namespace
+    {
+        glm::vec2 getPistolOrigin(Character* shooter)
+        {
+            glm::vec2 origin;            
+
+            if (shooter != nullptr)
+            {
+                if (shooter->getFacing() == 0)
+                {
+                    // Tittar åt höger
+                    origin.x = shooter->get_position().x + 64;
+                    origin.y = shooter->get_position().y + 53;
+                }
+                else
+                {
+                    // Tittar åt vänster
+                    origin.x = shooter->get_position().x + 65;
+                    origin.y = shooter->get_position().y + 53;
+                }
+            }
+
+            return origin;
+        }
+
+        float getAimingAngle(Character* shooter)
+        {
+            glm::vec2 aim = shooter->get_aim();
+            return atan(aim.y / aim.x);
+        }
+    }
+
     Projectile::Projectile(const glm::vec2& position,
                            const glm::vec2& size,
                            const glm::vec2& velocity,
@@ -36,11 +69,30 @@ namespace feed
 
     Projectile* Projectile::createPistolProjectile(Object* sender)
     {
-        glm::vec2 position;
-        glm::vec2 size;
-        glm::vec2 velocity;
+        // Sender är alltid åtminstone en Character
+        Character* shooter = dynamic_cast<Character*>(sender);
 
-        // Beräkna allt ovan
+        glm::vec2 position = getPistolOrigin(shooter);
+
+        float angle = getAimingAngle(shooter);
+        int radius = 49;
+
+        if (shooter->getFacing() == 0)
+        {
+            // Höger
+            position.x += radius * cos(angle);
+            position.y += radius * sin(angle);
+        }
+        else
+        {
+            // Vänster
+            position.x -= radius * cos(angle);
+            position.y -= radius * sin(angle);
+        }
+        
+        glm::vec2 size(16, 16);
+        glm::vec2 velocity = shooter->get_aim();
+        velocity *= 1000;
 
         return new Projectile(position, size, velocity, Resources::instance().getImage("fireball"), 5);
     }

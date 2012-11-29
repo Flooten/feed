@@ -2,10 +2,10 @@
  * FILNAMN:       ai.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
- *                Mattias Fransson
+ *                Herman Ekwall
  * DATUM:         2012-11-28
  *
- * BESKRIVNING: Kollisionshantering
+ * BESKRIVNING: 
  *
  */
 
@@ -14,7 +14,8 @@
 
 namespace feed
 {
-    bool line_of_sight(const class Enemy* enemy, const class Player* player, const class EnvironmentObject* env_object);
+    bool lineOfSight(const class Enemy* enemy, const class Player* player, const class EnvironmentObject* env_object);
+    bool onScreen(const class Object* obj, const class Player* player);
 
 }
 

@@ -2,7 +2,8 @@
  * FILNAMN:       inventory.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
- * DATUM:         2012-11-16
+ 				  Marcus Eriksson 	910322-1371 	Y3A
+ * DATUM:         2012-11-29
  *
  * BESKRIVNING: inventory är ett indexeringsystem för föremål som är möjliga att ta upp
  *
@@ -20,12 +21,13 @@ namespace feed
 	{
 	public:
 		Inventory();
+		~Inventory();
 
-		void add(const Weapon& weapon);
+		void add(Weapon::Type weapon_type);
 		void remove(unsigned int index);
 		Weapon* get_item(unsigned int index);
 	private:
-		std::vector<Weapon> inventory_list;
+		std::vector<Weapon*> inventory_list;
 	};
 
 }

@@ -129,6 +129,7 @@ namespace feed
                 default:
                     break;
             }
+
         }
 
         // om ingen spelare definierats i banfilen, ladda default/krasha
@@ -138,6 +139,12 @@ namespace feed
         std::cout << "Number of enemies: " << enemy_list_.size() << std::endl;
         std::cout << "Number of envobjs: " << envobject_list_.size() << std::endl;
         std::cout << "Number of intobjs: " << intobject_list_.size() << std::endl;
+
+        envobject_list_.push_back(new EnvironmentObject(glm::vec2(200,250), glm::vec2(50,50), glm::vec2(50,0), Resources::instance()["sq"]));
+
+        envobject_list_.back()->set_boundary_start(glm::vec2(200,250));
+        envobject_list_.back()->set_boundary_end(glm::vec2(900,250));
+
     }
 
     World::~World()
@@ -164,6 +171,9 @@ namespace feed
         // Rensa screen
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
+        for (auto envobject : envobject_list_)
+            envobject->draw(screen, player_->get_position());
+
 		for (auto projectile : projectile_list_)
             projectile->draw(screen, player_->get_position());
 
@@ -182,7 +192,6 @@ namespace feed
 
     void World::update(float delta_time)
     {
-        bool LOS = true;
         if (player_ != nullptr)
             player_->update(delta_time);
 
@@ -196,41 +205,38 @@ namespace feed
             envobject->update(delta_time);
 
         for (auto envobject : envobject_list_)
-        {
-            handleCollision(player_, envobject);
-            for (auto enemy : enemy_list_)
             {
-                handleCollision(enemy, envobject);
-                if (LOS)
-                    LOS = line_of_sight(enemy, player_, envobject);
+                handleCollision(player_, envobject);
+                for (auto enemy : enemy_list_)
+                {
+                    handleCollision(enemy, envobject);
+                    if (onScreen(enemy, player_) && enemy->get_seen_player())
+                        enemy->set_seen_player(lineOfSight(enemy, player_, envobject));
+                }
             }
-        }
 
-        // enemy_list_[0]->set_aim(player_->get_position() - enemy_list_[0]->get_position() );
+        for (auto enemy : enemy_list_)
+            {
+                if (enemy->get_seen_player())
+                    enemy->set_aim(player_->get_position() - enemy->get_position());
 
-        // if (enemy_list_[0]->get_position().x < player_->get_position().x)
-        //     enemy_list_[0]->setAnimation(Enemy::STATIONARY_RIGHT);
-        // else
-        //     enemy_list_[0]->setAnimation(Enemy::STATIONARY_LEFT);
-
-
-        //     if (LOS)
-        //     {
-        //         std::cout << "LOS: JA! " << std::endl;
-        //         enemy_list_[0]->set_aim(player_->get_position());
-        //     }
-        //     else
-        //         std::cout << "LOS: NEJ! " << std::endl;
-
-        //     std::cout << "Player: x: " << player_->get_position().x << " Player: y: " << player_->get_position().y << std::endl
-        //                                 << "Enemy: x: " << enemy_list_[0]->get_position().x
-        //                                 << " Enemy: y: " << enemy_list_[0]->get_position().y << std::endl  << std::endl;
+                if (enemy->get_position().x < player_->get_position().x)
+                     enemy->setAnimation(Enemy::STATIONARY_RIGHT);
+                else
+                    enemy->setAnimation(Enemy::STATIONARY_LEFT);
+            };
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
     {
         switch (event.type)
         {
+            case SDL_MOUSEBUTTONDOWN:
+            {
+                player_->fire();
+                break;
+            }
+
             case SDL_MOUSEMOTION:
             {
                 // Origo
@@ -282,7 +288,7 @@ namespace feed
                         MessageQueue::instance().pushMessage({MessageQueue::Message::PAUSE_GAME});
                         break;
 
-                    case SDLK_UP:
+                    case SDLK_w:
                     {
                         glm::vec2 vel = player_->get_velocity();
                         vel.y = -180.0f;
@@ -386,7 +392,16 @@ namespace feed
         {
             case MessageQueue::Message::FIRE:
             {
-                    
+                Projectile* projectile = nullptr;
+
+                switch (msg.value)
+                {
+                    case Weapon::PISTOL:
+                        projectile = Projectile::createPistolProjectile(msg.sender);
+                        projectile_list_.push_back(projectile);
+                        projectile_list_.back()->setAnimated(2, 6);
+                        break;
+                }
             }
             default:
                 break;
@@ -474,6 +489,7 @@ namespace feed
                              util::PLAYER_MAX_ARMOR);
         player_->setAnimated(4, 8);
         player_->setTopImage(Resources::instance()["player-torso"], 2, 37);
+	player_->addWeapon(Weapon::PISTOL);
         player_->set_collision_offset(glm::vec2(50, 50));
     }
 

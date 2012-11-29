@@ -26,7 +26,7 @@ namespace feed
     {
         switch (weapon_type)
         {
-            case SMG:
+            case Weapon::SMG:
                 weapon_ = nullptr;
                 break;
 
@@ -53,20 +53,37 @@ namespace feed
         image_->setTopRotation(animation % 2);
     }
 
+    bool Enemy::get_seen_player()
+    {
+        return seen_player_;
+    }
+
+    void Enemy::set_seen_player(bool value)
+    {
+        seen_player_ = value;
+    }
+
+    void Enemy::update(float delta_time)
+    {
+        set_seen_player(true);
+
+        Character::update(delta_time);
+    }
+
     Enemy* Enemy::CreateGrunt(const glm::vec2 &position)
     {
-        glm::vec2 size(50, 50);
+        glm::vec2 size(90, 130);
         glm::vec2 velocity(0, 0);
         SDL_Surface* image = Resources::instance()["legs"];
         int hitpoints = 25;
         int armor = 0;
         int max_health = 25;
         int max_armor = 0;
-        int weapon_type = WeaponType::SMG;
+        int weapon_type = Weapon::SMG;
 
         Enemy* enemy = new Enemy(position, size, velocity, image, hitpoints, armor, max_health, max_armor, weapon_type);
         enemy->setAnimated(4, 8);
-        enemy->setTopImage(Resources::instance()["grunt-torso"], 2, 25);
+        enemy->setTopImage(Resources::instance()["grunt-torso"], 2, 37);
 
         return enemy;
     }

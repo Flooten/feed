@@ -27,6 +27,10 @@ namespace feed
         const int PLAYER_MAX_ARMOR = 100;
         const glm::vec2 GRAVITY = glm::vec2(0, 350.0f);
 
+        const int SCREEN_WIDTH = 1024;
+        const int SCREEN_HEIGHT = 576;
+        
+
         // Strängmanipulation
         std::string getFileExtension(const std::string& filename);
 

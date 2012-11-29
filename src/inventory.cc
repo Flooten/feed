@@ -2,32 +2,53 @@
  * FILNAMN:       inventory.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
+ 				  Marcus Eriksson 	910322-1371 	Y3A
  * DATUM:         2012-11-16
  *
  */
 
 #include "inventory.h"
+#include <iostream>
 
 namespace feed
 {
 	Inventory::Inventory()
 	{}
 
-	void Inventory::add(const Weapon& weapon)
+	Inventory::~Inventory()
 	{
-		bool found = 0;
+		for (auto weapon : inventory_list)
+			delete weapon;
+	}
 
-		for(unsigned int i = 0; i < inventory_list.size(); ++i)
-		{
-			if (inventory_list[i].get_type() == weapon.get_type())
-			{
-				inventory_list[i].addAmmo(weapon.get_ammo());
-				found = 1;
-			}
-		}
+	void Inventory::add(Weapon::Type weapon_type)
+	{
+		switch (weapon_type)
+        {
+            case Weapon::PISTOL:
+            {
+            	bool found = false;
 
-		if (!found)
-			inventory_list.push_back(weapon);
+	            for (auto weapon : inventory_list)
+					if (weapon->get_type() == weapon_type)
+					{
+						// Lägg till ammo
+						weapon->addAmmo(30);
+						found = true;
+					}
+
+				if (!found)
+				{
+					// Lägg till vapnet
+					inventory_list.push_back(Weapon::CreateWeapon(Weapon::PISTOL, 100));
+				}
+
+               break;
+           	}
+
+            default:
+                break;
+        }
 	}
 
 	void Inventory::remove(unsigned int index)
@@ -37,7 +58,11 @@ namespace feed
 
 	Weapon* Inventory::get_item(unsigned int index)
 	{
-		return &(inventory_list[index]);
-	}
+		Weapon* weapon = nullptr;
+		
+		if (index < inventory_list.size())
+			weapon = inventory_list[index];
 
+		return weapon;
+	}
 }
