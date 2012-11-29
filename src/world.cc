@@ -164,14 +164,14 @@ namespace feed
         // Rensa screen
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
+        for (auto envobject : envobject_list_)
+            envobject->draw(screen, player_->get_position());
+
 		for (auto projectile : projectile_list_)
             projectile->draw(screen, player_->get_position());
 
         for (auto enemy : enemy_list_)
             enemy->draw(screen, player_->get_position());
-
-        for (auto envobject : envobject_list_)
-            envobject->draw(screen, player_->get_position());
 
         for (auto intobject : intobject_list_)
             intobject->draw(screen, player_->get_position());
@@ -206,18 +206,18 @@ namespace feed
                 }
             }
 
-        enemy_list_[0]->set_aim(player_->get_position() - enemy_list_[0]->get_position() );
-
-        if (enemy_list_[0]->get_position().x < player_->get_position().x)
-            enemy_list_[0]->setAnimation(Enemy::STATIONARY_RIGHT);
-        else
-            enemy_list_[0]->setAnimation(Enemy::STATIONARY_LEFT);
 
 
             if (LOS)
             {
                 std::cout << "LOS: JA! " << std::endl;
-                enemy_list_[0]->set_aim(player_->get_position());
+
+                 if (enemy_list_[0]->get_position().x < player_->get_position().x)
+                     enemy_list_[0]->setAnimation(Enemy::STATIONARY_RIGHT);
+                else
+                    enemy_list_[0]->setAnimation(Enemy::STATIONARY_LEFT);
+
+                 enemy_list_[0]->set_aim(player_->get_position() - enemy_list_[0]->get_position() );
             }
             else
                 std::cout << "LOS: NEJ! " << std::endl;
@@ -291,7 +291,7 @@ namespace feed
                     }
 
                     case SDLK_DOWN:
-                       
+
                         break;
 
                     case SDLK_d:
@@ -377,7 +377,7 @@ namespace feed
 
             default:
                 break;
-        }   
+        }
     }
 
     void World::handleMessage(const MessageQueue::Message& msg)
@@ -386,7 +386,7 @@ namespace feed
         {
             case MessageQueue::Message::FIRE:
             {
-                    
+
             }
             default:
                 break;
