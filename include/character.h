@@ -2,6 +2,7 @@
  * FILNAMN:       character.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
+ *                Mattias Fransson
  * DATUM:         2012-11-15
  *
  * BESKRIVNING: Character definerar en karaktär. Förälder till Player, Enemy och Boss. Abstrakt klass.
@@ -41,10 +42,11 @@ namespace feed
 
         void set_aim(glm::vec2 aim);
         glm::vec2 get_aim() const;
+        int get_health() const;
         int getFacing() const;
 
-        virtual void add_health(int value);
-        void add_armor(int value);
+        virtual void addHealth(int value);
+        void addArmor(int value);
         virtual void fire() = 0;
         void setAnimation(Animation animation);
 

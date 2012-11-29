@@ -35,7 +35,7 @@ namespace feed
         return inventory_index_;
     }
 
-    void Player::add_health(int value)
+    void Player::addHealth(int value)
     {
         if (hitpoints_ + value > max_health_)
         {
