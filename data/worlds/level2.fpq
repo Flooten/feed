@@ -7,14 +7,11 @@ ne               data/gfx/wall2ne.png
 nw               data/gfx/wall2nw.png
 sq               data/gfx/square.png
 
-
 //weapon_container bild på vapen 50X50
 armor_container  data/gfx/armor.png
 health_container data/gfx/red_cross_health.png
 checkpoint       data/gfx/lightbulb.png
 player           data/gfx/icon.png
-
-
 
 [audio]
 sfx ak45 data/high.wav
@@ -79,15 +76,15 @@ music original-score data/sound/feed01.ogg
 
 [interactable_object]
 //weapon 400 300 50 50 100 weapon_container
-//health 100 100 50 50 75 health_container
+health 400 100 50 50 75 health_container
 //armor 300 100 50 50 50 armor_container
 //checkpoint 400 100 25 25 0 checkpoint
 
 [enemy]
 //grunt 750 0
-grunt 1100 150
+grunt 1100 100
 //grunt 1350 0
 //heavy 155 0
 
 [player]
-100 100 0 0 100 100
+100 100 0 0 25 0

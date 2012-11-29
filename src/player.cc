@@ -36,20 +36,6 @@ namespace feed
         return inventory_index_;
     }
 
-    // void Player::addHealth(int value)
-    // {
-    //     if (hitpoints_ + value > max_health_)
-    //     {
-    //         hitpoints_ = max_health_;
-    //     }
-    //     else if (hitpoints_ + value <= 0)
-    //     {
-    //        MessageQueue::instance().pushMessage({MessageQueue::Message::PLAYER_DEAD});
-    //     }
-    //     else
-    //         hitpoints_ += value;
-    // }
-
     void Player::addWeapon(Weapon::Type weapon_type)
     {
         std::cout << "Lägger till ett vapen!" << std::endl;

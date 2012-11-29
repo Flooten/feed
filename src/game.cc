@@ -194,6 +194,7 @@ namespace feed
                 break;
 
             case MessageQueue::Message::EXIT_TO_MAIN_MENU:
+            {
                 if (game_state_.size() == 3)
                 {
                     for (unsigned int i = 0; i < 2; ++i)
@@ -203,6 +204,13 @@ namespace feed
                     }
                 }
                 break;
+            }
+
+            case MessageQueue::Message::PLAYER_DEAD:
+            {
+                game_state_.pop();
+                break;
+            }
 
             default:
                 game_state_.top()->handleMessage(msg);
