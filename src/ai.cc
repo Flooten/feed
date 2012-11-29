@@ -24,8 +24,6 @@ bool line_of_sight(const Enemy* enemy, const Player* player, const EnvironmentOb
     float u1 = (((point1.x - point2.x) * point3.y - (point1.y - point2.y) * (point3.x))/det);
     float u2 = ((-(-(point1.x - point2.x) * point4.y + (point1.y - point2.y) * point4.x))/det);
 
-    std::cout << "u1: " << u1 << " u2: " << u2 << " det: " << det << std::endl;
-
     return (u1 < 0 || u1 > 1  || u2 < 0  ||  u2 > 1);
 
     //return !((u1 >= 0 && u1 <= 1) && (u2 >= 0 && u2 <= 1));

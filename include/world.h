@@ -52,8 +52,6 @@ namespace feed
 
         glm::vec2 playerOrigin();   // Returnerar spelarens mittpunkt
 
-        bool line_of_sight(const Enemy* enemy, const Player* player, const EnvironmentObject* env_object);
-
         Player* player_ = nullptr;
 
         std::vector<Projectile*> projectile_list_;

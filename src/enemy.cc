@@ -66,7 +66,7 @@ namespace feed
 
         Enemy* enemy = new Enemy(position, size, velocity, image, hitpoints, armor, max_health, max_armor, weapon_type);
         enemy->setAnimated(4, 8);
-        enemy->setTopImage(Resources::instance()["torso"], 2, 25);
+        enemy->setTopImage(Resources::instance()["grunt-torso"], 2, 25);
 
         return enemy;
     }
