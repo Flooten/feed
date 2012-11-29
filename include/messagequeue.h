@@ -44,6 +44,7 @@ namespace feed
 				ENEMY_DEAD,
                 BOSS_DEAD,
                 PROJECTILE_DEAD,
+                EFFECT_DEAD,
                 DEAD
             };
 

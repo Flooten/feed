@@ -187,12 +187,18 @@ namespace feed
 
 		if (player_ != nullptr)
             player_->draw(screen, player_->get_position());
+
+        for (auto effect : effect_list_)
+            effect->draw(screen, player_->get_position());
     }
 
     void World::update(float delta_time)
     {
         if (player_ != nullptr)
             player_->update(delta_time);
+
+        for (auto effect : effect_list_)
+            effect->update(delta_time); 
 
         for (auto projectile : projectile_list_)
             projectile->update(delta_time);
@@ -483,8 +489,23 @@ namespace feed
                 {
                     if (*it == msg.sender)
                     {
+                        // Spawna blod
+                        spawnBlood(msg.sender->get_center());
                         delete msg.sender;
                         enemy_list_.erase(it);
+                        break;
+                    }
+                }
+            }
+
+            case MessageQueue::Message::EFFECT_DEAD:
+            {
+                for (auto it = effect_list_.begin(); it != effect_list_.end(); ++it)
+                {
+                    if (*it == msg.sender)
+                    {
+                        delete msg.sender;
+                        effect_list_.erase(it);
                         break;
                     }
                 }
@@ -638,5 +659,17 @@ namespace feed
                                  util::PLAYER_OFFSET_Y + player_->get_size().y / 2);
 
         return position;
+    }
+
+    void World::spawnBlood(const glm::vec2& position)
+    {
+        for (int i = 0; i < 5; ++i)
+        {
+            effect_list_.push_back(new Effect(position + glm::vec2(i * 5, i * 5),
+                                              glm::vec2(64, 64),
+                                              glm::vec2(0, 0),
+                                              Resources::instance().getImage("blood"),
+                                              1, 6)); 
+        }
     }
 }
