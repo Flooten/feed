@@ -2,10 +2,10 @@
  * FILNAMN:       ai.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
- *                Mattias Fransson
+ *                Herman Ekwall
  * DATUM:         2012-11-28
  *
- * BESKRIVNING: Kollisionshantering
+ * BESKRIVNING: 
  *
  */
 
