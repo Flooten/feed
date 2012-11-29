@@ -140,10 +140,10 @@ namespace feed
         std::cout << "Number of envobjs: " << envobject_list_.size() << std::endl;
         std::cout << "Number of intobjs: " << intobject_list_.size() << std::endl;
 
-        envobject_list_.push_back(new EnvironmentObject(glm::vec2(200,250), glm::vec2(50,50), glm::vec2(50,0), Resources::instance()["sq"]));
+        envobject_list_.push_back(new EnvironmentObject(glm::vec2(200,250), glm::vec2(50,50), glm::vec2(50,0), Resources::instance()["sq"], glm::vec2(200,200), glm::vec2(200,400)));
 
-        envobject_list_.back()->set_boundary_start(glm::vec2(200,250));
-        envobject_list_.back()->set_boundary_end(glm::vec2(900,250));
+        //envobject_list_.back()->set_boundary_start(glm::vec2(400,200));
+        //envobject_list_.back()->set_boundary_end(glm::vec2(400,400));
 
     }
 
@@ -205,18 +205,18 @@ namespace feed
             envobject->update(delta_time);
 
         for (auto envobject : envobject_list_)
+        {
+            handleCollision(player_, envobject);
+            for (auto enemy : enemy_list_)
             {
-                handleCollision(player_, envobject);
-                for (auto enemy : enemy_list_)
-                {
-                    handleCollision(enemy, envobject);
-                    if (!(onScreen(enemy, player_)))
-                        enemy->set_seen_player(false);
+                handleCollision(enemy, envobject);
+                if (!(onScreen(enemy, player_)))
+                    enemy->set_seen_player(false);
 
-                    if (enemy->get_seen_player())
-                        enemy->set_seen_player((lineOfSight(enemy, player_, envobject)));
-                }
+                if (enemy->get_seen_player())
+                    enemy->set_seen_player((lineOfSight(enemy, player_, envobject)));
             }
+        }
 
         for (auto enemy : enemy_list_)
         {

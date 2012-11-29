@@ -27,16 +27,16 @@ namespace feed
                           const glm::vec2& velocity,
                           SDL_Surface* image);
 
+
+        EnvironmentObject(const glm::vec2& position,
+                          const glm::vec2& size,
+                          const glm::vec2& velocity,
+                          SDL_Surface* image,
+                          glm::vec2 boundary_start_ ,
+                          glm::vec2 boundary_end_);
+
         void update(float delta_time);
 
-
-        // Getters
-        glm::vec2 get_boundary_start() const;
-        glm::vec2 get_boundary_end() const;
-
-        // Setters
-        void set_boundary_start(const glm::vec2& boundary_start);
-        void set_boundary_end(const glm::vec2& boundary_end);
 
     private:
         glm::vec2 boundary_start_ = glm::vec2(0,0);
