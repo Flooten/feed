@@ -3,9 +3,7 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
  *                Herman Ekwall
- * DATUM:         2012-11-28
- *
- * BESKRIVNING: 
+ * DATUM:         2012-11-29
  *
  */
 
@@ -40,12 +38,19 @@ namespace feed
 
     bool onScreen(const Object* obj, const Player* player)
     {
+        glm::vec2 delta = glm::abs(obj->get_position() - player->get_position());
 
-        glm::vec2 delta =  obj->get_position() - player->get_position(); 
+        // enklare variant, ej exakt i kanterna
+        if (delta.x > util::SCREEN_WIDTH - util::PLAYER_OFFSET_X || delta.y > util::SCREEN_HEIGHT - util::PLAYER_OFFSET_Y)
+            return false;
 
-        return (((delta.x < util::SCREEN_WIDTH - util::PLAYER_OFFSET_X && delta.x > 0) ||
-                 (- delta.x - obj->get_size().x < util::PLAYER_OFFSET_X && delta.x < 0))) &&
-                ((- delta.y - obj->get_size().y < util::PLAYER_OFFSET_Y && delta.y < 0) || 
-                (delta.y < util::SCREEN_HEIGHT - util::PLAYER_OFFSET_Y && delta.y > 0));
+        return true;
+
+        // glm::vec2 delta = obj->get_position() - player->get_position(); 
+
+        // return (((delta.x < util::SCREEN_WIDTH - util::PLAYER_OFFSET_X && delta.x > 0) ||
+        //          (- delta.x - obj->get_size().x < util::PLAYER_OFFSET_X && delta.x < 0))) &&
+        //         ((- delta.y - obj->get_size().y < util::PLAYER_OFFSET_Y && delta.y < 0) || 
+        //         (delta.y < util::SCREEN_HEIGHT - util::PLAYER_OFFSET_Y && delta.y > 0));
     }
 }
