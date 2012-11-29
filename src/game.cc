@@ -109,6 +109,8 @@ namespace feed
         Resources::instance().addImage("grunt-torso", "data/gfx/grunt-torso.png");
         Resources::instance().addImage("fire", "data/gfx/fire.png");
         Resources::instance().addImage("fireball", "data/gfx/fireball.png");
+        Resources::instance().addImage("sq", "data/gfx/square.png");
+
 
         // Menybilder
         Resources::instance().addImage("menu_background", "data/gfx/menu_background.png");
@@ -129,7 +131,7 @@ namespace feed
 
     void Game::loadWorldList()
     {
-        world_list_.push_back("data/worlds/level1.fpq");
+        //world_list_.push_back("data/worlds/level1.fpq");
         world_list_.push_back("data/worlds/level2.fpq");
     }
 

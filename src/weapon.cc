@@ -53,7 +53,8 @@ namespace feed
     	if (clip_ !=0)
     	{
     		--clip_;
-    		// message queue
+
+            // Skicka meddelande till messagequeue - lägger i player
     	}
     }
 

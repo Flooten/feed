@@ -63,7 +63,9 @@ namespace feed
 
     void Player::fire()
     {
-        (inventory_.get_item(inventory_index_))->fire();
+        // Skicka meddelande till messagequeue
+        MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, inventory_.get_item(inventory_index_)->get_type(), this});
+        //(inventory_.get_item(inventory_index_))->fire();
     }
 
     void Player::setAnimation(Animation animation)

@@ -8,6 +8,7 @@
 
 #include "projectile.h"
 #include "util.h"
+#include "resources.h"
 #include <iostream>
 
 namespace feed
@@ -31,5 +32,16 @@ namespace feed
     void Projectile::setDirection(Direction direction)
     {
         image_->setAnimation(direction);
+    }
+
+    Projectile* Projectile::createPistolProjectile(Object* sender)
+    {
+        glm::vec2 position;
+        glm::vec2 size;
+        glm::vec2 velocity;
+
+        // Beräkna allt ovan
+
+        return new Projectile(position, size, velocity, Resources::instance().getImage("fireball"), 5);
     }
 }

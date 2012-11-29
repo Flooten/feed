@@ -32,9 +32,19 @@ namespace feed
               int max_armor,
               int weapon_type);
 
+        enum Animation
+        {
+            STATIONARY_RIGHT,
+            STATIONARY_LEFT,
+            WALKING_RIGHT,
+            WALKING_LEFT
+        };
+
         ~Enemy();
 
         void fire();
+        void setAnimation(Animation animation);
+
 
         static Enemy* CreateGrunt(const glm::vec2& position);
         static Enemy* CreateHeavy(const glm::vec2& position);

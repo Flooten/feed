@@ -17,6 +17,7 @@ namespace feed
 {
     enum WeaponType
     {
+        PISTOL,
         AK45,
         SMG
     };
