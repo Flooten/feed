@@ -45,12 +45,17 @@ namespace feed
         void fire();
         void setAnimation(Animation animation);
 
+        bool get_seen_player();
+        void set_seen_player(bool value);
+
+        void update(float delta_time) override;
 
         static Enemy* CreateGrunt(const glm::vec2& position);
         static Enemy* CreateHeavy(const glm::vec2& position);
 
     private:
         Weapon* weapon_;
+        bool seen_player_ = true;
     };
 }
 
