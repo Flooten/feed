@@ -48,7 +48,7 @@ namespace feed
         virtual void fire() = 0;
         void setAnimation(Animation animation);
 
-        void update(float delta_time);
+        virtual void update(float delta_time);
 
     protected:
         int hitpoints_;

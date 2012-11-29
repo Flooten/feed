@@ -48,11 +48,9 @@ music original-score data/sound/feed01.ogg
 700 450 50 50 0 0 sq
 750 450 50 50 0 0 sq
 
-
 750  400 50 50 0 0 sq
 750  350 50 50 0 0 sq
 750  300 50 50 0 0 sq
-
 
 800 450 50 50 0 0 sq
 850 450 50 50 0 0 sq
@@ -86,7 +84,9 @@ music original-score data/sound/feed01.ogg
 //checkpoint 400 100 25 25 0 checkpoint
 
 [enemy]
-grunt 800 150
+grunt 750 0
+grunt 1100 150
+grunt 1350 0
 //heavy 155 0
 
 [player]
