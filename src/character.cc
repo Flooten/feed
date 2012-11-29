@@ -72,7 +72,7 @@ namespace feed
         }
         else if (hitpoints_ + value <= 0)
         {
-           MessageQueue::instance().pushMessage({MessageQueue::Message::DEAD, 72, this});
+           MessageQueue::instance().pushMessage({MessageQueue::Message::DEAD, 0, this});
         }
         else
             hitpoints_ += value;
