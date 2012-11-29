@@ -291,7 +291,7 @@ namespace feed
                     case SDLK_w:
                     {
                         glm::vec2 vel = player_->get_velocity();
-                        vel.y = -100.0f;
+                        vel.y = -180.0f;
                         player_->set_velocity(vel);
                         break;
                     }
@@ -480,7 +480,7 @@ namespace feed
            >> health >> armor;
 
         player_ = new Player(position,
-                             glm::vec2(90, 130),
+                             glm::vec2(30, 75),
                              velocity,
                              Resources::instance()["legs"],
                              health,
@@ -489,8 +489,8 @@ namespace feed
                              util::PLAYER_MAX_ARMOR);
         player_->setAnimated(4, 8);
         player_->setTopImage(Resources::instance()["player-torso"], 2, 37);
-
-        player_->addWeapon(Weapon::PISTOL);
+	player_->addWeapon(Weapon::PISTOL);
+        player_->set_collision_offset(glm::vec2(50, 50));
     }
 
     void World::loadEnvironmentObject(const std::string& str)

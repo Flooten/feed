@@ -131,8 +131,6 @@ namespace feed
     {
         //world_list_.push_back("data/worlds/level1.fpq");
         world_list_.push_back("data/worlds/level2.fpq");
-
-
     }
 
     void Game::loadMenu()

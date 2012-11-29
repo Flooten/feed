@@ -33,5 +33,5 @@ music original-score data/sound/feed01.ogg
 //checkpoint 400 100 25 25 0 checkpoint
 
 [enemy]
-//grunt 100 0
+//grunt 120 -160
 //heavy 155 0

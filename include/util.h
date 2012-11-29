@@ -25,7 +25,7 @@ namespace feed
         const int PLAYER_OFFSET_Y = 576 * 0.618;
         const int PLAYER_MAX_HEALTH = 100;
         const int PLAYER_MAX_ARMOR = 100;
-        const glm::vec2 GRAVITY = glm::vec2(0, 100.0f);
+        const glm::vec2 GRAVITY = glm::vec2(0, 350.0f);
 
         const int SCREEN_WIDTH = 1024;
         const int SCREEN_HEIGHT = 576;

@@ -40,6 +40,11 @@ namespace feed
         return velocity_;
     }
 
+    glm::vec2 Object::get_collision_offset() const
+    {
+        return collision_offset_;
+    }
+
     glm::vec2 Object::get_center() const
     {
         return glm::vec2(position_.x + size_.x / 2, position_.y + size_.y / 2);
@@ -69,6 +74,11 @@ namespace feed
     void Object::set_velocity(const glm::vec2& velocity)
     {
         velocity_ = velocity;
+    }
+
+    void Object::set_collision_offset(const glm::vec2& offset)
+    {
+        collision_offset_ = offset;
     }
 
     void Object::draw(SDL_Surface* screen, const glm::vec2& offset)
