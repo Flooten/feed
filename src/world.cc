@@ -209,9 +209,16 @@ namespace feed
             handleCollision(player_, envobject);
             for (auto enemy : enemy_list_)
             {
-                handleCollision(enemy, envobject);
-                if (onScreen(enemy, player_) && enemy->get_seen_player())
-                    enemy->set_seen_player(lineOfSight(enemy, player_, envobject));
+                handleCollision(player_, envobject);
+                for (auto enemy : enemy_list_)
+                {
+                    handleCollision(enemy, envobject);
+                    if (!(onScreen(enemy, player_)))
+                        enemy->set_seen_player(false);
+
+                    if (enemy->get_seen_player())
+                        enemy->set_seen_player((lineOfSight(enemy, player_, envobject)));
+                }
             }
         }
 
@@ -227,6 +234,18 @@ namespace feed
                  enemy->setAnimation(Enemy::STATIONARY_RIGHT);
             else
                 enemy->setAnimation(Enemy::STATIONARY_LEFT);
+        }
+
+        for (auto it = projectile_list_.begin(); it != projectile_list_.end(); ++it)
+        {
+            for (auto enemy : enemy_list_)
+            {
+                if (isIntersecting(*it, enemy))
+                {
+                    enemy->addHealth(-(*it)->get_damage());
+                    MessageQueue::instance().pushMessage({MessageQueue::Message::DEAD, 0, *it});
+                }
+            }
         }
     }
 
@@ -400,7 +419,6 @@ namespace feed
                 switch (msg.value)
                 {
                     case Weapon::PISTOL:
-                    case Weapon::ENEMY_PISTOL:
                         projectile = Projectile::createPistolProjectile(msg.sender);
                         projectile_list_.push_back(projectile);
                         projectile_list_.back()->setAnimated(2, 6);
@@ -410,8 +428,16 @@ namespace feed
                         break;
                 }
 
+            case MessageQueue::Message::DEAD:
+            {
+                std::cout << "Object " << msg.sender << " is dead" << std::endl;
+                if (msg.value == 0)
+                {
+                    
+                }
                 break;
             }
+
             default:
                 break;
         }

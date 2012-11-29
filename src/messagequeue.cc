@@ -12,6 +12,8 @@
 #include "messagequeue.h"
 #include "object.h"
 
+#include <iostream>
+
 namespace feed
 {
     ////////////////////
@@ -34,6 +36,7 @@ namespace feed
 
     void MessageQueue::pushMessage(const Message& msg)
     {
+        std::cout << "Pushing message from " << msg.sender << std::endl;
         queue_.push(msg);
     }
 
