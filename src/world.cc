@@ -216,15 +216,15 @@ namespace feed
         }
 
         for (auto enemy : enemy_list_)
-            {
-                if (enemy->get_seen_player())
-                    enemy->set_aim(player_->get_position() - enemy->get_position());
+        {
+            if (enemy->get_seen_player())
+                enemy->set_aim(player_->get_position() - enemy->get_position());
 
-                if (enemy->get_position().x < player_->get_position().x)
-                     enemy->setAnimation(Enemy::STATIONARY_RIGHT);
-                else
-                    enemy->setAnimation(Enemy::STATIONARY_LEFT);
-            };
+            if (enemy->get_position().x < player_->get_position().x)
+                 enemy->setAnimation(Enemy::STATIONARY_RIGHT);
+            else
+                enemy->setAnimation(Enemy::STATIONARY_LEFT);
+        }
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
