@@ -223,7 +223,7 @@ namespace feed
             if (enemy->get_seen_player())
             {
                 enemy->set_aim(player_->get_position() - enemy->get_position());
-                enemy->fire();
+                //enemy->fire();
             }
 
             if (enemy->get_position().x < player_->get_position().x)
@@ -234,6 +234,7 @@ namespace feed
 
         for (std::size_t it = 0; it < projectile_list_.size(); ++it)
         {
+            bool found = false;
             Projectile* current = projectile_list_[it];
 
             for (auto envobject : envobject_list_)
@@ -241,9 +242,13 @@ namespace feed
                 if (isIntersecting(current, envobject))
                 {
                     MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, it, current});
+                    found = true;
                     break;
                 }
             }
+
+            if (found)
+                break;
 
             for (auto enemy : enemy_list_)
             {
@@ -251,6 +256,7 @@ namespace feed
                 {
                     enemy->addHealth(-current->get_damage());
                     MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, it, current});
+                    found = true;
                     break;
                 }
             }
@@ -443,6 +449,12 @@ namespace feed
                 break;
             }
 
+            case MessageQueue::Message::ENEMY_DEAD:
+            {
+                std::cout << "Enemy " << msg.sender << " is dead" << std::endl;
+
+            }
+
             default:
                 break;
         }
@@ -520,7 +532,7 @@ namespace feed
            >> health >> armor;
 
         player_ = new Player(position,
-                             glm::vec2(30, 75),
+                             glm::vec2(30, 110),
                              velocity,
                              Resources::instance()["legs"],
                              health,
@@ -530,7 +542,7 @@ namespace feed
         player_->setAnimated(4, 8);
         player_->setTopImage(Resources::instance()["player-torso"], 2, 37);
 	    player_->addWeapon(Weapon::PISTOL);
-        player_->set_collision_offset(glm::vec2(50, 50));
+        player_->set_collision_offset(glm::vec2(50, 20));
     }
 
     void World::loadEnvironmentObject(const std::string& str)
