@@ -224,7 +224,7 @@ namespace feed
                      enemy->setAnimation(Enemy::STATIONARY_RIGHT);
                 else
                     enemy->setAnimation(Enemy::STATIONARY_LEFT);
-            };
+            }
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
