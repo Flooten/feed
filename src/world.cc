@@ -243,7 +243,7 @@ namespace feed
                 enemy->setAnimation(Enemy::STATIONARY_LEFT);
         }
 
-        for (std::size_t it = 0; it < projectile_list_.size(); ++it)
+        for (std::vector<Projectile*>::size_type it = 0; it < projectile_list_.size(); ++it)
         {
             bool found = false;
             Projectile* current = projectile_list_[it];
