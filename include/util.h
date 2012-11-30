@@ -21,20 +21,19 @@ namespace feed
     namespace util
     {
         // util-konstanter
-        const int PLAYER_OFFSET_X = 1024 * 0.382;
-        const int PLAYER_OFFSET_Y = 576 * 0.618;
+        const int SCREEN_WIDTH = 1024;
+        const int SCREEN_HEIGHT = 576;
+        
+        const int PLAYER_OFFSET_X = SCREEN_WIDTH * 0.382;
+        const int PLAYER_OFFSET_Y = SCREEN_HEIGHT * 0.618 / 2;
         const int PLAYER_MAX_HEALTH = 100;
         const int PLAYER_MAX_ARMOR = 100;
         const float JUMP_VELOCITY = -350.0f;
         const glm::vec2 GRAVITY = glm::vec2(0, 550.0f);
 
-        const int SCREEN_WIDTH = 1024;
-        const int SCREEN_HEIGHT = 576;
-
         const float PI = 3.14159;
         const float RAD_TO_DEG = 180 / PI;
         const float DEG_TO_RAD = PI / 180;
-        
 
         // Strängmanipulation
         std::string getFileExtension(const std::string& filename);

@@ -68,17 +68,10 @@ namespace feed
 
     void Character::addHealth(int value)
     {
-        std::cout << "Adding " << value << " health" << std::endl;
-
         if (hitpoints_ + value > max_health_)
-        {
             hitpoints_ = max_health_;
-        }
         else if (hitpoints_ + value <= 0)
-        {
-            //MessageQueue::instance().pushMessage({MessageQueue::Message::DEAD, 0, this});
             isDead();
-        }
         else
             hitpoints_ += value;
     }
