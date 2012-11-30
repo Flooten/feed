@@ -34,8 +34,9 @@ namespace feed
 
         ~Enemy();
 
-        void fire();
+        glm::vec2 get_aim() const override final;
 
+        void fire();
         bool get_seen_player() const;
         void set_seen_player(bool value);
 

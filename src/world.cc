@@ -361,6 +361,10 @@ namespace feed
                         std::cout << "Player health: " << player_->get_health() << std::endl;
                         break;
 
+                    case SDLK_r:
+                        util::randomizeVec2(player_->get_position(), 1.0f);
+                        break;
+
                     case SDLK_d:
                     {
                         if (mouse_position_x < playerOrigin().x)
