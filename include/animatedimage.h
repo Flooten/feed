@@ -13,6 +13,9 @@
 #include <SDL/SDL.h>
 #include <glm/glm.hpp>
 
+#ifndef FEED_ANIMATED_IMAGE_H
+#define FEED_ANIMATED_IMAGE_H
+
 namespace feed
 {
     class AnimatedImage
@@ -20,8 +23,10 @@ namespace feed
     public:
         AnimatedImage(SDL_Surface* image);
 
+        bool isDone() const;
+
         void setAnimation(unsigned int index);
-        void setAnimated(unsigned int nof_animations, unsigned int nof_frames);
+        void setAnimated(unsigned int nof_animations, unsigned int nof_frames, bool once = false);
 
         void addTopImage(SDL_Surface* sheet, unsigned int nof_animations, unsigned int nof_frames);
         void setTopFrame(unsigned int index);
@@ -46,7 +51,10 @@ namespace feed
         SDL_Surface* image_ = nullptr;
         SDL_Surface* top_image_ = nullptr;               // Används för mer komplicerade strukturer
         
-        bool animated = false;
+        bool animated_ = false;
+        bool once_ = false;
+        bool done_ = false;
+
         const float FPS = 15;
         AnimationProperties image_properties_;
         AnimationProperties top_image_properties_;
@@ -55,3 +63,5 @@ namespace feed
         void setClip(AnimationProperties& properties);
     };
 }
+
+#endif

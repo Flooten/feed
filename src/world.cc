@@ -139,8 +139,6 @@ namespace feed
         std::cout << "Number of envobjs: " << envobject_list_.size() << std::endl;
         std::cout << "Number of intobjs: " << intobject_list_.size() << std::endl;
 
-       // envobject_list_.push_back(new EnvironmentObject(glm::vec2(200,250), glm::vec2(50,50), glm::vec2(50,0), Resources::instance()["sq"], glm::vec2(200,200), glm::vec2(200,400)));
-
     }
 
     World::~World()
@@ -184,12 +182,18 @@ namespace feed
 
 		if (player_ != nullptr)
             player_->draw(screen, player_->get_position());
+
+        for (auto effect : effect_list_)
+            effect->draw(screen, player_->get_position());
     }
 
     void World::update(float delta_time)
     {
         if (player_ != nullptr)
             player_->update(delta_time);
+
+        for (auto effect : effect_list_)
+            effect->update(delta_time); 
 
         for (auto projectile : projectile_list_)
             projectile->update(delta_time);
@@ -210,9 +214,7 @@ namespace feed
                     enemy->set_seen_player(false);
 
                 if (enemy->get_seen_player())
-                    {
-                        enemy->set_seen_player((lineOfSight(enemy, player_, envobject)));
-                    }
+                    enemy->set_seen_player((lineOfSight(enemy, player_, envobject)));
             }
         }
 
@@ -346,6 +348,12 @@ namespace feed
                         // vel.y = -180.0f;
                         // player_->set_velocity(vel);
                         player_->jump();
+                        /*
+						effect_list_.push_back(new Effect(player_->get_position(),
+                                                          glm::vec2(128, 128),
+                                                          glm::vec2(0, 0),
+                                                          Resources::instance().getImage("smoke-jump"),
+                                                          1, 10));*/
                         break;
                     }
 
@@ -487,8 +495,25 @@ namespace feed
                 {
                     if (*it == msg.sender)
                     {
+                        // Spawna blod
+                        spawnBlood(msg.sender->get_position());
                         delete msg.sender;
                         enemy_list_.erase(it);
+                        break;
+                    }
+                }
+            }
+
+            case MessageQueue::Message::EFFECT_DEAD:
+            {
+                std::cout << "Effect " << msg.sender << " is dead" << std::endl;
+
+                for (auto it = effect_list_.begin(); it != effect_list_.end(); ++it)
+                {
+                    if (*it == msg.sender)
+                    {
+                        delete msg.sender;
+                        effect_list_.erase(it);
                         break;
                     }
                 }
@@ -646,5 +671,20 @@ namespace feed
                                  util::PLAYER_OFFSET_Y + player_->get_size().y / 2);
 
         return position;
+    }
+
+    void World::spawnBlood(const glm::vec2& position)
+    {
+        for (int i = 0; i < 6; ++i)
+        {
+            int x_rand = (rand() % 30) - 15;
+            int y_rand = (rand() % 30) - 15;
+
+            effect_list_.push_back(new Effect(position + glm::vec2(x_rand, y_rand),
+                                              glm::vec2(128, 128),
+                                              glm::vec2(0, 0),
+                                              Resources::instance().getImage("blood"),
+                                              1, 6)); 
+        }
     }
 }
