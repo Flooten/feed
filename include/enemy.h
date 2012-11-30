@@ -36,8 +36,9 @@ namespace feed
               const glm::vec2& boundary_end = glm::vec2(0,0));
         ~Enemy();
 
-        void fire();
+        glm::vec2 get_aim() const override final;
 
+        void fire();
         bool get_seen_player() const;
         void set_seen_player(bool value);
 

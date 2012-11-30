@@ -255,7 +255,7 @@ namespace feed
         }
         }
 
-        for (std::size_t it = 0; it < projectile_list_.size(); ++it)
+        for (std::vector<Projectile*>::size_type it = 0; it < projectile_list_.size(); ++it)
         {
             bool found = false;
             Projectile* current = projectile_list_[it];
@@ -356,21 +356,22 @@ namespace feed
 
                     case SDLK_SPACE:
                     {
-                        // glm::vec2 vel = player_->get_velocity();
-                        // vel.y = -180.0f;
-                        // player_->set_velocity(vel);
+                        if (!player_->isJumpLocked())
+                            effect_list_.push_back(new Effect(player_->get_position(),
+                                                              glm::vec2(128, 128),
+                                                              glm::vec2(0, 0),
+                                                              Resources::instance().getImage("smoke-jump"),
+                                                              1, 10));
                         player_->jump();
-                        /*
-						effect_list_.push_back(new Effect(player_->get_position(),
-                                                          glm::vec2(128, 128),
-                                                          glm::vec2(0, 0),
-                                                          Resources::instance().getImage("smoke-jump"),
-                                                          1, 10));*/
                         break;
                     }
 
                     case SDLK_h:
                         std::cout << "Player health: " << player_->get_health() << std::endl;
+                        break;
+
+                    case SDLK_r:
+                        util::randomizeVec2(player_->get_position(), 1.0f);
                         break;
 
                     case SDLK_d:
@@ -504,7 +505,7 @@ namespace feed
                     if (*it == msg.sender)
                     {
                         // Spawna blod
-                        spawnBlood(msg.sender->get_center());
+                        spawnBlood(msg.sender->get_position());
                         delete msg.sender;
                         enemy_list_.erase(it);
                         break;

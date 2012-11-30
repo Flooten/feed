@@ -11,6 +11,7 @@
 #include "enemy.h"
 #include "messagequeue.h"
 #include "resources.h"
+#include "util.h"
 
 #include <iostream>
 
@@ -44,6 +45,11 @@ namespace feed
     Enemy::~Enemy()
     {
         delete weapon_;
+    }
+
+    glm::vec2 Enemy::get_aim() const
+    {
+        return util::randomizeVec2(aim_, 0.1f);
     }
 
     void Enemy::fire()

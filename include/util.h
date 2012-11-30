@@ -25,10 +25,15 @@ namespace feed
         const int PLAYER_OFFSET_Y = 576 * 0.618;
         const int PLAYER_MAX_HEALTH = 100;
         const int PLAYER_MAX_ARMOR = 100;
-        const glm::vec2 GRAVITY = glm::vec2(0, 350.0f);
+        const float JUMP_VELOCITY = -350.0f;
+        const glm::vec2 GRAVITY = glm::vec2(0, 550.0f);
 
         const int SCREEN_WIDTH = 1024;
         const int SCREEN_HEIGHT = 576;
+
+        const float PI = 3.14159;
+        const float RAD_TO_DEG = 180 / PI;
+        const float DEG_TO_RAD = PI / 180;
         
 
         // Strängmanipulation
@@ -42,6 +47,10 @@ namespace feed
         // Vid mer avancerade fall använd SDL_BlitSurface direkt.
         void blitSurface(SDL_Surface* source, SDL_Surface* destination, int x, int y);
         void blitSurface(SDL_Surface* source, glm::vec2 size, SDL_Surface* destination, glm::vec2 position);
+
+        // Slumpar riktningen v med mängden amount (normaldistribution med
+        // med standardavvikelse amount)
+        glm::vec2 randomizeVec2(const glm::vec2& v, float amount);
     }
 }
 
