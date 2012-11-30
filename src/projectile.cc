@@ -94,7 +94,7 @@ namespace feed
         
         glm::vec2 size(16, 16);
         glm::vec2 velocity = shooter->get_aim();
-        velocity *= 800;
+        velocity *= 50;
 
         return new Projectile(position, size, velocity, Resources::instance().getImage("fireball"), 5);
     }
