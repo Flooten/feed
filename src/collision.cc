@@ -56,15 +56,9 @@ namespace feed
             else
             {
                 if (diff.x <= 0.0f)
-                {
-                    new_pos.x = obj2->get_position().x - offset1.x - (obj1->get_size().x + BOUNCE_DISTANCE);
-                    new_vel.x = -BOUNCE_DISTANCE;
-                }
+                    new_pos.x = obj2->get_position().x - offset1.x - obj1->get_size().x; // - BOUNCE_DISTANCE);
                 else
-                {
-                    new_pos.x = obj2->get_position().x - offset1.x + (obj2->get_size().x + BOUNCE_DISTANCE);
-                    new_vel.x = BOUNCE_DISTANCE;
-                }
+                    new_pos.x = obj2->get_position().x - offset1.x + obj2->get_size().x; // + BOUNCE_DISTANCE);
             }
         }
 
