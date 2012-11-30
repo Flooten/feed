@@ -8,6 +8,9 @@
 
 #include "util.h"
 #include <SDL/SDL_image.h>
+#include <random>
+
+#include <iostream>
 
 namespace feed
 {
@@ -62,6 +65,14 @@ namespace feed
             destrect.y = position.y;
 
             SDL_BlitSurface(source, &srcrect, destination, &destrect);
+        }
+
+        glm::vec2 randomizeVec2(const glm::vec2& v, float amount)
+        {
+            static std::mt19937 rng(SDL_GetTicks());
+            std::normal_distribution<> dist(0.0f, amount);
+
+            return glm::vec2(v.x + dist(rng), v.y + dist(rng));
         }
     }
 }
