@@ -41,6 +41,10 @@ namespace feed
         float getAimingAngle(Character* shooter)
         {
             glm::vec2 aim = shooter->get_aim();
+
+            if (shooter->getFacing() == 0)
+                aim.x = -aim.x;
+
             return atan(aim.y / aim.x);
         }
     }
@@ -71,24 +75,26 @@ namespace feed
         glm::vec2 position = getPistolOrigin(shooter);
 
         float angle = getAimingAngle(shooter);
-        int radius = 49;
+
+        int radius = 90;
+        float offset_angle = 25 * util::DEG_TO_RAD;
 
         if (shooter->getFacing() == 0)
         {
             // Höger
-            position.x += radius * cos(angle);
-            position.y += radius * sin(angle);
+            position.x += radius * cos(angle - offset_angle);
+            position.y -= radius * sin(angle - offset_angle);
         }
         else
         {
             // Vänster
-            position.x -= radius * cos(angle);
-            position.y -= radius * sin(angle);
+            position.x -= radius * cos(angle - offset_angle);
+            position.y -= radius * sin(angle - offset_angle);
         }
         
         glm::vec2 size(16, 16);
         glm::vec2 velocity = shooter->get_aim();
-        velocity *= 1000;
+        velocity *= 800;
 
         return new Projectile(position, size, velocity, Resources::instance().getImage("fireball"), 5);
     }

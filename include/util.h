@@ -29,6 +29,10 @@ namespace feed
 
         const int SCREEN_WIDTH = 1024;
         const int SCREEN_HEIGHT = 576;
+
+        const float PI = 3.14159;
+        const float RAD_TO_DEG = 180 / PI;
+        const float DEG_TO_RAD = PI / 180;
         
 
         // Strängmanipulation
