@@ -241,35 +241,35 @@ namespace feed
 
         for (auto enemy : enemy_list_)
         {
-                if (enemy->get_seen_player())
+            if (enemy->get_seen_player())
+            {
+                enemy->set_aim(player_->get_position() - enemy->get_position());
+                enemy->fire();
+            
+                if (enemy->get_position().x < player_->get_position().x) 
                 {
-                    enemy->set_aim(player_->get_position() - enemy->get_position());
-                    enemy->fire();
-                
-                    if (enemy->get_position().x < player_->get_position().x) 
+                    if(enemy->isWalking())
                     {
-                        if(enemy->isWalking())
-                        {
-                            enemy->walkRight();
-                            enemy->stopWalking();
-                        }
-                        else
-                         enemy->setAnimation(Enemy::STATIONARY_RIGHT);
+                        enemy->walkRight();
+                        enemy->stopWalking();
                     }
                     else
-                    {
-                        if(enemy->isWalking())
-                        {
-                            enemy->walkLeft();
-                            enemy->stopWalking();
-                        }
-                        else
-                         enemy->setAnimation(Enemy::STATIONARY_LEFT);
-                    }
+                     enemy->setAnimation(Enemy::STATIONARY_RIGHT);
                 }
                 else
-                    if(!enemy->isWalking())  // Kommer bugga för stillastående fiender
-                        enemy->continueWalking();
+                {
+                    if(enemy->isWalking())
+                    {
+                        enemy->walkLeft();
+                        enemy->stopWalking();
+                    }
+                    else
+                     enemy->setAnimation(Enemy::STATIONARY_LEFT);
+                }
+            }
+            else
+                if(!enemy->isWalking())  // Kommer bugga för stillastående fiender
+                    enemy->continueWalking();
         }
 
         for (std::vector<Projectile*>::size_type it = 0; it < projectile_list_.size(); ++it)
