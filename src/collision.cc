@@ -26,6 +26,18 @@ namespace feed
         return false;
     }
 
+    bool isIntersectingX(const Object* obj1, const Object* obj2)
+    {
+        glm::vec2 offset1 = obj1->get_collision_offset();
+        glm::vec2 offset2 = obj2->get_collision_offset();
+        glm::vec2 diff = glm::abs((obj1->get_position() + offset1 + obj1->get_size() / 2.0f) - 
+                                  (obj2->get_position() + offset2 + obj2->get_size() / 2.0f));
+
+        return (diff.x < (obj1->get_size().x / 2 + obj2->get_size().x / 2));
+    }
+
+
+
     void handleCollision(Character* obj1, Object* obj2)
     {
         glm::vec2 new_pos = obj1->get_position();

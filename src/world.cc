@@ -216,8 +216,16 @@ namespace feed
         {
             handleCollision(player_, envobject);
             for (auto enemy : enemy_list_)
-            {
+            {   
+                // if(isIntersectingX(enemy, envobject))
+                // {
+                //     if(enemy->isFacingRight() && enemy->isWalking())
+                //         enemy->walkLeft();
+                //     else if(!enemy->isFacingRight() && enemy->isWalking())
+                //         enemy->walkRight();
+                // }
                 handleCollision(enemy, envobject);
+
                 if (!(onScreen(enemy, player_)))
                     enemy->set_seen_player(false);
 
