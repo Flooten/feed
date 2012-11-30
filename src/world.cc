@@ -236,23 +236,30 @@ namespace feed
                     enemy->set_aim(player_->get_position() - enemy->get_position());
                     enemy->fire();
                 
-
-                if (enemy->get_position().x < player_->get_position().x)
-                {
-                    if(enemy->isWalking())
-                        enemy->walkRight();
+                    if (enemy->get_position().x < player_->get_position().x)
+                    {
+                        if(enemy->isWalking())
+                        {
+                            enemy->walkRight();
+                            enemy->stopWalking();
+                        }
+                        else
+                         enemy->setAnimation(Enemy::STATIONARY_RIGHT);
+                    }
                     else
-                     enemy->setAnimation(Enemy::STATIONARY_RIGHT);
+                    {
+                        if(enemy->isWalking())
+                        {
+                            enemy->walkLeft();
+                            enemy->stopWalking();
+                        }
+                        else
+                         enemy->setAnimation(Enemy::STATIONARY_LEFT);
+                    }
                 }
                 else
-                {
-                    if(enemy->isWalking())
-                        enemy->walkLeft();
-                    else
-                     enemy->setAnimation(Enemy::STATIONARY_LEFT);
-                }
-
-        }
+                    if(!enemy->isWalking())
+                        enemy->continueWalking();
         }
 
         for (std::vector<Projectile*>::size_type it = 0; it < projectile_list_.size(); ++it)

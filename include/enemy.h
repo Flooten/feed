@@ -45,6 +45,8 @@ namespace feed
         bool isWalking() const;
         void walkLeft();
         void walkRight();
+        void stopWalking();
+        void continueWalking();
 
         void update(float delta_time) override;
 
@@ -60,6 +62,8 @@ namespace feed
         bool walking = false;
         glm::vec2 boundary_start_;
         glm::vec2 boundary_end_;
+
+        glm::vec2 old_vel_;
 
     };
 }
