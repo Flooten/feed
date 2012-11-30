@@ -45,7 +45,7 @@ namespace feed
         static Enemy* CreateHeavy(const glm::vec2& position);
 
     protected:
-        void isDead();
+        void isDead() override final;
 
     private:
         Weapon* weapon_;

@@ -111,4 +111,25 @@ namespace feed
         image_->setAnimation(animation);
         image_->setTopRotation(animation % 2);
     }
+
+    void Character::jump()
+    {
+        if (!isJumping())
+        {
+            set_jumping(true);
+            glm::vec2 velocity = get_velocity();
+            velocity.y = -200;
+            set_velocity(velocity);
+        }
+    }
+
+    void Character::set_jumping(bool state)
+    {
+        is_jumping_ = state;
+    }
+
+    bool Character::isJumping() const
+    {
+        return is_jumping_;
+    }
 }

@@ -344,9 +344,10 @@ namespace feed
 
                     case SDLK_SPACE:
                     {
-                        glm::vec2 vel = player_->get_velocity();
-                        vel.y = -180.0f;
-                        player_->set_velocity(vel);
+                        // glm::vec2 vel = player_->get_velocity();
+                        // vel.y = -180.0f;
+                        // player_->set_velocity(vel);
+                        player_->jump();
                         break;
                     }
 
