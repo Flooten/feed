@@ -231,16 +231,28 @@ namespace feed
 
         for (auto enemy : enemy_list_)
         {
-            if (enemy->get_seen_player())
-            {
-                enemy->set_aim(player_->get_position() - enemy->get_position());
-                enemy->fire();
-            }
+                if (enemy->get_seen_player())
+                {
+                    enemy->set_aim(player_->get_position() - enemy->get_position());
+                    enemy->fire();
+                
 
-            if (enemy->get_position().x < player_->get_position().x)
-                 enemy->setAnimation(Enemy::STATIONARY_RIGHT);
-            else
-                enemy->setAnimation(Enemy::STATIONARY_LEFT);
+                if (enemy->get_position().x < player_->get_position().x)
+                {
+                    if(enemy->isWalking())
+                        enemy->walkRight();
+                    else
+                     enemy->setAnimation(Enemy::STATIONARY_RIGHT);
+                }
+                else
+                {
+                    if(enemy->isWalking())
+                        enemy->walkLeft();
+                    else
+                     enemy->setAnimation(Enemy::STATIONARY_LEFT);
+                }
+
+        }
         }
 
         for (std::size_t it = 0; it < projectile_list_.size(); ++it)
@@ -568,13 +580,19 @@ namespace feed
         std::stringstream ss(str);
         std::string type;
         glm::vec2 position;
+        glm::vec2 boundary_start;
+        glm::vec2 boundary_end;
 
-        ss >> type >> position.x >> position.y;
+        ss >> type >> position.x >> position.y
+           >> boundary_start.x >> boundary_start.y
+           >> boundary_end.x >> boundary_end.y;
 
         Enemy* enemy = nullptr;
 
+        std::cout << "Load enemy: " << boundary_end.x << " " << boundary_end.y << std::endl;
+
         if (type == "grunt")
-            enemy = Enemy::CreateGrunt(position);
+            enemy = Enemy::CreateGrunt(position, boundary_start, boundary_end);
         else if (type == "heavy")
             enemy = Enemy::CreateHeavy(position);
 
