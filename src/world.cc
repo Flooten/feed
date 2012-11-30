@@ -144,6 +144,7 @@ namespace feed
         //envobject_list_.back()->set_boundary_start(glm::vec2(400,200));
         //envobject_list_.back()->set_boundary_end(glm::vec2(400,400));
 
+        ui_ = new Ui(player_, Resources::instance()["ui_meny"], Resources::instance()["health_bar"], Resources::instance()["armor_bar"]);
     }
 
     World::~World()
@@ -151,6 +152,7 @@ namespace feed
         std::cout << "World " << this << " dead" << std::endl;
 
         delete player_;
+        delete ui_;
 
         for (auto e : projectile_list_)
             delete e;
@@ -187,6 +189,9 @@ namespace feed
 
 		if (player_ != nullptr)
             player_->draw(screen, player_->get_position());
+
+        if (ui_ != nullptr)
+            ui_->draw(screen);
     }
 
     void World::update(float delta_time)
@@ -278,6 +283,8 @@ namespace feed
                 }
             }
         }
+
+        ui_->update();
     }
 
     void World::handleSDLEvent(const SDL_Event& event)

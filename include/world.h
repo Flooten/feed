@@ -20,6 +20,7 @@
 #include "interactableobject.h"
 #include "environmentobject.h"
 #include "player.h"
+#include "ui.h"
 
 #include <SDL/SDL.h>
 #include <glm/glm.hpp>
@@ -53,6 +54,7 @@ namespace feed
         glm::vec2 playerOrigin();   // Returnerar spelarens mittpunkt
 
         Player* player_ = nullptr;
+        Ui* ui_ = nullptr;
 
         std::vector<Projectile*> projectile_list_;
         std::vector<Enemy*> enemy_list_;

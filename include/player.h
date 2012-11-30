@@ -31,10 +31,12 @@ namespace feed
                int max_armor);      
 
         // Getters
-        int get_inventory_index() const;
+        unsigned int get_inventory_index() const;
+        const Inventory* get_inventory() const;
+        const Weapon* get_current_weapon(); 
 
         // Setters
-        void set_inventory_index(int index);
+        void set_inventory_index(unsigned int index);
 
         void addWeapon(Weapon::Type weapon_type);
         void fire() override final;
@@ -43,7 +45,7 @@ namespace feed
     private:
         void isDead() override final;
 
-        int inventory_index_ = 0;
+        unsigned int inventory_index_ = 0;
         Inventory inventory_;
     };
 }

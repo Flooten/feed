@@ -125,6 +125,11 @@ namespace feed
 
         Audio::instance().addSoundFx("fire", "data/high.wav");
         Audio::instance().addMusic("menu_music", "data/sound/feed01.ogg");
+
+        // UI bilder
+        Resources::instance().addImage("ui_meny", "data/gfx/ui.png");
+        Resources::instance().addImage("armor_bar", "data/gfx/armor_bar.png");
+        Resources::instance().addImage("health_bar", "data/gfx/health_bar.png");
     }
 
     void Game::loadWorldList()
