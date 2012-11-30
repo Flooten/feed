@@ -77,7 +77,7 @@ namespace feed
         set_seen_player(true);
         weapon_->update(delta_time);
 
-        if (boundary_end_ != glm::vec2(0,0))
+        if (boundary_end_ != glm::vec2(0,0) && isWalking())
         {   
             glm::vec2 direction_ = glm::normalize(boundary_end_ - boundary_start_);
 
@@ -91,7 +91,7 @@ namespace feed
             else if ((position_.x <= boundary_start_.x && position_.y >= boundary_start_.y && direction_.y <= 0) ||
                      (position_.x <= boundary_start_.x && position_.y <= boundary_start_.y && direction_.y >= 0))
             {
-                 walkRight();
+                walkRight();
             }
                     
         }
@@ -114,6 +114,26 @@ namespace feed
     bool Enemy::isWalking() const
     {
         return walking;
+    }
+
+    void Enemy::stopWalking()
+    {
+        walking = false;
+        old_vel_ = velocity_;
+        velocity_ = glm::vec2(0,0);
+    }
+
+    void Enemy::continueWalking()
+    {
+
+        walking = true;
+        velocity_ = old_vel_;
+        old_vel_ = glm::vec2(0,0);
+
+        if (velocity_.x > 0)
+            walkRight();
+        else if (velocity_.x < 0)
+            walkLeft();
     }
 
 
