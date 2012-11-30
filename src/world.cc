@@ -139,9 +139,7 @@ namespace feed
         std::cout << "Number of envobjs: " << envobject_list_.size() << std::endl;
         std::cout << "Number of intobjs: " << intobject_list_.size() << std::endl;
 
-        envobject_list_.push_back(new EnvironmentObject(glm::vec2(200,250), glm::vec2(50,50), glm::vec2(50,0), Resources::instance()["sq"], glm::vec2(200,200), glm::vec2(200,400)));
-        envobject_list_.push_back(new EnvironmentObject(glm::vec2(200,250), glm::vec2(50,50), glm::vec2(50,0), Resources::instance()["sq"], glm::vec2(200,200), glm::vec2(200,400)));
-
+       // envobject_list_.push_back(new EnvironmentObject(glm::vec2(200,250), glm::vec2(50,50), glm::vec2(50,0), Resources::instance()["sq"], glm::vec2(200,200), glm::vec2(200,400)));
 
     }
 
@@ -596,13 +594,17 @@ namespace feed
         glm::vec2 size;
         glm::vec2 vel;
         std::string image;
+        glm::vec2 boundary_start;
+        glm::vec2 boundary_end;
 
         ss >> pos.x >> pos.y
            >> size.x >> size.y
            >> vel.x >> vel.y
-           >> image;
+           >> image
+           >> boundary_start.x >> boundary_start.y
+           >> boundary_end.x >> boundary_end.y;
 
-        envobject_list_.push_back(new EnvironmentObject(pos, size, vel, Resources::instance()[image]));
+        envobject_list_.push_back(new EnvironmentObject(pos, size, vel, Resources::instance()[image], boundary_start, boundary_end));
     }
 
     void World::loadInteractableObject(const std::string& str)
