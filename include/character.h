@@ -55,6 +55,7 @@ namespace feed
         void jump();
         void set_jumping(bool state);
         bool isJumping() const;
+        bool isJumpLocked() const;
 
     protected:
         virtual void isDead() = 0;
@@ -68,8 +69,6 @@ namespace feed
         glm::vec2 aim_;
 
     private:
-        bool lockJump() const;
-
         Animation animation_;
     };
 }

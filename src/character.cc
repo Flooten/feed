@@ -114,7 +114,7 @@ namespace feed
 
     void Character::jump()
     {
-        if (!lockJump())
+        if (!isJumpLocked())
         {
             if (is_jumping_)
                 is_double_jumping_ = true;
@@ -137,7 +137,7 @@ namespace feed
         return is_jumping_;
     }
 
-    bool Character::lockJump() const
+    bool Character::isJumpLocked() const
     {
         return is_jumping_ && is_double_jumping_;
     }
