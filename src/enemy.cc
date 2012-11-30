@@ -103,17 +103,24 @@ namespace feed
     {
         setAnimation(Character::WALKING_LEFT);
         velocity_ = - glm::length(velocity_)*glm::normalize(boundary_end_ - boundary_start_);
+        facing_right = false;
     }
 
     void Enemy::walkRight()
     {
         setAnimation(Character::WALKING_RIGHT);
         velocity_ = glm::length(velocity_)*glm::normalize(boundary_end_ - boundary_start_);
+        facing_right = true;
     }
 
     bool Enemy::isWalking() const
     {
         return walking;
+    }
+
+    bool Enemy::isFacingRight() const
+    {
+        return facing_right;
     }
 
     void Enemy::stopWalking()
@@ -125,7 +132,8 @@ namespace feed
 
     void Enemy::continueWalking()
     {
-
+        if(boundary_end_.x != 0)
+        {
         walking = true;
         velocity_ = old_vel_;
         old_vel_ = glm::vec2(0,0);
@@ -134,6 +142,7 @@ namespace feed
             walkRight();
         else if (velocity_.x < 0)
             walkLeft();
+        }
     }
 
 
@@ -167,7 +176,13 @@ namespace feed
         enemy->setAnimated(4, 8);
         enemy->setTopImage(Resources::instance()["grunt-torso"], 2, 37);
         enemy->set_collision_offset(glm::vec2(50, 20));
-        enemy->setAnimation(Character::WALKING_RIGHT);
+
+        if (velocity.x > 0)
+            enemy->setAnimation(Character::WALKING_RIGHT);
+        else if (velocity.x < 0)
+            enemy->setAnimation(Character::WALKING_LEFT);
+        else 
+            enemy->setAnimation(Character::STATIONARY_RIGHT);
 
 
         return enemy;

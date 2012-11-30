@@ -18,7 +18,14 @@ namespace feed
         , ui_image_(image)
         , health_bar_image_(health_bar)
         , armor_bar_image_(armor_bar)
-    {}
+    {
+        font_ = TTF_OpenFont("data/font.ttf", 14);
+    }
+
+    Ui::~Ui()
+    {
+        TTF_CloseFont(font_);
+    }
 
     void Ui::update()
     {
@@ -26,6 +33,11 @@ namespace feed
         armor_bar_size_.x = player_->get_armor();
         clip_size_ = player_->get_current_weapon()->get_clip();
         ammo_size_ = player_->get_current_weapon()->get_ammo();
+        if (font_ != nullptr)
+        {
+            clip_text_ = TTF_RenderText_Solid(font_, std::to_string(clip_size_).c_str(), text_color_);
+            ammo_text_ = TTF_RenderText_Solid(font_, std::to_string(ammo_size_).c_str(), text_color_);
+        }
     }
 
     void Ui::draw(SDL_Surface* screen)
@@ -38,5 +50,11 @@ namespace feed
 
         if (armor_bar_image_ != nullptr)
             util::blitSurface(armor_bar_image_, armor_bar_size_, screen, armor_bar_pos_);
+
+        if (clip_text_ != nullptr)
+            util::blitSurface(clip_text_, screen, clip_text_pos_.x, clip_text_pos_.y);
+
+        if (ammo_text_ != nullptr)
+            util::blitSurface(ammo_text_, screen, ammo_text_pos_.x, ammo_text_pos_.y);
     }
 }
