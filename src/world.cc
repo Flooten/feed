@@ -492,7 +492,7 @@ namespace feed
                     if (*it == msg.sender)
                     {
                         // Spawna blod
-                        spawnBlood(msg.sender->get_center());
+                        spawnBlood(msg.sender->get_position());
                         delete msg.sender;
                         enemy_list_.erase(it);
                         break;
