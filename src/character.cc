@@ -61,6 +61,11 @@ namespace feed
         return hitpoints_;
     }
 
+    int Character::get_armor() const
+    {
+        return armor_;
+    }
+
     int Character::getFacing() const
     {
         return animation_ % 2;

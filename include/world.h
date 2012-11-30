@@ -21,6 +21,7 @@
 #include "environmentobject.h"
 #include "player.h"
 #include "effect.h"
+#include "ui.h"
 
 #include <SDL/SDL.h>
 #include <glm/glm.hpp>
@@ -55,6 +56,7 @@ namespace feed
         void spawnBlood(const glm::vec2& position);
 
         Player* player_ = nullptr;
+        Ui* ui_ = nullptr;
 
         std::vector<Projectile*> projectile_list_;
         std::vector<Enemy*> enemy_list_;

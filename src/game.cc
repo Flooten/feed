@@ -16,6 +16,7 @@
 #include "pausemenu.h"
 
 #include <SDL/SDL_image.h>
+#include <SDL/SDL_ttf.h>
 
 #include <iostream>
 #include <utility>
@@ -45,6 +46,7 @@ namespace feed
 
         Audio::instance().clear();
         Resources::instance().clear();
+        TTF_Quit();
         SDL_Quit();
     }
 
@@ -95,6 +97,7 @@ namespace feed
         screen_ = SDL_SetVideoMode(util::SCREEN_WIDTH, util::SCREEN_HEIGHT, 32, SDL_SWSURFACE);
 
         Audio::instance().init();
+        TTF_Init();
         SDL_FreeSurface(icon);
     }
 
@@ -127,6 +130,11 @@ namespace feed
 
         Audio::instance().addSoundFx("fire", "data/high.wav");
         Audio::instance().addMusic("menu_music", "data/sound/feed01.ogg");
+
+        // UI bilder
+        Resources::instance().addImage("ui_meny", "data/gfx/ui.png");
+        Resources::instance().addImage("armor_bar", "data/gfx/armor_bar.png");
+        Resources::instance().addImage("health_bar", "data/gfx/health_bar.png");
     }
 
     void Game::loadWorldList()

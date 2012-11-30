@@ -139,6 +139,7 @@ namespace feed
         std::cout << "Number of envobjs: " << envobject_list_.size() << std::endl;
         std::cout << "Number of intobjs: " << intobject_list_.size() << std::endl;
 
+        ui_ = new Ui(player_, Resources::instance()["ui_meny"], Resources::instance()["health_bar"], Resources::instance()["armor_bar"]);
     }
 
     World::~World()
@@ -146,6 +147,7 @@ namespace feed
         std::cout << "World " << this << " dead" << std::endl;
 
         delete player_;
+        delete ui_;
 
         for (auto e : projectile_list_)
             delete e;
@@ -185,6 +187,9 @@ namespace feed
 
         for (auto effect : effect_list_)
             effect->draw(screen, player_->get_position());
+
+        if (ui_ != nullptr)
+            ui_->draw(screen);
     }
 
     void World::update(float delta_time)
@@ -300,6 +305,8 @@ namespace feed
                 }
             }
         }
+
+        ui_->update();
     }
 
     void World::handleSDLEvent(const SDL_Event& event)

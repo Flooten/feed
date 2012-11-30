@@ -31,9 +31,19 @@ namespace feed
                     max_armor)
     {}
 
-    int Player::get_inventory_index() const
+    unsigned int Player::get_inventory_index() const
     {
         return inventory_index_;
+    }
+
+    const Inventory* Player::get_inventory() const
+    {
+        return &inventory_;
+    }
+
+    const Weapon* Player::get_current_weapon()
+    {
+        return inventory_.get_item(inventory_index_);
     }
 
     void Player::addWeapon(Weapon::Type weapon_type)
@@ -42,7 +52,7 @@ namespace feed
         inventory_.add(weapon_type);
     }    
 
-    void Player::set_inventory_index(int index)
+    void Player::set_inventory_index(unsigned int index)
     {
         inventory_index_ = index;
     }
