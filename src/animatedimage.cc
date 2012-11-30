@@ -19,6 +19,11 @@ namespace feed
         : image_(image)
     {}
 
+    bool AnimatedImage::isDone() const
+    {
+        return done_;
+    }
+
     void AnimatedImage::setAnimation(unsigned int index)
     {
         // Om ett giltigt index
@@ -26,9 +31,10 @@ namespace feed
             image_properties_.current_animation_ = index;
     }
 
-    void AnimatedImage::setAnimated(unsigned int nof_animations, unsigned int nof_frames)
+    void AnimatedImage::setAnimated(unsigned int nof_animations, unsigned int nof_frames, bool once)
     {
-        animated = true;
+        animated_ = true;
+        once_ = once;
 
         image_properties_.nof_animations_ = nof_animations;
         image_properties_.nof_frames_ = nof_frames;
@@ -66,7 +72,7 @@ namespace feed
 
     void AnimatedImage::update(float delta_time)
     {
-        if (animated)
+        if (animated_)
         {
             float elapsed_time = delta_time + image_properties_.last_draw_;
 
@@ -89,7 +95,7 @@ namespace feed
     {
         SDL_Rect screen_position_primary = {static_cast<Sint16>(position.x),static_cast<Sint16>(position.y), 0, 0};
 
-        if (animated)
+        if (animated_)
             SDL_BlitSurface(image_, &image_properties_.clip_, screen, &screen_position_primary);
         else
             SDL_BlitSurface(image_, nullptr, screen, &screen_position_primary);
@@ -107,11 +113,15 @@ namespace feed
 
     void AnimatedImage::advanceFrame()
     {
-        if (animated)
+        if (animated_)
         {
             if (image_properties_.current_frame_ == image_properties_.nof_frames_ - 1)
-                // Börja om från början
-                image_properties_.current_frame_ = 0;
+                if (once_)
+                    // Klar
+                    done_ = true;
+                else
+                    // Börja om från början
+                    image_properties_.current_frame_ = 0;
             else
                 // Avancera
                 ++image_properties_.current_frame_;

@@ -139,11 +139,6 @@ namespace feed
         std::cout << "Number of envobjs: " << envobject_list_.size() << std::endl;
         std::cout << "Number of intobjs: " << intobject_list_.size() << std::endl;
 
-        envobject_list_.push_back(new EnvironmentObject(glm::vec2(200,250), glm::vec2(50,50), glm::vec2(50,0), Resources::instance()["sq"], glm::vec2(200,200), glm::vec2(200,400)));
-
-        //envobject_list_.back()->set_boundary_start(glm::vec2(400,200));
-        //envobject_list_.back()->set_boundary_end(glm::vec2(400,400));
-
         ui_ = new Ui(player_, Resources::instance()["ui_meny"], Resources::instance()["health_bar"], Resources::instance()["armor_bar"]);
     }
 
@@ -190,6 +185,9 @@ namespace feed
 		if (player_ != nullptr)
             player_->draw(screen, player_->get_position());
 
+        for (auto effect : effect_list_)
+            effect->draw(screen, player_->get_position());
+
         if (ui_ != nullptr)
             ui_->draw(screen);
     }
@@ -198,6 +196,9 @@ namespace feed
     {
         if (player_ != nullptr)
             player_->update(delta_time);
+
+        for (auto effect : effect_list_)
+            effect->update(delta_time); 
 
         for (auto projectile : projectile_list_)
             projectile->update(delta_time);
@@ -235,19 +236,31 @@ namespace feed
 
         for (auto enemy : enemy_list_)
         {
-            if (enemy->get_seen_player())
-            {
-                enemy->set_aim(player_->get_position() - enemy->get_position());
-                enemy->fire();
-            }
+                if (enemy->get_seen_player())
+                {
+                    enemy->set_aim(player_->get_position() - enemy->get_position());
+                    enemy->fire();
+                
 
-            if (enemy->get_position().x < player_->get_position().x)
-                 enemy->setAnimation(Enemy::STATIONARY_RIGHT);
-            else
-                enemy->setAnimation(Enemy::STATIONARY_LEFT);
+                if (enemy->get_position().x < player_->get_position().x)
+                {
+                    if(enemy->isWalking())
+                        enemy->walkRight();
+                    else
+                     enemy->setAnimation(Enemy::STATIONARY_RIGHT);
+                }
+                else
+                {
+                    if(enemy->isWalking())
+                        enemy->walkLeft();
+                    else
+                     enemy->setAnimation(Enemy::STATIONARY_LEFT);
+                }
+
+        }
         }
 
-        for (std::size_t it = 0; it < projectile_list_.size(); ++it)
+        for (std::vector<Projectile*>::size_type it = 0; it < projectile_list_.size(); ++it)
         {
             bool found = false;
             Projectile* current = projectile_list_[it];
@@ -350,15 +363,22 @@ namespace feed
 
                     case SDLK_SPACE:
                     {
-                        // glm::vec2 vel = player_->get_velocity();
-                        // vel.y = -180.0f;
-                        // player_->set_velocity(vel);
+                        if (!player_->isJumpLocked())
+                            effect_list_.push_back(new Effect(player_->get_position(),
+                                                              glm::vec2(128, 128),
+                                                              glm::vec2(0, 0),
+                                                              Resources::instance().getImage("smoke-jump"),
+                                                              1, 10));
                         player_->jump();
                         break;
                     }
 
                     case SDLK_h:
                         std::cout << "Player health: " << player_->get_health() << std::endl;
+                        break;
+
+                    case SDLK_r:
+                        util::randomizeVec2(player_->get_position(), 1.0f);
                         break;
 
                     case SDLK_d:
@@ -491,8 +511,25 @@ namespace feed
                 {
                     if (*it == msg.sender)
                     {
+                        // Spawna blod
+                        spawnBlood(msg.sender->get_position());
                         delete msg.sender;
                         enemy_list_.erase(it);
+                        break;
+                    }
+                }
+            }
+
+            case MessageQueue::Message::EFFECT_DEAD:
+            {
+                std::cout << "Effect " << msg.sender << " is dead" << std::endl;
+
+                for (auto it = effect_list_.begin(); it != effect_list_.end(); ++it)
+                {
+                    if (*it == msg.sender)
+                    {
+                        delete msg.sender;
+                        effect_list_.erase(it);
                         break;
                     }
                 }
@@ -551,13 +588,19 @@ namespace feed
         std::stringstream ss(str);
         std::string type;
         glm::vec2 position;
+        glm::vec2 boundary_start;
+        glm::vec2 boundary_end;
 
-        ss >> type >> position.x >> position.y;
+        ss >> type >> position.x >> position.y
+           >> boundary_start.x >> boundary_start.y
+           >> boundary_end.x >> boundary_end.y;
 
         Enemy* enemy = nullptr;
 
+        std::cout << "Load enemy: " << boundary_end.x << " " << boundary_end.y << std::endl;
+
         if (type == "grunt")
-            enemy = Enemy::CreateGrunt(position);
+            enemy = Enemy::CreateGrunt(position, boundary_start, boundary_end);
         else if (type == "heavy")
             enemy = Enemy::CreateHeavy(position);
 
@@ -602,13 +645,17 @@ namespace feed
         glm::vec2 size;
         glm::vec2 vel;
         std::string image;
+        glm::vec2 boundary_start;
+        glm::vec2 boundary_end;
 
         ss >> pos.x >> pos.y
            >> size.x >> size.y
            >> vel.x >> vel.y
-           >> image;
+           >> image
+           >> boundary_start.x >> boundary_start.y
+           >> boundary_end.x >> boundary_end.y;
 
-        envobject_list_.push_back(new EnvironmentObject(pos, size, vel, Resources::instance()[image]));
+        envobject_list_.push_back(new EnvironmentObject(pos, size, vel, Resources::instance()[image], boundary_start, boundary_end));
     }
 
     void World::loadInteractableObject(const std::string& str)
@@ -646,5 +693,20 @@ namespace feed
                                  util::PLAYER_OFFSET_Y + player_->get_size().y / 2);
 
         return position;
+    }
+
+    void World::spawnBlood(const glm::vec2& position)
+    {
+        for (int i = 0; i < 6; ++i)
+        {
+            int x_rand = (rand() % 30) - 15;
+            int y_rand = (rand() % 30) - 15;
+
+            effect_list_.push_back(new Effect(position + glm::vec2(x_rand, y_rand),
+                                              glm::vec2(128, 128),
+                                              glm::vec2(0, 0),
+                                              Resources::instance().getImage("blood"),
+                                              1, 6)); 
+        }
     }
 }

@@ -73,17 +73,10 @@ namespace feed
 
     void Character::addHealth(int value)
     {
-        std::cout << "Adding " << value << " health" << std::endl;
-
         if (hitpoints_ + value > max_health_)
-        {
             hitpoints_ = max_health_;
-        }
         else if (hitpoints_ + value <= 0)
-        {
-            //MessageQueue::instance().pushMessage({MessageQueue::Message::DEAD, 0, this});
             isDead();
-        }
         else
             hitpoints_ += value;
     }
@@ -119,11 +112,14 @@ namespace feed
 
     void Character::jump()
     {
-        if (!isJumping())
+        if (!isJumpLocked())
         {
-            set_jumping(true);
+            if (is_jumping_)
+                is_double_jumping_ = true;
+
+            is_jumping_ = true;
             glm::vec2 velocity = get_velocity();
-            velocity.y = -200;
+            velocity.y = util::JUMP_VELOCITY;
             set_velocity(velocity);
         }
     }
@@ -131,10 +127,16 @@ namespace feed
     void Character::set_jumping(bool state)
     {
         is_jumping_ = state;
+        is_double_jumping_ = state;
     }
 
     bool Character::isJumping() const
     {
         return is_jumping_;
+    }
+
+    bool Character::isJumpLocked() const
+    {
+        return is_jumping_ && is_double_jumping_;
     }
 }

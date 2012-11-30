@@ -41,7 +41,7 @@ namespace feed
         };  
 
         void set_aim(glm::vec2 aim);
-        glm::vec2 get_aim() const;
+        virtual glm::vec2 get_aim() const;
         int get_health() const;
         int get_armor() const;
         int getFacing() const;
@@ -56,6 +56,7 @@ namespace feed
         void jump();
         void set_jumping(bool state);
         bool isJumping() const;
+        bool isJumpLocked() const;
 
     protected:
         virtual void isDead() = 0;
@@ -65,10 +66,11 @@ namespace feed
         int max_health_;
         int max_armor_;
         bool is_jumping_ = false;
+        bool is_double_jumping_ = false;
+        glm::vec2 aim_;
 
     private:
         Animation animation_;
-        glm::vec2 aim_;
     };
 }
 

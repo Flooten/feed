@@ -20,6 +20,7 @@
 #include "interactableobject.h"
 #include "environmentobject.h"
 #include "player.h"
+#include "effect.h"
 #include "ui.h"
 
 #include <SDL/SDL.h>
@@ -52,6 +53,7 @@ namespace feed
         void loadInteractableObject(const std::string& str);
 
         glm::vec2 playerOrigin();   // Returnerar spelarens mittpunkt
+        void spawnBlood(const glm::vec2& position);
 
         Player* player_ = nullptr;
         Ui* ui_ = nullptr;
@@ -60,8 +62,7 @@ namespace feed
         std::vector<Enemy*> enemy_list_;
         std::vector<EnvironmentObject*> envobject_list_;
         std::vector<InteractableObject*> intobject_list_;
-
-        glm::vec2 camera_position_;
+        std::vector<Effect*> effect_list_;
 
         Uint32 loop;
     };

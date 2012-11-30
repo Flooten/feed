@@ -38,19 +38,12 @@ namespace feed
 
     bool onScreen(const Object* obj, const Player* player)
     {
-        glm::vec2 delta = glm::abs(obj->get_position() - player->get_position());
 
-        // enklare variant, ej exakt i kanterna
-        if (delta.x > util::SCREEN_WIDTH - util::PLAYER_OFFSET_X || delta.y > util::SCREEN_HEIGHT - util::PLAYER_OFFSET_Y)
-            return false;
+        glm::vec2 delta =  obj->get_position() - player->get_position(); 
 
-        return true;
-
-        // glm::vec2 delta = obj->get_position() - player->get_position(); 
-
-        // return (((delta.x < util::SCREEN_WIDTH - util::PLAYER_OFFSET_X && delta.x > 0) ||
-        //          (- delta.x - obj->get_size().x < util::PLAYER_OFFSET_X && delta.x < 0))) &&
-        //         ((- delta.y - obj->get_size().y < util::PLAYER_OFFSET_Y && delta.y < 0) || 
-        //         (delta.y < util::SCREEN_HEIGHT - util::PLAYER_OFFSET_Y && delta.y > 0));
+        return (((delta.x < util::SCREEN_WIDTH - util::PLAYER_OFFSET_X && delta.x >= 0) ||
+                 (- delta.x - obj->get_size().x < util::PLAYER_OFFSET_X && delta.x <= 0))) &&
+                ((- delta.y - obj->get_size().y < util::PLAYER_OFFSET_Y && delta.y <= 0) || 
+                (delta.y < util::SCREEN_HEIGHT - util::PLAYER_OFFSET_Y && delta.y >= 0));
     }
 }

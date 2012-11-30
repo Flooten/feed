@@ -18,6 +18,8 @@ sfx ak45 data/high.wav
 music original-score data/sound/feed01.ogg
 
 [environment_object]
+// pos.x pos.y size.x size.y vel.x vel.y image (boundary_start.x boundary_start.y boundary_end.x boundary_end.y)
+200 250 50 50 50 0 sq 200 200 200 400
 0     0 50 50 0 0 sq
 0    50 50 50 0 0 sq
 0   100 50 50 0 0 sq
@@ -82,7 +84,9 @@ health 400 100 50 50 75 health_container
 
 [enemy]
 //grunt 750 0
-grunt 1100 100
+grunt 1000 100 1000 100 1200 100
+//grunt 1150 100 1150 100 1350 100
+
 //grunt 1350 0
 //heavy 155 0
 
