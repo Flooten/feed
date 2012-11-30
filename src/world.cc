@@ -350,8 +350,15 @@ namespace feed
                     case SDLK_SPACE:
                     {
                         glm::vec2 vel = player_->get_velocity();
-                        vel.y = -180.0f;
+                        vel.y = -300.0f;
                         player_->set_velocity(vel);
+
+                        //Spawna rök
+                        effect_list_.push_back(new Effect(player_->get_position(),
+                                                          glm::vec2(128, 128),
+                                                          glm::vec2(0, 0),
+                                                          Resources::instance().getImage("smoke-jump"),
+                                                          1, 10));
                         break;
                     }
 
@@ -500,6 +507,8 @@ namespace feed
 
             case MessageQueue::Message::EFFECT_DEAD:
             {
+                std::cout << "Effect " << msg.sender << " is dead" << std::endl;
+
                 for (auto it = effect_list_.begin(); it != effect_list_.end(); ++it)
                 {
                     if (*it == msg.sender)
@@ -663,10 +672,13 @@ namespace feed
 
     void World::spawnBlood(const glm::vec2& position)
     {
-        for (int i = 0; i < 5; ++i)
+        for (int i = 0; i < 6; ++i)
         {
-            effect_list_.push_back(new Effect(position + glm::vec2(i * 5, i * 5),
-                                              glm::vec2(64, 64),
+            int x_rand = (rand() % 30) - 15;
+            int y_rand = (rand() % 30) - 15;
+
+            effect_list_.push_back(new Effect(position + glm::vec2(x_rand, y_rand),
+                                              glm::vec2(128, 128),
                                               glm::vec2(0, 0),
                                               Resources::instance().getImage("blood"),
                                               1, 6)); 

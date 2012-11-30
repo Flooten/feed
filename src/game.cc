@@ -109,6 +109,7 @@ namespace feed
         Resources::instance().addImage("fireball", "data/gfx/fireball.png");
         Resources::instance().addImage("sq", "data/gfx/square.png");
         Resources::instance().addImage("blood", "data/gfx/blood.png");
+        Resources::instance().addImage("smoke-jump", "data/gfx/smoke-jump.png");
 
 
         // Menybilder
