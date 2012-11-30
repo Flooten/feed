@@ -43,6 +43,7 @@ namespace feed
         void set_seen_player(bool value);
 
         bool isWalking() const;
+        bool isFacingRight() const;
         void walkLeft();
         void walkRight();
         void stopWalking();
@@ -60,10 +61,11 @@ namespace feed
         Weapon* weapon_;
         bool seen_player_ = true;
         bool walking = false;
+        bool facing_right = true;
         glm::vec2 boundary_start_;
         glm::vec2 boundary_end_;
 
-        glm::vec2 old_vel_;
+        glm::vec2 old_vel_ = glm::vec2(0,0);
 
     };
 }

@@ -214,7 +214,9 @@ namespace feed
                     enemy->set_seen_player(false);
 
                 if (enemy->get_seen_player())
-                    enemy->set_seen_player((lineOfSight(enemy, player_, envobject)));
+                    enemy->set_seen_player(fieldOfVison(enemy, player_) && lineOfSight(enemy, player_, envobject));
+                // if (!lineOfSight(enemy, player_, envobject))
+                //     std::cout << "Object: " << envobject->get_position().x << " " << envobject->get_position().y << std::endl; ;
             }
         }
 
@@ -222,7 +224,7 @@ namespace feed
         {
             if (isIntersecting(player_, *it))
             {
-                (*it)->eventFunction();
+                (*it)->eventFunction(); 
                 delete *it;
                 intobject_list_.erase(it);
                 break;
@@ -236,7 +238,7 @@ namespace feed
                     enemy->set_aim(player_->get_position() - enemy->get_position());
                     enemy->fire();
                 
-                    if (enemy->get_position().x < player_->get_position().x)
+                    if (enemy->get_position().x < player_->get_position().x) 
                     {
                         if(enemy->isWalking())
                         {
@@ -258,7 +260,7 @@ namespace feed
                     }
                 }
                 else
-                    if(!enemy->isWalking())
+                    if(!enemy->isWalking())  // Kommer bugga för stillastående fiender
                         enemy->continueWalking();
         }
 

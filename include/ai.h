@@ -16,6 +16,7 @@ namespace feed
 {
     bool lineOfSight(const class Enemy* enemy, const class Player* player, const class EnvironmentObject* env_object);
     bool onScreen(const class Object* obj, const class Player* player);
+    bool fieldOfVison(const class Enemy* enemy, const class Player* player);
 }
 
 #endif
