@@ -344,16 +344,13 @@ namespace feed
 
                     case SDLK_SPACE:
                     {
-                        // glm::vec2 vel = player_->get_velocity();
-                        // vel.y = -180.0f;
-                        // player_->set_velocity(vel);
                         player_->jump();
-                        /*
-						effect_list_.push_back(new Effect(player_->get_position(),
-                                                          glm::vec2(128, 128),
-                                                          glm::vec2(0, 0),
-                                                          Resources::instance().getImage("smoke-jump"),
-                                                          1, 10));*/
+                        if (!player_->isJumpLocked())
+						    effect_list_.push_back(new Effect(player_->get_position(),
+                                                              glm::vec2(128, 128),
+                                                              glm::vec2(0, 0),
+                                                              Resources::instance().getImage("smoke-jump"),
+                                                              1, 10));
                         break;
                     }
 
