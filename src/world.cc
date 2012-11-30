@@ -220,8 +220,6 @@ namespace feed
 
                 if (enemy->get_seen_player())
                     enemy->set_seen_player(fieldOfVison(enemy, player_) && lineOfSight(enemy, player_, envobject));
-                // if (!lineOfSight(enemy, player_, envobject))
-                //     std::cout << "Object: " << envobject->get_position().x << " " << envobject->get_position().y << std::endl; ;
             }
         }
 
