@@ -51,6 +51,7 @@ namespace feed
         void loadPlayer(const std::string& str);
         void loadEnvironmentObject(const std::string& str);
         void loadInteractableObject(const std::string& str);
+        void checkKeyState();
 
         glm::vec2 playerOrigin();   // Returnerar spelarens mittpunkt
         void spawnBlood(const glm::vec2& position);

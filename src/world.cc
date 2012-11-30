@@ -715,6 +715,17 @@ namespace feed
             intobject_list_.push_back(new Spikes(pos, size, Resources::instance()[image], val));
     }
 
+    void World::checkKeyState()
+    {
+        int mouse_position_x;
+        int mouse_posttion_y;
+        SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
+
+        Uint8* keystate = SDL_GetKeyState(nullptr);
+
+        //if ()
+    }
+
     glm::vec2 World::playerOrigin()
     {
         glm::vec2 position;
