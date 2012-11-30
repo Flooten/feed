@@ -84,7 +84,9 @@ health 400 100 50 50 75 health_container
 
 [enemy]
 //grunt 750 0
-grunt 1100 100
+grunt 1000 100 1000 100 1200 100
+//grunt 1150 100 1150 100 1350 100
+
 //grunt 1350 0
 //heavy 155 0
 

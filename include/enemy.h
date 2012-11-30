@@ -16,6 +16,7 @@
 #include <SDL/SDL.h>
 #include "character.h"
 #include "weapon.h"
+#include "util.h"
 
 namespace feed
 {
@@ -30,8 +31,9 @@ namespace feed
               int armor,
               int max_health,
               int max_armor,
-              int weapon_type);
-
+              int weapon_type,
+              const glm::vec2& boundary_start  = glm::vec2(0,0),
+              const glm::vec2& boundary_end = glm::vec2(0,0));
         ~Enemy();
 
         glm::vec2 get_aim() const override final;
@@ -40,9 +42,13 @@ namespace feed
         bool get_seen_player() const;
         void set_seen_player(bool value);
 
+        bool isWalking() const;
+        void walkLeft();
+        void walkRight();
+
         void update(float delta_time) override;
 
-        static Enemy* CreateGrunt(const glm::vec2& position);
+        static Enemy* CreateGrunt(const glm::vec2& position, const glm::vec2& boundary_start = glm::vec2(0,0), const glm::vec2& boundary_end = glm::vec2(0,0));
         static Enemy* CreateHeavy(const glm::vec2& position);
 
     protected:
@@ -51,6 +57,10 @@ namespace feed
     private:
         Weapon* weapon_;
         bool seen_player_ = true;
+        bool walking = false;
+        glm::vec2 boundary_start_;
+        glm::vec2 boundary_end_;
+
     };
 }
 
