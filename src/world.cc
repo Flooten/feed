@@ -313,6 +313,7 @@ namespace feed
         }
 
         ui_->update();
+        checkKeyState();
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
@@ -367,7 +368,6 @@ namespace feed
             {
                 int mouse_position_x;
                 int mouse_position_y;
-
                 SDL_GetMouseState(&mouse_position_x, &mouse_position_y);
 
                 switch (event.key.keysym.sym)
@@ -401,31 +401,31 @@ namespace feed
                         break;
                     }
 
-                    case SDLK_d:
-                    {
-                        if (mouse_position_x < playerOrigin().x)
-                            // Moonwalk
-                            player_->setAnimation(Player::WALKING_LEFT);
-                        else
-                            player_->setAnimation(Player::WALKING_RIGHT);
+                    // case SDLK_d:
+                    // {
+                    //     if (mouse_position_x < playerOrigin().x)
+                    //         // Moonwalk
+                    //         player_->setAnimation(Player::WALKING_LEFT);
+                    //     else
+                    //         player_->setAnimation(Player::WALKING_RIGHT);
 
-                        float vel_y = player_->get_velocity().y;
-                        player_->set_velocity(glm::vec2(160, vel_y));
-                        break;
-                    }
+                    //     float vel_y = player_->get_velocity().y;
+                    //     player_->set_velocity(glm::vec2(160, vel_y));
+                    //     break;
+                    // }
 
-                    case SDLK_a:
-                    {
-                        if (mouse_position_x >= playerOrigin().x)
-                            // Moonwalk
-                            player_->setAnimation(Player::WALKING_RIGHT);
-                        else
-                            player_->setAnimation(Player::WALKING_LEFT);
+                    // case SDLK_a:
+                    // {
+                    //     if (mouse_position_x >= playerOrigin().x)
+                    //         // Moonwalk
+                    //         player_->setAnimation(Player::WALKING_RIGHT);
+                    //     else
+                    //         player_->setAnimation(Player::WALKING_LEFT);
 
-                        float vel_y = player_->get_velocity().y;
-                        player_->set_velocity(glm::vec2(-160, vel_y));
-                        break;
-                    }
+                    //     float vel_y = player_->get_velocity().y;
+                    //     player_->set_velocity(glm::vec2(-160, vel_y));
+                    //     break;
+                    // }
 
                     default:
                         break;
@@ -433,54 +433,54 @@ namespace feed
                 break;
             }
 
-            case SDL_KEYUP:
-            {
-                int mouse_position_x;
-                int mouse_posttion_y;
+            // case SDL_KEYUP:
+            // {
+            //     int mouse_position_x;
+            //     int mouse_posttion_y;
 
-                SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
-                Uint8* keystate = SDL_GetKeyState(nullptr);
+            //     SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
+            //     Uint8* keystate = SDL_GetKeyState(nullptr);
 
-                switch (event.key.keysym.sym)
-                {
-                    case SDLK_UP:
-                        break;
+            //     switch (event.key.keysym.sym)
+            //     {
+            //         case SDLK_UP:
+            //             break;
 
-                    case SDLK_DOWN:
-                        break;
+            //         case SDLK_DOWN:
+            //             break;
 
-                    case SDLK_d:
-                        if (!keystate[SDLK_a])
-                        {
-                            if (mouse_position_x >= playerOrigin().x)
-                                player_->setAnimation(Player::STATIONARY_RIGHT);
-                            else
-                                player_->setAnimation(Player::STATIONARY_LEFT);
+            //         case SDLK_d:
+            //             if (!keystate[SDLK_a])
+            //             {
+            //                 if (mouse_position_x >= playerOrigin().x)
+            //                     player_->setAnimation(Player::STATIONARY_RIGHT);
+            //                 else
+            //                     player_->setAnimation(Player::STATIONARY_LEFT);
 
-                            float vel_y = player_->get_velocity().y;
-                            player_->set_velocity(glm::vec2(0, vel_y));
-                        }
-                        break;
+            //                 float vel_y = player_->get_velocity().y;
+            //                 player_->set_velocity(glm::vec2(0, vel_y));
+            //             }
+            //             break;
 
-                    case SDLK_a:
-                        if (!keystate[SDLK_d])
-                        {
-                            if (mouse_position_x < playerOrigin().x)
-                                player_->setAnimation(Player::STATIONARY_LEFT);
-                            else
-                                player_->setAnimation(Player::STATIONARY_RIGHT);
+            //         case SDLK_a:
+            //             if (!keystate[SDLK_d])
+            //             {
+            //                 if (mouse_position_x < playerOrigin().x)
+            //                     player_->setAnimation(Player::STATIONARY_LEFT);
+            //                 else
+            //                     player_->setAnimation(Player::STATIONARY_RIGHT);
 
-                            float vel_y = player_->get_velocity().y;
-                            player_->set_velocity(glm::vec2(0, vel_y));
-                        }
-                        break;
+            //                 float vel_y = player_->get_velocity().y;
+            //                 player_->set_velocity(glm::vec2(0, vel_y));
+            //             }
+            //             break;
 
-                    default:
-                        break;
-                }
+            //         default:
+            //             break;
+            //     }
 
-                break;
-            }
+            //     break;
+            // }
 
             default:
                 break;
@@ -610,9 +610,7 @@ namespace feed
     }
 
     void World::loadProjectile(const std::string&)
-    {
-
-    }
+    {}
 
     void World::loadEnemy(const std::string& str)
     {
@@ -725,7 +723,35 @@ namespace feed
 
         Uint8* keystate = SDL_GetKeyState(nullptr);
 
-        //if ()
+        if (mouse_position_x < playerOrigin().x)
+            player_->setAnimation(Player::STATIONARY_LEFT);
+        else
+            player_->setAnimation(Player::STATIONARY_RIGHT);
+
+        float vel_y = player_->get_velocity().y;
+        player_->set_velocity(glm::vec2(0, vel_y));
+
+        if (keystate[SDLK_a])
+        {
+            if (mouse_position_x >= playerOrigin().x)
+                player_->setAnimation(Player::WALKING_RIGHT);
+            else
+                player_->setAnimation(Player::WALKING_LEFT);
+
+            float vel_y = player_->get_velocity().y;
+            player_->set_velocity(glm::vec2(-160, vel_y));
+        }
+
+        if (keystate[SDLK_d])
+        {
+            if (mouse_position_x >= playerOrigin().x)
+                player_->setAnimation(Player::WALKING_RIGHT);
+            else
+                player_->setAnimation(Player::WALKING_LEFT);
+
+            float vel_y = player_->get_velocity().y;
+            player_->set_velocity(glm::vec2(160, vel_y));
+        }
     }
 
     glm::vec2 World::playerOrigin()
