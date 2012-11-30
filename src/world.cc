@@ -5,7 +5,7 @@
  *                Herman Ekwall
  *                Marcus Eriksson
  *                Mattias Fransson
- * DATUM:         2012-11-21
+ * DATUM:         2012-11-30
  *
  */
 
@@ -16,6 +16,7 @@
 #include "healthcontainer.h"
 #include "armorcontainer.h"
 #include "weaponcontainer.h"
+#include "spikes.h"
 #include "checkpoint.h"
 #include "collision.h"
 #include "ai.h"
@@ -167,6 +168,8 @@ namespace feed
         // Rensa screen
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
+        util::blitSurface(Resources::instance()["sky_bg"], screen, 0, 0);
+
         for (auto envobject : envobject_list_)
             envobject->draw(screen, player_->get_position());
 
@@ -276,8 +279,11 @@ namespace feed
             {
                 player_->addHealth(-current->get_damage());
                 MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, it, current});
-                break;
+                found = true;
             }
+
+            if (found)
+                break;
 
             for (auto envobject : envobject_list_)
             {
@@ -384,9 +390,14 @@ namespace feed
                         std::cout << "Player health: " << player_->get_health() << std::endl;
                         break;
 
-                    case SDLK_r:
-                        util::randomizeVec2(player_->get_position(), 1.0f);
+                    case SDLK_p:
+                    {
+                        glm::vec2 pos = util::screenToWorld(glm::vec2(mouse_position_x, mouse_position_y), player_->get_position());
+                        glm::vec2 start = pos + glm::vec2(30, 0);
+                        glm::vec2 end = pos - glm::vec2(30, 0);
+                        enemy_list_.push_back(Enemy::CreateGrunt(pos, start, end));
                         break;
+                    }
 
                     case SDLK_d:
                     {
@@ -505,8 +516,17 @@ namespace feed
             case MessageQueue::Message::PROJECTILE_DEAD:
             {
                 std::cout << "Projectile " << msg.sender << " is dead" << std::endl;
-                delete msg.sender;
-                projectile_list_.erase(projectile_list_.begin() + msg.value);
+                // delete msg.sender;
+                // projectile_list_.erase(projectile_list_.begin() + msg.value);
+                for (auto it = projectile_list_.begin(); it != projectile_list_.end(); ++it)
+                {
+                    if (*it == msg.sender)
+                    {
+                        delete msg.sender;
+                        projectile_list_.erase(it);
+                        break;
+                    }
+                }
                 break;
             }
 
@@ -525,6 +545,7 @@ namespace feed
                         break;
                     }
                 }
+                break;
             }
 
             case MessageQueue::Message::EFFECT_DEAD:
@@ -540,6 +561,7 @@ namespace feed
                         break;
                     }
                 }
+                break;
             }
 
             case MessageQueue::Message::ADD_HEALTH:
@@ -689,6 +711,8 @@ namespace feed
             intobject_list_.push_back(new WeaponContainer(pos, size, Resources::instance()[image], val));
         else if (type == "checkpoint")
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
+        else if (type == "spikes")
+            intobject_list_.push_back(new Spikes(pos, size, Resources::instance()[image], val));
     }
 
     glm::vec2 World::playerOrigin()

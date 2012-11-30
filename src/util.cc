@@ -74,5 +74,18 @@ namespace feed
 
             return glm::vec2(v.x + dist(rng), v.y + dist(rng));
         }
+
+        glm::vec2 worldToScreen(const glm::vec2& world_coordinates, const glm::vec2& camera_position)
+        {
+            glm::vec2 screen(camera_position - glm::vec2(PLAYER_OFFSET_X, PLAYER_OFFSET_Y));
+            return world_coordinates - screen;   
+        }
+
+        glm::vec2 screenToWorld(const glm::vec2& screen_coordinates, const glm::vec2& camera_position)
+        {
+            glm::vec2 world(screen_coordinates + camera_position);
+
+            return world - glm::vec2(PLAYER_OFFSET_X, PLAYER_OFFSET_Y);
+        }
     }
 }
