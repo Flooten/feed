@@ -18,6 +18,7 @@ namespace feed
     class Character;
 
     bool isIntersecting(const Object* obj1, const Object* obj2);
+    bool isIntersectingX(const Object* obj1, const Object* obj2);
     void handleCollision(Character* obj1, Object* obj2);
 }
 

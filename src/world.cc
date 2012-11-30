@@ -216,15 +216,21 @@ namespace feed
         {
             handleCollision(player_, envobject);
             for (auto enemy : enemy_list_)
-            {
+            {   
+                // if(isIntersectingX(enemy, envobject))
+                // {
+                //     if(enemy->isFacingRight() && enemy->isWalking())
+                //         enemy->walkLeft();
+                //     else if(!enemy->isFacingRight() && enemy->isWalking())
+                //         enemy->walkRight();
+                // }
                 handleCollision(enemy, envobject);
+
                 if (!(onScreen(enemy, player_)))
                     enemy->set_seen_player(false);
 
                 if (enemy->get_seen_player())
                     enemy->set_seen_player(fieldOfVison(enemy, player_) && lineOfSight(enemy, player_, envobject));
-                // if (!lineOfSight(enemy, player_, envobject))
-                //     std::cout << "Object: " << envobject->get_position().x << " " << envobject->get_position().y << std::endl; ;
             }
         }
 
