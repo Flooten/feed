@@ -76,14 +76,16 @@ namespace feed
 
         float angle = getAimingAngle(shooter);
 
-        int radius = 90;
+        std::cout << "Angle: " << angle * util::RAD_TO_DEG << std::endl;
+
+        int radius = 85;
         float offset_angle = 25 * util::DEG_TO_RAD;
 
         if (shooter->getFacing() == 0)
         {
             // Höger
             position.x += radius * cos(angle - offset_angle);
-            position.y -= radius * sin(angle - offset_angle);
+            position.y += radius * sin(-(angle - offset_angle));
         }
         else
         {
@@ -94,7 +96,7 @@ namespace feed
         
         glm::vec2 size(16, 16);
         glm::vec2 velocity = shooter->get_aim();
-        velocity *= 50;
+        velocity *= 500;
 
         return new Projectile(position, size, velocity, Resources::instance().getImage("fireball"), 5);
     }
