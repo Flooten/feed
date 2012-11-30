@@ -140,6 +140,7 @@ namespace feed
         std::cout << "Number of envobjs: " << envobject_list_.size() << std::endl;
         std::cout << "Number of intobjs: " << intobject_list_.size() << std::endl;
 
+        ui_ = new Ui(player_, Resources::instance()["ui_meny"], Resources::instance()["health_bar"], Resources::instance()["armor_bar"]);
     }
 
     World::~World()
@@ -147,6 +148,7 @@ namespace feed
         std::cout << "World " << this << " dead" << std::endl;
 
         delete player_;
+        delete ui_;
 
         for (auto e : projectile_list_)
             delete e;
@@ -186,6 +188,9 @@ namespace feed
 
         for (auto effect : effect_list_)
             effect->draw(screen, player_->get_position());
+
+        if (ui_ != nullptr)
+            ui_->draw(screen);
     }
 
     void World::update(float delta_time)
@@ -237,23 +242,30 @@ namespace feed
                     enemy->set_aim(player_->get_position() - enemy->get_position());
                     enemy->fire();
                 
-
-                if (enemy->get_position().x < player_->get_position().x)
-                {
-                    if(enemy->isWalking())
-                        enemy->walkRight();
+                    if (enemy->get_position().x < player_->get_position().x)
+                    {
+                        if(enemy->isWalking())
+                        {
+                            enemy->walkRight();
+                            enemy->stopWalking();
+                        }
+                        else
+                         enemy->setAnimation(Enemy::STATIONARY_RIGHT);
+                    }
                     else
-                     enemy->setAnimation(Enemy::STATIONARY_RIGHT);
+                    {
+                        if(enemy->isWalking())
+                        {
+                            enemy->walkLeft();
+                            enemy->stopWalking();
+                        }
+                        else
+                         enemy->setAnimation(Enemy::STATIONARY_LEFT);
+                    }
                 }
                 else
-                {
-                    if(enemy->isWalking())
-                        enemy->walkLeft();
-                    else
-                     enemy->setAnimation(Enemy::STATIONARY_LEFT);
-                }
-
-        }
+                    if(!enemy->isWalking())
+                        enemy->continueWalking();
         }
 
         for (std::vector<Projectile*>::size_type it = 0; it < projectile_list_.size(); ++it)
@@ -292,6 +304,8 @@ namespace feed
                 }
             }
         }
+
+        ui_->update();
     }
 
     void World::handleSDLEvent(const SDL_Event& event)

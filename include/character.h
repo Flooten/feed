@@ -43,6 +43,7 @@ namespace feed
         void set_aim(glm::vec2 aim);
         virtual glm::vec2 get_aim() const;
         int get_health() const;
+        int get_armor() const;
         int getFacing() const;
 
         void addHealth(int value);
