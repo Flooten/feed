@@ -16,6 +16,7 @@
 #include "pausemenu.h"
 
 #include <SDL/SDL_image.h>
+#include <SDL/SDL_ttf.h>
 
 #include <iostream>
 #include <utility>
@@ -45,6 +46,7 @@ namespace feed
 
         Audio::instance().clear();
         Resources::instance().clear();
+        TTF_Quit();
         SDL_Quit();
     }
 
@@ -95,6 +97,7 @@ namespace feed
         screen_ = SDL_SetVideoMode(util::SCREEN_WIDTH, util::SCREEN_HEIGHT, 32, SDL_SWSURFACE);
 
         Audio::instance().init();
+        TTF_Init();
         SDL_FreeSurface(icon);
     }
 

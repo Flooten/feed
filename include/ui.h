@@ -12,6 +12,7 @@
 #define FEED_UI_H
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_ttf.h>
 #include <glm/glm.hpp>
 
 namespace feed
@@ -20,7 +21,7 @@ namespace feed
     {
     public:
         Ui(class Player* player, SDL_Surface* image, SDL_Surface* health_bar, SDL_Surface* armor_bar);
-        ~Ui() = default;
+        ~Ui();
 
         void update();
         void draw(SDL_Surface* screen);
@@ -35,14 +36,22 @@ namespace feed
         glm::vec2 armor_bar_pos_ = glm::vec2(200,525);
 
         glm::vec2 health_bar_size_ = glm::vec2(100,25);
-        glm::vec2 armor_bar_size_ = glm::vec2(100,25);
+        glm::vec2 armor_bar_size_ = glm::vec2(100,2);
+
+        glm::vec2 clip_text_pos_ = glm::vec2(425,500);
+        glm::vec2 ammo_text_pos_ = glm::vec2(500,525);
 
         int clip_size_;
         int ammo_size_;
 
-        SDL_Surface* ui_image_;
-        SDL_Surface* health_bar_image_;
-        SDL_Surface* armor_bar_image_;
+        SDL_Surface* ui_image_ = nullptr;
+        SDL_Surface* health_bar_image_ = nullptr;
+        SDL_Surface* armor_bar_image_ = nullptr;
+        SDL_Surface* clip_text_ = nullptr;
+        SDL_Surface* ammo_text_ = nullptr;
+
+        TTF_Font* font_ = nullptr;
+        SDL_Color text_color_ = {0,0,0};
     };
 }
 
