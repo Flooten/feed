@@ -5,7 +5,7 @@
  *                Herman Ekwall
  *                Marcus Eriksson
  *                Mattias Fransson
- * DATUM:         2012-11-21
+ * DATUM:         2012-11-30
  *
  */
 
@@ -16,6 +16,7 @@
 #include "healthcontainer.h"
 #include "armorcontainer.h"
 #include "weaponcontainer.h"
+#include "spikes.h"
 #include "checkpoint.h"
 #include "collision.h"
 #include "ai.h"
@@ -374,6 +375,12 @@ namespace feed
                         util::randomizeVec2(player_->get_position(), 1.0f);
                         break;
 
+                    case SDLK_p:
+                        enemy_list_.push_back(Enemy::CreateGrunt(util::screenToWorld(glm::vec2(mouse_position_x, mouse_position_y),
+                                                                                     player_->get_position())));
+                        //std::cout << util::worldToScreen(intobject_list_[0]->get_position(), player_->get_position()).x << ", " << util::worldToScreen(intobject_list_[0]->get_position(), player_->get_position()).y << std::endl;
+                        break;
+
                     case SDLK_d:
                     {
                         if (mouse_position_x < playerOrigin().x)
@@ -675,6 +682,8 @@ namespace feed
             intobject_list_.push_back(new WeaponContainer(pos, size, Resources::instance()[image], val));
         else if (type == "checkpoint")
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
+        else if (type == "spikes")
+            intobject_list_.push_back(new Spikes(pos, size, Resources::instance()[image], val));
     }
 
     glm::vec2 World::playerOrigin()
