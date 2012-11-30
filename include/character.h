@@ -52,6 +52,10 @@ namespace feed
 
         virtual void update(float delta_time);
 
+        void jump();
+        void set_jumping(bool state);
+        bool isJumping() const;
+
     protected:
         virtual void isDead() = 0;
 
@@ -59,6 +63,7 @@ namespace feed
         int armor_;
         int max_health_;
         int max_armor_;
+        bool is_jumping_ = false;
 
     private:
         Animation animation_;

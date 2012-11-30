@@ -141,9 +141,6 @@ namespace feed
 
         envobject_list_.push_back(new EnvironmentObject(glm::vec2(200,250), glm::vec2(50,50), glm::vec2(50,0), Resources::instance()["sq"], glm::vec2(200,200), glm::vec2(200,400)));
 
-        //envobject_list_.back()->set_boundary_start(glm::vec2(400,200));
-        //envobject_list_.back()->set_boundary_end(glm::vec2(400,400));
-
     }
 
     World::~World()
@@ -349,12 +346,12 @@ namespace feed
 
                     case SDLK_SPACE:
                     {
-                        glm::vec2 vel = player_->get_velocity();
-                        vel.y = -300.0f;
-                        player_->set_velocity(vel);
+                        // glm::vec2 vel = player_->get_velocity();
+                        // vel.y = -180.0f;
+                        // player_->set_velocity(vel);
+                        player_->jump();
 
-                        //Spawna rök
-                        effect_list_.push_back(new Effect(player_->get_position(),
+						effect_list_.push_back(new Effect(player_->get_position(),
                                                           glm::vec2(128, 128),
                                                           glm::vec2(0, 0),
                                                           Resources::instance().getImage("smoke-jump"),

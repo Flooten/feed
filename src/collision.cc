@@ -1,5 +1,6 @@
 #include "collision.h"
 #include "object.h"
+#include "character.h"
 
 #include <iostream>
 
@@ -19,7 +20,7 @@ namespace feed
         return false;
     }
 
-    void handleCollision(Object* obj1, Object* obj2)
+    void handleCollision(Character* obj1, Object* obj2)
     {
         glm::vec2 new_pos = obj1->get_position();
         glm::vec2 new_vel = obj1->get_velocity();
@@ -37,6 +38,7 @@ namespace feed
                 if (diff.y <= 0.0f)
                 {
                     new_pos.y = obj2->get_position().y - offset1.y - obj1->get_size().y;
+                    obj1->set_jumping(false);
                 }
                 else
                 {
