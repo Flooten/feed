@@ -48,6 +48,10 @@ namespace feed
         void walkRight();
         void stopWalking();
         void continueWalking();
+        void turn();
+
+        bool isHit() const;
+        void set_hit(bool val);
 
         void update(float delta_time) override;
 
@@ -60,6 +64,8 @@ namespace feed
     private:
         Weapon* weapon_;
         bool seen_player_ = true;
+        bool hit_ = false;
+        bool previous_seen_state_ = false;
         bool walking = false;
         bool facing_right = true;
         glm::vec2 boundary_start_;

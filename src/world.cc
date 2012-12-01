@@ -275,9 +275,11 @@ namespace feed
                      enemy->setAnimation(Enemy::STATIONARY_LEFT);
                 }
             }
-            else
-                if(!enemy->isWalking())  // Kommer bugga för stillastående fiender
-                    enemy->continueWalking();
+            else if (enemy->isHit())
+                enemy->turn();
+
+            else if(!enemy->isWalking())  // Kommer bugga för stillastående fiender
+                enemy->continueWalking();
         }
 
         for (auto it = projectile_list_.begin(); it != projectile_list_.end(); ++it)
@@ -316,6 +318,8 @@ namespace feed
                     found = true;
                     break;
                 }
+                else 
+                    enemy->set_hit(false);
             }
         }
 
