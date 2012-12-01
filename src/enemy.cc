@@ -230,7 +230,7 @@ namespace feed
 
         Enemy* enemy = new Enemy(position, size, velocity, image, hitpoints, armor, max_health, max_armor, weapon_type, boundary_start, boundary_end);
         enemy->setAnimated(4, 8);
-        enemy->setTopImage(Resources::instance()["player-torso-shotgun"], 2, 37);
+        enemy->setTopImage(Resources::instance()["enemy-torso"], 2, 37);
         enemy->set_collision_offset(glm::vec2(50, 40));
 
         if (velocity.x > 0)

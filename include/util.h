@@ -55,6 +55,10 @@ namespace feed
         // koordinatkonvertering mellan spelet och skärmen
         glm::vec2 worldToScreen(const glm::vec2& world_coordinates, const glm::vec2& camera_position);
         glm::vec2 screenToWorld(const glm::vec2& screen_coordinates, const glm::vec2& camera_position);
+
+        // checks för ui
+        unsigned int check(unsigned int x, unsigned int y);
+        unsigned int mincheck(unsigned int x, unsigned int y);
     }
 }
 

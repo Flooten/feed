@@ -103,14 +103,16 @@ namespace feed
 
     void Game::loadResources()
     {
+        // Temp
         Resources::instance().addImage("screen_bg", "data/piratesandfaggots.jpg");
         Resources::instance().addImage("sky_bg", "data/skycloud.jpg");
         Resources::instance().addImage("menu_bg", "data/duke.bmp");
-        Resources::instance().addImage("legs", "data/gfx/legs.png");
-        Resources::instance().addImage("grunt-torso", "data/gfx/grunt-torso.png");
         Resources::instance().addImage("fire", "data/gfx/fire.png");
         Resources::instance().addImage("fireball", "data/gfx/fireball.png");
         Resources::instance().addImage("sq", "data/gfx/square.png");
+
+        // Common
+        Resources::instance().addImage("legs", "data/gfx/legs.png");
         Resources::instance().addImage("blood", "data/gfx/blood.png");
         Resources::instance().addImage("smoke-jump", "data/gfx/smoke-jump.png");
 
@@ -125,6 +127,10 @@ namespace feed
         Resources::instance().addImage("player-torso-shotgun", "data/gfx/player-torso-shotgun.png");
         Resources::instance().addImage("player-torso-smg", "data/gfx/player-torso-smg.png");
 
+        // Fiendebilder
+        Resources::instance().addImage("grunt-torso", "data/gfx/grunt-torso.png");
+        Resources::instance().addImage("heavy-torso", "data/gfx/player-torso-shotgun");
+
         // Menybilder
         Resources::instance().addImage("menu_background", "data/gfx/menu_background.png");
         Resources::instance().addImage("button_new_game", "data/gfx/button_new_game.png");
@@ -134,17 +140,13 @@ namespace feed
         Resources::instance().addImage("button_quit_game", "data/gfx/button_quit_game.png");
         Resources::instance().addImage("button_credits", "data/gfx/button_credits.png");
 
-        // Allmänna fiender
-        Resources::instance().addImage("enemy-grunt", "data/gfx/armor.png");
-        Resources::instance().addImage("enemy-heavy", "data/gfx/lightbulb.png");
-
-        Audio::instance().addSoundFx("fire", "data/high.wav");
-        Audio::instance().addMusic("menu_music", "data/sound/feed01.ogg");
-
         // UI bilder
         Resources::instance().addImage("ui_meny", "data/gfx/ui.png");
         Resources::instance().addImage("armor_bar", "data/gfx/armor-bar.png");
         Resources::instance().addImage("health_bar", "data/gfx/health-bar.png");
+
+        // Audio
+        Audio::instance().addMusic("menu_music", "data/sound/feed01.ogg");
     }
 
     void Game::loadWorldList()
