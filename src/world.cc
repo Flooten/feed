@@ -421,6 +421,10 @@ namespace feed
                         player_->set_inventory_index(player_->get_inventory_index() - 1);
                         break;
 
+                    case SDLK_r:
+                        player_->reload();
+                        break;
+
                     // case SDLK_d:
                     // {
                     //     if (mouse_position_x < playerOrigin().x)

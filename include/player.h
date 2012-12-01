@@ -2,7 +2,8 @@
  * FILNAMN:       player.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
- * DATUM:         2012-11-29
+ *                Mattias Fransson
+ * DATUM:         2012-12-01
  *
  * BESKRIVNING: Denna klass definierar spelaren. Ärver från Character
  *
@@ -40,6 +41,7 @@ namespace feed
 
         void addWeapon(Weapon::Type weapon_type);
         void fire() override final;
+        void reload();
         void update(float delta_time) override;
 
     private:

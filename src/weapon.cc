@@ -17,6 +17,7 @@ namespace feed
 	Weapon::Weapon(int type, int rate_of_fire, int max_clip, int max_ammo, int damage, SDL_Surface* image)
 		: type_(type)
         , rate_of_fire_(rate_of_fire)
+        , clip_(max_clip)
 		, max_clip_(max_clip)
 		, max_ammo_(max_ammo)
 		, damage_(damage)
@@ -52,6 +53,7 @@ namespace feed
     void Weapon::fired()
     {
     	last_fired_ = 0;
+        clip_ -= 1;
     }
 
     void Weapon::update(float delta_time)
@@ -61,10 +63,10 @@ namespace feed
 
     bool Weapon::isReady()
     {
-        if (last_fired_ >= 1 / rate_of_fire_)
+        if ((last_fired_ >= 1 / rate_of_fire_) && clip_ > 0)
             return true;
-        else
-            return false;
+
+        return false;
     }
 
     int Weapon::get_type() const

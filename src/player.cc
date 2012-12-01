@@ -51,7 +51,7 @@ namespace feed
     {
         std::cout << "Lägger till ett vapen!" << std::endl;
         inventory_.add(weapon_type);
-    }    
+    }
 
     void Player::set_inventory_index(unsigned int index)
     {
@@ -89,6 +89,11 @@ namespace feed
                 weapon->fired();
             }
         }
+    }
+
+    void Player::reload()
+    {
+        inventory_.get_item(inventory_index_)->reload();
     }
 
     void Player::update(float delta_time)
