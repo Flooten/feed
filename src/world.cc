@@ -280,15 +280,14 @@ namespace feed
                 enemy->continueWalking();
         }
 
-        for (std::vector<Projectile*>::size_type it = 0; it < projectile_list_.size(); ++it)
+        for (auto it = projectile_list_.begin(); it != projectile_list_.end(); ++it)
         {
             bool found = false;
-            Projectile* current = projectile_list_[it];
 
-            if (isIntersecting(current, player_))
+            if (isIntersecting(*it, player_))
             {
-                player_->addHealth(-current->get_damage());
-                MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, it, current});
+                player_->addHealth(-(*it)->get_damage());
+                MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
                 found = true;
             }
 
@@ -297,9 +296,9 @@ namespace feed
 
             for (auto envobject : envobject_list_)
             {
-                if (isIntersecting(current, envobject))
+                if (isIntersecting(*it, envobject))
                 {
-                    MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, it, current});
+                    MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
                     found = true;
                     break;
                 }
@@ -310,11 +309,10 @@ namespace feed
 
             for (auto enemy : enemy_list_)
             {
-                if (isIntersecting(current, enemy))
+                if (isIntersecting(*it, enemy))
                 {
-                    enemy->addHealth(-current->get_damage());
-                    enemy->set_hit(true);
-                    MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, it, current});
+                    enemy->addHealth(-(*it)->get_damage());
+                    MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
                     found = true;
                     break;
                 }
