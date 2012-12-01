@@ -87,10 +87,10 @@ namespace feed
         switch (type)
         {
             case PISTOL:
-                return new Weapon(type, 7, 30, -1, 10, Resources::instance()["weapon-pistol"]);
+                return new Weapon(type, 3, 30, -1, 10, Resources::instance()["weapon-pistol"]);
 
             case SMG:
-                return new Weapon(type, 5, 20, 100, 5, Resources::instance()["weapon-smg"]);
+                return new Weapon(type, 10, 20, 100, 5, Resources::instance()["weapon-smg"]);
 
             case SHOTGUN:
                 return new Weapon(type, 1, 7, 27, 5, Resources::instance()["weapon-shotgun"]);

@@ -40,6 +40,7 @@ namespace feed
         void setDirection(Direction direction);
 
         static Projectile* createPistolProjectile(Character* shooter);
+        static Projectile* createShotgunProjectile(Character* shooter);
 
     private:
         int damage_;  // Överflödig?

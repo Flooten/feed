@@ -69,6 +69,10 @@ namespace feed
             case Weapon::SHOTGUN:
                 setTopImage(Resources::instance()["player-torso-shotgun"], 2, 37);
                 break;
+
+            case Weapon::SMG:
+                setTopImage(Resources::instance()["player-torso-smg"], 2, 37);
+                break;
         }
     }
 
