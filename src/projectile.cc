@@ -100,4 +100,35 @@ namespace feed
 
         return new Projectile(position, size, velocity, Resources::instance().getImage("fireball"), 5);
     }
+
+    Projectile* Projectile::createShotgunProjectile(Character* shooter)
+    {
+        glm::vec2 position = getPistolOrigin(shooter);
+
+        float angle = getAimingAngle(shooter);
+
+        std::cout << "Angle: " << angle * util::RAD_TO_DEG << std::endl;
+
+        int radius = 85;
+        float offset_angle = 25 * util::DEG_TO_RAD;
+
+        if (shooter->getFacing() == 0)
+        {
+            // Höger
+            position.x += radius * cos(angle - offset_angle);
+            position.y += radius * sin(-(angle - offset_angle));
+        }
+        else
+        {
+            // Vänster
+            position.x -= radius * cos(angle - offset_angle);
+            position.y -= radius * sin(angle - offset_angle);
+        }
+        
+        glm::vec2 size(16, 16);
+        glm::vec2 velocity = util::randomizeVec2(shooter->get_aim(), 0.2f);
+        velocity *= 500;
+
+        return new Projectile(position, size, velocity, Resources::instance().getImage("fireball"), 5);
+    }
 }

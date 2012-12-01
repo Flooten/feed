@@ -56,7 +56,7 @@ namespace feed
         void update(float delta_time) override;
 
         static Enemy* CreateGrunt(const glm::vec2& position, const glm::vec2& boundary_start = glm::vec2(0,0), const glm::vec2& boundary_end = glm::vec2(0,0));
-        static Enemy* CreateHeavy(const glm::vec2& position);
+        static Enemy* CreateHeavy(const glm::vec2& position, const glm::vec2& boundary_start = glm::vec2(0,0), const glm::vec2& boundary_end = glm::vec2(0,0));
 
     protected:
         void isDead() override final;
@@ -71,7 +71,7 @@ namespace feed
         glm::vec2 boundary_start_;
         glm::vec2 boundary_end_;
 
-        glm::vec2 old_vel_ = glm::vec2(0,0);
+        glm::vec2 old_vel_;
 
     };
 }

@@ -16,6 +16,11 @@ namespace feed
 {
     namespace util
     {
+        namespace
+        {
+            static std::mt19937 rng(SDL_GetTicks());
+        }
+
         std::string getFileExtension(const std::string& filename)
         {
             std::size_t pos = filename.find_last_of('.');
@@ -69,10 +74,14 @@ namespace feed
 
         glm::vec2 randomizeVec2(const glm::vec2& v, float amount)
         {
-            static std::mt19937 rng(SDL_GetTicks());
             std::normal_distribution<> dist(0.0f, amount);
-
             return glm::vec2(v.x + dist(rng), v.y + dist(rng));
+        }
+
+        float randomizeFloat(float f, float amount)
+        {
+            std::normal_distribution<> dist(0.0f, amount);
+            return f + dist(rng);
         }
 
         glm::vec2 worldToScreen(const glm::vec2& world_coordinates, const glm::vec2& camera_position)

@@ -8,10 +8,10 @@ nw               data/gfx/wall2nw.png
 sq               data/gfx/square.png
 
 //weapon_container bild på vapen 50X50
-armor_container  data/gfx/armor.png
-health_container data/gfx/red_cross_health.png
-checkpoint       data/gfx/lightbulb.png
-player           data/gfx/icon.png
+armor_container   data/gfx/armor.png
+health_container  data/gfx/red_cross_health.png
+checkpoint        data/gfx/lightbulb.png
+player            data/gfx/icon.png
 
 [audio]
 sfx ak45 data/high.wav
@@ -84,11 +84,12 @@ spikes 400 400 50 50 100 spikes
 spikes 450 400 50 50 100 spikes
 //armor 300 100 50 50 50 armor_container
 //checkpoint 400 100 25 25 0 checkpoint
+shotgun 300 400 50 50 0 shotgun
+smg 250 400 50 50 0 smg
 
 [enemy]
-//grunt 750 0
 grunt 800 100 800 100 1200 100
-//grunt 1150 100 1150 100 1350 100
+heavy 500 100 500 100 700 100
 
 //grunt 1350 0
 //heavy 155 0

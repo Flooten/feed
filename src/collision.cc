@@ -45,6 +45,19 @@ namespace feed
         return (diff.x < (obj1->get_size().x / 2 + obj2->get_size().x / 2));
     }
 
+    bool isIntersectingY(const Object* obj1, const Object* obj2)
+    {
+        glm::vec2 offset1 = obj1->get_collision_offset();
+        glm::vec2 offset2 = obj2->get_collision_offset();
+
+        glm::vec2 diff = glm::abs((obj1->get_position() + offset1 + obj1->get_size() / 2.0f) - 
+                                  (obj2->get_position() + offset2 + obj2->get_size() / 2.0f));
+
+        return (diff.y < (obj1->get_size().y / 2 + obj2->get_size().y / 2));
+    }
+
+
+
     // Hanterar kollision mellan Character-typer och godtyckliga objekt.
     // obj1 förflyttas vid kollisionen
     void handleCollision(Character* obj1, Object* obj2)

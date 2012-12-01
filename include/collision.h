@@ -19,6 +19,8 @@ namespace feed
 
     bool isIntersecting(const Object* obj1, const Object* obj2);
     bool isIntersectingX(const Object* obj1, const Object* obj2);
+    bool isIntersectingY(const Object* obj1, const Object* obj2);
+
     void handleCollision(Character* obj1, Object* obj2);
 }
 

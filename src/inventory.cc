@@ -3,7 +3,8 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
  				  Marcus Eriksson 	910322-1371 	Y3A
- * DATUM:         2012-11-16
+                  Mattias Fransson
+ * DATUM:         2012-12-01
  *
  */
 
@@ -23,32 +24,41 @@ namespace feed
 
 	void Inventory::add(Weapon::Type weapon_type)
 	{
-		switch (weapon_type)
-        {
-            case Weapon::PISTOL:
+        for (auto weapon : inventory_list)
+            if (weapon->get_type() == weapon_type)
             {
-            	bool found = false;
+                weapon->addAmmo(30);
+                return;
+            }
 
-	            for (auto weapon : inventory_list)
-					if (weapon->get_type() == weapon_type)
-					{
-						// Lägg till ammo
-						weapon->addAmmo(30);
-						found = true;
-					}
+        inventory_list.push_back(Weapon::CreateWeapon(weapon_type));
 
-				if (!found)
-				{
-					// Lägg till vapnet
-					inventory_list.push_back(Weapon::CreateWeapon(Weapon::PISTOL, 100));
-				}
+		// switch (weapon_type)
+  //       {
+  //           case Weapon::PISTOL:
+  //           {
+  //           	bool found = false;
 
-               break;
-           	}
+	 //            for (auto weapon : inventory_list)
+		// 			if (weapon->get_type() == weapon_type)
+		// 			{
+		// 				// Lägg till ammo
+		// 				weapon->addAmmo(30);
+		// 				found = true;
+		// 			}
 
-            default:
-                break;
-        }
+		// 		if (!found)
+		// 		{
+		// 			// Lägg till vapnet
+		// 			inventory_list.push_back(Weapon::CreateWeapon(Weapon::PISTOL, 100));
+		// 		}
+
+  //              break;
+  //          	}
+
+  //           default:
+  //               break;
+  //       }
 	}
 
 	void Inventory::remove(unsigned int index)
