@@ -87,5 +87,21 @@ namespace feed
 
             return world - glm::vec2(PLAYER_OFFSET_X, PLAYER_OFFSET_Y);
         }
+
+        unsigned int check(unsigned int x, unsigned int y)
+        {
+            if (x > y)
+                return 0;
+            else
+                return x;
+        }
+
+        unsigned int mincheck(unsigned int x, unsigned int y)
+        {
+            if (x < y)
+                return x;
+            else
+                return y;
+        }
     }
 }
