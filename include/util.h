@@ -50,6 +50,10 @@ namespace feed
         // Slumpar riktningen v med mängden amount (normaldistribution med
         // med standardavvikelse amount)
         glm::vec2 randomizeVec2(const glm::vec2& v, float amount);
+
+        // koordinatkonvertering mellan spelet och skärmen
+        glm::vec2 worldToScreen(const glm::vec2& world_coordinates, const glm::vec2& camera_position);
+        glm::vec2 screenToWorld(const glm::vec2& screen_coordinates, const glm::vec2& camera_position);
     }
 }
 

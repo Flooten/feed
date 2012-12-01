@@ -21,9 +21,9 @@ namespace feed
     bool lineOfSight(const Enemy* enemy, const Player* player, const EnvironmentObject* env_object)
     {
         glm::vec2 offset = player->get_collision_offset();
-        glm::vec2 point1 = player->get_position() + offset;
+        glm::vec2 point1 = player->get_position(); //+ offset;
         glm::vec2 point2 = env_object->get_position();
-        glm::vec2 point3 = enemy->get_position() - player->get_position() + offset;
+        glm::vec2 point3 = enemy->get_position() - player->get_position();// + offset;
         glm::vec2 point4 = env_object->get_size();
 
         float det = ((point4.x * point3.y) - (point3.x * point4.y));
@@ -33,7 +33,14 @@ namespace feed
         float u1 = (((point1.x - point2.x) * point3.y - (point1.y - point2.y) * (point3.x))/det);
         float u2 = ((-(-(point1.x - point2.x) * point4.y + (point1.y - point2.y) * point4.x))/det);
 
-        return (u1 < 0 || u1 > 1  || u2 < 0  ||  u2 > 1);
+        // p3.x > 0 => Spelare T.V om fiende
+       return (u1 < 0 || u1 > 1  || u2 < 0  ||  u2 > 1);
+    }
+
+    bool fieldOfVison(const Enemy* enemy, const Player* player)
+    {
+        glm::vec2 point3 = enemy->get_position() - player->get_position();
+        return (enemy->isFacingRight() && point3.x < 0) || (!enemy->isFacingRight() && point3.x > 0);
     }
 
     bool onScreen(const Object* obj, const Player* player)

@@ -43,10 +43,15 @@ namespace feed
         void set_seen_player(bool value);
 
         bool isWalking() const;
+        bool isFacingRight() const;
         void walkLeft();
         void walkRight();
         void stopWalking();
         void continueWalking();
+        void turn();
+
+        bool isHit() const;
+        void set_hit(bool val);
 
         void update(float delta_time) override;
 
@@ -59,11 +64,14 @@ namespace feed
     private:
         Weapon* weapon_;
         bool seen_player_ = true;
+        bool hit_ = false;
+        bool previous_seen_state_ = false;
         bool walking = false;
+        bool facing_right = true;
         glm::vec2 boundary_start_;
         glm::vec2 boundary_end_;
 
-        glm::vec2 old_vel_;
+        glm::vec2 old_vel_ = glm::vec2(0,0);
 
     };
 }

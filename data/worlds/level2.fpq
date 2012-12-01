@@ -79,12 +79,15 @@ music original-score data/sound/feed01.ogg
 [interactable_object]
 //weapon 400 300 50 50 100 weapon_container
 health 400 100 50 50 75 health_container
+spikes 350 400 50 50 100 spikes
+spikes 400 400 50 50 100 spikes
+spikes 450 400 50 50 100 spikes
 //armor 300 100 50 50 50 armor_container
 //checkpoint 400 100 25 25 0 checkpoint
 
 [enemy]
 //grunt 750 0
-grunt 1000 100 1000 100 1200 100
+grunt 800 100 800 100 1200 100
 //grunt 1150 100 1150 100 1350 100
 
 //grunt 1350 0

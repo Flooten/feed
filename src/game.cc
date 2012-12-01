@@ -104,6 +104,7 @@ namespace feed
     void Game::loadResources()
     {
         Resources::instance().addImage("screen_bg", "data/piratesandfaggots.jpg");
+        Resources::instance().addImage("sky_bg", "data/skycloud.jpg");
         Resources::instance().addImage("menu_bg", "data/duke.bmp");
         Resources::instance().addImage("legs", "data/gfx/legs.png");
         Resources::instance().addImage("player-torso", "data/gfx/player-torso.png");
@@ -113,6 +114,9 @@ namespace feed
         Resources::instance().addImage("sq", "data/gfx/square.png");
         Resources::instance().addImage("blood", "data/gfx/blood.png");
         Resources::instance().addImage("smoke-jump", "data/gfx/smoke-jump.png");
+
+        // Container-bilder
+        Resources::instance().addImage("spikes", "data/gfx/spikes.png");
 
         // Menybilder
         Resources::instance().addImage("menu_background", "data/gfx/menu_background.png");
