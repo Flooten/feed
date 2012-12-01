@@ -97,7 +97,7 @@ namespace feed
                 return new Weapon(type, 1, 0, 30, max_ammo, 5, Resources::instance()["weapon-smg"]);
 
             case SHOTGUN:
-                return new Weapon(type, 0, 0, 0, max_ammo, 0, Resources::instance()["weapon-shotgun"]);
+                return new Weapon(type, 1, 0, 7, max_ammo, 5, Resources::instance()["weapon-shotgun"]);
 
             default:
                 return nullptr;
