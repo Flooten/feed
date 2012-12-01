@@ -114,7 +114,6 @@ namespace feed
         Resources::instance().addImage("blood", "data/gfx/blood.png");
         Resources::instance().addImage("smoke-jump", "data/gfx/smoke-jump.png");
 
-
         // Menybilder
         Resources::instance().addImage("menu_background", "data/gfx/menu_background.png");
         Resources::instance().addImage("button_new_game", "data/gfx/button_new_game.png");

@@ -65,4 +65,9 @@ namespace feed
 
 		return weapon;
 	}
+
+    unsigned int Inventory::get_size() const
+    {
+        return inventory_list.size();
+    }
 }
