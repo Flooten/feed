@@ -35,7 +35,14 @@ namespace feed
         ammo_size_ = player_->get_current_weapon()->get_ammo();
         if (font_ != nullptr)
         {
-            clip_text_ = TTF_RenderText_Solid(font_, std::to_string(clip_size_).c_str(), text_color_);
+            if (clip_size_ <= 9)
+            {
+                std::string clip = "  " + std::to_string(clip_size_);
+                clip_text_ = TTF_RenderText_Solid(font_, clip.c_str(), text_color_);
+            }
+            else
+                clip_text_ = TTF_RenderText_Solid(font_, std::to_string(clip_size_).c_str(), text_color_);
+
             ammo_text_ = TTF_RenderText_Solid(font_, std::to_string(ammo_size_).c_str(), text_color_);
         }
     }
@@ -63,6 +70,13 @@ namespace feed
         if (player_->get_inventory()->get_size() <= 4)
             {
                 for (unsigned int i = 0; i < player_->get_inventory()->get_size(); ++i)
+                {
+                    util::blitSurface(player_->get_inventory()->get_item(i)->get_image(), screen, (inventory_pos_.x + 75 * i), inventory_pos_.y);
+                }
+            }
+        else
+            {
+                for (unsigned int i = util::check((player_->get_inventory_index()-2), player_->get_inventory()->get_size()); i < util::mincheck(player_->get_inventory()->get_size(), (player_->get_inventory_index() + 2)); ++i)
                 {
                     util::blitSurface(player_->get_inventory()->get_item(i)->get_image(), screen, (inventory_pos_.x + 75 * i), inventory_pos_.y);
                 }

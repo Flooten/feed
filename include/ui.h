@@ -41,8 +41,8 @@ namespace feed
         glm::vec2 current_weapon_pos_ = glm::vec2(350,500);
         glm::vec2 inventory_pos_ = glm::vec2(600,500);
 
-        glm::vec2 clip_text_pos_ = glm::vec2(425,500);
-        glm::vec2 ammo_text_pos_ = glm::vec2(500,525);
+        glm::vec2 clip_text_pos_ = glm::vec2(450,500);
+        glm::vec2 ammo_text_pos_ = glm::vec2(525,525);
 
         int clip_size_;
         int ammo_size_;
@@ -54,7 +54,7 @@ namespace feed
         SDL_Surface* ammo_text_ = nullptr;
 
         TTF_Font* font_ = nullptr;
-        SDL_Color text_color_ = {0,0,0};
+        SDL_Color text_color_ = {255,215,0};
     };
 }
 
