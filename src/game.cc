@@ -107,7 +107,6 @@ namespace feed
         Resources::instance().addImage("sky_bg", "data/skycloud.jpg");
         Resources::instance().addImage("menu_bg", "data/duke.bmp");
         Resources::instance().addImage("legs", "data/gfx/legs.png");
-        Resources::instance().addImage("player-torso", "data/gfx/player-torso.png");
         Resources::instance().addImage("grunt-torso", "data/gfx/grunt-torso.png");
         Resources::instance().addImage("fire", "data/gfx/fire.png");
         Resources::instance().addImage("fireball", "data/gfx/fireball.png");
@@ -117,6 +116,11 @@ namespace feed
 
         // Container-bilder
         Resources::instance().addImage("spikes", "data/gfx/spikes.png");
+
+        // Spelarbilder
+        Resources::instance().addImage("player-torso-pistol", "data/gfx/player-torso-pistol.png");
+        Resources::instance().addImage("player-torso-shotgun", "data/gfx/player-torso-shotgun.png");
+        Resources::instance().addImage("player-torso-smg", "data/gfx/player-torso-smg.png");
 
         // Menybilder
         Resources::instance().addImage("menu_background", "data/gfx/menu_background.png");
