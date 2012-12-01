@@ -38,6 +38,9 @@ namespace feed
         glm::vec2 health_bar_size_ = glm::vec2(100,25);
         glm::vec2 armor_bar_size_ = glm::vec2(100,2);
 
+        glm::vec2 current_weapon_pos_ = glm::vec2(350,500);
+        glm::vec2 inventory_pos_ = glm::vec2(600,500);
+
         glm::vec2 clip_text_pos_ = glm::vec2(425,500);
         glm::vec2 ammo_text_pos_ = glm::vec2(500,525);
 

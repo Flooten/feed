@@ -36,7 +36,7 @@ namespace feed
         return inventory_index_;
     }
 
-    const Inventory* Player::get_inventory() const
+    Inventory* Player::get_inventory()
     {
         return &inventory_;
     }

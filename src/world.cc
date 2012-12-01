@@ -216,18 +216,26 @@ namespace feed
         {
             handleCollision(player_, envobject);
             for (auto enemy : enemy_list_)
-            {
+            {   
+                // if(isIntersectingX(enemy, envobject))
+                // {
+                //     if(enemy->isFacingRight() && enemy->isWalking())
+                //         enemy->walkLeft();
+                //     else if(!enemy->isFacingRight() && enemy->isWalking())
+                //         enemy->walkRight();
+                // }
                 handleCollision(enemy, envobject);
+
                 if (!(onScreen(enemy, player_)))
                     enemy->set_seen_player(false);
 
                 if (enemy->get_seen_player())
                     enemy->set_seen_player(fieldOfVison(enemy, player_) && lineOfSight(enemy, player_, envobject));
-                // if (!lineOfSight(enemy, player_, envobject))
-                //     std::cout << "Object: " << envobject->get_position().x << " " << envobject->get_position().y << std::endl; ;
             }
         }
 
+        // Kolla interactable objects
+        // Objekten tas bort 
         for (auto it = intobject_list_.begin(); it != intobject_list_.end(); ++it)
         {
             if (isIntersecting(player_, *it))
@@ -241,46 +249,47 @@ namespace feed
 
         for (auto enemy : enemy_list_)
         {
-                if (enemy->get_seen_player())
+            if (enemy->get_seen_player())
+            {
+                enemy->set_aim(player_->get_position() - enemy->get_position());
+                enemy->fire();
+            
+                if (enemy->get_position().x < player_->get_position().x) 
                 {
-                    enemy->set_aim(player_->get_position() - enemy->get_position());
-                    enemy->fire();
-                
-                    if (enemy->get_position().x < player_->get_position().x) 
+                    if(enemy->isWalking())
                     {
-                        if(enemy->isWalking())
-                        {
-                            enemy->walkRight();
-                            enemy->stopWalking();
-                        }
-                        else
-                         enemy->setAnimation(Enemy::STATIONARY_RIGHT);
+                        enemy->walkRight();
+                        enemy->stopWalking();
                     }
                     else
-                    {
-                        if(enemy->isWalking())
-                        {
-                            enemy->walkLeft();
-                            enemy->stopWalking();
-                        }
-                        else
-                         enemy->setAnimation(Enemy::STATIONARY_LEFT);
-                    }
+                     enemy->setAnimation(Enemy::STATIONARY_RIGHT);
                 }
                 else
-                    if(!enemy->isWalking())  // Kommer bugga för stillastående fiender
-                        enemy->continueWalking();
+                {
+                    if(enemy->isWalking())
+                    {
+                        enemy->walkLeft();
+                        enemy->stopWalking();
+                    }
+                    else
+                     enemy->setAnimation(Enemy::STATIONARY_LEFT);
+                }
+            }
+            else if (enemy->isHit())
+                enemy->turn();
+
+            else if(!enemy->isWalking())  // Kommer bugga för stillastående fiender
+                enemy->continueWalking();
         }
 
-        for (std::vector<Projectile*>::size_type it = 0; it < projectile_list_.size(); ++it)
+        for (auto it = projectile_list_.begin(); it != projectile_list_.end(); ++it)
         {
             bool found = false;
-            Projectile* current = projectile_list_[it];
 
-            if (isIntersecting(current, player_))
+            if (isIntersecting(*it, player_))
             {
-                player_->addHealth(-current->get_damage());
-                MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, it, current});
+                player_->addHealth(-(*it)->get_damage());
+                MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
                 found = true;
             }
 
@@ -289,9 +298,9 @@ namespace feed
 
             for (auto envobject : envobject_list_)
             {
-                if (isIntersecting(current, envobject))
+                if (isIntersecting(*it, envobject))
                 {
-                    MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, it, current});
+                    MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
                     found = true;
                     break;
                 }
@@ -302,17 +311,21 @@ namespace feed
 
             for (auto enemy : enemy_list_)
             {
-                if (isIntersecting(current, enemy))
+                if (isIntersecting(*it, enemy))
                 {
-                    enemy->addHealth(-current->get_damage());
-                    MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, it, current});
+                    enemy->addHealth(-(*it)->get_damage());
+                    enemy->set_hit(true);
+                    MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
                     found = true;
                     break;
                 }
+                else 
+                    enemy->set_hit(false);
             }
         }
 
         ui_->update();
+        checkKeyState();
     }
 
     void World::handleSDLEvent(const SDL_Event& event)
@@ -367,7 +380,6 @@ namespace feed
             {
                 int mouse_position_x;
                 int mouse_position_y;
-
                 SDL_GetMouseState(&mouse_position_x, &mouse_position_y);
 
                 switch (event.key.keysym.sym)
@@ -401,31 +413,31 @@ namespace feed
                         break;
                     }
 
-                    case SDLK_d:
-                    {
-                        if (mouse_position_x < playerOrigin().x)
-                            // Moonwalk
-                            player_->setAnimation(Player::WALKING_LEFT);
-                        else
-                            player_->setAnimation(Player::WALKING_RIGHT);
+                    // case SDLK_d:
+                    // {
+                    //     if (mouse_position_x < playerOrigin().x)
+                    //         // Moonwalk
+                    //         player_->setAnimation(Player::WALKING_LEFT);
+                    //     else
+                    //         player_->setAnimation(Player::WALKING_RIGHT);
 
-                        float vel_y = player_->get_velocity().y;
-                        player_->set_velocity(glm::vec2(160, vel_y));
-                        break;
-                    }
+                    //     float vel_y = player_->get_velocity().y;
+                    //     player_->set_velocity(glm::vec2(160, vel_y));
+                    //     break;
+                    // }
 
-                    case SDLK_a:
-                    {
-                        if (mouse_position_x >= playerOrigin().x)
-                            // Moonwalk
-                            player_->setAnimation(Player::WALKING_RIGHT);
-                        else
-                            player_->setAnimation(Player::WALKING_LEFT);
+                    // case SDLK_a:
+                    // {
+                    //     if (mouse_position_x >= playerOrigin().x)
+                    //         // Moonwalk
+                    //         player_->setAnimation(Player::WALKING_RIGHT);
+                    //     else
+                    //         player_->setAnimation(Player::WALKING_LEFT);
 
-                        float vel_y = player_->get_velocity().y;
-                        player_->set_velocity(glm::vec2(-160, vel_y));
-                        break;
-                    }
+                    //     float vel_y = player_->get_velocity().y;
+                    //     player_->set_velocity(glm::vec2(-160, vel_y));
+                    //     break;
+                    // }
 
                     default:
                         break;
@@ -433,54 +445,54 @@ namespace feed
                 break;
             }
 
-            case SDL_KEYUP:
-            {
-                int mouse_position_x;
-                int mouse_posttion_y;
+            // case SDL_KEYUP:
+            // {
+            //     int mouse_position_x;
+            //     int mouse_posttion_y;
 
-                SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
-                Uint8* keystate = SDL_GetKeyState(nullptr);
+            //     SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
+            //     Uint8* keystate = SDL_GetKeyState(nullptr);
 
-                switch (event.key.keysym.sym)
-                {
-                    case SDLK_UP:
-                        break;
+            //     switch (event.key.keysym.sym)
+            //     {
+            //         case SDLK_UP:
+            //             break;
 
-                    case SDLK_DOWN:
-                        break;
+            //         case SDLK_DOWN:
+            //             break;
 
-                    case SDLK_d:
-                        if (!keystate[SDLK_a])
-                        {
-                            if (mouse_position_x >= playerOrigin().x)
-                                player_->setAnimation(Player::STATIONARY_RIGHT);
-                            else
-                                player_->setAnimation(Player::STATIONARY_LEFT);
+            //         case SDLK_d:
+            //             if (!keystate[SDLK_a])
+            //             {
+            //                 if (mouse_position_x >= playerOrigin().x)
+            //                     player_->setAnimation(Player::STATIONARY_RIGHT);
+            //                 else
+            //                     player_->setAnimation(Player::STATIONARY_LEFT);
 
-                            float vel_y = player_->get_velocity().y;
-                            player_->set_velocity(glm::vec2(0, vel_y));
-                        }
-                        break;
+            //                 float vel_y = player_->get_velocity().y;
+            //                 player_->set_velocity(glm::vec2(0, vel_y));
+            //             }
+            //             break;
 
-                    case SDLK_a:
-                        if (!keystate[SDLK_d])
-                        {
-                            if (mouse_position_x < playerOrigin().x)
-                                player_->setAnimation(Player::STATIONARY_LEFT);
-                            else
-                                player_->setAnimation(Player::STATIONARY_RIGHT);
+            //         case SDLK_a:
+            //             if (!keystate[SDLK_d])
+            //             {
+            //                 if (mouse_position_x < playerOrigin().x)
+            //                     player_->setAnimation(Player::STATIONARY_LEFT);
+            //                 else
+            //                     player_->setAnimation(Player::STATIONARY_RIGHT);
 
-                            float vel_y = player_->get_velocity().y;
-                            player_->set_velocity(glm::vec2(0, vel_y));
-                        }
-                        break;
+            //                 float vel_y = player_->get_velocity().y;
+            //                 player_->set_velocity(glm::vec2(0, vel_y));
+            //             }
+            //             break;
 
-                    default:
-                        break;
-                }
+            //         default:
+            //             break;
+            //     }
 
-                break;
-            }
+            //     break;
+            // }
 
             default:
                 break;
@@ -572,6 +584,12 @@ namespace feed
                 break;
             }
 
+            case MessageQueue::Message::ADD_WEAPON:
+            {
+                player_->addWeapon(static_cast<Weapon::Type>(msg.value));
+                break;
+            }
+
             default:
                 break;
         }
@@ -610,9 +628,7 @@ namespace feed
     }
 
     void World::loadProjectile(const std::string&)
-    {
-
-    }
+    {}
 
     void World::loadEnemy(const std::string& str)
     {
@@ -715,6 +731,45 @@ namespace feed
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
         else if (type == "spikes")
             intobject_list_.push_back(new Spikes(pos, size, Resources::instance()[image], val));
+    }
+
+    void World::checkKeyState()
+    {
+        int mouse_position_x;
+        int mouse_posttion_y;
+        SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
+
+        Uint8* keystate = SDL_GetKeyState(nullptr);
+
+        if (mouse_position_x < playerOrigin().x)
+            player_->setAnimation(Player::STATIONARY_LEFT);
+        else
+            player_->setAnimation(Player::STATIONARY_RIGHT);
+
+        float vel_y = player_->get_velocity().y;
+        player_->set_velocity(glm::vec2(0, vel_y));
+
+        if (keystate[SDLK_a])
+        {
+            if (mouse_position_x >= playerOrigin().x)
+                player_->setAnimation(Player::WALKING_RIGHT);
+            else
+                player_->setAnimation(Player::WALKING_LEFT);
+
+            float vel_y = player_->get_velocity().y;
+            player_->set_velocity(glm::vec2(-160, vel_y));
+        }
+
+        if (keystate[SDLK_d])
+        {
+            if (mouse_position_x >= playerOrigin().x)
+                player_->setAnimation(Player::WALKING_RIGHT);
+            else
+                player_->setAnimation(Player::WALKING_LEFT);
+
+            float vel_y = player_->get_velocity().y;
+            player_->set_velocity(glm::vec2(160, vel_y));
+        }
     }
 
     glm::vec2 World::playerOrigin()

@@ -23,12 +23,13 @@ namespace feed
         {
             PISTOL,
             SMG,
-            ENEMY_PISTOL
+            ENEMY_PISTOL,
+            SHOTGUN,
         };
 
     	Weapon(int type, int rate_of_fire, int last_fired, int max_clip, int max_ammo, int damage, SDL_Surface* image);
 
-    	SDL_Surface* get_image();
+    	SDL_Surface* get_image() const;
 
     	void addAmmo(int value);
     	void reload();
