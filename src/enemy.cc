@@ -127,7 +127,7 @@ namespace feed
     {
         walking = false;
         old_vel_ = velocity_;
-        velocity_ = glm::vec2(0,0);
+        velocity_ = glm::vec2(0, old_vel_.y);
     }
 
     void Enemy::continueWalking()
@@ -143,6 +143,35 @@ namespace feed
         else if (velocity_.x < 0)
             walkLeft();
         }
+    }
+
+    void Enemy::turn()
+    {
+        if (isWalking() && isFacingRight())
+            walkLeft();
+        else if (isWalking() && !isFacingRight())
+            walkRight();
+        else if (!isWalking() && isFacingRight())
+        {
+            setAnimation(Character::STATIONARY_LEFT);
+            facing_right = false;
+        }
+        else if (!isWalking() && !isFacingRight())
+        {
+            setAnimation(Character::STATIONARY_RIGHT);
+            facing_right = true;
+        }
+
+    }
+
+    bool Enemy::isHit() const
+    {
+        return hit_;
+    }
+
+    void Enemy::set_hit(bool val)
+    {
+        hit_ = val;
     }
 
 

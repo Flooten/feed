@@ -273,9 +273,11 @@ namespace feed
                      enemy->setAnimation(Enemy::STATIONARY_LEFT);
                 }
             }
-            else
-                if(!enemy->isWalking())  // Kommer bugga för stillastående fiender
-                    enemy->continueWalking();
+            else if (enemy->isHit())
+                enemy->turn();
+
+            else if(!enemy->isWalking())  // Kommer bugga för stillastående fiender
+                enemy->continueWalking();
         }
 
         for (std::vector<Projectile*>::size_type it = 0; it < projectile_list_.size(); ++it)
@@ -311,10 +313,13 @@ namespace feed
                 if (isIntersecting(current, enemy))
                 {
                     enemy->addHealth(-current->get_damage());
+                    enemy->set_hit(true);
                     MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, it, current});
                     found = true;
                     break;
                 }
+                else 
+                    enemy->set_hit(false);
             }
         }
 
