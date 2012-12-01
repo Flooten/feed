@@ -407,11 +407,19 @@ namespace feed
                     case SDLK_p:
                     {
                         glm::vec2 pos = util::screenToWorld(glm::vec2(mouse_position_x, mouse_position_y), player_->get_position());
-                        glm::vec2 start = pos + glm::vec2(30, 0);
-                        glm::vec2 end = pos - glm::vec2(30, 0);
+                        glm::vec2 start = pos + glm::vec2(200, 0);
+                        glm::vec2 end = pos - glm::vec2(200, 0);
                         enemy_list_.push_back(Enemy::CreateGrunt(pos, start, end));
                         break;
                     }
+
+                    case SDLK_UP:
+                        player_->set_inventory_index(player_->get_inventory_index() + 1);
+                        break;
+
+                    case SDLK_DOWN:
+                        player_->set_inventory_index(player_->get_inventory_index() - 1);
+                        break;
 
                     // case SDLK_d:
                     // {
@@ -514,6 +522,9 @@ namespace feed
                     case Weapon::ENEMY_PISTOL:
                         projectile = Projectile::createPistolProjectile(shooter);
                         projectile->setAnimated(2, 6);
+                        break;
+
+                    case Weapon::SHOTGUN:
                         break;
                 }
 
@@ -731,6 +742,8 @@ namespace feed
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
         else if (type == "spikes")
             intobject_list_.push_back(new Spikes(pos, size, Resources::instance()[image], val));
+        else if (type == "shotgun")
+            intobject_list_.push_back(new WeaponContainer(pos, size, Resources::instance()[image], Weapon::SHOTGUN));
     }
 
     void World::checkKeyState()
