@@ -26,6 +26,7 @@ namespace feed
 		void add(Weapon::Type weapon_type);
 		void remove(unsigned int index);
 		Weapon* get_item(unsigned int index);
+		unsigned int get_size() const;
 	private:
 		std::vector<Weapon*> inventory_list;
 	};

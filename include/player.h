@@ -32,7 +32,7 @@ namespace feed
 
         // Getters
         unsigned int get_inventory_index() const;
-        const Inventory* get_inventory() const;
+        Inventory* get_inventory();
         const Weapon* get_current_weapon(); 
 
         // Setters

@@ -234,6 +234,8 @@ namespace feed
             }
         }
 
+        // Kolla interactable objects
+        // Objekten tas bort 
         for (auto it = intobject_list_.begin(); it != intobject_list_.end(); ++it)
         {
             if (isIntersecting(player_, *it))
@@ -579,6 +581,12 @@ namespace feed
             case MessageQueue::Message::ADD_HEALTH:
             {
                 player_->addHealth(msg.value);
+                break;
+            }
+
+            case MessageQueue::Message::ADD_WEAPON:
+            {
+                player_->addWeapon(static_cast<Weapon::Type>(msg.value));
                 break;
             }
 

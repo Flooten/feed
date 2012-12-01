@@ -8,8 +8,7 @@ namespace feed
 {
     namespace
     {
-        // Avstånd i pixlar som man studsar bort från saker
-        // vid kollision
+        // Avstånd i pixlar som man studsar bort från saker vid kollision
         const int BOUNCE_DISTANCE = 10;
     }
 
