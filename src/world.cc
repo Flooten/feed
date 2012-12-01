@@ -672,7 +672,7 @@ namespace feed
         if (type == "grunt")
             enemy = Enemy::CreateGrunt(position, boundary_start, boundary_end);
         else if (type == "heavy")
-            enemy = Enemy::CreateHeavy(position);
+            enemy = Enemy::CreateHeavy(position, boundary_start, boundary_end);
 
         if (enemy != nullptr)
             enemy_list_.push_back(enemy);

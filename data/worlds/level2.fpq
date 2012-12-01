@@ -89,9 +89,8 @@ shotgun 300 400 50 50 0 shotgun_container
 smg 250 400 50 50 0 shotgun_container
 
 [enemy]
-//grunt 750 0
 grunt 800 100 800 100 1200 100
-//grunt 1150 100 1150 100 1350 100
+heavy 500 100 500 100 700 100
 
 //grunt 1350 0
 //heavy 155 0
