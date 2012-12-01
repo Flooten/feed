@@ -32,12 +32,13 @@ namespace feed
         : Character(position, size, velocity, image, hitpoints, armor, max_health, max_armor)
         , boundary_start_(boundary_start)
         , boundary_end_(boundary_end)
+        , old_vel_(velocity)
     {
         weapon_ = Weapon::CreateWeapon(weapon_type);
 
         if(boundary_end != glm::vec2(0,0))
         {
-            velocity_ = glm::length(velocity) * glm::normalize(boundary_end - boundary_start);
+            velocity_.x = abs(velocity.x) * glm::normalize(boundary_end - boundary_start).x;
             walking = true;
         }   
     }
@@ -79,21 +80,18 @@ namespace feed
 
         if (boundary_end_ != glm::vec2(0,0) && isWalking())
         {   
-            glm::vec2 direction_ = glm::normalize(boundary_end_ - boundary_start_);
 
-            if ((position_.x >= boundary_end_.x && position_.y <= boundary_end_.y && direction_.y <= 0) ||
-                (position_.x >= boundary_end_.x && position_.y >= boundary_end_.y && direction_.y >= 0))
+            if (position_.x + size_.x >= boundary_end_.x && isFacingRight())
             {
                 walkLeft();
             }
                     
-
-            else if ((position_.x <= boundary_start_.x && position_.y >= boundary_start_.y && direction_.y <= 0) ||
-                     (position_.x <= boundary_start_.x && position_.y <= boundary_start_.y && direction_.y >= 0))
+            else if (position_.x <= boundary_start_.x && !isFacingRight())
             {
                 walkRight();
             }
-                    
+
+
         }
 
         Character::update(delta_time);
@@ -102,14 +100,14 @@ namespace feed
     void Enemy::walkLeft()
     {
         setAnimation(Character::WALKING_LEFT);
-        velocity_ = - glm::length(velocity_) * glm::normalize(boundary_end_ - boundary_start_);
+        velocity_.x = - abs(velocity_.x);
         facing_right = false;
     }
 
     void Enemy::walkRight()
     {
         setAnimation(Character::WALKING_RIGHT);
-        velocity_ = glm::length(velocity_) * glm::normalize(boundary_end_ - boundary_start_);
+        velocity_.x = abs(velocity_.x); //glm::length(velocity_)*glm::normalize(boundary_end_ - boundary_start_);
         facing_right = true;
     }
 
@@ -136,7 +134,7 @@ namespace feed
         {
             walking = true;
             velocity_ = old_vel_;
-            old_vel_ = glm::vec2(0, velocity_.y);
+            old_vel_ = glm::vec2(0,old_vel_.y);
 
             if (velocity_.x > 0)
                 walkRight();

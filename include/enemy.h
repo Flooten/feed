@@ -71,7 +71,7 @@ namespace feed
         glm::vec2 boundary_start_;
         glm::vec2 boundary_end_;
 
-        glm::vec2 old_vel_ = glm::vec2(0,0);
+        glm::vec2 old_vel_;
 
     };
 }
