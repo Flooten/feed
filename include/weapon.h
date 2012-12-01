@@ -3,7 +3,7 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
  *                Marcus Eriksson   910322-1371     Y3A
- * DATUM:         2012-11-16
+ * DATUM:         2012-12-01
  *
  * BESKRIVNING: 
  *
@@ -23,36 +23,37 @@ namespace feed
         {
             PISTOL,
             SMG,
-            ENEMY_PISTOL,
             SHOTGUN,
+            ENEMY_PISTOL,
+            UNKNOWN
         };
 
-    	Weapon(int type, int rate_of_fire, int last_fired, int max_clip, int max_ammo, int damage, SDL_Surface* image);
+        Weapon(int type, int rate_of_fire, int max_clip, int max_ammo, int damage, SDL_Surface* image);
 
-    	SDL_Surface* get_image() const;
+        SDL_Surface* get_image() const;
 
-    	void addAmmo(int value);
-    	void reload();
-    	void fired();
+        void addAmmo(int value);
+        void reload();
+        void fired();
         void update(float delta_time);
 
         bool isReady();
 
         int get_type() const;
-    	int get_clip() const;
-    	int get_ammo() const;
+        int get_clip() const;
+        int get_ammo() const;
 
-        static Weapon* CreateWeapon(int type, int max_ammo);
+        static Weapon* CreateWeapon(int type);
 
     private:
-        int type_;
-    	float rate_of_fire_;
-    	float last_fired_;
-    	int clip_ = 0;
-    	int max_clip_;
-    	int ammo_ = 0;
-    	int max_ammo_;
-    	int damage_;
+        int type_ = UNKNOWN;
+        float rate_of_fire_ = 0;
+        float last_fired_ = 0;
+        int clip_ = 0;
+        int max_clip_ = 0;
+        int ammo_ = 0;
+        int max_ammo_ = 0;
+        int damage_ = 0;
 
         SDL_Surface* image_;
     };

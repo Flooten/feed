@@ -334,11 +334,11 @@ namespace feed
     {
         switch (event.type)
         {
-            case SDL_MOUSEBUTTONDOWN:
-            {
-                player_->fire();
-                break;
-            }
+            // case SDL_MOUSEBUTTONDOWN:
+            // {
+            //     player_->fire();
+            //     break;
+            // }
 
             case SDL_MOUSEMOTION:
             {
@@ -409,13 +409,19 @@ namespace feed
                     case SDLK_p:
                     {
                         glm::vec2 pos = util::screenToWorld(glm::vec2(mouse_position_x, mouse_position_y), player_->get_position());
-                        glm::vec2 start = pos + glm::vec2(100, 0);
-                        glm::vec2 end = pos - glm::vec2(100, 0);
-
-                        std::cout << "Pos x: " << pos.x << " y: " << pos.y << std::endl; 
+                        glm::vec2 start = pos + glm::vec2(30, 0);
+                        glm::vec2 end = pos - glm::vec2(30, 0);
                         enemy_list_.push_back(Enemy::CreateGrunt(pos, start, end));
                         break;
                     }
+
+                    case SDLK_UP:
+                        player_->set_inventory_index(player_->get_inventory_index() + 1);
+                        break;
+
+                    case SDLK_DOWN:
+                        player_->set_inventory_index(player_->get_inventory_index() - 1);
+                        break;
 
                     // case SDLK_d:
                     // {
@@ -516,18 +522,21 @@ namespace feed
                 {
                     case Weapon::PISTOL:
                     case Weapon::ENEMY_PISTOL:
+                    case Weapon::SMG:
                         projectile = Projectile::createPistolProjectile(shooter);
-                        projectile->setAnimated(2, 6);
+                        addProjectile(projectile, shooter);
                         break;
+
+                    case Weapon::SHOTGUN:
+                    {
+                        for (int i = 0; i < 5; ++i)
+                        {
+                            projectile = Projectile::createShotgunProjectile(shooter);
+                            addProjectile(projectile, shooter);
+                        }
+                        break;
+                    }
                 }
-
-                if (shooter->getFacing() == 0)
-                    projectile->setDirection(Projectile::RIGHT);
-                else
-                    projectile->setDirection(Projectile::LEFT);
-
-                projectile_list_.push_back(projectile);
-
                 break;
             }
 
@@ -603,6 +612,21 @@ namespace feed
      * Private
      */
 
+    void World::addProjectile(Projectile* projectile, const Character* shooter)
+    {
+        if (projectile != nullptr)
+        {
+            projectile->setAnimated(2, 6);
+
+            if (shooter->getFacing() == 0)
+                projectile->setDirection(Projectile::RIGHT);
+            else
+                projectile->setDirection(Projectile::LEFT);
+
+            projectile_list_.push_back(projectile);
+        }
+    }
+
     void World::loadImage(const std::string& str)
     {
         std::stringstream ss(str);
@@ -631,9 +655,6 @@ namespace feed
             Audio::instance().addMusic(key, filename);
     }
 
-    void World::loadProjectile(const std::string&)
-    {}
-
     void World::loadEnemy(const std::string& str)
     {
         std::stringstream ss(str);
@@ -653,7 +674,7 @@ namespace feed
         if (type == "grunt")
             enemy = Enemy::CreateGrunt(position, boundary_start, boundary_end);
         else if (type == "heavy")
-            enemy = Enemy::CreateHeavy(position);
+            enemy = Enemy::CreateHeavy(position, boundary_start, boundary_end);
 
         if (enemy != nullptr)
             enemy_list_.push_back(enemy);
@@ -683,9 +704,9 @@ namespace feed
                              util::PLAYER_MAX_HEALTH,
                              util::PLAYER_MAX_ARMOR);
         player_->setAnimated(4, 8);
-        player_->setTopImage(Resources::instance()["player-torso"], 2, 37);
+        player_->setTopImage(Resources::instance()["player-torso-pistol"], 2, 37);
 	    player_->addWeapon(Weapon::PISTOL);
-        player_->set_collision_offset(glm::vec2(50, 20));
+        player_->set_collision_offset(glm::vec2(50, 40));
     }
 
     void World::loadEnvironmentObject(const std::string& str)
@@ -735,13 +756,17 @@ namespace feed
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
         else if (type == "spikes")
             intobject_list_.push_back(new Spikes(pos, size, Resources::instance()[image], val));
+        else if (type == "shotgun")
+            intobject_list_.push_back(new WeaponContainer(pos, size, Resources::instance()[image], Weapon::SHOTGUN));
+        else if (type == "smg")
+            intobject_list_.push_back(new WeaponContainer(pos, size, Resources::instance()[image], Weapon::SMG));
     }
 
     void World::checkKeyState()
     {
         int mouse_position_x;
         int mouse_posttion_y;
-        SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
+        Uint8 mousestate = SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
 
         Uint8* keystate = SDL_GetKeyState(nullptr);
 
@@ -752,6 +777,9 @@ namespace feed
 
         float vel_y = player_->get_velocity().y;
         player_->set_velocity(glm::vec2(0, vel_y));
+
+        if (mousestate & SDL_BUTTON(1))
+            player_->fire();
 
         if (keystate[SDLK_a])
         {

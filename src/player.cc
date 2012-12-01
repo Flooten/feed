@@ -3,12 +3,13 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
  *                Mattias Fransson
- * DATUM:         2012-11-29
+ * DATUM:         2012-12-01
  *
  */
 
 #include "player.h"
 #include "messagequeue.h"
+#include "resources.h"
 #include <iostream>
 
 namespace feed
@@ -54,7 +55,25 @@ namespace feed
 
     void Player::set_inventory_index(unsigned int index)
     {
+        if (index >= inventory_.get_size())
+            return;
+
         inventory_index_ = index;
+
+        switch(get_current_weapon()->get_type())
+        {
+            case Weapon::PISTOL:
+                setTopImage(Resources::instance()["player-torso-pistol"], 2, 37);
+                break;
+
+            case Weapon::SHOTGUN:
+                setTopImage(Resources::instance()["player-torso-shotgun"], 2, 37);
+                break;
+
+            case Weapon::SMG:
+                setTopImage(Resources::instance()["player-torso-smg"], 2, 37);
+                break;
+        }
     }
 
     void Player::fire()

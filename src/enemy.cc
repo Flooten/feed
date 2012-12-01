@@ -34,7 +34,7 @@ namespace feed
         , boundary_end_(boundary_end)
         , old_vel_(velocity)
     {
-        weapon_ = Weapon::CreateWeapon(weapon_type, 100);
+        weapon_ = Weapon::CreateWeapon(weapon_type);
 
         if(boundary_end != glm::vec2(0,0))
         {
@@ -172,7 +172,6 @@ namespace feed
         hit_ = val;
     }
 
-
     ////////////////////////
     // Protected
 
@@ -202,7 +201,7 @@ namespace feed
         Enemy* enemy = new Enemy(position, size, velocity, image, hitpoints, armor, max_health, max_armor, weapon_type, boundary_start, boundary_end);
         enemy->setAnimated(4, 8);
         enemy->setTopImage(Resources::instance()["grunt-torso"], 2, 37);
-        enemy->set_collision_offset(glm::vec2(50, 20));
+        enemy->set_collision_offset(glm::vec2(50, 40));
 
         if (velocity.x > 0)
             enemy->setAnimation(Character::WALKING_RIGHT);
@@ -211,12 +210,36 @@ namespace feed
         else 
             enemy->setAnimation(Character::STATIONARY_RIGHT);
 
-
         return enemy;
     }
 
-    Enemy* Enemy::CreateHeavy(const glm::vec2 &position)
+    Enemy* Enemy::CreateHeavy(const glm::vec2 &position, const glm::vec2& boundary_start, const glm::vec2& boundary_end)
     {
-        return nullptr;
+        glm::vec2 size(30, 110);
+        glm::vec2 velocity;
+
+        if (boundary_end != glm::vec2(0,0))
+            velocity = glm::vec2(50, 0);
+
+        SDL_Surface* image = Resources::instance()["legs"];
+        int hitpoints = 50;
+        int armor = 10;
+        int max_health = 50;
+        int max_armor = 10;
+        int weapon_type = Weapon::SHOTGUN;
+
+        Enemy* enemy = new Enemy(position, size, velocity, image, hitpoints, armor, max_health, max_armor, weapon_type, boundary_start, boundary_end);
+        enemy->setAnimated(4, 8);
+        enemy->setTopImage(Resources::instance()["player-torso-shotgun"], 2, 37);
+        enemy->set_collision_offset(glm::vec2(50, 40));
+
+        if (velocity.x > 0)
+            enemy->setAnimation(Character::WALKING_RIGHT);
+        else if (velocity.x < 0)
+            enemy->setAnimation(Character::WALKING_LEFT);
+        else 
+            enemy->setAnimation(Character::STATIONARY_RIGHT);
+
+        return enemy;
     }
 }
