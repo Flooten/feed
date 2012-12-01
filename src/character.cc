@@ -17,7 +17,6 @@ namespace feed
 {
     namespace
     {
-        const float RAD_TO_DEG = 180 / 3.14159;
         const int DEG_PER_FRAME = 5;
         const int ZERO_DEG_FRAME = 19;
     }
@@ -46,9 +45,9 @@ namespace feed
         aim_ = glm::normalize(aim);
 
         if (aim.x >= 0)
-            image_->setTopFrame(ZERO_DEG_FRAME + ceil((atan(aim_.y / aim_.x) * RAD_TO_DEG)) / DEG_PER_FRAME);
+            image_->setTopFrame(ZERO_DEG_FRAME + ceil((atan(aim_.y / aim_.x) * util::RAD_TO_DEG)) / DEG_PER_FRAME);
         else
-            image_->setTopFrame(ZERO_DEG_FRAME + ceil((atan(aim_.y / -(aim_.x)) * RAD_TO_DEG)) / DEG_PER_FRAME);
+            image_->setTopFrame(ZERO_DEG_FRAME + ceil((atan(aim_.y / -(aim_.x)) * util::RAD_TO_DEG)) / DEG_PER_FRAME);
     }
 
     glm::vec2 Character::get_aim() const

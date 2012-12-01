@@ -19,7 +19,7 @@ namespace feed
         , health_bar_image_(health_bar)
         , armor_bar_image_(armor_bar)
     {
-        font_ = TTF_OpenFont("data/font.ttf", 14);
+        font_ = TTF_OpenFont("data/font.ttf", 20);
     }
 
     Ui::~Ui()

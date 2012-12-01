@@ -76,8 +76,6 @@ namespace feed
 
         float angle = getAimingAngle(shooter);
 
-        std::cout << "Angle: " << angle * util::RAD_TO_DEG << std::endl;
-
         int radius = 85;
         float offset_angle = 25 * util::DEG_TO_RAD;
 
@@ -106,8 +104,6 @@ namespace feed
         glm::vec2 position = getPistolOrigin(shooter);
 
         float angle = getAimingAngle(shooter);
-
-        std::cout << "Angle: " << angle * util::RAD_TO_DEG << std::endl;
 
         int radius = 85;
         float offset_angle = 25 * util::DEG_TO_RAD;

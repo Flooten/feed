@@ -84,8 +84,8 @@ spikes 400 400 50 50 100 spikes
 spikes 450 400 50 50 100 spikes
 //armor 300 100 50 50 50 armor_container
 //checkpoint 400 100 25 25 0 checkpoint
-shotgun 300 400 50 50 0 shotgun
-smg 250 400 50 50 0 smg
+shotgun 300 400 50 50 0 weapon-shotgun
+smg 250 400 50 50 0 weapon-smg
 
 [enemy]
 grunt 800 100 800 100 1200 100
