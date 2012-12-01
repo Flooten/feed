@@ -88,13 +88,16 @@ namespace feed
         switch (type)
         {
             case PISTOL:
-                return new Weapon(type, 7, 0, 30, max_ammo, 10, Resources::instance()["weapon-smg"]);
+                return new Weapon(type, 7, 0, 30, max_ammo, 10, Resources::instance()["weapon-pistol"]);
 
             case SMG:
                 return new Weapon(type, 5, 0, 20, max_ammo, 5, Resources::instance()["weapon-smg"]);
 
             case ENEMY_PISTOL:
                 return new Weapon(type, 1, 0, 30, max_ammo, 5, Resources::instance()["weapon-smg"]);
+
+            case SHOTGUN:
+                return new Weapon(type, 0, 0, 0, max_ammo, 0, Resources::instance()["weapon-shotgun"]);
 
             default:
                 return nullptr;
