@@ -217,8 +217,10 @@ namespace feed
             handleCollision(player_, envobject);
             for (auto enemy : enemy_list_)
             {   
-                // if(isIntersectingX(enemy, envobject))
+                // if(!isIntersectingY(enemy, envobject) && isIntersectingX(enemy, envobject))
                 // {
+                //     std::cout << "Intersecting with x: " << envobject->get_position().x << std::endl;
+                // }
                 //     if(enemy->isFacingRight() && enemy->isWalking())
                 //         enemy->walkLeft();
                 //     else if(!enemy->isFacingRight() && enemy->isWalking())
@@ -278,7 +280,7 @@ namespace feed
             else if (enemy->isHit())
                 enemy->turn();
 
-            else if(!enemy->isWalking())  // Kommer bugga för stillastående fiender
+            else if(!enemy->isWalking())  
                 enemy->continueWalking();
         }
 
@@ -407,8 +409,10 @@ namespace feed
                     case SDLK_p:
                     {
                         glm::vec2 pos = util::screenToWorld(glm::vec2(mouse_position_x, mouse_position_y), player_->get_position());
-                        glm::vec2 start = pos + glm::vec2(30, 0);
-                        glm::vec2 end = pos - glm::vec2(30, 0);
+                        glm::vec2 start = pos + glm::vec2(100, 0);
+                        glm::vec2 end = pos - glm::vec2(100, 0);
+
+                        std::cout << "Pos x: " << pos.x << " y: " << pos.y << std::endl; 
                         enemy_list_.push_back(Enemy::CreateGrunt(pos, start, end));
                         break;
                     }
