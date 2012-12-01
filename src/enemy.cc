@@ -37,7 +37,7 @@ namespace feed
 
         if(boundary_end != glm::vec2(0,0))
         {
-            velocity_ = glm::length(velocity)*glm::normalize(boundary_end - boundary_start);
+            velocity_ = glm::length(velocity) * glm::normalize(boundary_end - boundary_start);
             walking = true;
         }   
     }
@@ -102,14 +102,14 @@ namespace feed
     void Enemy::walkLeft()
     {
         setAnimation(Character::WALKING_LEFT);
-        velocity_ = - glm::length(velocity_)*glm::normalize(boundary_end_ - boundary_start_);
+        velocity_ = - glm::length(velocity_) * glm::normalize(boundary_end_ - boundary_start_);
         facing_right = false;
     }
 
     void Enemy::walkRight()
     {
         setAnimation(Character::WALKING_RIGHT);
-        velocity_ = glm::length(velocity_)*glm::normalize(boundary_end_ - boundary_start_);
+        velocity_ = glm::length(velocity_) * glm::normalize(boundary_end_ - boundary_start_);
         facing_right = true;
     }
 
@@ -134,14 +134,14 @@ namespace feed
     {
         if(boundary_end_.x != 0)
         {
-        walking = true;
-        velocity_ = old_vel_;
-        old_vel_ = glm::vec2(0,0);
+            walking = true;
+            velocity_ = old_vel_;
+            old_vel_ = glm::vec2(0, velocity_.y);
 
-        if (velocity_.x > 0)
-            walkRight();
-        else if (velocity_.x < 0)
-            walkLeft();
+            if (velocity_.x > 0)
+                walkRight();
+            else if (velocity_.x < 0)
+                walkLeft();
         }
     }
 
@@ -173,7 +173,6 @@ namespace feed
     {
         hit_ = val;
     }
-
 
     ////////////////////////
     // Protected
