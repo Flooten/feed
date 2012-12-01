@@ -54,6 +54,9 @@ namespace feed
 
     void Player::set_inventory_index(unsigned int index)
     {
+        if (index >= inventory_.get_size())
+            return;
+
         inventory_index_ = index;
     }
 
