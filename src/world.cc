@@ -663,7 +663,7 @@ namespace feed
                              util::PLAYER_MAX_HEALTH,
                              util::PLAYER_MAX_ARMOR);
         player_->setAnimated(4, 8);
-        player_->setTopImage(Resources::instance()["player-torso"], 2, 37);
+        player_->setTopImage(Resources::instance()["player-torso-pistol"], 2, 37);
 	    player_->addWeapon(Weapon::PISTOL);
         player_->set_collision_offset(glm::vec2(50, 20));
     }
