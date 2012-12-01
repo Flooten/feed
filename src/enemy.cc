@@ -102,14 +102,14 @@ namespace feed
     void Enemy::walkLeft()
     {
         setAnimation(Character::WALKING_LEFT);
-        velocity_ = - glm::length(velocity_)*glm::normalize(boundary_end_ - boundary_start_);
+        velocity_.x = - abs(velocity_.x);
         facing_right = false;
     }
 
     void Enemy::walkRight()
     {
         setAnimation(Character::WALKING_RIGHT);
-        velocity_ = glm::length(velocity_)*glm::normalize(boundary_end_ - boundary_start_);
+        velocity_.x = abs(velocity_.x); //glm::length(velocity_)*glm::normalize(boundary_end_ - boundary_start_);
         facing_right = true;
     }
 
