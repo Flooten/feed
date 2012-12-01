@@ -314,6 +314,7 @@ namespace feed
                 if (isIntersecting(*it, enemy))
                 {
                     enemy->addHealth(-(*it)->get_damage());
+                    enemy->set_hit(true);
                     MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
                     found = true;
                     break;

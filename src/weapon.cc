@@ -24,7 +24,7 @@ namespace feed
 		, image_(image)
 	{}
 
-	SDL_Surface* Weapon::get_image()
+	SDL_Surface* Weapon::get_image() const
 	{
 		return image_;
 	}
