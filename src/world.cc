@@ -528,12 +528,15 @@ namespace feed
                         break;
                 }
 
-                if (shooter->getFacing() == 0)
-                    projectile->setDirection(Projectile::RIGHT);
-                else
-                    projectile->setDirection(Projectile::LEFT);
+                if (projectile != nullptr)
+                {
+                    if (shooter->getFacing() == 0)
+                        projectile->setDirection(Projectile::RIGHT);
+                    else
+                        projectile->setDirection(Projectile::LEFT);
 
-                projectile_list_.push_back(projectile);
+                    projectile_list_.push_back(projectile);
+                }
 
                 break;
             }

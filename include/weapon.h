@@ -23,11 +23,12 @@ namespace feed
         {
             PISTOL,
             SMG,
-            ENEMY_PISTOL,
             SHOTGUN,
+            ENEMY_PISTOL,
+            UNKNOWN
         };
 
-    	Weapon(int type, int rate_of_fire, int last_fired, int max_clip, int max_ammo, int damage, SDL_Surface* image);
+    	Weapon(int type, int rate_of_fire, int max_clip, int max_ammo, int damage, SDL_Surface* image);
 
     	SDL_Surface* get_image() const;
 
@@ -42,17 +43,17 @@ namespace feed
     	int get_clip() const;
     	int get_ammo() const;
 
-        static Weapon* CreateWeapon(int type, int max_ammo);
+        static Weapon* CreateWeapon(int type);
 
     private:
-        int type_;
-    	float rate_of_fire_;
-    	float last_fired_;
+        int type_ = UNKNOWN;
+    	float rate_of_fire_ = 0;
+    	float last_fired_ = 0;
     	int clip_ = 0;
-    	int max_clip_;
+    	int max_clip_ = 0;
     	int ammo_ = 0;
-    	int max_ammo_;
-    	int damage_;
+    	int max_ammo_ = 0;
+    	int damage_ = 0;
 
         SDL_Surface* image_;
     };

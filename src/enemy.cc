@@ -33,7 +33,7 @@ namespace feed
         , boundary_start_(boundary_start)
         , boundary_end_(boundary_end)
     {
-        weapon_ = Weapon::CreateWeapon(weapon_type, 100);
+        weapon_ = Weapon::CreateWeapon(weapon_type);
 
         if(boundary_end != glm::vec2(0,0))
         {
