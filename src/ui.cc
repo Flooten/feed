@@ -37,7 +37,7 @@ namespace feed
         {
             if (clip_size_ <= 9)
             {
-                std::string clip = " " + std::to_string(clip_size_);
+                std::string clip = "  " + std::to_string(clip_size_);
                 clip_text_ = TTF_RenderText_Solid(font_, clip.c_str(), text_color_);
             }
             else
