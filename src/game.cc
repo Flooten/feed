@@ -116,6 +116,9 @@ namespace feed
 
         // Container-bilder
         Resources::instance().addImage("spikes", "data/gfx/spikes.png");
+        Resources::instance().addImage("pistol", "data/gfx/pistol.png");
+        Resources::instance().addImage("shotgun", "data/gfx/shotgun.png");
+        Resources::instance().addImage("smg", "data/gfx/smg.png");
 
         // Spelarbilder
         Resources::instance().addImage("player-torso-pistol", "data/gfx/player-torso-pistol.png");
