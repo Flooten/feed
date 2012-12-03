@@ -76,20 +76,26 @@ namespace feed
 
         float angle = getAimingAngle(shooter);
 
-        int radius = 85;
-        float offset_angle = 25 * util::DEG_TO_RAD;
+        int radius;
+
+        if (angle < -60 * util::DEG_TO_RAD)
+            radius = 85;
+        else
+            radius = 46;
+
+        float offset_angle = -40 * util::DEG_TO_RAD;
 
         if (shooter->getFacing() == 0)
         {
             // Höger
-            position.x += radius * cos(angle - offset_angle);
-            position.y += radius * sin(-(angle - offset_angle));
+            position.x += radius * cos(angle + offset_angle);
+            position.y += radius * sin(-(angle + offset_angle));
         }
         else
         {
             // Vänster
-            position.x -= radius * cos(angle - offset_angle);
-            position.y -= radius * sin(angle - offset_angle);
+            position.x -= radius * cos(angle + offset_angle);
+            position.y -= radius * sin(angle + offset_angle);
         }
         
         glm::vec2 size(16, 16);
@@ -105,25 +111,31 @@ namespace feed
 
         float angle = getAimingAngle(shooter);
 
-        int radius = 85;
-        float offset_angle = 25 * util::DEG_TO_RAD;
+        int radius;
+
+        if (angle < -60 * util::DEG_TO_RAD)
+            radius = 100;
+        else
+            radius = 52;
+
+        float offset_angle = -10 * util::DEG_TO_RAD;
 
         if (shooter->getFacing() == 0)
         {
             // Höger
-            position.x += radius * cos(angle - offset_angle);
-            position.y += radius * sin(-(angle - offset_angle));
+            position.x += radius * cos(angle + offset_angle);
+            position.y += radius * sin(-(angle + offset_angle));
         }
         else
         {
             // Vänster
-            position.x -= radius * cos(angle - offset_angle);
-            position.y -= radius * sin(angle - offset_angle);
+            position.x -= radius * cos(angle + offset_angle);
+            position.y -= radius * sin(angle + offset_angle);
         }
         
         glm::vec2 size(16, 16);
-        glm::vec2 velocity = util::randomizeVec2(shooter->get_aim(), 0.2f);
-        velocity *= 500;
+        glm::vec2 velocity = util::randomizeVec2(shooter->get_aim(), 0.1f);
+        velocity *= 300;
 
         return new Projectile(position, size, velocity, Resources::instance().getImage("fireball"), 5);
     }

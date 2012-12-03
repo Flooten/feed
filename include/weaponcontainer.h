@@ -23,12 +23,16 @@ namespace feed
     public:
         WeaponContainer(const glm::vec2& position,
                         const glm::vec2& size,
-                        SDL_Surface* image,
-                        int weapon_type);
+                        int weapon_type,
+                        int ammo,
+                        SDL_Surface* image);
 
         virtual void eventFunction() override final;
+        int get_ammo() const;
+
     private:
     	int weapon_type_;
+        int ammo_;
     };
 }
 

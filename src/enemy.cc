@@ -34,7 +34,7 @@ namespace feed
         , boundary_end_(boundary_end)
         , old_vel_(velocity)
     {
-        weapon_ = Weapon::CreateWeapon(weapon_type);
+        weapon_ = Weapon::createWeapon(weapon_type);
 
         if(boundary_end != glm::vec2(0,0))
         {
@@ -194,7 +194,7 @@ namespace feed
     ////////////////////////
     // "Factory"-funktioner
 
-    Enemy* Enemy::CreateGrunt(const glm::vec2& position, const glm::vec2& boundary_start, const glm::vec2& boundary_end)
+    Enemy* Enemy::createGrunt(const glm::vec2& position, const glm::vec2& boundary_start, const glm::vec2& boundary_end)
     {
         glm::vec2 size(30, 110);
         glm::vec2 velocity;
@@ -224,7 +224,7 @@ namespace feed
         return enemy;
     }
 
-    Enemy* Enemy::CreateHeavy(const glm::vec2 &position, const glm::vec2& boundary_start, const glm::vec2& boundary_end)
+    Enemy* Enemy::createHeavy(const glm::vec2 &position, const glm::vec2& boundary_start, const glm::vec2& boundary_end)
     {
         glm::vec2 size(30, 110);
         glm::vec2 velocity;

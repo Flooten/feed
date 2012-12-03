@@ -8,6 +8,7 @@
 
 #include "environmentobject.h"
 #include "util.h"
+#include "messagequeue.h"
 
 #include <iostream>
 
@@ -16,18 +17,26 @@ namespace feed
     EnvironmentObject::EnvironmentObject(const glm::vec2& position,
                                          const glm::vec2& size,
                                          const glm::vec2& velocity,
+                                         int hitpoints,
+                                         int max_health_,
                                          SDL_Surface* image)
         : Object(position, size, velocity, image)
+        , hitpoints_(hitpoints)
+        , max_health_(max_health_)
     {
     }
 
      EnvironmentObject::EnvironmentObject(const glm::vec2& position,
                                          const glm::vec2& size,
                                          const glm::vec2& velocity,
+                                         int hitpoints,
+                                         int max_health_,
                                          SDL_Surface* image,
                                          glm::vec2 boundary_start,
                                          glm::vec2 boundary_end)
         : Object(position, size, velocity, image)
+        , hitpoints_(hitpoints)
+        , max_health_(max_health_)
         , boundary_start_(boundary_start)
         , boundary_end_(boundary_end)
     {
@@ -58,4 +67,23 @@ namespace feed
 
         Object::update(delta_time);
     }
+
+    void EnvironmentObject::addHealth(int value)
+    {
+        if (max_health_ != -1)
+            {
+                if (hitpoints_ + value > max_health_)
+                    hitpoints_ = max_health_;
+                else if (hitpoints_ + value <= 0)
+                    isDestroyed();
+                else
+                    hitpoints_ += value;
+            } 
+    }
+
+    void EnvironmentObject::isDestroyed()
+    {
+        MessageQueue::instance().pushMessage({MessageQueue::Message::ENOBJ_DEST, 0, this});
+    }
+
 }

@@ -45,7 +45,8 @@ namespace feed
                 BOSS_DEAD,
                 PROJECTILE_DEAD,
                 EFFECT_DEAD,
-                DEAD
+                DEAD,
+                ENOBJ_DEST
             };
 
             Message(int type = 0, int value = 0, Object* sender = nullptr);

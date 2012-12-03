@@ -23,7 +23,7 @@ namespace feed
 		Inventory();
 		~Inventory();
 
-		void add(Weapon::Type weapon_type);
+		void add(Weapon::Type weapon_type, int ammo = 0);
 		void remove(unsigned int index);
 		Weapon* get_item(unsigned int index);
 		unsigned int get_size() const;

@@ -28,7 +28,7 @@ namespace feed
             UNKNOWN
         };
 
-        Weapon(int type, int rate_of_fire, int max_clip, int max_ammo, int damage, SDL_Surface* image);
+        Weapon(int type, int rate_of_fire, int max_clip, int max_ammo, SDL_Surface* image);
 
         SDL_Surface* get_image() const;
 
@@ -43,7 +43,7 @@ namespace feed
         int get_clip() const;
         int get_ammo() const;
 
-        static Weapon* CreateWeapon(int type);
+        static Weapon* createWeapon(int type);
 
     private:
         int type_ = UNKNOWN;
@@ -53,7 +53,6 @@ namespace feed
         int max_clip_ = 0;
         int ammo_ = 0;
         int max_ammo_ = 0;
-        int damage_ = 0;
 
         SDL_Surface* image_;
     };
