@@ -71,18 +71,18 @@ namespace feed
             util::blitSurface(player_->get_current_weapon()->get_image(), screen, current_weapon_pos_.x, current_weapon_pos_.y);
 
         if (player_->get_inventory()->get_size() <= 4)
+        {
+            for (unsigned int i = 0; i < player_->get_inventory()->get_size(); ++i)
             {
-                for (unsigned int i = 0; i < player_->get_inventory()->get_size(); ++i)
-                {
-                    util::blitSurface(player_->get_inventory()->get_item(i)->get_image(), screen, (inventory_pos_.x + 75 * i), inventory_pos_.y);
-                }
+                util::blitSurface(player_->get_inventory()->get_item(i)->get_image(), screen, (inventory_pos_.x + 75 * i), inventory_pos_.y);
             }
+        }
         else
+        {
+            for (unsigned int i = util::check((player_->get_inventory_index()-2), player_->get_inventory()->get_size()); i < util::mincheck(player_->get_inventory()->get_size(), (player_->get_inventory_index() + 2)); ++i)
             {
-                for (unsigned int i = util::check((player_->get_inventory_index()-2), player_->get_inventory()->get_size()); i < util::mincheck(player_->get_inventory()->get_size(), (player_->get_inventory_index() + 2)); ++i)
-                {
-                    util::blitSurface(player_->get_inventory()->get_item(i)->get_image(), screen, (inventory_pos_.x + 75 * i), inventory_pos_.y);
-                }
+                util::blitSurface(player_->get_inventory()->get_item(i)->get_image(), screen, (inventory_pos_.x + 75 * i), inventory_pos_.y);
             }
+        }
     }
 }

@@ -29,20 +29,20 @@ namespace feed
     private:
         Player* player_;
 
-        glm::vec2 ui_pos_ = glm::vec2(0,475);
-        glm::vec2 ui_size_ = glm::vec2(1024,101);
+        glm::vec2 ui_pos_ = glm::vec2(0, 475);
+        glm::vec2 ui_size_ = glm::vec2(1024, 101);
 
-        glm::vec2 health_bar_pos_ = glm::vec2(100,525);
-        glm::vec2 armor_bar_pos_ = glm::vec2(200,525);
+        glm::vec2 health_bar_pos_ = glm::vec2(100, 525);
+        glm::vec2 armor_bar_pos_ = glm::vec2(200, 525);
 
-        glm::vec2 health_bar_size_ = glm::vec2(100,25);
-        glm::vec2 armor_bar_size_ = glm::vec2(100,2);
+        glm::vec2 health_bar_size_ = glm::vec2(100, 25);
+        glm::vec2 armor_bar_size_ = glm::vec2(100, 25);
 
-        glm::vec2 current_weapon_pos_ = glm::vec2(350,500);
-        glm::vec2 inventory_pos_ = glm::vec2(600,500);
+        glm::vec2 current_weapon_pos_ = glm::vec2(350, 500);
+        glm::vec2 inventory_pos_ = glm::vec2(600, 500);
 
-        glm::vec2 clip_text_pos_ = glm::vec2(450,500);
-        glm::vec2 ammo_text_pos_ = glm::vec2(525,525);
+        glm::vec2 clip_text_pos_ = glm::vec2(450, 500);
+        glm::vec2 ammo_text_pos_ = glm::vec2(525, 525);
 
         int clip_size_;
         int ammo_size_;
