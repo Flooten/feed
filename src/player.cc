@@ -86,7 +86,8 @@ namespace feed
             if (weapon->isReady())
             {
                 MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, weapon->get_type(), this});
-                weapon->fired();
+                if(!god_mode_)
+                    weapon->fired();
             }
         }
     }

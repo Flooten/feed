@@ -18,7 +18,7 @@ sfx ak45 data/high.wav
 music original-score data/sound/feed01.ogg
 
 [environment_object]
-// pos.x pos.y size.x size.y vel.x vel.y image (boundary_start.x boundary_start.y boundary_end.x boundary_end.y)
+// pos.x pos.y size.x size.y vel.x vel.y hp max_health image (boundary_start.x boundary_start.y boundary_end.x boundary_end.y)
 200 250 50 50 50 0 0 -1 sq 200 200 200 400
 0     0 50 50 0 0 5 5 sq
 0    50 50 50 0 0 5 5 sq
@@ -89,8 +89,8 @@ shotgun 300 400 50 50 14 weapon-shotgun
 smg 250 400 50 50 80 weapon-smg
 
 [enemy]
-grunt 500 100 500 100 650 100
-//heavy 800 100 800 100 1200 100
+//grunt 500 100 500 100 650 100
+heavy 800 100 800 100 1200 100
 
 //grunt 1350 0
 //heavy 155 0

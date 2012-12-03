@@ -222,8 +222,8 @@ namespace feed
                 if (!(onScreen(enemy, player_)))
                     enemy->set_seen_player(false);
 
-                if(enemy->get_previous_seen_state() && !fieldOfVison(enemy,player_))
-                    enemy->turn();
+                // if(enemy->get_previous_seen_state() && !fieldOfVison(enemy,player_))
+                //     enemy->turn();
 
                 if(enemy->get_seen_player())
                 {
