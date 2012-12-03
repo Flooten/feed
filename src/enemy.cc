@@ -188,7 +188,7 @@ namespace feed
         glm::vec2 size(30, 110);
         glm::vec2 velocity;
 
-        if (boundary_end != glm::vec2(0,0))
+        if (boundary_end != glm::vec2(0, 0))
             velocity = glm::vec2(50, 0);
 
         SDL_Surface* image = Resources::instance()["legs"];
@@ -218,7 +218,7 @@ namespace feed
         glm::vec2 size(30, 110);
         glm::vec2 velocity;
 
-        if (boundary_end != glm::vec2(0,0))
+        if (boundary_end != glm::vec2(0, 0))
             velocity = glm::vec2(50, 0);
 
         SDL_Surface* image = Resources::instance()["legs"];
