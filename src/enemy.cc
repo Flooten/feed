@@ -73,6 +73,16 @@ namespace feed
         seen_player_ = value;
     }
 
+    bool Enemy::get_previous_seen_state() const
+    {
+        return previous_seen_state_;
+    }
+
+    void Enemy::set_previous_seen_state(bool value)
+    {
+        previous_seen_state_ = value;
+    }
+
     void Enemy::update(float delta_time)
     {
         set_seen_player(true);
@@ -160,6 +170,7 @@ namespace feed
             facing_right = true;
         }
 
+        previous_seen_state_ = false;
     }
 
     bool Enemy::isHit() const
@@ -189,7 +200,7 @@ namespace feed
         glm::vec2 velocity;
 
         if (boundary_end != glm::vec2(0, 0))
-            velocity = glm::vec2(50, 0);
+            velocity.x = 50 ;
 
         SDL_Surface* image = Resources::instance()["legs"];
         int hitpoints = 25;
@@ -219,7 +230,7 @@ namespace feed
         glm::vec2 velocity;
 
         if (boundary_end != glm::vec2(0, 0))
-            velocity = glm::vec2(50, 0);
+            velocity.x = 50;
 
         SDL_Surface* image = Resources::instance()["legs"];
         int hitpoints = 50;

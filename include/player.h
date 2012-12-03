@@ -44,8 +44,14 @@ namespace feed
         void reload();
         void update(float delta_time) override;
 
+        void addHealth(int value);
+        bool godMode();
+        void set_god_mode(bool val);
+
+
     private:
         void isDead() override final;
+        bool god_mode_ = false;
 
         unsigned int inventory_index_ = 0;
         Inventory inventory_;

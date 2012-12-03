@@ -88,8 +88,8 @@ shotgun 300 400 50 50 0 weapon-shotgun
 smg 250 400 50 50 0 weapon-smg
 
 [enemy]
-grunt 800 100 800 100 1200 100
-heavy 500 100 500 100 700 100
+grunt 500 100 500 100 650 100
+//heavy 800 100 800 100 1200 100
 
 //grunt 1350 0
 //heavy 155 0

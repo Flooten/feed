@@ -106,6 +106,22 @@ namespace feed
         Character::update(delta_time);
     }
 
+    void Player::set_god_mode(bool val)
+    {
+    god_mode_ = val;
+    } 
+
+    bool Player::godMode()
+    {
+        return god_mode_;
+    }
+
+    void Player::addHealth(int value)
+    {
+     if(!god_mode_)
+        Character::addHealth(value);
+    }
+
     ///////////////
     // Protected
 
