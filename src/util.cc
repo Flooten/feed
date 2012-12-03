@@ -101,6 +101,8 @@ namespace feed
         {
             if (x > y)
                 return 0;
+            else if (y - 4 < x)
+                return y - 4;
             else
                 return x;
         }

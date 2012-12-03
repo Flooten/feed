@@ -25,20 +25,26 @@ namespace feed
         EnvironmentObject(const glm::vec2& position,
                           const glm::vec2& size,
                           const glm::vec2& velocity,
+                          int hitpoints,
+                          int max_health_,
                           SDL_Surface* image);
-
 
         EnvironmentObject(const glm::vec2& position,
                           const glm::vec2& size,
                           const glm::vec2& velocity,
+                          int hitpoints,
+                          int max_health_,
                           SDL_Surface* image,
                           glm::vec2 boundary_start_ ,
                           glm::vec2 boundary_end_);
 
         void update(float delta_time);
-
+        void addHealth(int value);
 
     private:
+        void isDestroyed();
+        int hitpoints_;
+        int max_health_;
         glm::vec2 boundary_start_ = glm::vec2(0,0);
         glm::vec2 boundary_end_ = glm::vec2(0,0);
     };
