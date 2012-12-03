@@ -42,15 +42,15 @@ namespace feed
         return &inventory_;
     }
 
-    const Weapon* Player::get_current_weapon()
+    Weapon* Player::get_current_weapon()
     {
         return inventory_.get_item(inventory_index_);
     }
 
-    void Player::addWeapon(Weapon::Type weapon_type)
+    void Player::addWeapon(Weapon::Type weapon_type, int ammo)
     {
-        std::cout << "Lägger till ett vapen!" << std::endl;
-        inventory_.add(weapon_type);
+        std::cout << "Lägger till ett vapen med " << ammo << " kulor!" << std::endl;
+        inventory_.add(weapon_type, ammo);
     }
 
     void Player::set_inventory_index(unsigned int index)
@@ -93,7 +93,8 @@ namespace feed
 
     void Player::reload()
     {
-        inventory_.get_item(inventory_index_)->reload();
+        //inventory_.get_item(inventory_index_)->reload();
+        get_current_weapon()->reload();
     }
 
     void Player::update(float delta_time)

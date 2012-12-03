@@ -22,43 +22,18 @@ namespace feed
 			delete weapon;
 	}
 
-	void Inventory::add(Weapon::Type weapon_type)
+	void Inventory::add(Weapon::Type weapon_type, int ammo)
 	{
         for (auto weapon : inventory_list)
             if (weapon->get_type() == weapon_type)
             {
-                weapon->addAmmo(30);
+                weapon->addAmmo(ammo);
                 return;
             }
 
-        inventory_list.push_back(Weapon::CreateWeapon(weapon_type));
-
-		// switch (weapon_type)
-  //       {
-  //           case Weapon::PISTOL:
-  //           {
-  //           	bool found = false;
-
-	 //            for (auto weapon : inventory_list)
-		// 			if (weapon->get_type() == weapon_type)
-		// 			{
-		// 				// Lägg till ammo
-		// 				weapon->addAmmo(30);
-		// 				found = true;
-		// 			}
-
-		// 		if (!found)
-		// 		{
-		// 			// Lägg till vapnet
-		// 			inventory_list.push_back(Weapon::CreateWeapon(Weapon::PISTOL, 100));
-		// 		}
-
-  //              break;
-  //          	}
-
-  //           default:
-  //               break;
-  //       }
+        Weapon* weapon = Weapon::createWeapon(weapon_type);
+        inventory_list.push_back(Weapon::createWeapon(weapon_type));
+        inventory_list.back()->addAmmo(ammo);
 	}
 
 	void Inventory::remove(unsigned int index)

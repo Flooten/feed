@@ -33,6 +33,9 @@ namespace feed
         armor_bar_size_.x = player_->get_armor();
         clip_size_ = player_->get_current_weapon()->get_clip();
         ammo_size_ = player_->get_current_weapon()->get_ammo();
+
+        //std::cout << ammo_size_ << std::endl;
+
         if (font_ != nullptr)
         {
             if (clip_size_ <= 9)

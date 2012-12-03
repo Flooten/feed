@@ -29,17 +29,16 @@ namespace feed
                int hitpoints,
                int armor,
                int max_health,
-               int max_armor);      
+               int max_armor);
 
         // Getters
         unsigned int get_inventory_index() const;
         Inventory* get_inventory();
-        const Weapon* get_current_weapon(); 
+        Weapon* get_current_weapon(); 
 
         // Setters
         void set_inventory_index(unsigned int index);
-
-        void addWeapon(Weapon::Type weapon_type);
+        void addWeapon(Weapon::Type weapon_type, int ammo = 0);
         void fire() override final;
         void reload();
         void update(float delta_time) override;

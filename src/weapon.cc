@@ -14,13 +14,12 @@
 
 namespace feed
 {
-	Weapon::Weapon(int type, int rate_of_fire, int max_clip, int max_ammo, int damage, SDL_Surface* image)
+	Weapon::Weapon(int type, int rate_of_fire, int max_clip, int max_ammo, SDL_Surface* image)
 		: type_(type)
         , rate_of_fire_(rate_of_fire)
         , clip_(max_clip)
 		, max_clip_(max_clip)
 		, max_ammo_(max_ammo)
-		, damage_(damage)
 		, image_(image)
 	{}
 
@@ -31,18 +30,32 @@ namespace feed
     
     void Weapon::addAmmo(int value)
     {
-    	ammo_ += value;
+        std::cout << "Weapon: adding " << value << " ammo" << std::endl;
 
-    	if (ammo_ > max_ammo_)
-    		ammo_ = max_ammo_;
+        ammo_ += value;
+
+        if (ammo_ > max_ammo_)
+           ammo_ = max_ammo_;
+
+        std::cout << "Current ammo: " << ammo_ << std::endl;
+        std::cout << "Max ammo: " << max_ammo_ << std::endl;
     }
 
     void Weapon::reload()
     {
+        if (max_ammo_ == -1)
+        {
+            clip_ = max_clip_;
+            return;
+        }
+
     	int difference = max_clip_ - clip_;
 
     	if (ammo_ < difference)
+        {
     		clip_ += ammo_;
+            ammo_ = 0;
+        }
     	else
     	{
     		ammo_ -= difference;
@@ -81,24 +94,29 @@ namespace feed
 
     int Weapon::get_ammo() const
     {
+        if (max_ammo_ == -1)
+            return 999;
+
+        //std::cout << ammo_ << std::endl;
+
     	return ammo_;
     }
 
-    Weapon* Weapon::CreateWeapon(int type)
+    Weapon* Weapon::createWeapon(int type)
     {
         switch (type)
         {
             case PISTOL:
-                return new Weapon(type, 3, 30, -1, 10, Resources::instance()["weapon-pistol"]);
+                return new Weapon(type, 3, 12, -1, Resources::instance()["weapon-pistol"]);
 
             case SMG:
-                return new Weapon(type, 10, 20, 100, 5, Resources::instance()["weapon-smg"]);
+                return new Weapon(type, 10, 20, 100, Resources::instance()["weapon-smg"]);
 
             case SHOTGUN:
-                return new Weapon(type, 1, 7, 27, 5, Resources::instance()["weapon-shotgun"]);
+                return new Weapon(type, 1, 7, 27, Resources::instance()["weapon-shotgun"]);
 
             case ENEMY_PISTOL:
-                return new Weapon(type, 1, 30, -1, 5, Resources::instance()["weapon-smg"]);
+                return new Weapon(type, 1, 30, -1, Resources::instance()["weapon-smg"]);
 
             default:
                 return nullptr;

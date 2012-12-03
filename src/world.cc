@@ -411,7 +411,7 @@ namespace feed
                         glm::vec2 pos = util::screenToWorld(glm::vec2(mouse_position_x, mouse_position_y), player_->get_position());
                         glm::vec2 start = pos + glm::vec2(30, 0);
                         glm::vec2 end = pos - glm::vec2(30, 0);
-                        enemy_list_.push_back(Enemy::CreateGrunt(pos, start, end));
+                        enemy_list_.push_back(Enemy::createGrunt(pos, start, end));
                         break;
                     }
 
@@ -546,7 +546,7 @@ namespace feed
 
             case MessageQueue::Message::PROJECTILE_DEAD:
             {
-                std::cout << "Projectile " << msg.sender << " is dead" << std::endl;
+                // std::cout << "Projectile " << msg.sender << " is dead" << std::endl;
                 // delete msg.sender;
                 // projectile_list_.erase(projectile_list_.begin() + msg.value);
                 for (auto it = projectile_list_.begin(); it != projectile_list_.end(); ++it)
@@ -563,7 +563,7 @@ namespace feed
 
             case MessageQueue::Message::ENEMY_DEAD:
             {
-                std::cout << "Enemy " << msg.sender << " is dead" << std::endl;
+                // mstd::cout << "Enemy " << msg.sender << " is dead" << std::endl;
 
                 for (auto it = enemy_list_.begin(); it != enemy_list_.end(); ++it)
                 {
@@ -603,7 +603,13 @@ namespace feed
 
             case MessageQueue::Message::ADD_WEAPON:
             {
-                player_->addWeapon(static_cast<Weapon::Type>(msg.value));
+                std::cout << "kebaba" << std::endl;
+                int ammo = 35;
+                // if (WeaponContainer* ptr = dynamic_cast<WeaponContainer*>(msg.sender))
+                //     ammo = ptr->get_ammo();
+                std::cout << "kebabi" << std::endl;
+                player_->addWeapon(static_cast<Weapon::Type>(msg.value), ammo);
+                std::cout << "kebabo" << std::endl;
                 break;
             }
 
@@ -676,9 +682,9 @@ namespace feed
         std::cout << "Load enemy: " << boundary_end.x << " " << boundary_end.y << std::endl;
 
         if (type == "grunt")
-            enemy = Enemy::CreateGrunt(position, boundary_start, boundary_end);
+            enemy = Enemy::createGrunt(position, boundary_start, boundary_end);
         else if (type == "heavy")
-            enemy = Enemy::CreateHeavy(position, boundary_start, boundary_end);
+            enemy = Enemy::createHeavy(position, boundary_start, boundary_end);
 
         if (enemy != nullptr)
             enemy_list_.push_back(enemy);
@@ -742,7 +748,7 @@ namespace feed
         std::string image;
         glm::vec2 pos;
         glm::vec2 size;
-        int val;
+        int val = 0;
 
         ss >> type
            >> pos.x >> pos.y
@@ -754,16 +760,14 @@ namespace feed
             intobject_list_.push_back(new HealthContainer(pos, size, Resources::instance()[image], val));
         else if (type == "armor")
             intobject_list_.push_back(new ArmorContainer(pos, size, Resources::instance()[image], val));
-        else if (type == "weapon")
-            intobject_list_.push_back(new WeaponContainer(pos, size, Resources::instance()[image], val));
         else if (type == "checkpoint")
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
         else if (type == "spikes")
             intobject_list_.push_back(new Spikes(pos, size, Resources::instance()[image], val));
         else if (type == "shotgun")
-            intobject_list_.push_back(new WeaponContainer(pos, size, Resources::instance()[image], Weapon::SHOTGUN));
+            intobject_list_.push_back(new WeaponContainer(pos, size, Weapon::SHOTGUN, val, Resources::instance()[image]));
         else if (type == "smg")
-            intobject_list_.push_back(new WeaponContainer(pos, size, Resources::instance()[image], Weapon::SMG));
+            intobject_list_.push_back(new WeaponContainer(pos, size, Weapon::SMG, val, Resources::instance()[image]));
     }
 
     void World::checkKeyState()
