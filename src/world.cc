@@ -833,8 +833,12 @@ namespace feed
         glm::vec2 position;
 
         if (player_ != nullptr)
-            position = glm::vec2(util::PLAYER_OFFSET_X + player_->get_size().x / 2,
-                                 util::PLAYER_OFFSET_Y + player_->get_size().y / 2);
+            position = glm::vec2(util::PLAYER_OFFSET_X +
+                                 player_->get_collision_offset().x +
+                                 (player_->get_size().x - player_->get_collision_offset().x) / 2,
+                                 util::PLAYER_OFFSET_Y +
+                                 player_->get_collision_offset().y +        
+                                 (player_->get_size().y - player_->get_collision_offset().y)/ 2);
 
         return position;
     }
