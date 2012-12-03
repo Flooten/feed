@@ -35,6 +35,8 @@ namespace feed
         , old_vel_(velocity)
     {
         weapon_ = Weapon::createWeapon(weapon_type);
+        weapon_->set_max_ammo(-1);
+        weapon_->set_max_clip(-1);
 
         if(boundary_end != glm::vec2(0,0))
         {

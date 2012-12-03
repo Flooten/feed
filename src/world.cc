@@ -604,13 +604,10 @@ namespace feed
 
             case MessageQueue::Message::ADD_WEAPON:
             {
-                std::cout << "kebaba" << std::endl;
                 int ammo = 35;
                 // if (WeaponContainer* ptr = dynamic_cast<WeaponContainer*>(msg.sender))
                 //     ammo = ptr->get_ammo();
-                std::cout << "kebabi" << std::endl;
                 player_->addWeapon(static_cast<Weapon::Type>(msg.value), ammo);
-                std::cout << "kebabo" << std::endl;
                 break;
             }
 

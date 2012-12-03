@@ -66,7 +66,9 @@ namespace feed
     void Weapon::fired()
     {
     	last_fired_ = 0;
-        clip_ -= 1;
+
+        if (max_clip_ != -1)
+            clip_ -= 1;
     }
 
     void Weapon::update(float delta_time)
@@ -80,6 +82,16 @@ namespace feed
             return true;
 
         return false;
+    }
+
+    void Weapon::set_max_ammo(int max_ammo)
+    {
+        max_ammo_ = max_ammo;
+    }
+
+    void Weapon::set_max_clip(int max_clip)
+    {
+        max_clip_ = max_clip;
     }
 
     int Weapon::get_type() const
@@ -97,7 +109,7 @@ namespace feed
         if (max_ammo_ == -1)
             return 999;
 
-        //std::cout << ammo_ << std::endl;
+        //mstd::cout << ammo_ << std::endl;
 
     	return ammo_;
     }

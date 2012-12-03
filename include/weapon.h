@@ -39,6 +39,9 @@ namespace feed
 
         bool isReady();
 
+        void set_max_ammo(int max_ammo);
+        void set_max_clip(int max_clip);
+
         int get_type() const;
         int get_clip() const;
         int get_ammo() const;
