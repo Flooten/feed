@@ -607,9 +607,10 @@ namespace feed
 
             case MessageQueue::Message::ADD_WEAPON:
             {
-                int ammo = 35;
-                // if (WeaponContainer* ptr = dynamic_cast<WeaponContainer*>(msg.sender))
-                //     ammo = ptr->get_ammo();
+                int ammo = 0;
+                WeaponContainer* ptr = dynamic_cast<WeaponContainer*>(msg.sender);
+                if(ptr != nullptr)
+                    ammo = ptr->get_ammo();
                 player_->addWeapon(static_cast<Weapon::Type>(msg.value), ammo);
                 break;
             }
