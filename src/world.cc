@@ -302,6 +302,7 @@ namespace feed
             {
                 if (isIntersecting(*it, envobject))
                 {
+                    envobject->addHealth(-(*it)->get_damage());
                     MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
                     found = true;
                     break;
@@ -613,6 +614,22 @@ namespace feed
                 break;
             }
 
+            case MessageQueue::Message::ENOBJ_DEST:
+            {
+                std::cout << "Environment Object " << msg.sender << " is dead" << std::endl;
+
+                for (auto it = envobject_list_.begin(); it != envobject_list_.end(); ++it)
+                {
+                    if (*it == msg.sender)
+                    {
+                        delete msg.sender;
+                        envobject_list_.erase(it);
+                        break;
+                    }
+                }
+                break;
+            }
+
             default:
                 break;
         }
@@ -726,6 +743,8 @@ namespace feed
         glm::vec2 pos;
         glm::vec2 size;
         glm::vec2 vel;
+        int hit;
+        int max;
         std::string image;
         glm::vec2 boundary_start;
         glm::vec2 boundary_end;
@@ -733,11 +752,12 @@ namespace feed
         ss >> pos.x >> pos.y
            >> size.x >> size.y
            >> vel.x >> vel.y
+           >> hit >> max
            >> image
            >> boundary_start.x >> boundary_start.y
            >> boundary_end.x >> boundary_end.y;
 
-        envobject_list_.push_back(new EnvironmentObject(pos, size, vel, Resources::instance()[image], boundary_start, boundary_end));
+        envobject_list_.push_back(new EnvironmentObject(pos, size, vel, hit, max, Resources::instance()[image], boundary_start, boundary_end));
     }
 
     void World::loadInteractableObject(const std::string& str)
@@ -817,8 +837,12 @@ namespace feed
         glm::vec2 position;
 
         if (player_ != nullptr)
-            position = glm::vec2(util::PLAYER_OFFSET_X + player_->get_size().x / 2,
-                                 util::PLAYER_OFFSET_Y + player_->get_size().y / 2);
+            position = glm::vec2(util::PLAYER_OFFSET_X +
+                                 player_->get_collision_offset().x +
+                                 (player_->get_size().x - player_->get_collision_offset().x) / 2,
+                                 util::PLAYER_OFFSET_Y +
+                                 player_->get_collision_offset().y +        
+                                 (player_->get_size().y - player_->get_collision_offset().y)/ 2);
 
         return position;
     }
