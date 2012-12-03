@@ -216,23 +216,20 @@ namespace feed
         {
             handleCollision(player_, envobject);
             for (auto enemy : enemy_list_)
-            {   
-                // if(!isIntersectingY(enemy, envobject) && isIntersectingX(enemy, envobject))
-                // {
-                //     std::cout << "Intersecting with x: " << envobject->get_position().x << std::endl;
-                // }
-                //     if(enemy->isFacingRight() && enemy->isWalking())
-                //         enemy->walkLeft();
-                //     else if(!enemy->isFacingRight() && enemy->isWalking())
-                //         enemy->walkRight();
-                // }
+            {                   
                 handleCollision(enemy, envobject);
 
                 if (!(onScreen(enemy, player_)))
                     enemy->set_seen_player(false);
 
-                if (enemy->get_seen_player())
+                if(enemy->get_previous_seen_state() && !fieldOfVison(enemy,player_))
+                    enemy->turn();
+
+                if(enemy->get_seen_player())
+                {
                     enemy->set_seen_player(fieldOfVison(enemy, player_) && lineOfSight(enemy, player_, envobject));
+                    enemy->set_previous_seen_state(true);
+                }
             }
         }
 
@@ -278,11 +275,13 @@ namespace feed
                 }
             }
             else if (enemy->isHit())
+            {
                 enemy->turn();
+                enemy->set_hit(false);
+            }
 
             else if(!enemy->isWalking())  
-                enemy->continueWalking();
-        }
+                enemy->continueWalking();        }
 
         for (auto it = projectile_list_.begin(); it != projectile_list_.end(); ++it)
         {
@@ -406,6 +405,10 @@ namespace feed
                     case SDLK_h:
                         std::cout << "Player health: " << player_->get_health() << std::endl;
                         break;
+
+                    case SDLK_i:
+                            player_->set_god_mode(!player_->godMode());
+                            break;
 
                     case SDLK_p:
                     {

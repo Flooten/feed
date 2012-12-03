@@ -42,6 +42,9 @@ namespace feed
         bool get_seen_player() const;
         void set_seen_player(bool value);
 
+        bool get_previous_seen_state() const;
+        void set_previous_seen_state(bool val);
+
         bool isWalking() const;
         bool isFacingRight() const;
         void walkLeft();
@@ -49,6 +52,8 @@ namespace feed
         void stopWalking();
         void continueWalking();
         void turn();
+
+
 
         bool isHit() const;
         void set_hit(bool val);
