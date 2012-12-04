@@ -773,7 +773,7 @@ namespace feed
         }
     }
 
-    glm::vec2 World::playerOrigin()
+    glm::vec2 World::playerOrigin() const
     {
         glm::vec2 position;
 
