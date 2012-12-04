@@ -54,7 +54,7 @@ namespace feed
         SDL_Surface* ammo_text_ = nullptr;
 
         TTF_Font* font_ = nullptr;
-        SDL_Color text_color_ = {255, 85, 0};//{255,215,0};
+        SDL_Color text_color_ = {255, 85, 0, 0};//{255,215,0};
     };
 }
 

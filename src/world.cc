@@ -239,9 +239,12 @@ namespace feed
         {
             if (isIntersecting(player_, *it))
             {
-                (*it)->eventFunction(); 
-                delete *it;
-                intobject_list_.erase(it);
+                (*it)->eventFunction();
+
+                // Undvik segfault genom att ta bort objektet i nästa meddelande-loop.
+                // Måste vara så eftersom vi använder det *it pekar på i ADD_WEAPON
+                MessageQueue::instance().pushMessage({MessageQueue::Message::INTOBJECT_DEAD,
+                                                      static_cast<int>(it - intobject_list_.begin()), *it});
                 break;
             }
         }
@@ -334,12 +337,6 @@ namespace feed
     {
         switch (event.type)
         {
-            // case SDL_MOUSEBUTTONDOWN:
-            // {
-            //     player_->fire();
-            //     break;
-            // }
-
             case SDL_MOUSEMOTION:
             {
                 // Origo
@@ -431,86 +428,22 @@ namespace feed
                         player_->reload();
                         break;
 
-                    // case SDLK_d:
-                    // {
-                    //     if (mouse_position_x < playerOrigin().x)
-                    //         // Moonwalk
-                    //         player_->setAnimation(Player::WALKING_LEFT);
-                    //     else
-                    //         player_->setAnimation(Player::WALKING_RIGHT);
-
-                    //     float vel_y = player_->get_velocity().y;
-                    //     player_->set_velocity(glm::vec2(160, vel_y));
-                    //     break;
-                    // }
-
-                    // case SDLK_a:
-                    // {
-                    //     if (mouse_position_x >= playerOrigin().x)
-                    //         // Moonwalk
-                    //         player_->setAnimation(Player::WALKING_RIGHT);
-                    //     else
-                    //         player_->setAnimation(Player::WALKING_LEFT);
-
-                    //     float vel_y = player_->get_velocity().y;
-                    //     player_->set_velocity(glm::vec2(-160, vel_y));
-                    //     break;
-                    // }
-
                     default:
                         break;
                 }
                 break;
             }
 
-            // case SDL_KEYUP:
-            // {
-            //     int mouse_position_x;
-            //     int mouse_posttion_y;
+            case SDL_MOUSEBUTTONDOWN:
+            {
+                if (event.button.button == SDL_BUTTON_WHEELUP)
+                    player_->set_inventory_index(player_->get_inventory_index() + 1);
 
-            //     SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
-            //     Uint8* keystate = SDL_GetKeyState(nullptr);
+                if (event.button.button == SDL_BUTTON_WHEELDOWN)
+                    player_->set_inventory_index(player_->get_inventory_index() - 1);
 
-            //     switch (event.key.keysym.sym)
-            //     {
-            //         case SDLK_UP:
-            //             break;
-
-            //         case SDLK_DOWN:
-            //             break;
-
-            //         case SDLK_d:
-            //             if (!keystate[SDLK_a])
-            //             {
-            //                 if (mouse_position_x >= playerOrigin().x)
-            //                     player_->setAnimation(Player::STATIONARY_RIGHT);
-            //                 else
-            //                     player_->setAnimation(Player::STATIONARY_LEFT);
-
-            //                 float vel_y = player_->get_velocity().y;
-            //                 player_->set_velocity(glm::vec2(0, vel_y));
-            //             }
-            //             break;
-
-            //         case SDLK_a:
-            //             if (!keystate[SDLK_d])
-            //             {
-            //                 if (mouse_position_x < playerOrigin().x)
-            //                     player_->setAnimation(Player::STATIONARY_LEFT);
-            //                 else
-            //                     player_->setAnimation(Player::STATIONARY_RIGHT);
-
-            //                 float vel_y = player_->get_velocity().y;
-            //                 player_->set_velocity(glm::vec2(0, vel_y));
-            //             }
-            //             break;
-
-            //         default:
-            //             break;
-            //     }
-
-            //     break;
-            // }
+                break;
+            }
 
             default:
                 break;
@@ -628,6 +561,13 @@ namespace feed
                         break;
                     }
                 }
+                break;
+            }
+
+            case MessageQueue::Message::INTOBJECT_DEAD:
+            {
+                delete msg.sender;
+                intobject_list_.erase(intobject_list_.begin() + msg.value);
                 break;
             }
 

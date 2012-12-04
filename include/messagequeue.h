@@ -45,6 +45,7 @@ namespace feed
                 BOSS_DEAD,
                 PROJECTILE_DEAD,
                 EFFECT_DEAD,
+                INTOBJECT_DEAD,
                 DEAD,
                 ENOBJ_DEST
             };
