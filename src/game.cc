@@ -127,6 +127,7 @@ namespace feed
 
         // Common
         Resources::instance().addImage("legs", "data/gfx/legs.png");
+        Resources::instance().addImage("legs-dark", "data/gfx/legs-dark.png");
         Resources::instance().addImage("blood", "data/gfx/blood.png");
         Resources::instance().addImage("smoke-jump", "data/gfx/smoke-jump.png");
 
@@ -144,7 +145,7 @@ namespace feed
 
         // Fiendebilder
         Resources::instance().addImage("grunt-torso", "data/gfx/grunt-torso.png");
-        Resources::instance().addImage("heavy-torso", "data/gfx/player-torso-shotgun.png");
+        Resources::instance().addImage("heavy-torso", "data/gfx/heavy-torso.png");
 
         // Menybilder
         Resources::instance().addImage("menu_background", "data/gfx/menu_background.png");

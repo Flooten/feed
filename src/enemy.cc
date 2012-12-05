@@ -231,7 +231,7 @@ namespace feed
         if (boundary_end != glm::vec2(0, 0))
             velocity.x = 50;
 
-        SDL_Surface* image = Resources::instance()["legs"];
+        SDL_Surface* image = Resources::instance()["legs-dark"];
         int hitpoints = 50;
         int armor = 10;
         int max_health = 50;
