@@ -10,7 +10,7 @@ sq               data/gfx/square.png
 //weapon_container bild på vapen 50X50
 armor_container   data/gfx/armor.png
 health_container  data/gfx/red_cross_health.png
-checkpoint        data/gfx/lightbulb.png
+//checkpoint        data/gfx/lightbulb.png
 player            data/gfx/icon.png
 
 [audio]
@@ -19,12 +19,12 @@ music original-score data/sound/feed01.ogg
 
 [environment_object]
 // pos.x pos.y size.x size.y vel.x vel.y hp max_health image (boundary_start.x boundary_start.y boundary_end.x boundary_end.y)
-// 200 250 50 50 50 0 0 -1 sq 200 200 200 400
-0     0 50 50 0 0 0 -1 sq
-0    50 50 50 0 0 0 -1 sq
-0   100 50 50 0 0 0 -1 sq
-0   150 50 50 0 0 0 -1 sq
-0   200 50 50 0 0 0 -1 sq
+200 250 50 50 50 0 0 -1 sq 200 200 200 400
+0     0 50 50 0 0 5 5 sq
+0    50 50 50 0 0 5 5 sq
+0   100 50 50 0 0 5 5 sq
+0   150 50 50 0 0 5 5 sq
+0   200 50 50 0 0 5 5 sq
 0   250 50 50 0 0 0 -1 sq
 0   300 50 50 0 0 0 -1 sq
 0   350 50 50 0 0 0 -1 sq
@@ -34,12 +34,12 @@ music original-score data/sound/feed01.ogg
 50 450 50 50 0 0 0 -1 sq
 100 450 50 50 0 0 0 -1 sq
 150 450 50 50 0 0 0 -1 sq
-200 450 50 50 0 0 0 -1 sq
-250 450 50 50 0 0 0 -1 sq
-300 450 50 50 0 0 0 -1 sq
-350 450 50 50 0 0 0 -1 sq
-400 450 50 50 0 0 0 -1 sq
-450 450 50 50 0 0 0 -1 sq
+200 450 50 50 0 0 5 5 sq
+250 450 50 50 0 0 5 5 sq
+300 450 50 50 0 0 5 5 sq
+350 450 50 50 0 0 5 5 sq
+400 450 50 50 0 0 5 5 sq
+450 450 50 50 0 0 0 -1sq
 500 450 50 50 0 0 0 -1 sq
 550 450 50 50 0 0 0 -1 sq
 600 450 50 50 0 0 0 -1 sq
@@ -50,9 +50,6 @@ music original-score data/sound/feed01.ogg
 750  400 50 50 0 0 0 -1 sq
 750  350 50 50 0 0 0 -1 sq
 750  300 50 50 0 0 0 -1 sq
-800  400 50 50 0 0 0 -1 sq
-800  350 50 50 0 0 0 -1 sq
-850  400 50 50 0 0 0 -1 sq
 
 800 450 50 50 0 0 0 -1 sq
 800 450 50 50 0 0 0 -1 sq
@@ -69,53 +66,33 @@ music original-score data/sound/feed01.ogg
 1350 450 50 50 0 0 0 -1 sq
 1400 450 50 50 0 0 0 -1 sq
 
-1400 400 50 50 0 0 0 -1 sq
-1700 400 50 50 0 0 0 -1 sq
+1300 400 50 50 0 0 0 -1 sq
+1350 400 50 50 0 0 0 -1 sq
+1350 350 50 50 0 0 0 -1 sq
 
-1450 450 50 50 0 0 0 -1 sq
-1500 450 50 50 0 0 0 -1 sq
 1550 450 50 50 0 0 0 -1 sq
 1600 450 50 50 0 0 0 -1 sq
 1650 450 50 50 0 0 0 -1 sq
 1700 450 50 50 0 0 0 -1 sq
 1750 450 50 50 0 0 0 -1 sq
 1800 450 50 50 0 0 0 -1 sq
-1850 450 250 50 0 0 0 -1 5h
-1850 500 5 5 0 0 0 -1 dot
-2100 450 100 50 0 0 0 -1 2h
-2100 500 5 5 0 0 0 -1 dot
-
-2000 250 150 50 0 0 0 -1 3h
-2200 100 150 50 0 0 0 -1 3h
-
-2450 450 250 50 0 0 0 -1 5h
-2700 450 250 50 0 0 0 -1 5h
-2700 500 5 5 0 0 0 -1 dot
-2950 450 250 50 0 0 0 -1 5h
-3200 450 250 50 0 0 0 -1 5h
-3450 450 250 50 0 0 0 -1 5h
-
 
 [interactable_object]
-spikes 1450 400 50 50 100 spikes
-spikes 1500 400 50 50 100 spikes
-spikes 1550 400 50 50 100 spikes
-spikes 1600 400 50 50 100 spikes
-spikes 1650 400 50 50 100 spikes
-
-armor 2250 50 50 50 100 armor_container
-
-//armor 300 100 50 50 50 armor_container
-//checkpoint 400 100 25 25 0 checkpoint
-//shotgun 300 400 50 50 14 weapon-shotgun 
-//smg 250 400 50 50 80 weapon-smg
+health 400 100 50 50 75 health_container
+spikes 350 400 50 50 100 spikes
+spikes 400 400 50 50 100 spikes
+spikes 450 400 50 50 100 spikes
+shotgun 300 400 50 50 14 weapon-shotgun 
+smg 250 400 50 50 80 weapon-smg
+checkpoint 150 400 75 59 0 checkpoint
 
 [enemy]
-// type, pos x, pos y, boundrystart x, start y, end x ,end y 
-//grunt 1000 100 900 0 1300 0
-//grunt 1900 100
-//grunt 2000 0
+//grunt 500 100 500 100 650 100
+heavy 800 100 800 100 1200 100
+
+//grunt 1350 0
+//heavy 155 0
 
 [player]
-300 100 0 0 100 0
+300 100 0 0 25 75
 

@@ -111,7 +111,7 @@ namespace feed
 
     void Character::jump()
     {
-        if (!isJumpLocked())
+        if (!isJumpLocked() || god_mode_)
         {
             if (is_jumping_)
                 is_double_jumping_ = true;

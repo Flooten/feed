@@ -13,6 +13,7 @@
 #include "button.h"
 #include "messagequeue.h"
 #include "resources.h"
+#include "util.h"
 
 #include <iostream>
 
@@ -30,6 +31,7 @@ namespace feed
 
     void MainMenu::draw(SDL_Surface* screen)
     {
+        util::blitSurface(Resources::instance()["screen_bg"], screen, 0, 0);
         main_.draw(screen);
     }
 
