@@ -50,7 +50,6 @@ namespace feed
 
     private:
         void isDead() override final;
-        bool god_mode_ = false;
 
         unsigned int inventory_index_ = 0;
         Inventory inventory_;
