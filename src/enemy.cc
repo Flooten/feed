@@ -91,8 +91,7 @@ namespace feed
         weapon_->update(delta_time);
 
         if (boundary_end_ != glm::vec2(0,0) && isWalking())
-        {   
-
+        {
             if (position_.x + size_.x >= boundary_end_.x && isFacingRight())
             {
                 walkLeft();
@@ -102,8 +101,6 @@ namespace feed
             {
                 walkRight();
             }
-
-
         }
 
         Character::update(delta_time);
@@ -221,7 +218,7 @@ namespace feed
         else if (velocity.x < 0)
             enemy->setAnimation(Character::WALKING_LEFT);
         else 
-            enemy->setAnimation(Character::STATIONARY_RIGHT);
+            enemy->setAnimation(Character::STATIONARY_LEFT);
 
         return enemy;
     }
@@ -251,7 +248,7 @@ namespace feed
         else if (velocity.x < 0)
             enemy->setAnimation(Character::WALKING_LEFT);
         else 
-            enemy->setAnimation(Character::STATIONARY_RIGHT);
+            enemy->setAnimation(Character::STATIONARY_LEFT);
 
         return enemy;
     }
