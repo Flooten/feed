@@ -83,7 +83,7 @@ music original-score data/sound/feed01.ogg
 1850 450 250 50 0 0 0 -1 5h
 2100 450 100 50 0 0 0 -1 2h
 
-2000 300 150 50 0 0 0 -1 3h
+2000 250 150 50 0 0 0 -1 3h
 2200 100 150 50 0 0 0 -1 3h
 
 2450 450 250 50 0 0 0 -1 5h
@@ -109,9 +109,9 @@ armor 2250 50 50 50 100 armor_container
 
 [enemy]
 // type, pos x, pos y, boundrystart x, start y, end x ,end y 
-grunt 1000 100 900 0 1300 0
-grunt 1900 100
-grunt 2000 0
+//grunt 1000 100 900 0 1300 0
+//grunt 1900 100
+//grunt 2000 0
 
 [player]
 300 100 0 0 100 0

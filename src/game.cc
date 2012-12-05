@@ -114,7 +114,7 @@ namespace feed
         Resources::instance().addImage("sq", "data/gfx/sq.png");
         Resources::instance().addImage("2h", "data/gfx/2h.png");
         Resources::instance().addImage("2v", "data/gfx/2v.png");
-        Resources::instance().addImage("3f", "data/gfx/3h.png");
+        Resources::instance().addImage("3h", "data/gfx/3h.png");
         Resources::instance().addImage("3v", "data/gfx/3v.png");
         Resources::instance().addImage("4h", "data/gfx/4h.png");
         Resources::instance().addImage("4v", "data/gfx/4v.png");
