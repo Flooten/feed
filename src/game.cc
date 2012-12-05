@@ -20,6 +20,7 @@
 
 #include <iostream>
 #include <utility>
+#include <fstream>
 
 namespace feed
 {
@@ -199,6 +200,18 @@ namespace feed
                 current_world_ = 0;
                 loadWorld();
                 break;
+
+            case MessageQueue::Message::CHECKPOINT:
+            {
+                if (World* ptr = dynamic_cast<World*>(game_state_.top()))
+                {
+                    std::ofstream out("data/saves/latest_checkpoint.fpq");
+
+                    ptr->saveGameState(out);
+                }
+
+                break;
+            }
 
             case MessageQueue::Message::QUIT_GAME:
                 running_ = false;

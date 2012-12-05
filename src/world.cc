@@ -23,7 +23,6 @@
 
 #include <iostream>
 #include <sstream>
-#include <fstream>
 #include <stdexcept>
 
 namespace feed
@@ -571,7 +570,7 @@ namespace feed
         }
     }
 
-    void World::saveGameState(const std::string& filename)
+    void World::saveGameState(std::ofstream& filename)
     {
         // Öppna utfil
         std::ofstream out(filename.c_str());
