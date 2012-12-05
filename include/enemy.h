@@ -72,7 +72,7 @@ namespace feed
         bool hit_ = false;
         bool previous_seen_state_ = false;
         bool walking = false;
-        bool facing_right = true;
+        bool facing_right = false;
         glm::vec2 boundary_start_;
         glm::vec2 boundary_end_;
 
