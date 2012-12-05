@@ -580,6 +580,27 @@ namespace feed
 
         // Spara undan spelarens tillstånd
         out << "[player]\n";
+        out << player_->get_position().x << " " << player_->get_position().y  << " "
+            << player_->get_velocity().x << " " << player_->get_velocity().y  << " "
+            << player_->get_health()  << " " << player_->get_armor() << "\n";
+
+        // Sparar env objects 
+        // out << "[environment_object]\n";
+        
+        // for(auto envobject : envobject_list_)
+        // {
+        //     out << envobject->get_position().x << " " << envobject->get_position().y << " " 
+        //         << envobject->get_size().x << " " << envobject->get_size().y << " " 
+        //         << envobject->get_velocity().x << " " << envobject->get_velocity().y << " "
+        //         << envobject->get_health() << " " << envobject->get_max_health << " " 
+        //         << envobject->get_boundary_start().x << " " << envobject->get_boundary_start().y << " "
+        //         << envobject->get_boundary_end().x << " " << envobject->get_boundary_end().y << "\n"
+        // }
+
+
+
+
+
     }
 
     /*
