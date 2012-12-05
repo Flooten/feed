@@ -200,9 +200,6 @@ namespace feed
                 loadWorld();
                 break;
 
-            case MessageQueue::Message::SAVE_GAME:
-                break;
-
             case MessageQueue::Message::QUIT_GAME:
                 running_ = false;
                 break;
