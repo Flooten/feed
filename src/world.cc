@@ -130,7 +130,6 @@ namespace feed
                 default:
                     break;
             }
-
         }
 
         // om ingen spelare definierats i banfilen, ladda default/krasha
@@ -451,6 +450,11 @@ namespace feed
     {
         switch (msg.type)
         {
+            case MessageQueue::Message::CHECKPOINT:
+                std::cout << "Saving game..." << std::endl;
+                saveGameState("data/saves/latest_checkpoint.fpq");
+                break;
+
             case MessageQueue::Message::FIRE:
             {
                 Projectile* projectile = nullptr;
