@@ -56,7 +56,7 @@ namespace feed
         void loadInteractableObject(const std::string& str);
         void checkKeyState();
 
-        glm::vec2 playerOrigin();   // Returnerar spelarens mittpunkt
+        glm::vec2 playerOrigin() const;   // Returnerar spelarens mittpunkt
         void spawnBlood(const glm::vec2& position);
 
         Player* player_ = nullptr;

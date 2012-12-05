@@ -310,7 +310,6 @@ namespace feed
                     break;
                 }
             }
-
             if (found)
                 break;
 
@@ -324,8 +323,6 @@ namespace feed
                     found = true;
                     break;
                 }
-                else 
-                    enemy->set_hit(false);
             }
         }
 
@@ -779,7 +776,7 @@ namespace feed
         }
     }
 
-    glm::vec2 World::playerOrigin()
+    glm::vec2 World::playerOrigin() const
     {
         glm::vec2 position;
 
