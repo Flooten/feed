@@ -56,8 +56,6 @@ namespace feed
         return (diff.y < (obj1->get_size().y / 2 + obj2->get_size().y / 2));
     }
 
-
-
     // Hanterar kollision mellan Character-typer och godtyckliga objekt.
     // obj1 förflyttas vid kollisionen
     void handleCollision(Character* obj1, Object* obj2)

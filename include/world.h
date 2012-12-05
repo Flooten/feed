@@ -45,6 +45,7 @@ namespace feed
         virtual void handleMessage(const MessageQueue::Message& msg) override final;
 
         void saveGameState(std::ofstream& out);
+        void loadGameState(std::ifstream& in);
 
     private:
         void addProjectile(Projectile* projectile, const Character* shooter);
