@@ -30,7 +30,6 @@ namespace feed
             {
                 NEW_GAME,
                 RESUME_GAME,
-                SAVE_GAME,
                 LOAD_GAME,
                 QUIT_GAME,
                 PAUSE_GAME,
