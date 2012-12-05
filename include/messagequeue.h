@@ -30,6 +30,7 @@ namespace feed
             {
                 NEW_GAME,
                 RESUME_GAME,
+                SAVE_GAME,
                 LOAD_GAME,
                 QUIT_GAME,
                 PAUSE_GAME,
@@ -46,8 +47,8 @@ namespace feed
                 PROJECTILE_DEAD,
                 EFFECT_DEAD,
                 INTOBJECT_DEAD,
-                DEAD,
-                ENOBJ_DEST
+                ENVOBJECT_DEAD,
+                DEAD
             };
 
             Message(int type = 0, int value = 0, Object* sender = nullptr);

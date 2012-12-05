@@ -10,7 +10,7 @@ sq               data/gfx/square.png
 //weapon_container bild på vapen 50X50
 armor_container   data/gfx/armor.png
 health_container  data/gfx/red_cross_health.png
-checkpoint        data/gfx/lightbulb.png
+//checkpoint        data/gfx/lightbulb.png
 player            data/gfx/icon.png
 
 [audio]
@@ -78,15 +78,13 @@ music original-score data/sound/feed01.ogg
 1800 450 50 50 0 0 0 -1 sq
 
 [interactable_object]
-//weapon 400 300 50 50 100 weapon_container
 health 400 100 50 50 75 health_container
 spikes 350 400 50 50 100 spikes
 spikes 400 400 50 50 100 spikes
 spikes 450 400 50 50 100 spikes
-//armor 300 100 50 50 50 armor_container
-//checkpoint 400 100 25 25 0 checkpoint
 shotgun 300 400 50 50 14 weapon-shotgun 
 smg 250 400 50 50 80 weapon-smg
+checkpoint 150 400 75 59 0 checkpoint
 
 [enemy]
 //grunt 500 100 500 100 650 100

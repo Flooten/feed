@@ -83,7 +83,7 @@ namespace feed
 
     void EnvironmentObject::isDestroyed()
     {
-        MessageQueue::instance().pushMessage({MessageQueue::Message::ENOBJ_DEST, 0, this});
+        MessageQueue::instance().pushMessage({MessageQueue::Message::ENVOBJECT_DEAD, 0, this});
     }
 
 }

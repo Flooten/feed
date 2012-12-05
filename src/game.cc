@@ -121,6 +121,7 @@ namespace feed
         Resources::instance().addImage("weapon-pistol", "data/gfx/pistol.png");
         Resources::instance().addImage("weapon-shotgun", "data/gfx/shotgun.png");
         Resources::instance().addImage("weapon-smg", "data/gfx/smg.png");
+        Resources::instance().addImage("checkpoint", "data/gfx/checkpoint.jpg");
 
         // Spelarbilder
         Resources::instance().addImage("player-torso-pistol", "data/gfx/player-torso-pistol.png");
@@ -197,6 +198,9 @@ namespace feed
                 Audio::instance().pauseMusic();
                 current_world_ = 0;
                 loadWorld();
+                break;
+
+            case MessageQueue::Message::SAVE_GAME:
                 break;
 
             case MessageQueue::Message::QUIT_GAME:
