@@ -212,6 +212,9 @@ namespace feed
         for (auto envobject : envobject_list_)
             envobject->update(delta_time);
 
+        for (auto intobject : intobject_list_)
+            intobject->update(delta_time);
+
         for (auto envobject : envobject_list_)
         {
             handleCollision(player_, envobject);
@@ -725,6 +728,11 @@ namespace feed
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
         else if (type == "spikes")
             intobject_list_.push_back(new Spikes(pos, size, Resources::instance()[image], val));
+        else if (type == "fire-spikes")
+        {
+            intobject_list_.push_back(new Spikes(pos, size, Resources::instance()[image], val));
+            intobject_list_.back()->setAnimated(1, 6);
+        }
         else if (type == "shotgun")
             intobject_list_.push_back(new WeaponContainer(pos, size, Weapon::SHOTGUN, val, Resources::instance()[image]));
         else if (type == "smg")
