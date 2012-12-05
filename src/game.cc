@@ -109,14 +109,24 @@ namespace feed
         Resources::instance().addImage("menu_bg", "data/duke.bmp");
         Resources::instance().addImage("fire", "data/gfx/fire.png");
         Resources::instance().addImage("fireball", "data/gfx/fireball.png");
-        Resources::instance().addImage("sq", "data/gfx/square.png");
+
+        // Levelbilder
+        Resources::instance().addImage("sq", "data/gfx/sq.png");
+        Resources::instance().addImage("2h", "data/gfx/2h.png");
+        Resources::instance().addImage("2v", "data/gfx/2v.png");
+        Resources::instance().addImage("3f", "data/gfx/3h.png");
+        Resources::instance().addImage("3v", "data/gfx/3v.png");
+        Resources::instance().addImage("4h", "data/gfx/4h.png");
+        Resources::instance().addImage("4v", "data/gfx/4v.png");
+        Resources::instance().addImage("5h", "data/gfx/5h.png");
+        Resources::instance().addImage("5v", "data/gfx/5v.png");
 
         // Common
         Resources::instance().addImage("legs", "data/gfx/legs.png");
         Resources::instance().addImage("blood", "data/gfx/blood.png");
         Resources::instance().addImage("smoke-jump", "data/gfx/smoke-jump.png");
 
-        // Container-bilder
+        // Containerbilder
         Resources::instance().addImage("spikes", "data/gfx/spikes.png");
         Resources::instance().addImage("weapon-pistol", "data/gfx/pistol.png");
         Resources::instance().addImage("weapon-shotgun", "data/gfx/shotgun.png");
