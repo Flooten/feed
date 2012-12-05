@@ -310,7 +310,6 @@ namespace feed
                     break;
                 }
             }
-
             if (found)
                 break;
 
@@ -324,8 +323,6 @@ namespace feed
                     found = true;
                     break;
                 }
-                else 
-                    enemy->set_hit(false);
             }
         }
 
