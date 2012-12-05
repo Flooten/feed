@@ -5,7 +5,7 @@
  *                Herman Ekwall
  *                Marcus Eriksson
  *                Mattias Fransson
- * DATUM:         2012-11-21
+ * DATUM:         2012-12-05
  *
  * BESKRIVNING:   World representerar en bana
  *
@@ -42,6 +42,8 @@ namespace feed
         virtual void update(float delta_time) override final;
         virtual void handleSDLEvent(const SDL_Event& event) override final;
         virtual void handleMessage(const MessageQueue::Message& msg) override final;
+
+        void saveGameState(const std::string& filename);
 
     private:
         void addProjectile(Projectile* projectile, const Character* shooter);

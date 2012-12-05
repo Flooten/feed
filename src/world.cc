@@ -5,7 +5,7 @@
  *                Herman Ekwall
  *                Marcus Eriksson
  *                Mattias Fransson
- * DATUM:         2012-11-30
+ * DATUM:         2012-12-05
  *
  */
 
@@ -130,7 +130,6 @@ namespace feed
                 default:
                     break;
             }
-
         }
 
         // om ingen spelare definierats i banfilen, ladda default/krasha
@@ -313,7 +312,6 @@ namespace feed
                     break;
                 }
             }
-
             if (found)
                 break;
 
@@ -327,8 +325,6 @@ namespace feed
                     found = true;
                     break;
                 }
-                else 
-                    enemy->set_hit(false);
             }
         }
 
@@ -457,6 +453,11 @@ namespace feed
     {
         switch (msg.type)
         {
+            case MessageQueue::Message::CHECKPOINT:
+                std::cout << "Saving game..." << std::endl;
+                saveGameState("data/saves/latest_checkpoint.fpq");
+                break;
+
             case MessageQueue::Message::FIRE:
             {
                 Projectile* projectile = nullptr;
@@ -486,9 +487,6 @@ namespace feed
 
             case MessageQueue::Message::PROJECTILE_DEAD:
             {
-                // std::cout << "Projectile " << msg.sender << " is dead" << std::endl;
-                // delete msg.sender;
-                // projectile_list_.erase(projectile_list_.begin() + msg.value);
                 for (auto it = projectile_list_.begin(); it != projectile_list_.end(); ++it)
                 {
                     if (*it == msg.sender)
@@ -503,8 +501,6 @@ namespace feed
 
             case MessageQueue::Message::ENEMY_DEAD:
             {
-                // mstd::cout << "Enemy " << msg.sender << " is dead" << std::endl;
-
                 for (auto it = enemy_list_.begin(); it != enemy_list_.end(); ++it)
                 {
                     if (*it == msg.sender)
@@ -544,14 +540,13 @@ namespace feed
             case MessageQueue::Message::ADD_WEAPON:
             {
                 int ammo = 0;
-                WeaponContainer* ptr = dynamic_cast<WeaponContainer*>(msg.sender);
-                if(ptr != nullptr)
+                if(WeaponContainer* ptr = dynamic_cast<WeaponContainer*>(msg.sender))
                     ammo = ptr->get_ammo();
                 player_->addWeapon(static_cast<Weapon::Type>(msg.value), ammo);
                 break;
             }
 
-            case MessageQueue::Message::ENOBJ_DEST:
+            case MessageQueue::Message::ENVOBJECT_DEAD:
             {
                 std::cout << "Environment Object " << msg.sender << " is dead" << std::endl;
 
@@ -577,6 +572,39 @@ namespace feed
             default:
                 break;
         }
+    }
+
+    void World::saveGameState(const std::string& filename)
+    {
+        // Öppna utfil
+        std::ofstream out(filename.c_str());
+
+        if (!out.is_open())
+            return;
+
+        // Spara undan spelarens tillstånd
+        out << "[player]\n";
+        out << player_->get_position().x << " " << player_->get_position().y  << " "
+            << player_->get_velocity().x << " " << player_->get_velocity().y  << " "
+            << player_->get_health()  << " " << player_->get_armor() << "\n";
+
+        // Sparar env objects 
+        // out << "[environment_object]\n";
+        
+        // for(auto envobject : envobject_list_)
+        // {
+        //     out << envobject->get_position().x << " " << envobject->get_position().y << " " 
+        //         << envobject->get_size().x << " " << envobject->get_size().y << " " 
+        //         << envobject->get_velocity().x << " " << envobject->get_velocity().y << " "
+        //         << envobject->get_health() << " " << envobject->get_max_health << " " 
+        //         << envobject->get_boundary_start().x << " " << envobject->get_boundary_start().y << " "
+        //         << envobject->get_boundary_end().x << " " << envobject->get_boundary_end().y << "\n"
+        // }
+
+
+
+
+
     }
 
     /*

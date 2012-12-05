@@ -81,9 +81,29 @@ namespace feed
             } 
     }
 
+    int EnvironmentObject::get_health() const
+    {
+        return hitpoints_;
+    }
+
+    int EnvironmentObject::get_max_health() const
+    {
+        return max_health_;
+    }
+
+    glm::vec2 EnvironmentObject::get_boundary_start() const
+    {
+        return boundary_start_;
+    }
+
+    glm::vec2 EnvironmentObject::get_boundary_end() const
+    {
+        return boundary_end_;
+    }
+
     void EnvironmentObject::isDestroyed()
     {
-        MessageQueue::instance().pushMessage({MessageQueue::Message::ENOBJ_DEST, 0, this});
+        MessageQueue::instance().pushMessage({MessageQueue::Message::ENVOBJECT_DEAD, 0, this});
     }
 
 }

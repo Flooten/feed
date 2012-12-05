@@ -41,6 +41,11 @@ namespace feed
         void update(float delta_time);
         void addHealth(int value);
 
+        int get_health() const;
+        int get_max_health() const;
+        glm::vec2 get_boundary_start() const;
+        glm::vec2 get_boundary_end() const;
+
     private:
         void isDestroyed();
         int hitpoints_;
