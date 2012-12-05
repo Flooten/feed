@@ -218,7 +218,7 @@ namespace feed
         else if (velocity.x < 0)
             enemy->setAnimation(Character::WALKING_LEFT);
         else 
-            enemy->setAnimation(Character::STATIONARY_RIGHT);
+            enemy->setAnimation(Character::STATIONARY_LEFT);
 
         return enemy;
     }
@@ -248,7 +248,7 @@ namespace feed
         else if (velocity.x < 0)
             enemy->setAnimation(Character::WALKING_LEFT);
         else 
-            enemy->setAnimation(Character::STATIONARY_RIGHT);
+            enemy->setAnimation(Character::STATIONARY_LEFT);
 
         return enemy;
     }
