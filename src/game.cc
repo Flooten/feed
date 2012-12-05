@@ -111,6 +111,8 @@ namespace feed
         Resources::instance().addImage("menu_bg", "data/duke.bmp");
         Resources::instance().addImage("fire", "data/gfx/fire.png");
         Resources::instance().addImage("fireball", "data/gfx/fireball.png");
+        Resources::instance().addImage("dot", "data/gfx/dot.png");
+
 
         // Levelbilder
         Resources::instance().addImage("sq", "data/gfx/sq.png");
