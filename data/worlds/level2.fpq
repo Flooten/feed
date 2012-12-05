@@ -106,9 +106,9 @@ spikes 1650 400 50 50 100 spikes
 armor 2250 50 50 50 100 armor_container
 
 //armor 300 100 50 50 50 armor_container
-//checkpoint 400 100 25 25 0 checkpoint
-//shotgun 300 400 50 50 14 weapon-shotgun 
-//smg 250 400 50 50 80 weapon-smg
+checkpoint 400 100 25 25 0 checkpoint
+shotgun 300 400 50 50 14 weapon-shotgun 
+smg 250 400 50 50 80 weapon-smg
 
 [enemy]
 // type, pos x, pos y, boundrystart x, start y, end x ,end y 
