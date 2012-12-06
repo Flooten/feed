@@ -21,7 +21,8 @@ namespace feed
     class PauseMenu : public State
     {
     public:
-        PauseMenu(SDL_Surface* background, const glm::vec2& position);
+        PauseMenu(SDL_Surface* background, SDL_Surface* menu_bg, const glm::vec2& position);
+        ~PauseMenu();
 
         void draw(SDL_Surface* screen) override final;
         void update(float delta_time) {}
@@ -29,6 +30,7 @@ namespace feed
         void handleMessage(const MessageQueue::Message& msg);
 
     private:
+        SDL_Surface* background_;
         Menu menu_;
     };
 }

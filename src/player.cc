@@ -60,20 +60,7 @@ namespace feed
 
         inventory_index_ = index;
 
-        switch(get_current_weapon()->get_type())
-        {
-            case Weapon::PISTOL:
-                setTopImage(Resources::instance()["player-torso-pistol"], 2, 37);
-                break;
-
-            case Weapon::SHOTGUN:
-                setTopImage(Resources::instance()["player-torso-shotgun"], 2, 37);
-                break;
-
-            case Weapon::SMG:
-                setTopImage(Resources::instance()["player-torso-smg"], 2, 37);
-                break;
-        }
+        updateTorso();
     }
 
     void Player::fire()
@@ -94,7 +81,6 @@ namespace feed
 
     void Player::reload()
     {
-        //inventory_.get_item(inventory_index_)->reload();
         get_current_weapon()->reload();
     }
 
@@ -110,7 +96,7 @@ namespace feed
 
     void Player::set_god_mode(bool val)
     {
-    god_mode_ = val;
+        god_mode_ = val;
     } 
 
     bool Player::godMode()
@@ -120,8 +106,28 @@ namespace feed
 
     void Player::addHealth(int value)
     {
-     if(!god_mode_)
-        Character::addHealth(value);
+        if(!god_mode_)
+            Character::addHealth(value);
+    }
+
+    void Player::incrementInventory()
+    {
+        ++inventory_index_;
+
+        if (inventory_index_ >= inventory_.get_size())
+            inventory_index_ = 0;
+
+        updateTorso();
+    }
+
+    void Player::decrementInventory()
+    {
+        if (inventory_index_ == 0)
+            inventory_index_ = inventory_.get_size();
+
+        --inventory_index_;
+
+        updateTorso();
     }
 
     ///////////////
@@ -130,5 +136,23 @@ namespace feed
     void Player::isDead()
     {
         MessageQueue::instance().pushMessage({MessageQueue::Message::PLAYER_DEAD, 0, this});
+    }
+
+    void Player::updateTorso()
+    {
+        switch(get_current_weapon()->get_type())
+        {
+            case Weapon::PISTOL:
+                setTopImage(Resources::instance()["player-torso-pistol"], 2, 37);
+                break;
+
+            case Weapon::SHOTGUN:
+                setTopImage(Resources::instance()["player-torso-shotgun"], 2, 37);
+                break;
+
+            case Weapon::SMG:
+                setTopImage(Resources::instance()["player-torso-smg"], 2, 37);
+                break;
+        }
     }
 }

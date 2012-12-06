@@ -268,12 +268,12 @@ namespace feed
                 break;
 
             case MessageQueue::Message::PAUSE_GAME:
-                SDL_SaveBMP(screen_, "data/gfx/current_screen.bmp");
-                Resources::instance().addImage("current_screen", "data/gfx/current_screen.bmp");
-                game_state_.push(new PauseMenu(Resources::instance()["menu_background"],
+            {
+                game_state_.push(new PauseMenu(screen_, Resources::instance()["menu_background"],
                                                glm::vec2((util::SCREEN_WIDTH / 2) - (Resources::instance()["menu_background"]->w / 2),
                                                          (util::SCREEN_HEIGHT / 2) - (Resources::instance()["menu_background"]->h / 2))));
                 break;
+            }
 
             case MessageQueue::Message::RESUME_GAME:
                 delete game_state_.top();
