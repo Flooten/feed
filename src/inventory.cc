@@ -9,7 +9,6 @@
  */
 
 #include "inventory.h"
-#include <iostream>
 
 namespace feed
 {

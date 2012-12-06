@@ -164,6 +164,11 @@ namespace feed
 
         // Audio
         Audio::instance().addMusic("menu_music", "data/sound/feed01.ogg");
+
+        // Effects
+        Audio::instance().addSoundFx("click", "data/sound/click.wav");
+        Audio::instance().addSoundFx("pistol_fire", "data/sound/mp5-1.wav");
+
     }
 
     void Game::loadWorldList()
@@ -255,9 +260,7 @@ namespace feed
                 loadWorld();
 
                 if (World* ptr = dynamic_cast<World*>(game_state_.top()))
-                {
                     ptr->loadGameState(in);
-                }
 
                 in.close();
 
@@ -269,12 +272,13 @@ namespace feed
                 break;
 
             case MessageQueue::Message::PAUSE_GAME:
-                SDL_SaveBMP(screen_, "data/gfx/current_screen.bmp");
-                Resources::instance().addImage("current_screen", "data/gfx/current_screen.bmp");
-                game_state_.push(new PauseMenu(Resources::instance()["menu_background"],
+            {
+                game_state_.push(new PauseMenu(screen_,
+                                               Resources::instance()["menu_background"],
                                                glm::vec2((util::SCREEN_WIDTH / 2) - (Resources::instance()["menu_background"]->w / 2),
                                                          (util::SCREEN_HEIGHT / 2) - (Resources::instance()["menu_background"]->h / 2))));
                 break;
+            }
 
             case MessageQueue::Message::RESUME_GAME:
                 delete game_state_.top();
