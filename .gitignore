@@ -7,3 +7,4 @@ feed*
 *.exe
 *.orig
 /data/saves/latest_checpoint.fpq
+latest_checkpoint.fpq
