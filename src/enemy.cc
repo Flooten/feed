@@ -15,7 +15,6 @@
 
 #include <iostream>
 
-
 namespace feed
 {
     Enemy::Enemy(const glm::vec2& position,
