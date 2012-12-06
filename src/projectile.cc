@@ -75,15 +75,22 @@ namespace feed
         glm::vec2 position = getPistolOrigin(shooter);
 
         float angle = getAimingAngle(shooter);
+        
+        int radius = 0;
+        float offset_angle = 0;
 
-        int radius;
-
-        if (angle < -60 * util::DEG_TO_RAD)
-            radius = 85;
+        if (angle < 0 * util::DEG_TO_RAD)
+        {
+            radius = 100;
+            offset_angle = -10 * util::DEG_TO_RAD;
+        }
         else
+        {
             radius = 46;
+            offset_angle = -40 * util::DEG_TO_RAD;
+        }
 
-        float offset_angle = -40 * util::DEG_TO_RAD;
+        std::cout << "Radius: " << radius << std::endl;
 
         if (shooter->getFacing() == 0)
         {
@@ -113,8 +120,8 @@ namespace feed
 
         int radius;
 
-        if (angle < -60 * util::DEG_TO_RAD)
-            radius = 100;
+        if (angle < -50 * util::DEG_TO_RAD)
+            radius = 110;
         else
             radius = 52;
 
