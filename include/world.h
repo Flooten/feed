@@ -27,6 +27,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include <string>
+#include <fstream>
 
 namespace feed
 {
@@ -43,7 +44,8 @@ namespace feed
         virtual void handleSDLEvent(const SDL_Event& event) override final;
         virtual void handleMessage(const MessageQueue::Message& msg) override final;
 
-        void saveGameState(const std::string& filename);
+        void saveGameState(std::ofstream& out);
+        void loadGameState(std::ifstream& in);
 
     private:
         void addProjectile(Projectile* projectile, const Character* shooter);

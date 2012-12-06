@@ -60,6 +60,7 @@ namespace feed
 
     protected:
         virtual void isDead() = 0;
+        bool god_mode_ = false;
 
         int hitpoints_;
         int armor_;

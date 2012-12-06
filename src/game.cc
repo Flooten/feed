@@ -20,12 +20,14 @@
 
 #include <iostream>
 #include <utility>
+#include <fstream>
 
 namespace feed
 {
     namespace
     {
         const char* SCREEN_CAPTION = "F.E.E.D.";
+        const char* SAVE_FILE = "data/saves/latest_checkpoint.fpq";
     }
 
     Game::Game()
@@ -125,6 +127,7 @@ namespace feed
 
         // Common
         Resources::instance().addImage("legs", "data/gfx/legs.png");
+        Resources::instance().addImage("legs-dark", "data/gfx/legs-dark.png");
         Resources::instance().addImage("blood", "data/gfx/blood.png");
         Resources::instance().addImage("smoke-jump", "data/gfx/smoke-jump.png");
 
@@ -142,7 +145,7 @@ namespace feed
 
         // Fiendebilder
         Resources::instance().addImage("grunt-torso", "data/gfx/grunt-torso.png");
-        Resources::instance().addImage("heavy-torso", "data/gfx/player-torso-shotgun.png");
+        Resources::instance().addImage("heavy-torso", "data/gfx/heavy-torso.png");
 
         // Menybilder
         Resources::instance().addImage("menu_background", "data/gfx/menu_background.png");
@@ -170,8 +173,6 @@ namespace feed
 
     void Game::loadMenu()
     {
-        util::blitSurface(Resources::instance()["screen_bg"], screen_, 0, 0);
-
         game_state_.push(new MainMenu(Resources::instance().getImage("menu_background"),
                                       glm::vec2((util::SCREEN_WIDTH / 2) - (Resources::instance()["menu_background"]->w / 2),
                                                 (util::SCREEN_HEIGHT / 2) - (Resources::instance()["menu_background"]->h / 2))));
@@ -212,6 +213,56 @@ namespace feed
                 loadWorld();
                 break;
 
+            case MessageQueue::Message::CHECKPOINT:
+            {
+                if (World* ptr = dynamic_cast<World*>(game_state_.top()))
+                {
+                    std::ofstream out(SAVE_FILE);
+
+                    if (!out.is_open())
+                        break;
+
+                    out << "[current_world]\n"
+                        << current_world_ << "\n";
+
+                    ptr->saveGameState(out);
+                    out.close();
+                }
+                break;
+            }
+
+            case MessageQueue::Message::LOAD_GAME:
+            {
+                while (game_state_.size() != 1)
+                {
+                    delete game_state_.top();
+                    game_state_.pop();
+                }
+
+                std::ifstream in(SAVE_FILE);
+
+                if (!in.is_open())
+                    break;
+
+                std::string line;
+                in >> line;
+
+                if (line != "[current_world]")
+                    break;
+
+                in >> current_world_;
+                loadWorld();
+
+                if (World* ptr = dynamic_cast<World*>(game_state_.top()))
+                {
+                    ptr->loadGameState(in);
+                }
+
+                in.close();
+
+                break;
+            }
+
             case MessageQueue::Message::QUIT_GAME:
                 running_ = false;
                 break;
@@ -229,22 +280,18 @@ namespace feed
 
             case MessageQueue::Message::EXIT_TO_MAIN_MENU:
             {
-                if (game_state_.size() == 3)
+                while (game_state_.size() != 1)
                 {
-                    for (unsigned int i = 0; i < 2; ++i)
-                    {
-                        delete game_state_.top();
-                        game_state_.pop();
-                    }
+                    delete game_state_.top();
+                    game_state_.pop();
                 }
                 break;
             }
 
             case MessageQueue::Message::PLAYER_DEAD:
-            {
+                delete game_state_.top();
                 game_state_.pop();
                 break;
-            }
 
             default:
                 game_state_.top()->handleMessage(msg);

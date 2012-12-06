@@ -23,7 +23,6 @@
 
 #include <iostream>
 #include <sstream>
-#include <fstream>
 #include <stdexcept>
 
 namespace feed
@@ -453,11 +452,6 @@ namespace feed
     {
         switch (msg.type)
         {
-            case MessageQueue::Message::CHECKPOINT:
-                std::cout << "Saving game..." << std::endl;
-                saveGameState("data/saves/latest_checkpoint.fpq");
-                break;
-
             case MessageQueue::Message::FIRE:
             {
                 Projectile* projectile = nullptr;
@@ -574,11 +568,8 @@ namespace feed
         }
     }
 
-    void World::saveGameState(const std::string& filename)
+    void World::saveGameState(std::ofstream& out)
     {
-        // Öppna utfil
-        std::ofstream out(filename.c_str());
-
         if (!out.is_open())
             return;
 
@@ -600,11 +591,25 @@ namespace feed
         //         << envobject->get_boundary_start().x << " " << envobject->get_boundary_start().y << " "
         //         << envobject->get_boundary_end().x << " " << envobject->get_boundary_end().y << "\n"
         // }
+    }
 
+    void World::loadGameState(std::ifstream& in)
+    {
+        if (!in.is_open())
+            return;
 
+        std::string line;
+        in >> line;
 
+        if (line != "[player]")
+            return;
 
+        //std::cout << "hejhej" << std::endl;
+        //delete player_;
+        //std::cout << "hejhej" << std::endl;
 
+        in >> line;
+        loadPlayer(line);
     }
 
     /*
