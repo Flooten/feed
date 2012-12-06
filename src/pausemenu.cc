@@ -28,6 +28,7 @@ namespace feed
 
     void PauseMenu::draw(SDL_Surface* screen)
     {
+        util::blitSurface(Resources::instance()["current_screen"], screen, 0, 0);
         menu_.draw(screen);
     }
 

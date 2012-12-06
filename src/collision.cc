@@ -69,11 +69,11 @@ namespace feed
             }
             else
             {
-                if (std::abs(diff.x) < 50.0f)
-                    return;
+                std::cout << diff.y << std::endl;
 
                 if (diff.x <= 0.0f)
                 {
+                    std::cout << "X KOLLISION" << std::endl;
                     new_pos.x = obj2->get_position().x - offset1.x - obj1->get_size().x;// - BOUNCE_DISTANCE;
                     //new_vel.x = -BOUNCE_DISTANCE;
                 }
