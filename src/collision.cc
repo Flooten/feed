@@ -9,7 +9,7 @@ namespace feed
     namespace
     {
         // Avstånd i pixlar som man studsar bort från saker vid kollision
-        const int BOUNCE_DISTANCE = 10;
+        const int BOUNCE_DISTANCE = 1000;
     }
 
     // Returnerar sant om två objekt korsar varandra
@@ -72,7 +72,7 @@ namespace feed
                 if (diff.x <= 0.0f)
                 {
                     new_pos.x = obj2->get_position().x - offset1.x - obj1->get_size().x;// - BOUNCE_DISTANCE;
-                    //new_vel.x = -BOUNCE_DISTANCE;
+                    //new_vel.x = BOUNCE_DISTANCE;
                 }
                 else
                 {
