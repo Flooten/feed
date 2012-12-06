@@ -16,6 +16,7 @@
 #include "healthcontainer.h"
 #include "armorcontainer.h"
 #include "weaponcontainer.h"
+#include "specialcontainer.h"
 #include "spikes.h"
 #include "checkpoint.h"
 #include "collision.h"
@@ -579,10 +580,10 @@ namespace feed
 
             case MessageQueue::Message::CREATE_ENVOBJECT:
             {
-                envobject_list_.push_back(new EnvironmentObject(glm::vec2(12100, -200), glm::vec2(50, 50), glm::vec2(0, 0), 0, -1, Resources::instance()[sq]);
-                envobject_list_.push_back(new EnvironmentObject(glm::vec2(12100, -150), glm::vec2(50, 50), glm::vec2(0, 0), 0, -1, Resources::instance()[sq]);
-                envobject_list_.push_back(new EnvironmentObject(glm::vec2(12100, -100), glm::vec2(50, 50), glm::vec2(0, 0), 0, -1, Resources::instance()[sq]);
-                envobject_list_.push_back(new EnvironmentObject(glm::vec2(12100, -50), glm::vec2(50, 50), glm::vec2(0, 0), 0, -1, Resources::instance()[sq]);
+                envobject_list_.push_back(new EnvironmentObject(glm::vec2(12100, -200), glm::vec2(50, 50), glm::vec2(0, 0), 0, -1, Resources::instance()["sq"]));
+                envobject_list_.push_back(new EnvironmentObject(glm::vec2(12100, -150), glm::vec2(50, 50), glm::vec2(0, 0), 0, -1, Resources::instance()["sq"]));
+                envobject_list_.push_back(new EnvironmentObject(glm::vec2(12100, -100), glm::vec2(50, 50), glm::vec2(0, 0), 0, -1, Resources::instance()["sq"]));
+                envobject_list_.push_back(new EnvironmentObject(glm::vec2(12100, -50), glm::vec2(50, 50), glm::vec2(0, 0), 0, -1, Resources::instance()["sq"]));
                 break;
             }
 
@@ -822,8 +823,8 @@ namespace feed
             intobject_list_.push_back(new WeaponContainer(pos, size, Weapon::SHOTGUN, val, Resources::instance()[image]));
         else if (type == "smg")
             intobject_list_.push_back(new WeaponContainer(pos, size, Weapon::SMG, val, Resources::instance()[image]));
-        else if (typr == "surprise")
-            intobject_list_.push_back(new SpecialContainer(glm::vec2(12100, -200), glm::vec2(50, 200), Resources::instance()[4esrftyn]));        
+        else if (type == "surprise")
+            intobject_list_.push_back(new SpecialContainer(pos, size, Resources::instance()[image]));        
     }
 
     void World::checkKeyState()

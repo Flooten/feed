@@ -498,7 +498,7 @@ checkpoint 9500 -550 50 50 0 checkpoint
 
 checkpoint 12050 -50 50 50 0 checkpoint
 
-surprise 12100 -200 50 200 0 invisible
+surprise 12300 -200 50 200 0 invisible
 
 [enemy]
 // type, pos x, pos y, boundrystart x, start y, end x ,end y 
@@ -519,5 +519,5 @@ heavy 9250 -200
 heavy 9550 -200
 
 [player]
-12000 -200 0 0 100 0
+400 200 0 0 100 0
 
