@@ -18,6 +18,7 @@ namespace feed
     {
         namespace
         {
+            // slumptalsgeneratorn som används
             static std::mt19937 rng(SDL_GetTicks());
         }
 

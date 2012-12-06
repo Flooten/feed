@@ -131,14 +131,9 @@ namespace feed
             }
         }
 
-        // om ingen spelare definierats i banfilen, ladda default/krasha
-        //if (player_ == nullptr)
-
         std::cout << "Number of enemies: " << enemy_list_.size() << std::endl;
         std::cout << "Number of envobjs: " << envobject_list_.size() << std::endl;
         std::cout << "Number of intobjs: " << intobject_list_.size() << std::endl;
-
-        ui_ = new Ui(player_, Resources::instance()["ui_meny"], Resources::instance()["health_bar"], Resources::instance()["armor_bar"]);
     }
 
     World::~World()
@@ -166,7 +161,7 @@ namespace feed
         // Rensa screen
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
-        util::blitSurface(Resources::instance()["sky_bg"], screen, 0, 0);
+        util::blitSurface(Resources::instance()["bg"], screen, 0, 0);
 
         for (auto envobject : envobject_list_)
             envobject->draw(screen, player_->get_position());
@@ -325,6 +320,9 @@ namespace feed
                     break;
                 }
             }
+            
+            if(!(onScreen(*it, player_)))
+                MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
         }
 
         ui_->update();
@@ -516,6 +514,7 @@ namespace feed
                         spawnBlood(msg.sender->get_position());
                         delete msg.sender;
                         enemy_list_.erase(it);
+                        Audio::instance().playSoundFx("enemy_dead");
                         break;
                     }
                 }
@@ -594,7 +593,7 @@ namespace feed
             << player_->get_velocity().x << " " << player_->get_velocity().y  << " "
             << player_->get_health()  << " " << player_->get_armor() << "\n";
 
-        //out << "[inventory]\n";
+        out << "[inventory]\n";
     }
 
     void World::loadGameState(std::ifstream& in)
@@ -720,6 +719,16 @@ namespace feed
         player_->setTopImage(Resources::instance()["player-torso-pistol"], 2, 37);
 	    player_->addWeapon(Weapon::PISTOL);
         player_->set_collision_offset(glm::vec2(50, 40));
+
+        // Ui beror på spelar-pekaren, se till att de skapas tillsammans
+        // annars segfaultar spelet vid LOAD_GAME
+        if (ui_ != nullptr)
+            delete ui_;
+
+        ui_ = new Ui(player_,
+                     Resources::instance()["ui_meny"],
+                     Resources::instance()["health_bar"],
+                     Resources::instance()["armor_bar"]);
     }
 
     void World::loadEnvironmentObject(const std::string& str)
@@ -770,7 +779,7 @@ namespace feed
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
         else if (type == "spikes")
             intobject_list_.push_back(new Spikes(pos, size, Resources::instance()[image], val));
-        else if (type == "fire-spikes")
+        else if (type == "fire")
         {
             intobject_list_.push_back(new Spikes(pos, size, Resources::instance()[image], val));
             intobject_list_.back()->setAnimated(1, 6);

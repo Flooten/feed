@@ -10,6 +10,7 @@
 #include "weapon.h"
 #include "resources.h"
 #include "messagequeue.h"
+#include "audio.h"
 #include <iostream>
 
 namespace feed
@@ -69,6 +70,13 @@ namespace feed
 
         if (max_clip_ != -1)
             clip_ -= 1;
+
+        switch (type_)
+        {
+            case PISTOL:
+            Audio::instance().playSoundFx("pistol_fire");
+            break;
+        }
     }
 
     void Weapon::update(float delta_time)

@@ -107,9 +107,7 @@ namespace feed
     {
         // Temp
         Resources::instance().addImage("screen_bg", "data/piratesandfaggots.jpg");
-        Resources::instance().addImage("sky_bg", "data/skycloud.jpg");
         Resources::instance().addImage("menu_bg", "data/duke.bmp");
-        Resources::instance().addImage("fire", "data/gfx/fire.png");
         Resources::instance().addImage("fireball", "data/gfx/fireball.png");
         Resources::instance().addImage("dot", "data/gfx/dot.png");
 
@@ -124,6 +122,9 @@ namespace feed
         Resources::instance().addImage("4v", "data/gfx/4v.png");
         Resources::instance().addImage("5h", "data/gfx/5h.png");
         Resources::instance().addImage("5v", "data/gfx/5v.png");
+        Resources::instance().addImage("fu", "data/gfx/fire-up.png");
+        Resources::instance().addImage("fd", "data/gfx/fire-down.png");
+        Resources::instance().addImage("bg", "data/gfx/desert.png");
 
         // Common
         Resources::instance().addImage("legs", "data/gfx/legs.png");
@@ -163,6 +164,13 @@ namespace feed
 
         // Audio
         Audio::instance().addMusic("menu_music", "data/sound/feed01.ogg");
+
+        // Effects
+        Audio::instance().addSoundFx("click", "data/sound/click.wav");
+      //  Audio::instance().addSoundFx("pistol_fire", "data/sound/mp5-1.wav");
+        Audio::instance().addSoundFx("enemy_dead", "data/sound/enemy_death.wav");
+
+
     }
 
     void Game::loadWorldList()
@@ -254,9 +262,7 @@ namespace feed
                 loadWorld();
 
                 if (World* ptr = dynamic_cast<World*>(game_state_.top()))
-                {
                     ptr->loadGameState(in);
-                }
 
                 in.close();
 
@@ -269,7 +275,8 @@ namespace feed
 
             case MessageQueue::Message::PAUSE_GAME:
             {
-                game_state_.push(new PauseMenu(screen_, Resources::instance()["menu_background"],
+                game_state_.push(new PauseMenu(screen_,
+                                               Resources::instance()["menu_background"],
                                                glm::vec2((util::SCREEN_WIDTH / 2) - (Resources::instance()["menu_background"]->w / 2),
                                                          (util::SCREEN_HEIGHT / 2) - (Resources::instance()["menu_background"]->h / 2))));
                 break;

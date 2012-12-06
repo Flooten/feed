@@ -54,6 +54,13 @@ namespace feed
                 menu_.handleMouseMotionEvent(event.motion);
                 break;
 
+            case SDL_KEYDOWN:
+            {
+                if (event.key.keysym.sym == SDLK_ESCAPE)
+                    MessageQueue::instance().pushMessage({MessageQueue::Message::RESUME_GAME});
+                break;
+            }
+
             default:
                 break;
         }
