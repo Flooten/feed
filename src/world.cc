@@ -320,6 +320,9 @@ namespace feed
                     break;
                 }
             }
+            
+            if(!(onScreen(*it, player_)))
+                MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
         }
 
         ui_->update();

@@ -163,6 +163,11 @@ namespace feed
 
         // Audio
         Audio::instance().addMusic("menu_music", "data/sound/feed01.ogg");
+
+        // Effects
+        Audio::instance().addSoundFx("click", "data/sound/click.wav");
+        Audio::instance().addSoundFx("pistol_fire", "data/sound/mp5-1.wav");
+
     }
 
     void Game::loadWorldList()

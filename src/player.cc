@@ -10,6 +10,8 @@
 #include "player.h"
 #include "messagequeue.h"
 #include "resources.h"
+#include "audio.h"
+#include <iostream>
 
 namespace feed
 {
@@ -68,6 +70,9 @@ namespace feed
 
         if (weapon != nullptr)
         {
+            if(weapon->get_clip() == 0)
+                Audio::instance().playSoundFx("click");
+
             if (weapon->isReady())
             {
                 MessageQueue::instance().pushMessage({MessageQueue::Message::FIRE, weapon->get_type(), this});
