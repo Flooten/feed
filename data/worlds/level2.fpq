@@ -252,7 +252,7 @@ music original-score data/sound/feed01.ogg
 7550 -500 50 50 0 0 0 -1 sq
 7600 -500 50 50 0 0 0 -1 sq
 
-7600 -900 50 50 0 0 0 -1sq
+7600 -900 50 50 0 0 0 -1 sq
 7600 -550 50 50 0 0 0 -1 sq
 7650 -600 100 50 50 0 0 -1 2h 7650 -600 7800 -600
 8150 -600 100 50 50 0 0 -1 2h 8000 -600 8150 -600
@@ -498,6 +498,8 @@ checkpoint 9500 -550 50 50 0 checkpoint
 
 checkpoint 12050 -50 50 50 0 checkpoint
 
+surprise 12100 -200 50 200 0 invisible
+
 [enemy]
 // type, pos x, pos y, boundrystart x, start y, end x ,end y 
 grunt 1000 100 900 0 1300 0
@@ -517,5 +519,5 @@ heavy 9250 -200
 heavy 9550 -200
 
 [player]
-400 200 0 0 100 0
+12000 -200 0 0 100 0
 

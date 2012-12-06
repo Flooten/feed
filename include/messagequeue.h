@@ -47,6 +47,7 @@ namespace feed
                 EFFECT_DEAD,
                 INTOBJECT_DEAD,
                 ENVOBJECT_DEAD,
+                CREATE_ENVOBJECT,
                 DEAD
             };
 
