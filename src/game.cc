@@ -254,9 +254,7 @@ namespace feed
                 loadWorld();
 
                 if (World* ptr = dynamic_cast<World*>(game_state_.top()))
-                {
                     ptr->loadGameState(in);
-                }
 
                 in.close();
 
@@ -269,7 +267,8 @@ namespace feed
 
             case MessageQueue::Message::PAUSE_GAME:
             {
-                game_state_.push(new PauseMenu(screen_, Resources::instance()["menu_background"],
+                game_state_.push(new PauseMenu(screen_,
+                                               Resources::instance()["menu_background"],
                                                glm::vec2((util::SCREEN_WIDTH / 2) - (Resources::instance()["menu_background"]->w / 2),
                                                          (util::SCREEN_HEIGHT / 2) - (Resources::instance()["menu_background"]->h / 2))));
                 break;
