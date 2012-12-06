@@ -514,6 +514,7 @@ namespace feed
                         spawnBlood(msg.sender->get_position());
                         delete msg.sender;
                         enemy_list_.erase(it);
+                        Audio::instance().playSoundFx("enemy_dead");
                         break;
                     }
                 }

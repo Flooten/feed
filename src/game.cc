@@ -167,7 +167,9 @@ namespace feed
 
         // Effects
         Audio::instance().addSoundFx("click", "data/sound/click.wav");
-        Audio::instance().addSoundFx("pistol_fire", "data/sound/mp5-1.wav");
+      //  Audio::instance().addSoundFx("pistol_fire", "data/sound/mp5-1.wav");
+        Audio::instance().addSoundFx("enemy_dead", "data/sound/enemy_death.wav");
+
 
     }
 
