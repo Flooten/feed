@@ -107,7 +107,7 @@ namespace feed
     {
         // Temp
         Resources::instance().addImage("screen_bg", "data/piratesandfaggots.jpg");
-        Resources::instance().addImage("sky_bg", "data/skycloud.jpg");
+        Resources::instance().addImage("sky_bg", "data/desert.png");
         Resources::instance().addImage("menu_bg", "data/duke.bmp");
         Resources::instance().addImage("fire", "data/gfx/fire.png");
         Resources::instance().addImage("fireball", "data/gfx/fireball.png");
