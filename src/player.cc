@@ -10,7 +10,6 @@
 #include "player.h"
 #include "messagequeue.h"
 #include "resources.h"
-#include <iostream>
 
 namespace feed
 {
@@ -49,7 +48,6 @@ namespace feed
 
     void Player::addWeapon(Weapon::Type weapon_type, int ammo)
     {
-        std::cout << "Lägger till ett vapen med " << ammo << " kulor!" << std::endl;
         inventory_.add(weapon_type, ammo);
     }
 
