@@ -777,7 +777,7 @@ namespace feed
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
         else if (type == "spikes")
             intobject_list_.push_back(new Spikes(pos, size, Resources::instance()[image], val));
-        else if (type == "fire-spikes")
+        else if (type == "fire")
         {
             intobject_list_.push_back(new Spikes(pos, size, Resources::instance()[image], val));
             intobject_list_.back()->setAnimated(1, 6);
