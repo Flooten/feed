@@ -161,7 +161,7 @@ namespace feed
         // Rensa screen
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
-        util::blitSurface(Resources::instance()["sky_bg"], screen, 0, 0);
+        util::blitSurface(Resources::instance()["bg"], screen, 0, 0);
 
         for (auto envobject : envobject_list_)
             envobject->draw(screen, player_->get_position());
