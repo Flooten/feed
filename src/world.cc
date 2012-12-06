@@ -406,7 +406,7 @@ namespace feed
                             break;
 
                     case SDLK_c:
-                        {
+                    {
                         int mouse_position_x;
                         int mouse_posttion_y;
                         Uint8 mousestate = SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
@@ -415,9 +415,8 @@ namespace feed
                         tmp = util::screenToWorld(tmp, player_->get_position());
                         
                         std::cout << "x: " << tmp.x << " y: " << tmp.y << std::endl;
-                        }
                         break;
-
+                    }
 
                     case SDLK_p:
                     {
@@ -429,11 +428,11 @@ namespace feed
                     }
 
                     case SDLK_UP:
-                        player_->set_inventory_index(player_->get_inventory_index() + 1);
+                        player_->incrementInventory();
                         break;
 
                     case SDLK_DOWN:
-                        player_->set_inventory_index(player_->get_inventory_index() - 1);
+                        player_->decrementInventory();
                         break;
 
                     case SDLK_r:
@@ -449,10 +448,10 @@ namespace feed
             case SDL_MOUSEBUTTONDOWN:
             {
                 if (event.button.button == SDL_BUTTON_WHEELUP)
-                    player_->set_inventory_index(player_->get_inventory_index() + 1);
+                    player_->incrementInventory();
 
                 if (event.button.button == SDL_BUTTON_WHEELDOWN)
-                    player_->set_inventory_index(player_->get_inventory_index() - 1);
+                    player_->decrementInventory();
 
                 break;
             }
@@ -595,18 +594,7 @@ namespace feed
             << player_->get_velocity().x << " " << player_->get_velocity().y  << " "
             << player_->get_health()  << " " << player_->get_armor() << "\n";
 
-        // Sparar env objects 
-        // out << "[environment_object]\n";
-        
-        // for(auto envobject : envobject_list_)
-        // {
-        //     out << envobject->get_position().x << " " << envobject->get_position().y << " " 
-        //         << envobject->get_size().x << " " << envobject->get_size().y << " " 
-        //         << envobject->get_velocity().x << " " << envobject->get_velocity().y << " "
-        //         << envobject->get_health() << " " << envobject->get_max_health << " " 
-        //         << envobject->get_boundary_start().x << " " << envobject->get_boundary_start().y << " "
-        //         << envobject->get_boundary_end().x << " " << envobject->get_boundary_end().y << "\n"
-        // }
+        //out << "[inventory]\n";
     }
 
     void World::loadGameState(std::ifstream& in)
@@ -617,12 +605,9 @@ namespace feed
         std::string line;
         in >> line;
 
+        // Ladda in spelaren
         if (line != "[player]")
             return;
-
-        //std::cout << "hejhej" << std::endl;
-        //delete player_;
-        //std::cout << "hejhej" << std::endl;
 
         in >> line;
         loadPlayer(line);
@@ -646,6 +631,14 @@ namespace feed
             projectile_list_.push_back(projectile);
         }
     }
+
+    //
+    // Alla inladdningsfunktioner tar en sträng (motsvarande en rad i fpq-filen)
+    // och lägger in den i motsvarande resurslista.
+    // Bilder som fattas är inte nödvändigtvis fel, dvs ingen åtgärd tas för bilder som
+    // saknas, varken vid inladdning av bild eller ihopkoppling mellan objekt och bild.
+    // Se till att kolla bilden mot nullptr innan användning i alla fall.
+    //
 
     void World::loadImage(const std::string& str)
     {
