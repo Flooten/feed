@@ -293,7 +293,7 @@ namespace feed
 
             if (isIntersecting(*it, player_))
             {
-                player_->addHealth(-(*it)->get_damage());
+                player_->addArmor(-(*it)->get_damage());
                 MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
                 found = true;
             }
@@ -318,7 +318,7 @@ namespace feed
             {
                 if (isIntersecting(*it, enemy))
                 {
-                    enemy->addHealth(-(*it)->get_damage());
+                    enemy->addArmor(-(*it)->get_damage());
                     enemy->set_hit(true);
                     MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
                     found = true;
@@ -526,10 +526,12 @@ namespace feed
             }
 
             case MessageQueue::Message::ADD_HEALTH:
-            {
                 player_->addHealth(msg.value);
                 break;
-            }
+
+            case MessageQueue::Message::ADD_ARMOR:
+                player_->addArmor(msg.value);
+                break;
 
             case MessageQueue::Message::ADD_WEAPON:
             {
