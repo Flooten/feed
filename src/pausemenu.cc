@@ -17,8 +17,9 @@ namespace feed
     /*
      *  Public
      */
-    PauseMenu::PauseMenu(SDL_Surface* background, const glm::vec2& position)
-        : menu_(background, position)
+    PauseMenu::PauseMenu(SDL_Surface* background, SDL_Surface* menu_bg, const glm::vec2& position)
+        : background_(SDL_ConvertSurface(background, background->format, SDL_SWSURFACE))
+        , menu_(menu_bg, position)
     {
         // Lägg till knappar här
         menu_.addButton(new Button(Resources::instance().getImage("button_resume_game"), Button::RESUME_GAME));
@@ -26,10 +27,18 @@ namespace feed
         menu_.addButton(new Button(Resources::instance().getImage("button_exit_to_main_menu"), Button::EXIT_TO_MAIN_MENU));
     }
 
+    PauseMenu::~PauseMenu()
+    {
+        SDL_FreeSurface(background_);
+    }
+
     void PauseMenu::draw(SDL_Surface* screen)
     {
-        util::blitSurface(Resources::instance()["current_screen"], screen, 0, 0);
-        menu_.draw(screen);
+        if (background_ != nullptr && screen != nullptr)
+        {
+            util::blitSurface(background_, screen, 0, 0);
+            menu_.draw(screen);
+        }
     }
 
     void PauseMenu::handleSDLEvent(const SDL_Event& event)

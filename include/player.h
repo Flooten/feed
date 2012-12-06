@@ -46,10 +46,12 @@ namespace feed
         void addHealth(int value);
         bool godMode();
         void set_god_mode(bool val);
-
+        void incrementInventory();
+        void decrementInventory();
 
     private:
         void isDead() override final;
+        void updateTorso();
 
         unsigned int inventory_index_ = 0;
         Inventory inventory_;
