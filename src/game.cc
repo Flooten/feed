@@ -107,9 +107,7 @@ namespace feed
     {
         // Temp
         Resources::instance().addImage("screen_bg", "data/piratesandfaggots.jpg");
-        Resources::instance().addImage("sky_bg", "data/skycloud.jpg");
         Resources::instance().addImage("menu_bg", "data/duke.bmp");
-        Resources::instance().addImage("fire", "data/gfx/fire.png");
         Resources::instance().addImage("fireball", "data/gfx/fireball.png");
         Resources::instance().addImage("dot", "data/gfx/dot.png");
 
@@ -124,6 +122,9 @@ namespace feed
         Resources::instance().addImage("4v", "data/gfx/4v.png");
         Resources::instance().addImage("5h", "data/gfx/5h.png");
         Resources::instance().addImage("5v", "data/gfx/5v.png");
+        Resources::instance().addImage("fu", "data/gfx/fire-up.png");
+        Resources::instance().addImage("fd", "data/gfx/fire-down.png");
+        Resources::instance().addImage("bg", "data/gfx/desert.png");
 
         // Common
         Resources::instance().addImage("legs", "data/gfx/legs.png");
@@ -166,7 +167,9 @@ namespace feed
 
         // Effects
         Audio::instance().addSoundFx("click", "data/sound/click.wav");
-        Audio::instance().addSoundFx("pistol_fire", "data/sound/mp5-1.wav");
+      //  Audio::instance().addSoundFx("pistol_fire", "data/sound/mp5-1.wav");
+        Audio::instance().addSoundFx("enemy_dead", "data/sound/enemy_death.wav");
+
 
     }
 

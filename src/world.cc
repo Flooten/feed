@@ -161,7 +161,7 @@ namespace feed
         // Rensa screen
         SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
 
-        util::blitSurface(Resources::instance()["sky_bg"], screen, 0, 0);
+        util::blitSurface(Resources::instance()["bg"], screen, 0, 0);
 
         for (auto envobject : envobject_list_)
             envobject->draw(screen, player_->get_position());
@@ -514,6 +514,7 @@ namespace feed
                         spawnBlood(msg.sender->get_position());
                         delete msg.sender;
                         enemy_list_.erase(it);
+                        Audio::instance().playSoundFx("enemy_dead");
                         break;
                     }
                 }
@@ -803,7 +804,7 @@ namespace feed
             intobject_list_.push_back(new Checkpoint(pos, size, Resources::instance()[image]));
         else if (type == "spikes")
             intobject_list_.push_back(new Spikes(pos, size, Resources::instance()[image], val));
-        else if (type == "fire-spikes")
+        else if (type == "fire")
         {
             intobject_list_.push_back(new Spikes(pos, size, Resources::instance()[image], val));
             intobject_list_.back()->setAnimated(1, 6);
