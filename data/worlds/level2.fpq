@@ -1,16 +1,16 @@
 // Level 2
 
 [images]
-sw               data/gfx/wall2sw.png
-se               data/gfx/wall2se.png
-ne               data/gfx/wall2ne.png
-nw               data/gfx/wall2nw.png
-sq               data/gfx/square.png
+//sw               data/gfx/wall2sw.png
+//se               data/gfx/wall2se.png
+//ne               data/gfx/wall2ne.png
+//nw               data/gfx/wall2nw.png
+//sq               data/gfx/square.png
 
 //weapon_container bild på vapen 50X50
 armor_container   data/gfx/armor.png
 health_container  data/gfx/red_cross_health.png
-checkpoint        data/gfx/lightbulb.png
+//checkpoint        data/gfx/lightbulb.png
 player            data/gfx/icon.png
 
 [audio]

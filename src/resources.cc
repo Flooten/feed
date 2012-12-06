@@ -30,15 +30,15 @@ namespace feed
 
     bool Resources::addImage(const std::string& key, const std::string& filename)
     {
-        if (!imageExist(key))
-        {
-            SDL_Surface* image = util::loadImage(filename);
+        if (imageExist(key))
+            removeImage(key);
 
-            if (image == nullptr)
-                return false;
+        SDL_Surface* image = util::loadImage(filename);
 
-            resources_.insert(std::make_pair(key, image));
-        }
+        if (image == nullptr)
+            return false;
+
+        resources_.insert(std::make_pair(key, image));
 
         return true;
     }

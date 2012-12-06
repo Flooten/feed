@@ -69,8 +69,7 @@ namespace feed
             }
             else
             {
-                if (std::abs(diff.x) < 50.0f)
-                    return;
+                std::cout << diff.y << std::endl;
 
                 if (diff.x <= 0.0f)
                 {
