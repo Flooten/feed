@@ -106,8 +106,6 @@ namespace feed
     void Game::loadResources()
     {
         // Temp
-        Resources::instance().addImage("screen_bg", "data/piratesandfaggots.jpg");
-        Resources::instance().addImage("menu_bg", "data/duke.bmp");
         Resources::instance().addImage("fireball", "data/gfx/fireball.png");
         Resources::instance().addImage("dot", "data/gfx/dot.png");
 
@@ -156,6 +154,7 @@ namespace feed
         Resources::instance().addImage("button_load_game", "data/gfx/button_load_game.png");
         Resources::instance().addImage("button_quit_game", "data/gfx/button_quit_game.png");
         Resources::instance().addImage("button_credits", "data/gfx/button_credits.png");
+        Resources::instance().addImage("screen_bg", "data/gfx/menu.png");
 
         // UI bilder
         Resources::instance().addImage("ui_meny", "data/gfx/ui.png");
@@ -176,12 +175,12 @@ namespace feed
     void Game::loadWorldList()
     {
         //world_list_.push_back("data/worlds/level1.fpq");
-        world_list_.push_back("data/worlds/level2.fpq");
+        world_list_.push_back("data/worlds/level_test.fpq");
     }
 
     void Game::loadMenu()
     {
-        game_state_.push(new MainMenu(Resources::instance().getImage("menu_background"),
+        game_state_.push(new MainMenu(Resources::instance()["menu_background"],
                                       glm::vec2((util::SCREEN_WIDTH / 2) - (Resources::instance()["menu_background"]->w / 2),
                                                 (util::SCREEN_HEIGHT / 2) - (Resources::instance()["menu_background"]->h / 2))));
 

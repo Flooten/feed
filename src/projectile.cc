@@ -90,8 +90,6 @@ namespace feed
             offset_angle = -40 * util::DEG_TO_RAD;
         }
 
-        std::cout << "Radius: " << radius << std::endl;
-
         if (shooter->getFacing() == 0)
         {
             // Höger

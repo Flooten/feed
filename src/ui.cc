@@ -29,6 +29,9 @@ namespace feed
 
     void Ui::update()
     {
+        if (player_ == nullptr)
+            return;
+
         health_bar_size_.x = player_->get_health();
         armor_bar_size_.x = player_->get_armor();
         clip_size_ = player_->get_current_weapon()->get_clip();
@@ -52,6 +55,9 @@ namespace feed
 
     void Ui::draw(SDL_Surface* screen)
     {
+        if (player_ == nullptr)
+            return;
+
         if (ui_image_ != nullptr)
             util::blitSurface(ui_image_, ui_size_, screen, ui_pos_);
 

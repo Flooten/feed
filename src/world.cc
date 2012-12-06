@@ -591,9 +591,34 @@ namespace feed
         out << "[player]\n";
         out << player_->get_position().x << " " << player_->get_position().y  << " "
             << player_->get_velocity().x << " " << player_->get_velocity().y  << " "
-            << player_->get_health()  << " " << player_->get_armor() << "\n";
+            << player_->get_health() << " " << player_->get_armor() << "\n";
 
         out << "[inventory]\n";
+
+        unsigned int num_weapons = player_->get_inventory()->get_size();
+        for (unsigned int i = 1; i < num_weapons; ++i)
+        {
+            std::string type;
+            const Weapon* current_weapon = player_->get_inventory()->get_item(i);
+
+            switch (current_weapon->get_type())
+            {
+                case Weapon::SMG:
+                    type = "smg";
+                    break;
+
+                case Weapon::SHOTGUN:
+                    type = "shotgun";
+                    break;
+
+                default:
+                    break;
+            }
+
+            out << type << " "
+                << current_weapon->get_clip() << " "
+                << current_weapon->get_ammo() << "\n";
+        }
     }
 
     void World::loadGameState(std::ifstream& in)
