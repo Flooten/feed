@@ -167,8 +167,9 @@ namespace feed
 
         // Effects
         Audio::instance().addSoundFx("click", "data/sound/click.wav");
-      //  Audio::instance().addSoundFx("pistol_fire", "data/sound/mp5-1.wav");
+        Audio::instance().addSoundFx("pistol_fire", "data/sound/mp5-1.wav");
         Audio::instance().addSoundFx("enemy_dead", "data/sound/enemy_death.wav");
+        Audio::instance().addSoundFx("checkpoint", "data/sound/checkpoint.mp3");
 
 
     }
@@ -223,6 +224,8 @@ namespace feed
 
             case MessageQueue::Message::CHECKPOINT:
             {
+                Audio::instance().playSoundFx("checkpoint");
+
                 if (World* ptr = dynamic_cast<World*>(game_state_.top()))
                 {
                     std::ofstream out(SAVE_FILE);
@@ -235,6 +238,8 @@ namespace feed
 
                     ptr->saveGameState(out);
                     out.close();
+
+                    Audio::instance().playSoundFx("checkpoint");
                 }
                 break;
             }
