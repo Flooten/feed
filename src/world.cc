@@ -589,9 +589,9 @@ namespace feed
 
         // Spara undan spelarens tillstånd
         out << "[player]\n";
-        out << player_->get_position().x + 100 << " " << player_->get_position().y  << " "
+        out << player_->get_position().x << " " << player_->get_position().y  << " "
             << player_->get_velocity().x << " " << player_->get_velocity().y  << " "
-            << player_->get_health()  << " " << player_->get_armor() << "\n";
+            << player_->get_health() << " " << player_->get_armor() << "\n";
 
         out << "[inventory]\n";
 
