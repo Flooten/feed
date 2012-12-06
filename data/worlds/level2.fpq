@@ -367,7 +367,23 @@ smg 5900 400 50 50 80 weapon-smg
 
 checkpoint 6100 400 50 50 0 checkpoint
 
-fire 7650 -550 50 50 100 fire
+fire 7650 -550 47 79 100 fu
+fire 7697 -550 47 79 100 fu
+fire 7744 -550 47 79 100 fu
+fire 7791 -550 47 79 100 fu
+fire 7838 -550 47 79 100 fu
+fire 7885 -550 47 79 100 fu
+fire 7932 -550 47 79 100 fu
+fire 7979 -550 47 79 100 fu
+fire 8026 -550 47 79 100 fu
+fire 8073 -550 47 79 100 fu
+fire 8120 -550 47 79 100 fu
+fire 8167 -550 47 79 100 fu
+fire 8214 -550 47 79 100 fu
+fire 8261 -550 47 79 100 fu
+fire 8308 -550 47 79 100 fu
+
+checkpoint 9500 -550 50 50 0 checkpoint
 
 //armor 300 100 50 50 50 armor_container
 //checkpoint 400 100 25 25 0 checkpoint
