@@ -42,6 +42,7 @@ namespace feed
         {
             velocity_.x = abs(velocity.x) * glm::normalize(boundary_end - boundary_start).x;
             walking = true;
+            facing_right = true;
         }   
     }
 

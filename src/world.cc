@@ -405,6 +405,20 @@ namespace feed
                             player_->set_god_mode(!player_->godMode());
                             break;
 
+                    case SDLK_c:
+                        {
+                        int mouse_position_x;
+                        int mouse_posttion_y;
+                        Uint8 mousestate = SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
+
+                        glm::vec2 tmp = glm::vec2(mouse_position_x, mouse_position_y);
+                        tmp = util::screenToWorld(tmp, player_->get_position());
+                        
+                        std::cout << "x: " << tmp.x << " y: " << tmp.y << std::endl;
+                        }
+                        break;
+
+
                     case SDLK_p:
                     {
                         glm::vec2 pos = util::screenToWorld(glm::vec2(mouse_position_x, mouse_position_y), player_->get_position());
