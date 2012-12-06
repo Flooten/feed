@@ -10,6 +10,7 @@ namespace feed
     {
         // Avstånd i pixlar som man studsar bort från saker vid kollision
         const int BOUNCE_DISTANCE = 1000;
+        const float FALL_DAMAGE = 0.01f;
     }
 
     // Returnerar sant om två objekt korsar varandra
@@ -59,6 +60,10 @@ namespace feed
                 {
                     new_pos.y = obj2->get_position().y - offset1.y - obj1->get_size().y;
                     obj1->set_jumping(false);
+
+                    // fallskada
+                    // int damage = obj1->get_velocity().y * FALL_DAMAGE;
+                    // obj1->addHealth(-damage);
                 }
                 else
                 {
