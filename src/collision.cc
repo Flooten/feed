@@ -16,6 +16,9 @@ namespace feed
     // Returnerar sant om två objekt korsar varandra
     bool isIntersecting(const Object* obj1, const Object* obj2)
     {
+        if (obj1 == nullptr || obj2 == nullptr)
+            return false;
+
         glm::vec2 offset1 = obj1->get_collision_offset();
         glm::vec2 offset2 = obj2->get_collision_offset();
 
@@ -32,6 +35,9 @@ namespace feed
     // mini-optimering för att slippa räkna ut diff två gånger i handleCollision
     bool isIntersecting(const Object* obj1, const Object* obj2, const glm::vec2& diff)
     {
+        if (obj1 == nullptr || obj2 == nullptr)
+            return false;
+
         return (diff.x < (obj1->get_size().x / 2 + obj2->get_size().x / 2) &&
                 diff.y < (obj1->get_size().y / 2 + obj2->get_size().y / 2));
     }
@@ -40,6 +46,9 @@ namespace feed
     // obj1 förflyttas vid kollisionen
     void handleCollision(Character* obj1, Object* obj2)
     {
+        if (obj1 == nullptr || obj2 == nullptr)
+            return;
+
         // används för att beräkna objektets "egentliga" position
         glm::vec2 offset1 = obj1->get_collision_offset();
         glm::vec2 offset2 = obj2->get_collision_offset();
