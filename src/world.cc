@@ -594,6 +594,17 @@ namespace feed
                 break;
             }
 
+            case MessageQueue::Message::SPAWN_ADDS_PHASE_TWO:
+                enemy_list_.push_back(Enemy::createGrunt(glm::vec2(12350, -400)));
+                enemy_list_.push_back(Enemy::createGrunt(glm::vec2(12700, -400)));
+                enemy_list_.push_back(Enemy::createGrunt(glm::vec2(13050, -400)));
+                break;
+
+            case MessageQueue::Message::SPAWN_ADDS_PHASE_THREE:
+                enemy_list_.push_back(Enemy::createHeavy(glm::vec2(12500, -600)));
+                enemy_list_.push_back(Enemy::createHeavy(glm::vec2(12900, -600)));
+                break;
+
             default:
                 break;
         }

@@ -56,8 +56,6 @@ namespace feed
             return;
 
         inventory_index_ = index;
-
-        updateTorso();
     }
 
 
@@ -84,24 +82,5 @@ namespace feed
             weapon->update(delta_time);
 
         Character::update(delta_time);
-    }
-
-
-    void Boss::updateTorso()
-    {
-        switch(get_current_weapon()->get_type())
-        {
-            case Weapon::PISTOL:
-                setTopImage(Resources::instance()["player-torso-pistol"], 2, 37);
-                break;
-
-            case Weapon::SHOTGUN:
-                setTopImage(Resources::instance()["player-torso-shotgun"], 2, 37);
-                break;
-
-            case Weapon::SMG:
-                setTopImage(Resources::instance()["player-torso-smg"], 2, 37);
-                break;
-        }
     }
 }
