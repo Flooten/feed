@@ -27,8 +27,10 @@ namespace feed
                     hitpoints,
                     armor,
                     hitpoints,
-                    armor)    
-        {}
+                    armor)
+        , boundary_start_(boundary_start)
+        , boundary_end_(boundary_end)
+    {}
 
     unsigned int Boss::get_inventory_index() const
     {
