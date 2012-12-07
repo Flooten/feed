@@ -20,6 +20,7 @@
 #include "interactableobject.h"
 #include "environmentobject.h"
 #include "player.h"
+#include "boss.h"
 #include "effect.h"
 #include "ui.h"
 
@@ -56,12 +57,15 @@ namespace feed
         void loadPlayer(const std::string& str);
         void loadEnvironmentObject(const std::string& str);
         void loadInteractableObject(const std::string& str);
+        void loadBoss(const std::string& str);
+
         void checkKeyState();
 
         glm::vec2 playerOrigin() const;   // Returnerar spelarens mittpunkt
         void spawnBlood(const glm::vec2& position);
 
         Player* player_ = nullptr;
+        Boss* boss_ = nullptr;
         Ui* ui_ = nullptr;
 
         std::vector<Projectile*> projectile_list_;

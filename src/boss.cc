@@ -8,6 +8,7 @@
 
 #include "boss.h"
 #include "messagequeue.h"
+#include "resources.cc"
 
 namespace feed
 {
@@ -16,30 +17,47 @@ namespace feed
                const glm::vec2& velocity,
                SDL_Surface* image,
                int hitpoints,
-               int armor,
-               int max_health,
-               int max_armor,
-               Inventory& inventory)
+               int armor)
         : Character(position,
                     size,
                     velocity,
                     image,
                     hitpoints,
                     armor,
-                    max_health,
-                    max_armor)
-        , inventory_(inventory)
-    {}
+                    hitpoints,
+                    armor)    
+        {}
 
-    int Boss::get_inventory_index() const
+    unsigned int Boss::get_inventory_index() const
     {
         return inventory_index_;
     }
 
-    void Boss::set_inventory_index(int index)
+    Inventory* Boss::get_inventory()
     {
-        inventory_index_ = index;
+        return &inventory_;
     }
+
+    Weapon* Boss::get_current_weapon()
+    {
+        return inventory_.get_item(inventory_index_);
+    }
+
+    void Boss::addWeapon(Weapon::Type weapon_type, int ammo)
+    {
+        inventory_.add(weapon_type, ammo);
+    }
+
+    void Boss::set_inventory_index(unsigned int index)
+    {
+        if (index >= inventory_.get_size())
+            return;
+
+        inventory_index_ = index;
+
+        updateTorso();
+    }
+
 
     void Boss::fire()
     {
@@ -64,5 +82,24 @@ namespace feed
             weapon->update(delta_time);
 
         Character::update(delta_time);
+    }
+
+
+    void Boss::updateTorso()
+    {
+        switch(get_current_weapon()->get_type())
+        {
+            case Weapon::PISTOL:
+                setTopImage(Resources::instance()["player-torso-pistol"], 2, 37);
+                break;
+
+            case Weapon::SHOTGUN:
+                setTopImage(Resources::instance()["player-torso-shotgun"], 2, 37);
+                break;
+
+            case Weapon::SMG:
+                setTopImage(Resources::instance()["player-torso-smg"], 2, 37);
+                break;
+        }
     }
 }
