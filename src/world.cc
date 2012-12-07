@@ -21,7 +21,7 @@
 #include "checkpoint.h"
 #include "collision.h"
 #include "ai.h"
-#include "firstboss.h"
+//#include "firstboss.h"
 
 #include <iostream>
 #include <sstream>
@@ -887,12 +887,10 @@ namespace feed
         if(type == "firstboss")
         {
 
-            boss_ = new FirstBoss(position, size, velocity, Resources::instance()[image], hitpoints, armor);
-            boss_->setAnimated(4, 8);
-            boss_->setTopImage(Resources::instance()["player-torso-pistol"], 2, 37);
-            boss_->addWeapon(Weapon::PISTOL);
-
-
+            // boss_ = new FirstBoss(position, size, velocity, Resources::instance()[image], hitpoints, armor);
+            // boss_->setAnimated(4, 8);
+            // boss_->setTopImage(Resources::instance()["player-torso-pistol"], 2, 37);
+            // boss_->addWeapon(Weapon::PISTOL)
 
         }
 

@@ -8,7 +8,7 @@
 
 #include "boss.h"
 #include "messagequeue.h"
-#include "resources.cc"
+#include "resources.h"
 
 namespace feed
 {

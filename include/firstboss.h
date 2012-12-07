@@ -29,7 +29,7 @@ namespace feed
                   int armor);
   
         void update(float delta_time) override;
-        void isDead();
+        //void isDead(){};
 
 
 
