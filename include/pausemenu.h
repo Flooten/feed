@@ -25,7 +25,7 @@ namespace feed
         ~PauseMenu();
 
         void draw(SDL_Surface* screen) override final;
-        void update(float delta_time) {}
+        void update(float) {}
         void handleSDLEvent(const SDL_Event& event);
         void handleMessage(const MessageQueue::Message& msg);
 

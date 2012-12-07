@@ -35,11 +35,6 @@ namespace feed
         main_.draw(screen);
     }
 
-    void MainMenu::update(float delta_time)
-    {
-
-    }
-
     void MainMenu::handleSDLEvent(const SDL_Event& event)
     {
         switch (event.type)
