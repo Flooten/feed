@@ -23,6 +23,11 @@ namespace feed
         return instance_;
     }
 
+    bool Resources::init()
+    {
+        return !(TTF_Init() == -1);
+    }
+
     void Resources::clear()
     {
         for (auto& r : resources_)
@@ -30,6 +35,8 @@ namespace feed
 
         for (auto& f : fonts_)
             TTF_CloseFont(f.second);
+
+        TTF_Quit();
     }
 
     bool Resources::addImage(const std::string& key, const std::string& filename)

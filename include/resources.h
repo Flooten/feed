@@ -25,6 +25,7 @@ namespace feed
     public:
         static Resources& instance();
 
+        bool init();
         void clear();
 
         bool addImage(const std::string& key, const std::string& filename);

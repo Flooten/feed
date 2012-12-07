@@ -48,7 +48,6 @@ namespace feed
 
         Audio::instance().clear();
         Resources::instance().clear();
-        TTF_Quit();
         SDL_Quit();
     }
 
@@ -99,7 +98,7 @@ namespace feed
         screen_ = SDL_SetVideoMode(util::SCREEN_WIDTH, util::SCREEN_HEIGHT, 32, SDL_SWSURFACE);
 
         Audio::instance().init();
-        TTF_Init();
+        Resources::instance().init();
         SDL_FreeSurface(icon);
     }
 
