@@ -26,7 +26,9 @@ namespace feed
                   const glm::vec2& velocity,
                   SDL_Surface* image,
                   int hitpoints,
-                  int armor);
+                  int armor,
+                  const glm::vec2& boundary_start  = glm::vec2(0,0),
+                  const glm::vec2& boundary_end = glm::vec2(0,0));
   
         void update(float delta_time) override;
 

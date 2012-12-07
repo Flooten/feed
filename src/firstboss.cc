@@ -16,13 +16,17 @@ namespace feed
                const glm::vec2& velocity,
                SDL_Surface* image,
                int hitpoints,
-               int armor)
+               int armor,
+               const glm::vec2& boundary_start,
+               const glm::vec2& boundary_end)
         : Boss(position,
                     size,
                     velocity,
                     image,
                     hitpoints,
-                    armor)
+                    armor,
+                    boundary_start,
+                    boundary_end)
     {}
 
 

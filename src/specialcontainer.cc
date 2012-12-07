@@ -19,6 +19,6 @@ namespace feed
     
     void SpecialContainer::eventFunction()
     {
-        MessageQueue::instance().pushMessage({MessageQueue::Message::CREATE_ENVOBJECT, 0, this});
+        MessageQueue::instance().pushMessage({MessageQueue::Message::SPAWN_WALL, 0, this});
     }
 }

@@ -116,6 +116,13 @@ namespace feed
             Character::addHealth(value);
     }
 
+    void Player::addArmor(int value)
+    {
+        if(!god_mode_)
+            Character::addArmor(value);
+    }
+
+
     void Player::incrementInventory()
     {
         ++inventory_index_;

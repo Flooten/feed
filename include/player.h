@@ -44,6 +44,8 @@ namespace feed
         void update(float delta_time) override;
 
         void addHealth(int value);
+        void addArmor(int value);
+
         bool godMode();
         void set_god_mode(bool val);
         void incrementInventory();
