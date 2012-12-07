@@ -29,9 +29,13 @@ namespace feed
                     boundary_end)
     {}
 
-
     void FirstBoss::update(float delta_time)
     {
+        if (hitpoints_ > 2 * max_health_ / 3)
+        {
+
+        }
+
         Boss::update(delta_time);
     }
 
