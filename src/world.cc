@@ -878,13 +878,13 @@ namespace feed
         glm::vec2 boundary_end;
 
         ss >> type >> position.x >> position.y
-           >> image
+           >> size.x >> size.y
            >> boundary_start.x >> boundary_start.y
            >> boundary_end.x >> boundary_end.y;
 
         if(type == "firstboss")
         {
-            boss_ = new FirstBoss(position, glm::vec2(150, 150), glm::vec2(0,0), Resources::instance()[image], 50, 250);
+            boss_ = new FirstBoss(position, size, velocity, Resources::instance()["firstboss"], 50, 250);
             boss_->setAnimated(4, 8);
             boss_->setTopImage(Resources::instance()["player-torso-pistol"], 2, 37);
             boss_->addWeapon(Weapon::PISTOL);
