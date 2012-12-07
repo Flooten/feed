@@ -35,7 +35,7 @@ namespace feed
         void set_inventory_index(int index);
         void fire();
 
-        void update(float delta_time) override;
+        virtual void update(float delta_time);
 
     private:
         Inventory inventory_;
