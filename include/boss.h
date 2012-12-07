@@ -26,12 +26,18 @@ namespace feed
              const glm::vec2& velocity,
              SDL_Surface* image,
              int hitpoints,
-             int armor, 
-             int max_health,
-             int max_armor,
-             Inventory& inventory);
+             int armor);
 
-        int get_inventory_index() const;
+
+        // Getters
+        unsigned int get_inventory_index() const;
+        Inventory* get_inventory();
+        Weapon* get_current_weapon(); 
+
+        // Setters
+        void set_inventory_index(unsigned int index);
+        void addWeapon(Weapon::Type weapon_type, int ammo = 0);
+
         void set_inventory_index(int index);
         void fire();
 
@@ -40,6 +46,9 @@ namespace feed
     private:
         Inventory inventory_;
         int inventory_index_;
+
+        void updateTorso();
+
     };
 }
 

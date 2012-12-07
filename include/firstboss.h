@@ -26,12 +26,12 @@ namespace feed
                   const glm::vec2& velocity,
                   SDL_Surface* image,
                   int hitpoints,
-                  int armor, 
-                  int max_health,
-                  int max_armor,
-                  Inventory& inventory);
+                  int armor);
   
         void update(float delta_time) override;
+        void isDead();
+
+
 
     private:
         Inventory inventory_;

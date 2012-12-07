@@ -21,6 +21,7 @@
 #include "checkpoint.h"
 #include "collision.h"
 #include "ai.h"
+#include "firstboss.h"
 
 #include <iostream>
 #include <sstream>
@@ -860,6 +861,45 @@ namespace feed
             intobject_list_.push_back(new WeaponContainer(pos, size, Weapon::SMG, val, Resources::instance()[image]));
         else if (type == "surprise")
             intobject_list_.push_back(new SpecialContainer(pos, size, Resources::instance()[image]));        
+    }
+
+    void World::loadBoss(const std::string& str) 
+    {
+        std::stringstream ss(str);
+        std::string type;
+        std::string image;
+        glm::vec2 position;
+        glm::vec2 velocity;
+        glm::vec2 size;
+        int hitpoints;
+        int armor;
+
+        glm::vec2 boundary_start;
+        glm::vec2 boundary_end;
+
+        ss >> type >> position.x >> position.y
+           >> size.x >> size.y
+           >> velocity.x >> velocity.y
+           >> image
+           >> boundary_start.x >> boundary_start.y
+           >> boundary_end.x >> boundary_end.y;
+
+        if(type == "firstboss")
+        {
+
+            boss_ = new FirstBoss(position, size, velocity, Resources::instance()[image], hitpoints, armor);
+            boss_->setAnimated(4, 8);
+            boss_->setTopImage(Resources::instance()["player-torso-pistol"], 2, 37);
+            boss_->addWeapon(Weapon::PISTOL);
+
+
+
+        }
+
+
+
+
+
     }
 
     void World::checkKeyState()

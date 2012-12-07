@@ -16,29 +16,18 @@ namespace feed
                const glm::vec2& velocity,
                SDL_Surface* image,
                int hitpoints,
-               int armor,
-               int max_health,
-               int max_armor,
-               Inventory& inventory)
+               int armor)
         : Boss(position,
                     size,
                     velocity,
                     image,
                     hitpoints,
-                    armor,
-                    max_health,
-                    max_armor,
-                    inventory)
+                    armor)
     {}
 
 
     void FirstBoss::update (float delta_time)
     {
-        Weapon* weapon = inventory_.get_item(inventory_index_);
-
-        if (weapon != nullptr)
-            weapon->update(delta_time);
-
-        Character::update(delta_time);
+        Boss::update(delta_time);
     }
 }
