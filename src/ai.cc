@@ -20,8 +20,7 @@ namespace feed
 {
     bool lineOfSight(const Enemy* enemy, const Player* player, const EnvironmentObject* env_object)
     {
-        glm::vec2 offset = player->get_collision_offset();
-        glm::vec2 point1 = player->get_position(); //+ offset;
+        glm::vec2 point1 = player->get_position();
         glm::vec2 point2 = env_object->get_position();
         glm::vec2 point3 = enemy->get_position() - player->get_position();// + offset;
         glm::vec2 point4 = env_object->get_size();
