@@ -505,6 +505,8 @@ fire 8261 -900 47 79 100 fd
 
 health 9400 -550 50 50 100 health-container
 
+armor 8550 -550 50 50 50 armor-container
+
 checkpoint 8650 -550 50 50 0 checkpoint
 
 health 10650 -250 50 50 100 health-container
