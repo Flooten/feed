@@ -48,6 +48,9 @@ namespace feed
                 INTOBJECT_DEAD,
                 ENVOBJECT_DEAD,
                 SPAWN_WALL,
+                SPAWN_ADDS_PHASE_TWO,
+                SPAWN_ADDS_PHASE_THREE,
+                FIRST_BOSS_DEAD,
                 DEAD
             };
 

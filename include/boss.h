@@ -45,14 +45,11 @@ namespace feed
 
         virtual void update(float delta_time);
 
-    private:
+    protected:
         Inventory inventory_;
         int inventory_index_;
         glm::vec2 boundary_start_;
         glm::vec2 boundary_end_;
-
-
-        void updateTorso();
 
     };
 }

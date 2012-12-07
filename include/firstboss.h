@@ -14,6 +14,7 @@
 #include <glm/glm.hpp>
 #include <SDL/SDL.h>
 #include "boss.h"
+#include <vector>
 
 
 namespace feed
@@ -36,8 +37,19 @@ namespace feed
         void isDead();
 
     private:
-        Inventory inventory_;
-        int inventory_index_;
+        enum Phase
+        {
+            PHASE_ONE,
+            PHASE_TWO,
+            PHASE_THREE
+        };
+
+        Phase phase_ = PHASE_ONE;
+        int aiming_constant_ = 15;
+        float last_updated_aim_ = 0;
+
+        bool spawned_grunts_ = false;
+        bool spawned_heavys_ = false;
     };
 }
 
