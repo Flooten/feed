@@ -2,7 +2,8 @@
  * FILNAMN:       ui.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
- * DATUM:         2012-11-29
+                  Marcus Eriksson   910322-1371     Y3A
+ * DATUM:         2012-12-07
  *
  * BESKRIVNING: 
  *
@@ -14,6 +15,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
 #include <glm/glm.hpp>
+#include "resources.h"
 
 namespace feed
 {
@@ -21,7 +23,6 @@ namespace feed
     {
     public:
         Ui(class Player* player, SDL_Surface* image, SDL_Surface* health_bar, SDL_Surface* armor_bar);
-        ~Ui();
 
         void update();
         void draw(SDL_Surface* screen);
@@ -53,8 +54,7 @@ namespace feed
         SDL_Surface* clip_text_ = nullptr;
         SDL_Surface* ammo_text_ = nullptr;
 
-        TTF_Font* font_ = nullptr;
-        SDL_Color text_color_ = {255, 85, 0, 0};//{255,215,0};
+        SDL_Color text_color_ = {255, 85, 0, 0};
     };
 }
 

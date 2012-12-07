@@ -108,7 +108,7 @@ namespace feed
         // Temp
         Resources::instance().addImage("fireball", "data/gfx/fireball.png");
         Resources::instance().addImage("dot", "data/gfx/dot.png");
-
+        Resources::instance().addFont("optimus", "data/font.ttf", 20);
 
         // Levelbilder
         Resources::instance().addImage("sq", "data/gfx/sq.png");
