@@ -30,7 +30,6 @@ namespace feed
                 return;
             }
 
-        Weapon* weapon = Weapon::createWeapon(weapon_type);
         inventory_list.push_back(Weapon::createWeapon(weapon_type));
         inventory_list.back()->addAmmo(ammo);
 	}

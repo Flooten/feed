@@ -282,7 +282,8 @@ namespace feed
             }
 
             else if(!enemy->isWalking())  
-                enemy->continueWalking();        }
+                enemy->continueWalking();
+        }
 
         for (auto it = projectile_list_.begin(); it != projectile_list_.end(); ++it)
         {
@@ -413,10 +414,6 @@ namespace feed
 
                     case SDLK_c:
                     {
-                        int mouse_position_x;
-                        int mouse_posttion_y;
-                        Uint8 mousestate = SDL_GetMouseState(&mouse_position_x, &mouse_posttion_y);
-
                         glm::vec2 tmp = glm::vec2(mouse_position_x, mouse_position_y);
                         tmp = util::screenToWorld(tmp, player_->get_position());
                         
@@ -564,8 +561,6 @@ namespace feed
 
             case MessageQueue::Message::ENVOBJECT_DEAD:
             {
-                std::cout << "Environment Object " << msg.sender << " is dead" << std::endl;
-
                 for (auto it = envobject_list_.begin(); it != envobject_list_.end(); ++it)
                 {
                     if (*it == msg.sender)
