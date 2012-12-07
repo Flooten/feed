@@ -251,17 +251,18 @@ namespace feed
                 }
 
                 std::ifstream in(SAVE_FILE);
+                std::string line;
 
                 if (!in.is_open())
                     break;
 
-                std::string line;
-                in >> line;
+                std::getline(in, line, '\n');
 
                 if (line != "[current_world]")
                     break;
 
-                in >> current_world_;
+                std::getline(in, line, '\n');
+                current_world_ = static_cast<std::size_t>(std::stoul(line));
                 loadWorld();
 
                 if (World* ptr = dynamic_cast<World*>(game_state_.top()))
