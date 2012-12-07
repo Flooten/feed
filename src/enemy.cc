@@ -103,6 +103,9 @@ namespace feed
             }
         }
 
+         if(velocity_.y > 1000)
+            MessageQueue::instance().pushMessage({MessageQueue::Message::ENEMY_DEAD, 0, this});
+
         Character::update(delta_time);
     }
 

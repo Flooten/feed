@@ -2,7 +2,8 @@
  * FILNAMN:       ui.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
- * DATUM:         2012-11-29
+                  Marcus Eriksson   910322-1371     Y3A
+ * DATUM:         2012-12-07
  *
  */
 
@@ -18,14 +19,7 @@ namespace feed
         , ui_image_(image)
         , health_bar_image_(health_bar)
         , armor_bar_image_(armor_bar)
-    {
-        font_ = TTF_OpenFont("data/font.ttf", 20);
-    }
-
-    Ui::~Ui()
-    {
-        TTF_CloseFont(font_);
-    }
+    {}
 
     void Ui::update()
     {
@@ -37,19 +31,23 @@ namespace feed
         clip_size_ = player_->get_current_weapon()->get_clip();
         ammo_size_ = player_->get_current_weapon()->get_ammo();
 
-        //std::cout << ammo_size_ << std::endl;
-
-        if (font_ != nullptr)
+        if (Resources::instance().fontExists("optimus"))
         {
             if (clip_size_ <= 9)
             {
                 std::string clip = "  " + std::to_string(clip_size_);
-                clip_text_ = TTF_RenderText_Solid(font_, clip.c_str(), text_color_);
+                clip_text_ = TTF_RenderText_Solid(Resources::instance().getFont("optimus"),
+                                                  clip.c_str(),
+                                                  text_color_);
             }
             else
-                clip_text_ = TTF_RenderText_Solid(font_, std::to_string(clip_size_).c_str(), text_color_);
+                clip_text_ = TTF_RenderText_Solid(Resources::instance().getFont("optimus"),
+                                                  std::to_string(clip_size_).c_str(),
+                                                  text_color_);
 
-            ammo_text_ = TTF_RenderText_Solid(font_, std::to_string(ammo_size_).c_str(), text_color_);
+            ammo_text_ = TTF_RenderText_Solid(Resources::instance().getFont("optimus"),
+                                              std::to_string(ammo_size_).c_str(),
+                                              text_color_);
         }
     }
 
@@ -74,20 +72,29 @@ namespace feed
             util::blitSurface(ammo_text_, screen, ammo_text_pos_.x, ammo_text_pos_.y);
 
         if (player_->get_current_weapon() != nullptr)
-            util::blitSurface(player_->get_current_weapon()->get_image(), screen, current_weapon_pos_.x, current_weapon_pos_.y);
+            util::blitSurface(player_->get_current_weapon()->get_image(),
+                              screen,
+                              current_weapon_pos_.x,
+                              current_weapon_pos_.y);
 
         if (player_->get_inventory()->get_size() <= 4)
         {
             for (unsigned int i = 0; i < player_->get_inventory()->get_size(); ++i)
             {
-                util::blitSurface(player_->get_inventory()->get_item(i)->get_image(), screen, (inventory_pos_.x + 75 * i), inventory_pos_.y);
+                util::blitSurface(player_->get_inventory()->get_item(i)->get_image(),
+                                  screen,
+                                  (inventory_pos_.x + 75 * i),
+                                  inventory_pos_.y);
             }
         }
         else
         {
             for (unsigned int i = util::check((player_->get_inventory_index()-2), player_->get_inventory()->get_size()); i < util::mincheck(player_->get_inventory()->get_size(), (player_->get_inventory_index() + 2)); ++i)
             {
-                util::blitSurface(player_->get_inventory()->get_item(i)->get_image(), screen, (inventory_pos_.x + 75 * i), inventory_pos_.y);
+                util::blitSurface(player_->get_inventory()->get_item(i)->get_image(),
+                                  screen,
+                                  (inventory_pos_.x + 75 * i),
+                                  inventory_pos_.y);
             }
         }
     }
