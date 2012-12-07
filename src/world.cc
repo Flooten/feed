@@ -404,6 +404,12 @@ namespace feed
                             player_->set_god_mode(!player_->godMode());
                             break;
 
+                    case SDLK_s:
+                    std::cout << player_->get_position().x << " " << player_->get_position().y  << " "
+                              << player_->get_velocity().x << " " << player_->get_velocity().y  << " "
+                              << player_->get_health() << " " << player_->get_armor() << std::endl;
+                              break;
+
                     case SDLK_c:
                     {
                         int mouse_position_x;
@@ -605,6 +611,8 @@ namespace feed
 
         out << "[inventory]\n";
 
+        out << player_->get_inventory_index() << "\n";
+
         unsigned int num_weapons = player_->get_inventory()->get_size();
         for (unsigned int i = 1; i < num_weapons; ++i)
         {
@@ -626,8 +634,7 @@ namespace feed
             }
 
             out << type << " "
-                << current_weapon->get_clip() << " "
-                << current_weapon->get_ammo() << "\n";
+                << current_weapon->get_clip() + current_weapon->get_ammo() << "\n";
         }
     }
 
@@ -637,14 +644,42 @@ namespace feed
             return;
 
         std::string line;
-        in >> line;
+        std::getline(in, line, '\n');
 
         // Ladda in spelaren
         if (line != "[player]")
             return;
 
-        in >> line;
+        std::getline(in, line, '\n');
         loadPlayer(line);
+
+        std::getline(in, line, '\n');
+
+        if (line != "[inventory]")
+            return;
+
+        unsigned int current_weapon = 0;
+        in >> current_weapon;
+
+        while (in.good())
+        {
+            std::string type;
+            //int clip = 0;
+            int ammo = 0;
+
+            in >> type >> ammo;
+
+            // Hårdkodade clip-size-värden här.
+            // Typiskt obra...
+            if (type == "smg")
+                player_->addWeapon(Weapon::SMG, ammo - 20);
+            else if (type == "shotgun")
+                player_->addWeapon(Weapon::SHOTGUN, ammo - 7);
+
+            std::cout << "Adding " << type << " with " << ammo << " bullets" << std::endl;
+        }
+
+        player_->set_inventory_index(current_weapon);
     }
 
     /*
@@ -716,7 +751,7 @@ namespace feed
 
         Enemy* enemy = nullptr;
 
-        std::cout << "Load enemy: " << boundary_end.x << " " << boundary_end.y << std::endl;
+        //std::cout << "Load enemy: " << boundary_end.x << " " << boundary_end.y << std::endl;
 
         if (type == "grunt")
             enemy = Enemy::createGrunt(position, boundary_start, boundary_end);

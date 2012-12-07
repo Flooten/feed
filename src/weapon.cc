@@ -38,8 +38,8 @@ namespace feed
         if (ammo_ > max_ammo_)
            ammo_ = max_ammo_;
 
-        std::cout << "Current ammo: " << ammo_ << std::endl;
-        std::cout << "Max ammo: " << max_ammo_ << std::endl;
+        //std::cout << "Current ammo: " << ammo_ << std::endl;
+        //std::cout << "Max ammo: " << max_ammo_ << std::endl;
     }
 
     void Weapon::reload()
