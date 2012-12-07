@@ -135,6 +135,8 @@ namespace feed
         Resources::instance().addImage("weapon-shotgun", "data/gfx/shotgun.png");
         Resources::instance().addImage("weapon-smg", "data/gfx/smg.png");
         Resources::instance().addImage("checkpoint", "data/gfx/checkpoint.jpg");
+        Resources::instance().addImage("armor-container", "data/gfx/checkpoint.jpg");
+        Resources::instance().addImage("health-container", "data/gfx/checkpoint.jpg");
 
         // Spelarbilder
         Resources::instance().addImage("player-torso-pistol", "data/gfx/player-torso-pistol.png");

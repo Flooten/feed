@@ -440,7 +440,7 @@ spikes 1550 400 50 50 100 spikes
 spikes 1600 400 50 50 100 spikes
 spikes 1650 400 50 50 100 spikes
 
-armor 2250 50 50 50 100 armor_container
+armor 2250 50 50 50 100 armor-container
 
 shotgun 2550 400 50 50 14 weapon-shotgun
 

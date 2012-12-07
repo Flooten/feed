@@ -2,7 +2,7 @@
  * FILNAMN:       FirstBoss.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
- * DATUM:         2012-11-18
+ * DATUM:         2012-12-07
  *
  */
 
@@ -26,8 +26,13 @@ namespace feed
     {}
 
 
-    void FirstBoss::update (float delta_time)
+    void FirstBoss::update(float delta_time)
     {
         Boss::update(delta_time);
+    }
+
+    void FirstBoss::isDead()
+    {
+
     }
 }

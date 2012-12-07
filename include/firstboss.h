@@ -2,9 +2,9 @@
  * FILNAMN:       boss.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
- * DATUM:         2012-11-18
+ * DATUM:         2012-12-07
  *
- * BESKRIVNING: Denna klass definierar boss. Ärver från Character
+ * BESKRIVNING:
  *
  */
 
@@ -29,9 +29,9 @@ namespace feed
                   int armor);
   
         void update(float delta_time) override;
-        //void isDead(){};
 
-
+    protected:
+        void isDead();
 
     private:
         Inventory inventory_;
