@@ -498,7 +498,7 @@ fire 8261 -900 47 79 100 fd
 
 health 9400 -550 50 50 100 health-container
 
-checkpoint 9500 -550 50 50 0 checkpoint
+checkpoint 8650 -550 50 50 0 checkpoint
 
 health 10650 -250 50 50 100 health-container
 
@@ -523,7 +523,7 @@ grunt 6850 -900
 heavy 7350 -700
 grunt 8950 -700 8950 -700 9150 -700
 grunt 9300 -700 9150 -700 9300 -700
-heavy 9250 -200
+heavy 9250 -200 9250 -200 9300 -700
 heavy 9550 -200
 
 [player]
