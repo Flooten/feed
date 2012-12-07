@@ -48,7 +48,6 @@ namespace feed
 
         Audio::instance().clear();
         Resources::instance().clear();
-        TTF_Quit();
         SDL_Quit();
     }
 
@@ -99,7 +98,7 @@ namespace feed
         screen_ = SDL_SetVideoMode(util::SCREEN_WIDTH, util::SCREEN_HEIGHT, 32, SDL_SWSURFACE);
 
         Audio::instance().init();
-        TTF_Init();
+        Resources::instance().init();
         SDL_FreeSurface(icon);
     }
 
@@ -108,7 +107,7 @@ namespace feed
         // Temp
         Resources::instance().addImage("fireball", "data/gfx/fireball.png");
         Resources::instance().addImage("dot", "data/gfx/dot.png");
-
+        Resources::instance().addFont("optimus", "data/font.ttf", 20);
 
         // Levelbilder
         Resources::instance().addImage("sq", "data/gfx/sq.png");
@@ -252,17 +251,18 @@ namespace feed
                 }
 
                 std::ifstream in(SAVE_FILE);
+                std::string line;
 
                 if (!in.is_open())
                     break;
 
-                std::string line;
-                in >> line;
+                std::getline(in, line, '\n');
 
                 if (line != "[current_world]")
                     break;
 
-                in >> current_world_;
+                std::getline(in, line, '\n');
+                current_world_ = static_cast<std::size_t>(std::stoul(line));
                 loadWorld();
 
                 if (World* ptr = dynamic_cast<World*>(game_state_.top()))

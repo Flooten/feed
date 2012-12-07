@@ -426,6 +426,13 @@ music original-score data/sound/feed01.ogg
 13200 -700 50 50 0 0 0 -1 sq
 13250 -700 50 50 0 0 0 -1 sq
 
+12350 -200 100 50 0 0 0 -1 2h
+12700 -200 100 50 0 0 0 -1 2h
+13050 -200 100 50 0 0 0 -1 2h
+
+12500 -400 100 50 0 0 0 -1 2h
+12900 -400 100 50 0 0 0 -1 2h
+
 [interactable_object]
 spikes 1450 400 50 50 100 spikes
 spikes 1500 400 50 50 100 spikes
@@ -506,7 +513,7 @@ armor 11250 -50 50 50 100 armor-container
 
 checkpoint 12050 -50 50 50 0 checkpoint
 
-surprise 12300 -200 50 200 0 invisible
+surprise 12250 -200 50 200 0 invisible
 
 [enemy]
 // type, pos x, pos y, boundrystart x, start y, end x ,end y 
@@ -527,5 +534,5 @@ heavy 9250 -200 9250 -200 9300 -700
 heavy 9550 -200
 
 [player]
-6400 -700 0 0 100 0
+400 200 0 0 100 0
 

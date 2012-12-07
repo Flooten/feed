@@ -3,7 +3,8 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
  *                Mattias Fransson
- * DATUM:         2012-11-21
+ *                Marcus Eriksson   910322-1371     Y3A
+ * DATUM:         2012-12-07
  *
  * BESKRIVNING:   Singleton för att hålla spelets bilder (resurser)
  *
@@ -15,6 +16,7 @@
 #include <map>
 #include <string>
 #include <SDL/SDL.h>
+#include <SDL/SDL_ttf.h>
 
 namespace feed
 {
@@ -23,15 +25,21 @@ namespace feed
     public:
         static Resources& instance();
 
+        bool init();
         void clear();
 
         bool addImage(const std::string& key, const std::string& filename);
         void removeImage(const std::string& key);
 
+        bool addFont(const std::string& key, const std::string& filename, int ptsize);
+        void removeFont(const std::string& key);
+
         SDL_Surface* getImage(const std::string& key);
         SDL_Surface* operator[](const std::string& key);
+        TTF_Font* getFont(const std::string& key);
 
         bool imageExist(const std::string& key);
+        bool fontExists(const std::string& key);
 
     private:
         Resources() = default;
@@ -39,6 +47,7 @@ namespace feed
         Resources(Resources&&) = delete;
 
         std::map<std::string, SDL_Surface*> resources_;
+        std::map<std::string, TTF_Font*> fonts_;
     };
 }
 

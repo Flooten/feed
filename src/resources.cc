@@ -3,7 +3,8 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
  *                Mattias Fransson
- * DATUM:         2012-11-21
+ *                Marcus Eriksson   910322-1371     Y3A
+ * DATUM:         2012-12-07
  *
  * BESKRIVNING:   Singleton för att hålla spelets bilder (resurser)
  *
@@ -22,10 +23,20 @@ namespace feed
         return instance_;
     }
 
+    bool Resources::init()
+    {
+        return !(TTF_Init() == -1);
+    }
+
     void Resources::clear()
     {
         for (auto& r : resources_)
             SDL_FreeSurface(r.second);
+
+        for (auto& f : fonts_)
+            TTF_CloseFont(f.second);
+
+        TTF_Quit();
     }
 
     bool Resources::addImage(const std::string& key, const std::string& filename)
@@ -49,6 +60,27 @@ namespace feed
         resources_.erase(key);
     }
 
+    bool Resources::addFont(const std::string& key, const std::string& filename, int ptsize)
+    {
+        if (fontExists(key))
+            removeFont(key);
+
+        TTF_Font* font = TTF_OpenFont(filename.c_str(), ptsize);
+
+        if (font == nullptr)
+            return false;
+
+        fonts_.insert(std::make_pair(key, font));
+
+        return true;
+    }
+
+    void Resources::removeFont(const std::string& key)
+    {
+        TTF_CloseFont(fonts_[key]);
+        fonts_.erase(key);
+    }   
+
     SDL_Surface* Resources::getImage(const std::string& key)
     {
         return resources_[key];
@@ -59,9 +91,20 @@ namespace feed
         return getImage(key);
     }
 
+    TTF_Font* Resources::getFont(const std::string& key)
+    {
+        return fonts_[key];
+    }
+
     bool Resources::imageExist(const std::string& key)
     {
         auto it = resources_.find(key);
         return it != resources_.end();
+    }
+
+    bool Resources::fontExists(const std::string& key)
+    {
+        auto it = fonts_.find(key);
+        return it != fonts_.end();
     }
 }
