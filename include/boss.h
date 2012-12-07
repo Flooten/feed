@@ -26,7 +26,9 @@ namespace feed
              const glm::vec2& velocity,
              SDL_Surface* image,
              int hitpoints,
-             int armor);
+             int armor,
+             const glm::vec2& boundary_start  = glm::vec2(0,0),
+             const glm::vec2& boundary_end = glm::vec2(0,0));
 
 
         // Getters
@@ -46,6 +48,9 @@ namespace feed
     private:
         Inventory inventory_;
         int inventory_index_;
+        glm::vec2 boundary_start_;
+        glm::vec2 boundary_end_;
+
 
         void updateTorso();
 

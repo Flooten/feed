@@ -21,7 +21,7 @@
 #include "checkpoint.h"
 #include "collision.h"
 #include "ai.h"
-//#include "firstboss.h"
+#include "firstboss.h"
 
 #include <iostream>
 #include <sstream>
@@ -878,26 +878,17 @@ namespace feed
         glm::vec2 boundary_end;
 
         ss >> type >> position.x >> position.y
-           >> size.x >> size.y
-           >> velocity.x >> velocity.y
            >> image
            >> boundary_start.x >> boundary_start.y
            >> boundary_end.x >> boundary_end.y;
 
         if(type == "firstboss")
         {
-
-            // boss_ = new FirstBoss(position, size, velocity, Resources::instance()[image], hitpoints, armor);
-            // boss_->setAnimated(4, 8);
-            // boss_->setTopImage(Resources::instance()["player-torso-pistol"], 2, 37);
-            // boss_->addWeapon(Weapon::PISTOL)
-
+            boss_ = new FirstBoss(position, glm::vec2(150, 150), glm::vec2(0,0), Resources::instance()[image], 50, 250);
+            boss_->setAnimated(4, 8);
+            boss_->setTopImage(Resources::instance()["player-torso-pistol"], 2, 37);
+            boss_->addWeapon(Weapon::PISTOL);
         }
-
-
-
-
-
     }
 
     void World::checkKeyState()
