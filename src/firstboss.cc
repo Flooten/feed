@@ -8,6 +8,7 @@
 
 #include "firstboss.h"
 #include "messagequeue.h"
+#include <iostream>
 
 namespace feed
 {
@@ -27,10 +28,14 @@ namespace feed
                armor,
                boundary_start,
                boundary_end)
-    {}
+    {
+        std::cout << "Spawning first boss!" << std::endl;
+    }
 
     void FirstBoss::update(float delta_time)
     {
+        std::cout << "Position: (" << position_.x << ", " << position_.y << ")" << std::endl;
+
         // Död
         if (hitpoints_ <= 0)
             isDead();

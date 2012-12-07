@@ -180,6 +180,9 @@ namespace feed
         for (auto enemy : enemy_list_)
             enemy->draw(screen, player_->get_position());
 
+        if (boss_ != nullptr)
+            boss_->draw(screen, player_->get_position());
+
 		if (player_ != nullptr)
             player_->draw(screen, player_->get_position());
 
@@ -194,6 +197,9 @@ namespace feed
     {
         if (player_ != nullptr)
             player_->update(delta_time);
+
+        if (boss_ != nullptr)
+            boss_->update(delta_time);
 
         for (auto effect : effect_list_)
             effect->update(delta_time); 
@@ -213,6 +219,8 @@ namespace feed
         for (auto envobject : envobject_list_)
         {
             handleCollision(player_, envobject);
+            handleCollision(boss_, envobject);
+
             for (auto enemy : enemy_list_)
             {                   
                 handleCollision(enemy, envobject);
@@ -586,6 +594,17 @@ namespace feed
                 envobject_list_.push_back(new EnvironmentObject(glm::vec2(12100, -150), glm::vec2(50, 50), glm::vec2(0, 0), 0, -1, Resources::instance()["sq"]));
                 envobject_list_.push_back(new EnvironmentObject(glm::vec2(12100, -100), glm::vec2(50, 50), glm::vec2(0, 0), 0, -1, Resources::instance()["sq"]));
                 envobject_list_.push_back(new EnvironmentObject(glm::vec2(12100, -50), glm::vec2(50, 50), glm::vec2(0, 0), 0, -1, Resources::instance()["sq"]));
+
+                // Spawna första bossen
+                boss_ = new FirstBoss(glm::vec2(13000, -130),
+                                      glm::vec2(128, 128),
+                                      glm::vec2(50, 0),
+                                      Resources::instance()["firstboss"],
+                                      200,
+                                      300,
+                                      glm::vec2(12200, 0),
+                                      glm::vec2(13200, 0));
+
                 break;
             }
 

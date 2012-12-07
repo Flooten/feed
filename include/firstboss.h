@@ -16,7 +16,6 @@
 #include "boss.h"
 #include <vector>
 
-
 namespace feed
 {
     class FirstBoss : public Boss

@@ -146,6 +146,7 @@ namespace feed
         // Fiendebilder
         Resources::instance().addImage("grunt-torso", "data/gfx/grunt-torso.png");
         Resources::instance().addImage("heavy-torso", "data/gfx/heavy-torso.png");
+        Resources::instance().addImage("firstboss", "data/gfx/wall2ne.png");
 
         // Menybilder
         Resources::instance().addImage("menu_background", "data/gfx/menu_background.png");
