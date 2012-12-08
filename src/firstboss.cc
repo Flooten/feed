@@ -8,6 +8,7 @@
 
 #include "firstboss.h"
 #include "messagequeue.h"
+#include "util.h"
 #include <iostream>
 
 namespace feed
@@ -28,7 +29,11 @@ namespace feed
                armor,
                boundary_start,
                boundary_end)
-    {}
+    {
+        addWeapon(Weapon::SHOTGUN);
+        inventory_.get_item(inventory_index_)->set_max_ammo(-1);
+        inventory_.get_item(inventory_index_)->set_max_clip(-1);
+    }
 
     void FirstBoss::update(float delta_time)
     {
@@ -53,7 +58,7 @@ namespace feed
         if (last_updated_aim_ + delta_time >= 2)
         {
             int r = rand() % 13;
-            set_aim(glm::vec2(cos(r * aiming_constant_), -sin(r * aiming_constant_)));
+            set_aim(glm::vec2(cos(r * aiming_constant_ * util::DEG_TO_RAD), -sin(r * aiming_constant_ * util::DEG_TO_RAD)));
             last_updated_aim_ = 0;
         }
         else
@@ -80,7 +85,10 @@ namespace feed
 
             case PHASE_TWO:
                 if (!spawned_grunts_)
+                {
                     MessageQueue::instance().pushMessage({MessageQueue::Message::SPAWN_ADDS_PHASE_TWO});
+                    spawned_grunts_ = true;
+                }
 
                 if (hitpoints_ <= max_health_ / 2)
                 {   
@@ -95,7 +103,10 @@ namespace feed
 
             case PHASE_THREE:
                 if (!spawned_heavys_)
+                {
                     MessageQueue::instance().pushMessage({MessageQueue::Message::SPAWN_ADDS_PHASE_THREE});
+                    spawned_heavys_ = true;
+                }
 
                 // Fas 3
 
