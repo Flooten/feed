@@ -65,6 +65,16 @@ namespace feed
         return damage_;
     }
 
+    bool Projectile::get_boss_projectile() const
+    {
+        return boss_projectile_;
+    }
+
+    void Projectile::set_boss_projectile(bool val)
+    {
+        boss_projectile_ = val;
+    }
+
     void Projectile::setDirection(Direction direction)
     {
         image_->setAnimation(direction);
@@ -144,4 +154,6 @@ namespace feed
 
         return new Projectile(position, size, velocity, Resources::instance().getImage("fireball"), 5);
     }
+
+
 }

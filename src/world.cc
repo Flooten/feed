@@ -311,7 +311,7 @@ namespace feed
                 found = true;
             }
 
-            if (isIntersecting(*it, boss_))
+            if (!((*it)->get_boss_projectile()) && isIntersecting(*it, boss_))
             {
                 boss_->addArmor(-5);
                 MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
@@ -337,7 +337,7 @@ namespace feed
 
             for (auto enemy : enemy_list_)
             {
-                if (isIntersecting(*it, enemy))
+                if (!((*it)->get_boss_projectile()) && isIntersecting(*it, enemy))
                 {
                     enemy->addArmor(-(*it)->get_damage());
                     enemy->set_hit(true);
@@ -529,15 +529,16 @@ namespace feed
                 {
                     case Weapon::PISTOL:
                     case Weapon::ENEMY_PISTOL:
-                        projectile = Projectile::createPistolProjectile(shooter);
-                        addProjectile(projectile, shooter);
-                        Audio::instance().playSoundFx("shotgun-fire");
-                        break;
-
                     case Weapon::SMG:
                         projectile = Projectile::createPistolProjectile(shooter);
                         addProjectile(projectile, shooter);
-                        Audio::instance().playSoundFx("smg-fire");
+                        break;
+
+                    case Weapon::BOSS_PISTOL:
+                    case Weapon::BOSS_SMG:
+                        projectile = Projectile::createPistolProjectile(shooter);
+                        projectile->set_boss_projectile(true);
+                        addProjectile(projectile, shooter);
                         break;
 
                     case Weapon::SHOTGUN:
@@ -546,10 +547,22 @@ namespace feed
                         {
                             projectile = Projectile::createShotgunProjectile(shooter);
                             addProjectile(projectile, shooter);
-                            Audio::instance().playSoundFx("shotgun-fire");
                         }
                         break;
                     }
+                    case Weapon::BOSS_SHOTGUN:
+                    {
+                        for (int i = 0; i < 5; ++i)
+                        {
+                            projectile = Projectile::createShotgunProjectile(shooter);
+                            projectile->set_boss_projectile(true);
+                            addProjectile(projectile, shooter);
+                        }
+                        break;
+                    }
+
+                    default:
+                        break;
                 }
                 break;
             }

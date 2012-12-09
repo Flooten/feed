@@ -25,6 +25,9 @@ namespace feed
             SMG,
             SHOTGUN,
             ENEMY_PISTOL,
+            BOSS_PISTOL,
+            BOSS_SHOTGUN,
+            BOSS_SMG,
             UNKNOWN
         };
 
