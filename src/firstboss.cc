@@ -30,16 +30,13 @@ namespace feed
                boundary_start,
                boundary_end)
     {
-        addWeapon(Weapon::SHOTGUN);
+        addWeapon(Weapon::SMG);
         inventory_.get_item(inventory_index_)->set_max_ammo(-1);
         inventory_.get_item(inventory_index_)->set_max_clip(-1);
     }
 
     void FirstBoss::update(float delta_time)
     {
-        //std::cout << "Position: (" << position_.x << ", " << position_.y << ")" << std::endl;
-        //std::cout << "Velocity: (" << velocity_.x << ", " << velocity_.y << ")" << std::endl;
-
         // Död
         if (hitpoints_ <= 0)
             isDead();

@@ -468,6 +468,20 @@ namespace feed
 
                     case SDLK_r:
                         player_->reload();
+                        switch (player_->get_inventory()->get_item(player_->get_inventory_index())->get_type())
+                        {
+                            case Weapon::PISTOL:
+                                Audio::instance().playSoundFx("pistol-reload");
+                                break;
+                            case Weapon::SHOTGUN:
+                                Audio::instance().playSoundFx("shotgun-reload");
+                                break;
+                            case Weapon::SMG:
+                                Audio::instance().playSoundFx("smg-reload");
+                                break;
+                            default:
+                                break;
+                        }
                         break;
 
                     case SDLK_1:
@@ -515,9 +529,15 @@ namespace feed
                 {
                     case Weapon::PISTOL:
                     case Weapon::ENEMY_PISTOL:
+                        projectile = Projectile::createPistolProjectile(shooter);
+                        addProjectile(projectile, shooter);
+                        Audio::instance().playSoundFx("shotgun-fire");
+                        break;
+
                     case Weapon::SMG:
                         projectile = Projectile::createPistolProjectile(shooter);
                         addProjectile(projectile, shooter);
+                        Audio::instance().playSoundFx("smg-fire");
                         break;
 
                     case Weapon::SHOTGUN:
@@ -526,6 +546,7 @@ namespace feed
                         {
                             projectile = Projectile::createShotgunProjectile(shooter);
                             addProjectile(projectile, shooter);
+                            Audio::instance().playSoundFx("shotgun-fire");
                         }
                         break;
                     }
