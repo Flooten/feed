@@ -450,6 +450,20 @@ namespace feed
                         player_->reload();
                         break;
 
+                    case SDLK_1:
+                        MessageQueue::instance().pushMessage({MessageQueue::Message::SPAWN_WALL, 0, nullptr});
+                        break;
+                    case SDLK_2:
+                        MessageQueue::instance().pushMessage({MessageQueue::Message::SPAWN_ADDS_PHASE_TWO, 0, nullptr});
+                        break;
+                    case SDLK_3:
+                        MessageQueue::instance().pushMessage({MessageQueue::Message::SPAWN_ADDS_PHASE_THREE, 0, nullptr});
+                        break;
+
+
+
+
+
                     default:
                         break;
                 }
@@ -888,33 +902,7 @@ namespace feed
             intobject_list_.push_back(new SpecialContainer(pos, size, Resources::instance()[image]));        
     }
 
-    void World::loadBoss(const std::string& str) 
-    {
-        std::stringstream ss(str);
-        std::string type;
-        std::string image;
-        glm::vec2 position;
-        glm::vec2 velocity;
-        glm::vec2 size;
-        int hitpoints;
-        int armor;
-
-        glm::vec2 boundary_start;
-        glm::vec2 boundary_end;
-
-        ss >> type >> position.x >> position.y
-           >> size.x >> size.y
-           >> boundary_start.x >> boundary_start.y
-           >> boundary_end.x >> boundary_end.y;
-
-        if(type == "firstboss")
-        {
-            boss_ = new FirstBoss(position, size, velocity, Resources::instance()["firstboss"], 50, 250);
-            boss_->setAnimated(4, 8);
-            boss_->setTopImage(Resources::instance()["player-torso-pistol"], 2, 37);
-            boss_->addWeapon(Weapon::PISTOL);
-        }
-    }
+    
 
     void World::checkKeyState()
     {
