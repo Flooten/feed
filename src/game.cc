@@ -167,6 +167,7 @@ namespace feed
         Audio::instance().addMusic("menu_music", "data/sound/feed01.ogg");
         Audio::instance().addMusic("boss_music", "data/sound/boss.ogg");
         Audio::instance().addMusic("level01", "data/sound/level01.ogg");
+        Audio::instance().addMusic("elevator", "data/sound/elevator.ogg");
 
 
         // Effects

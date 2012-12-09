@@ -970,7 +970,7 @@ namespace feed
             intobject_list_.push_back(new WeaponContainer(pos, size, Weapon::SHOTGUN, val, Resources::instance()[image]));
         else if (type == "smg")
             intobject_list_.push_back(new WeaponContainer(pos, size, Weapon::SMG, val, Resources::instance()[image]));
-        else if (type == "spawnboss")
+        else if (type == "spawnboss" || type == "elevatormusic" || type == "level01music")
             intobject_list_.push_back(new SpecialContainer(pos, size, Resources::instance()[image], type));        
     }
 
