@@ -311,6 +311,14 @@ namespace feed
                 found = true;
             }
 
+            if (isIntersecting(*it, boss_))
+            {
+                boss_->addArmor(-5);
+                MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
+                found = true;
+            }
+
+
             if (found)
                 break;
 
@@ -636,6 +644,13 @@ namespace feed
             case MessageQueue::Message::SPAWN_ADDS_PHASE_THREE:
                 enemy_list_.push_back(Enemy::createHeavy(glm::vec2(12500, -600)));
                 enemy_list_.push_back(Enemy::createHeavy(glm::vec2(12900, -600)));
+                break;
+
+            case MessageQueue::Message::FIRST_BOSS_DEAD:
+            {
+                delete boss_;
+                boss_ = nullptr;
+            }
                 break;
 
             default:

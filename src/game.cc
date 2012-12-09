@@ -240,7 +240,7 @@ namespace feed
                     ptr->saveGameState(out);
                     out.close();
 
-                    Audio::instance().playSoundFx("checkpoint");
+                    Audio::instance().playSoundFx("click");
                 }
                 break;
             }
