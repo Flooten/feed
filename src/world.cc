@@ -485,9 +485,15 @@ namespace feed
                 {
                     case Weapon::PISTOL:
                     case Weapon::ENEMY_PISTOL:
+                        projectile = Projectile::createPistolProjectile(shooter);
+                        addProjectile(projectile, shooter);
+                        Audio::instance().playSoundFx("smg-fire");
+                        break;
+
                     case Weapon::SMG:
                         projectile = Projectile::createPistolProjectile(shooter);
                         addProjectile(projectile, shooter);
+                        Audio::instance().playSoundFx("smg-fire");
                         break;
 
                     case Weapon::SHOTGUN:
@@ -496,6 +502,7 @@ namespace feed
                         {
                             projectile = Projectile::createShotgunProjectile(shooter);
                             addProjectile(projectile, shooter);
+                            Audio::instance().playSoundFx("shotgun-fire");
                         }
                         break;
                     }

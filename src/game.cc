@@ -168,6 +168,12 @@ namespace feed
 
         // Effects
         Audio::instance().addSoundFx("click", "data/sound/click.wav");
+        Audio::instance().addSoundFx("pistol-fire", "data/sound/pistol-fire.wav");
+        Audio::instance().addSoundFx("pistol-reload", "data/sound/pistol-reload.wav");//
+        Audio::instance().addSoundFx("smg-fire", "data/sound/smg-fire.wav");//
+        Audio::instance().addSoundFx("smg-reload", "data/sound/smg-reload.wav");//
+        Audio::instance().addSoundFx("shotgun-fire", "data/sound/shotgun-fire.wav");
+        Audio::instance().addSoundFx("shotgun-reload", "data/sound/shotgun-reload.wav");//
        // Audio::instance().addSoundFx("pistol_fire", "data/sound/mp5-1.wav");
        // Audio::instance().addSoundFx("enemy_dead", "data/sound/enemy_death.wav");
         Audio::instance().addSoundFx("checkpoint", "data/sound/checkpoint.mp3");
