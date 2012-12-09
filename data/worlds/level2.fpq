@@ -473,7 +473,7 @@ health 6000 400 50 50 50 health-container
 
 checkpoint 6100 400 50 50 0 checkpoint
 
-elevatormusic 6200 100 150 10 0 invisible
+elevatormusic 6200 150 150 10 0 invisible
 
 level01music 6400 -600 50 100 0 invisible
 
