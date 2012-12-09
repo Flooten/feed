@@ -36,6 +36,9 @@ namespace feed
 
         // Getters
         int get_damage() const;
+        bool get_boss_projectile() const;
+
+        void set_boss_projectile(bool val);
 
         void setDirection(Direction direction);
 
@@ -44,6 +47,7 @@ namespace feed
 
     private:
         int damage_;  // Överflödig?
+        bool boss_projectile_ = false;
     };
 }
 
