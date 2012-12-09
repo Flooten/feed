@@ -529,27 +529,26 @@ namespace feed
                 {
                     case Weapon::PISTOL:
                     case Weapon::ENEMY_PISTOL:
-                        projectile = Projectile::createPistolProjectile(shooter);
-                        addProjectile(projectile, shooter);
-                        Audio::instance().playSoundFx("shotgun-fire");
-                        break;
-
+                    case Weapon::BOSS_PISTOL:
                     case Weapon::SMG:
+                    case Weapon::BOSS_SMG:
                         projectile = Projectile::createPistolProjectile(shooter);
                         addProjectile(projectile, shooter);
-                        Audio::instance().playSoundFx("smg-fire");
                         break;
 
                     case Weapon::SHOTGUN:
+                    case Weapon::BOSS_SHOTGUN:
                     {
                         for (int i = 0; i < 5; ++i)
                         {
                             projectile = Projectile::createShotgunProjectile(shooter);
                             addProjectile(projectile, shooter);
-                            Audio::instance().playSoundFx("shotgun-fire");
                         }
                         break;
                     }
+
+                    default:
+                        break;
                 }
                 break;
             }
