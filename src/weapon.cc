@@ -71,6 +71,7 @@ namespace feed
         switch (type_)
         {
             case PISTOL:
+            case ENEMY_PISTOL:
                 Audio::instance().playSoundFx("pistol-fire");
                 break;
 

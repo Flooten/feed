@@ -177,7 +177,7 @@ namespace feed
         Audio::instance().addSoundFx("smg-fire", "data/sound/smg-fire.wav");//
         Audio::instance().addSoundFx("smg-reload", "data/sound/smg-reload.wav");//
         Audio::instance().addSoundFx("shotgun-fire", "data/sound/shotgun-fire.wav");
-        //Audio::instance().addSoundFx("shotgun-reload", "data/sound/shotgun-reload.wav");//
+        Audio::instance().addSoundFx("shotgun-reload", "data/sound/shotgun-reload.wav");//
         //Audio::instance().addSoundFx("enemy_dead", "data/sound/enemy_death.wav");
         Audio::instance().addSoundFx("checkpoint", "data/sound/checkpoint.wav");
 
