@@ -142,7 +142,7 @@ namespace feed
                 return new Weapon(type, 10, 20, 100, Resources::instance()["weapon-smg"]);
 
             case SHOTGUN:
-                return new Weapon(type, 1, 7, 27, Resources::instance()["weapon-shotgun"]);
+                return new Weapon(type, 1, 7, 21, Resources::instance()["weapon-shotgun"]);
 
             case ENEMY_PISTOL:
                 return new Weapon(type, 1, 30, -1, Resources::instance()["weapon-pistol"]);
