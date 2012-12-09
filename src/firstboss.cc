@@ -33,6 +33,11 @@ namespace feed
         addWeapon(Weapon::SHOTGUN);
         inventory_.get_item(inventory_index_)->set_max_ammo(-1);
         inventory_.get_item(inventory_index_)->set_max_clip(-1);
+        addWeapon(Weapon::SMG);
+        inventory_.get_item(inventory_index_ + 1)->set_max_ammo(-1);
+        inventory_.get_item(inventory_index_ + 1)->set_max_clip(-1);
+
+
     }
 
     void FirstBoss::update(float delta_time)
