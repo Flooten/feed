@@ -97,6 +97,9 @@ namespace feed
 
     void Audio::playMusic(const std::string& key)
     {
+        if (mute_music_)
+            return;
+
         auto it = music_.find(key);
 
         if (it != music_.end())
@@ -119,6 +122,9 @@ namespace feed
 
     void Audio::resumeMusic()
     {
+        if (mute_music_)
+            return;
+
         if (Mix_PausedMusic() == 1)
             Mix_ResumeMusic();
     }
@@ -126,6 +132,21 @@ namespace feed
     void Audio::stopMusic()
     {
         Mix_HaltMusic();
+    }
+
+    void Audio::muteMusic(bool state)
+    {
+        mute_music_ = state;
+
+        if (mute_music_)
+            pauseMusic();
+        else
+            resumeMusic();
+    }
+
+    bool Audio::isMuted() const
+    {
+        return mute_music_;
     }
 
     bool Audio::soundFxExist(const std::string& key)

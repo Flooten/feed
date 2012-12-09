@@ -38,6 +38,8 @@ namespace feed
         void pauseMusic();
         void resumeMusic();
         void stopMusic();
+        void muteMusic(bool state);
+        bool isMuted() const;
 
         bool soundFxExist(const std::string& key);
         bool musicExist(const std::string& key);
@@ -49,6 +51,8 @@ namespace feed
 
         std::map<std::string, Mix_Chunk*> sound_fx_;
         std::map<std::string, Mix_Music*> music_;
+
+        bool mute_music_ = false;
     };
 }
 
