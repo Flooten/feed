@@ -179,7 +179,7 @@ namespace feed
         Audio::instance().addSoundFx("shotgun-fire", "data/sound/shotgun-fire.wav");
         //Audio::instance().addSoundFx("shotgun-reload", "data/sound/shotgun-reload.wav");//
         //Audio::instance().addSoundFx("enemy_dead", "data/sound/enemy_death.wav");
-        Audio::instance().addSoundFx("checkpoint", "data/sound/checkpoint.mp3");
+        Audio::instance().addSoundFx("checkpoint", "data/sound/checkpoint.wav");
 
         Audio::instance().addSoundFx("minions-attack", "data/sound/minions-attack.wav");
 
@@ -253,7 +253,7 @@ namespace feed
                     ptr->saveGameState(out);
                     out.close();
 
-                    Audio::instance().playSoundFx("click");
+                    Audio::instance().playSoundFx("checkpoint");
                 }
                 break;
             }
