@@ -970,8 +970,8 @@ namespace feed
             intobject_list_.push_back(new WeaponContainer(pos, size, Weapon::SHOTGUN, val, Resources::instance()[image]));
         else if (type == "smg")
             intobject_list_.push_back(new WeaponContainer(pos, size, Weapon::SMG, val, Resources::instance()[image]));
-        else if (type == "surprise")
-            intobject_list_.push_back(new SpecialContainer(pos, size, Resources::instance()[image]));        
+        else if (type == "spawnboss")
+            intobject_list_.push_back(new SpecialContainer(pos, size, Resources::instance()[image], type));        
     }
 
     void World::checkKeyState()

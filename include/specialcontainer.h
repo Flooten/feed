@@ -15,6 +15,8 @@
 #include <glm/glm.hpp>
 #include <SDL/SDL.h>
 #include "interactableobject.h"
+#include <string>
+
 
 namespace feed
 {
@@ -23,10 +25,12 @@ namespace feed
     public:
         SpecialContainer(const glm::vec2& position,
                        const glm::vec2& size,
-                       SDL_Surface* image);
+                       SDL_Surface* image,
+                       std::string type = "");
 
         virtual void eventFunction() override final;
     private:
+        std::string type_;
     };
 }
 

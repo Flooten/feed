@@ -515,7 +515,7 @@ armor 11250 -50 50 50 100 armor-container
 
 checkpoint 12050 -50 50 50 0 checkpoint
 
-surprise 12250 -200 50 200 0 invisible
+spawnboss 12250 -200 50 200 0 invisible
 
 [enemy]
 // type, pos x, pos y, boundrystart x, start y, end x ,end y 

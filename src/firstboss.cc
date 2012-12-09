@@ -10,6 +10,7 @@
 #include "messagequeue.h"
 #include "util.h"
 #include <iostream>
+#include "audio.h"
 
 namespace feed
 {
@@ -85,6 +86,7 @@ namespace feed
                 {
                     MessageQueue::instance().pushMessage({MessageQueue::Message::SPAWN_ADDS_PHASE_TWO});
                     spawned_grunts_ = true;
+                    Audio::instance().playSoundFx("minions-attack");
                 }
 
                 if (hitpoints_ <= max_health_ / 2)
