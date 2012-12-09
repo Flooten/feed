@@ -47,7 +47,7 @@ namespace feed
 
     protected:
         Inventory inventory_;
-        int inventory_index_;
+        int inventory_index_ = 0;
         glm::vec2 boundary_start_;
         glm::vec2 boundary_end_;
 
