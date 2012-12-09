@@ -423,8 +423,11 @@ namespace feed
                         break;
                     }
 
-                    case SDLK_n:
-                        MessageQueue::instance().pushMessage({MessageQueue::Message::NEXT_WORLD});
+                    case SDLK_m:
+                        if (Audio::instance().isMuted())
+                            Audio::instance().muteMusic(false);
+                        else
+                            Audio::instance().muteMusic(true);
                         break;
 
                     case SDLK_h:
@@ -696,6 +699,7 @@ namespace feed
             case MessageQueue::Message::FIRST_BOSS_DEAD:
                 delete boss_;
                 boss_ = nullptr;
+                Audio::instance().playSoundFx("boss-death");
                 MessageQueue::instance().pushMessage({MessageQueue::Message::NEXT_WORLD});
                 break;
 

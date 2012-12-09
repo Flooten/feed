@@ -178,13 +178,11 @@ namespace feed
         Audio::instance().addSoundFx("smg-reload", "data/sound/smg-reload.wav");//
         Audio::instance().addSoundFx("shotgun-fire", "data/sound/shotgun-fire.wav");
         Audio::instance().addSoundFx("shotgun-reload", "data/sound/shotgun-reload.wav");
-        //Audio::instance().addSoundFx("enemy_dead", "data/sound/enemy_death.wav");
+        Audio::instance().addSoundFx("game-over", "data/sound/gameover.wav");
         Audio::instance().addSoundFx("checkpoint", "data/sound/checkpoint.wav");
-
+        Audio::instance().addSoundFx("boss-death", "data/sound/enemy_death.wav");
         Audio::instance().addSoundFx("minions-attack", "data/sound/minions-attack.wav");
         Audio::instance().addSoundFx("laugh", "data/sound/laugh.wav");
-
-
     }
 
     void Game::loadWorldList()
@@ -287,6 +285,7 @@ namespace feed
 
                 in.close();
 
+                Audio::instance().playMusic("level01");
                 break;
             }
 
@@ -322,6 +321,8 @@ namespace feed
             }
 
             case MessageQueue::Message::PLAYER_DEAD:
+                Audio::instance().playSoundFx("game-over");
+                Audio::instance().playMusic("menu_music");
                 delete game_state_.top();
                 game_state_.pop();
                 break;
