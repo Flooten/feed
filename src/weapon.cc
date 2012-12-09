@@ -75,6 +75,12 @@ namespace feed
         {
             case PISTOL:
             Audio::instance().playSoundFx("pistol_fire");
+
+            case SHOTGUN:
+            Audio::instance().playSoundFx("shotgun_fire");
+
+            case SMG:
+            Audio::instance().playSoundFx("smg_fire");
             break;
         }
     }

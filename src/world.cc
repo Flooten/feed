@@ -5,7 +5,7 @@
  *                Herman Ekwall
  *                Marcus Eriksson
  *                Mattias Fransson
- * DATUM:         2012-12-05
+ * DATUM:         2012-12-09
  *
  */
 
@@ -195,6 +195,8 @@ namespace feed
 
     void World::update(float delta_time)
     {
+        // Uppdatera objektens positioner m.a.p.
+        // hastighet och gravitation
         if (player_ != nullptr)
             player_->update(delta_time);
 
@@ -216,6 +218,7 @@ namespace feed
         for (auto intobject : intobject_list_)
             intobject->update(delta_time);
 
+        // Kolla alla miljöobjekt för kollision
         for (auto envobject : envobject_list_)
         {
             handleCollision(player_, envobject);
@@ -239,8 +242,8 @@ namespace feed
             }
         }
 
-        // Kolla interactable objects
-        // Objekten tas bort 
+        // Kolla interactable objects.
+        // Objekten tas bort nästa loop.
         for (auto it = intobject_list_.begin(); it != intobject_list_.end(); ++it)
         {
             if (isIntersecting(player_, *it))
@@ -255,6 +258,7 @@ namespace feed
             }
         }
 
+        // AI kontroller
         for (auto enemy : enemy_list_)
         {
             if (enemy->get_seen_player())
@@ -293,6 +297,9 @@ namespace feed
                 enemy->continueWalking();
         }
 
+        // Kolla alla projektiler om de har träffat något.
+        // Vid träff avbryts hela loopen - dels för att inte råka ta bort en kula flera gånger,
+        // dels för att inte en projektil ska kunna skada samma objekt flera gånger
         for (auto it = projectile_list_.begin(); it != projectile_list_.end(); ++it)
         {
             bool found = false;
@@ -303,6 +310,14 @@ namespace feed
                 MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
                 found = true;
             }
+
+            if (isIntersecting(*it, boss_))
+            {
+                boss_->addArmor(-5);
+                MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
+                found = true;
+            }
+
 
             if (found)
                 break;
@@ -336,6 +351,7 @@ namespace feed
                 MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
         }
 
+        // Uppdatera gränssnitt och kolla knappnedtryckningar 
         ui_->update();
         checkKeyState();
     }
@@ -450,6 +466,16 @@ namespace feed
                         player_->reload();
                         break;
 
+                    case SDLK_1:
+                        MessageQueue::instance().pushMessage({MessageQueue::Message::SPAWN_WALL, 0, nullptr});
+                        break;
+                    case SDLK_2:
+                        MessageQueue::instance().pushMessage({MessageQueue::Message::SPAWN_ADDS_PHASE_TWO, 0, nullptr});
+                        break;
+                    case SDLK_3:
+                        MessageQueue::instance().pushMessage({MessageQueue::Message::SPAWN_ADDS_PHASE_THREE, 0, nullptr});
+                        break;
+
                     default:
                         break;
                 }
@@ -543,8 +569,6 @@ namespace feed
 
             case MessageQueue::Message::EFFECT_DEAD:
             {
-                std::cout << "Effect " << msg.sender << " is dead" << std::endl;
-
                 for (auto it = effect_list_.begin(); it != effect_list_.end(); ++it)
                 {
                     if (*it == msg.sender)
@@ -629,6 +653,13 @@ namespace feed
                 enemy_list_.push_back(Enemy::createHeavy(glm::vec2(12900, -600)));
                 break;
 
+            case MessageQueue::Message::FIRST_BOSS_DEAD:
+            {
+                delete boss_;
+                boss_ = nullptr;
+            }
+                break;
+
             default:
                 break;
         }
@@ -673,6 +704,12 @@ namespace feed
                 << current_weapon->get_clip() + current_weapon->get_ammo() << "\n";
         }
     }
+
+    //
+    // Laddar in spelaren vid den senaste checkpointen.
+    // Notera att kravet på formatering av sparfil är mycket
+    // striktare än vid inläsning av en värld.
+    //
 
     void World::loadGameState(std::ifstream& in)
     {
@@ -898,33 +935,7 @@ namespace feed
             intobject_list_.push_back(new SpecialContainer(pos, size, Resources::instance()[image]));        
     }
 
-    void World::loadBoss(const std::string& str) 
-    {
-        std::stringstream ss(str);
-        std::string type;
-        std::string image;
-        glm::vec2 position;
-        glm::vec2 velocity;
-        glm::vec2 size;
-        int hitpoints;
-        int armor;
-
-        glm::vec2 boundary_start;
-        glm::vec2 boundary_end;
-
-        ss >> type >> position.x >> position.y
-           >> size.x >> size.y
-           >> boundary_start.x >> boundary_start.y
-           >> boundary_end.x >> boundary_end.y;
-
-        if(type == "firstboss")
-        {
-            boss_ = new FirstBoss(position, size, velocity, Resources::instance()["firstboss"], 50, 250);
-            boss_->setAnimated(4, 8);
-            boss_->setTopImage(Resources::instance()["player-torso-pistol"], 2, 37);
-            boss_->addWeapon(Weapon::PISTOL);
-        }
-    }
+    
 
     void World::checkKeyState()
     {
