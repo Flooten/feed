@@ -199,10 +199,12 @@ namespace feed
     void Game::loadWorld()
     {
         if (current_world_ >= world_list_.size())
-            return;
+        {
+            current_world_ = 0;
+            MessageQueue::instance().pushMessage({MessageQueue::Message::EXIT_TO_MAIN_MENU});
+        }
 
         game_state_.push(new World(world_list_[current_world_]));
-
     }
 
     void Game::handleSDLEvent(const SDL_Event& event)
@@ -313,6 +315,13 @@ namespace feed
             case MessageQueue::Message::PLAYER_DEAD:
                 delete game_state_.top();
                 game_state_.pop();
+                break;
+
+            case MessageQueue::Message::NEXT_WORLD:
+                delete game_state_.top();
+                game_state_.pop();
+                ++current_world_;
+                loadWorld();
                 break;
 
             default:

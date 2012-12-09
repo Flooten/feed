@@ -422,6 +422,10 @@ namespace feed
                         break;
                     }
 
+                    case SDLK_n:
+                        MessageQueue::instance().pushMessage({MessageQueue::Message::NEXT_WORLD});
+                        break;
+
                     case SDLK_h:
                         std::cout << "Player health: " << player_->get_health() << std::endl;
                         break;
@@ -667,11 +671,11 @@ namespace feed
                 enemy_list_.push_back(Enemy::createHeavy(glm::vec2(12900, -600)));
                 break;
 
+            // 
             case MessageQueue::Message::FIRST_BOSS_DEAD:
-            {
                 delete boss_;
                 boss_ = nullptr;
-            }
+                MessageQueue::instance().pushMessage({MessageQueue::Message::NEXT_WORLD});
                 break;
 
             default:
