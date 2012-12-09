@@ -5,7 +5,7 @@
  *                Herman Ekwall
  *                Marcus Eriksson
  *                Mattias Fransson
- * DATUM:         2012-12-05
+ * DATUM:         2012-12-09
  *
  */
 
@@ -195,6 +195,8 @@ namespace feed
 
     void World::update(float delta_time)
     {
+        // Uppdatera objektens positioner m.a.p.
+        // hastighet och gravitation
         if (player_ != nullptr)
             player_->update(delta_time);
 
@@ -216,6 +218,7 @@ namespace feed
         for (auto intobject : intobject_list_)
             intobject->update(delta_time);
 
+        // Kolla alla miljöobjekt för kollision
         for (auto envobject : envobject_list_)
         {
             handleCollision(player_, envobject);
@@ -239,8 +242,8 @@ namespace feed
             }
         }
 
-        // Kolla interactable objects
-        // Objekten tas bort 
+        // Kolla interactable objects.
+        // Objekten tas bort nästa loop.
         for (auto it = intobject_list_.begin(); it != intobject_list_.end(); ++it)
         {
             if (isIntersecting(player_, *it))
@@ -255,6 +258,7 @@ namespace feed
             }
         }
 
+        // AI kontroller
         for (auto enemy : enemy_list_)
         {
             if (enemy->get_seen_player())
@@ -293,6 +297,9 @@ namespace feed
                 enemy->continueWalking();
         }
 
+        // Kolla alla projektiler om de har träffat något.
+        // Vid träff avbryts hela loopen - dels för att inte råka ta bort en kula flera gånger,
+        // dels för att inte en projektil ska kunna skada samma objekt flera gånger
         for (auto it = projectile_list_.begin(); it != projectile_list_.end(); ++it)
         {
             bool found = false;
@@ -336,6 +343,7 @@ namespace feed
                 MessageQueue::instance().pushMessage({MessageQueue::Message::PROJECTILE_DEAD, 0, *it});
         }
 
+        // Uppdatera gränssnitt och kolla knappnedtryckningar 
         ui_->update();
         checkKeyState();
     }
@@ -460,10 +468,6 @@ namespace feed
                         MessageQueue::instance().pushMessage({MessageQueue::Message::SPAWN_ADDS_PHASE_THREE, 0, nullptr});
                         break;
 
-
-
-
-
                     default:
                         break;
                 }
@@ -550,8 +554,6 @@ namespace feed
 
             case MessageQueue::Message::EFFECT_DEAD:
             {
-                std::cout << "Effect " << msg.sender << " is dead" << std::endl;
-
                 for (auto it = effect_list_.begin(); it != effect_list_.end(); ++it)
                 {
                     if (*it == msg.sender)
@@ -680,6 +682,12 @@ namespace feed
                 << current_weapon->get_clip() + current_weapon->get_ammo() << "\n";
         }
     }
+
+    //
+    // Laddar in spelaren vid den senaste checkpointen.
+    // Notera att kravet på formatering av sparfil är mycket
+    // striktare än vid inläsning av en värld.
+    //
 
     void World::loadGameState(std::ifstream& in)
     {
