@@ -62,6 +62,7 @@ namespace feed
 
         glm::vec2 playerOrigin() const;   // Returnerar spelarens mittpunkt
         void spawnBlood(const glm::vec2& position);
+        void spawnWeaponContainer(const Enemy* enemy);
 
         Player* player_ = nullptr;
         Boss* boss_ = nullptr;

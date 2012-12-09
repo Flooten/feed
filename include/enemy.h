@@ -45,6 +45,8 @@ namespace feed
         bool get_previous_seen_state() const;
         void set_previous_seen_state(bool val);
 
+        const Weapon* get_weapon() const;
+
         bool isWalking() const;
         bool isFacingRight() const;
         void walkLeft();

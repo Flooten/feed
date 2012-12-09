@@ -576,6 +576,11 @@ namespace feed
                     {
                         // Spawna blod
                         spawnBlood(msg.sender->get_position());
+
+                        // "droppa" vapnet
+                        if (Enemy* ptr = dynamic_cast<Enemy*>(msg.sender))
+                            spawnWeaponContainer(ptr);
+
                         delete msg.sender;
                         enemy_list_.erase(it);
                         Audio::instance().playSoundFx("enemy_dead");
@@ -953,8 +958,6 @@ namespace feed
             intobject_list_.push_back(new SpecialContainer(pos, size, Resources::instance()[image]));        
     }
 
-    
-
     void World::checkKeyState()
     {
         int mouse_position_x;
@@ -1026,4 +1029,26 @@ namespace feed
                                               1, 6)); 
         }
     }
+
+    void World::spawnWeaponContainer(const Enemy* enemy)
+    {
+        int type;
+        int ammo;
+        SDL_Surface* image;
+
+        switch (enemy->get_weapon()->get_type())
+        {
+            case Weapon::SHOTGUN:
+                type = Weapon::SHOTGUN;
+                image = Resources::instance()["weapon-shotgun"];
+                ammo = 30;
+                break;
+
+            default:
+                return;
+        }
+
+        intobject_list_.push_back(new WeaponContainer(enemy->get_position(), glm::vec2(50, 50), type, ammo, image));
+    }
+
 }

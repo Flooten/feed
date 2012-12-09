@@ -85,6 +85,11 @@ namespace feed
         previous_seen_state_ = value;
     }
 
+    const Weapon* Enemy::get_weapon() const
+    {
+        return weapon_;
+    }
+
     void Enemy::update(float delta_time)
     {
         set_seen_player(true);
@@ -112,7 +117,7 @@ namespace feed
     void Enemy::walkLeft()
     {
         setAnimation(Character::WALKING_LEFT);
-        velocity_.x = - abs(velocity_.x);
+        velocity_.x = -abs(velocity_.x);
         facing_right = false;
     }
 

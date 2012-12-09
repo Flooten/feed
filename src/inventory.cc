@@ -24,11 +24,13 @@ namespace feed
 	void Inventory::add(Weapon::Type weapon_type, int ammo)
 	{
         for (auto weapon : inventory_list)
+        {
             if (weapon->get_type() == weapon_type)
             {
                 weapon->addAmmo(ammo);
                 return;
             }
+        }
 
         inventory_list.push_back(Weapon::createWeapon(weapon_type));
         inventory_list.back()->addAmmo(ammo);
