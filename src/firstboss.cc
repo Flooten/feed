@@ -30,9 +30,9 @@ namespace feed
                boundary_start,
                boundary_end)
     {
-        addWeapon(Weapon::SMG);
-        inventory_.get_item(inventory_index_)->set_max_ammo(-1);
-        inventory_.get_item(inventory_index_)->set_max_clip(-1);
+        addWeapon(Weapon::BOSS_PISTOL);
+        addWeapon(Weapon::BOSS_SHOTGUN);
+        addWeapon(Weapon::BOSS_SMG);
     }
 
     void FirstBoss::update(float delta_time)
@@ -73,7 +73,7 @@ namespace feed
                 {
                     // Byt till fas 2
                     phase_ = PHASE_TWO;
-                    inventory_index_ = 1;
+                    ++inventory_index_;
                 }
 
                 // Fas 1
@@ -91,7 +91,7 @@ namespace feed
                 {   
                     // Byt till fas 3
                     phase_ = PHASE_THREE;
-                    inventory_index_ = 2;
+                    ++inventory_index_;
                 }
 
                 // Fas 2
