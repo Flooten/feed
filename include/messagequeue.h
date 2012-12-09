@@ -35,6 +35,7 @@ namespace feed
                 PAUSE_GAME,
                 EXIT_TO_MAIN_MENU,
                 CREDITS,
+                NEXT_WORLD,
                 FIRE,
                 ADD_HEALTH,
                 ADD_ARMOR,
