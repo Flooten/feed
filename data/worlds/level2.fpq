@@ -473,6 +473,8 @@ health 6000 400 50 50 50 health-container
 
 checkpoint 6100 400 50 50 0 checkpoint
 
+elevatormusic 6200 200 150 10 0 invisible
+
 fire 7650 -550 47 79 100 fu
 fire 7697 -550 47 79 100 fu
 fire 7744 -550 47 79 100 fu
@@ -536,5 +538,5 @@ heavy 9250 -200 9250 -200 9300 -700
 heavy 9550 -200
 
 [player]
-12000 -200 0 0 100 0
+6000 200 0 0 100 0
 
