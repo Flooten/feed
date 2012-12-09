@@ -610,6 +610,9 @@ namespace feed
                 envobject_list_.push_back(new EnvironmentObject(glm::vec2(12100, -50), glm::vec2(50, 50), glm::vec2(0, 0), 0, -1, Resources::instance()["sq"]));
 
                 // Spawna första bossen
+                if (boss_ !=  nullptr)
+                    delete boss_;
+
                 boss_ = new FirstBoss(glm::vec2(12500, -130),
                                       glm::vec2(128, 128),
                                       glm::vec2(50, 0),
