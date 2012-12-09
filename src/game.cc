@@ -111,6 +111,7 @@ namespace feed
 
         // Levelbilder
         Resources::instance().addImage("sq", "data/gfx/sq.png");
+        Resources::instance().addImage("sqd", "data/gfx/sqd.png");
         Resources::instance().addImage("2h", "data/gfx/2h.png");
         Resources::instance().addImage("2v", "data/gfx/2v.png");
         Resources::instance().addImage("3h", "data/gfx/3h.png");
