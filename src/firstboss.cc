@@ -42,9 +42,6 @@ namespace feed
 
     void FirstBoss::update(float delta_time)
     {
-        //std::cout << "Position: (" << position_.x << ", " << position_.y << ")" << std::endl;
-        //std::cout << "Velocity: (" << velocity_.x << ", " << velocity_.y << ")" << std::endl;
-
         // Död
         if (hitpoints_ <= 0)
             isDead();
