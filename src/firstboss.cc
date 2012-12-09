@@ -105,6 +105,8 @@ namespace feed
                 {
                     MessageQueue::instance().pushMessage({MessageQueue::Message::SPAWN_ADDS_PHASE_THREE});
                     spawned_heavys_ = true;
+                    Audio::instance().playSoundFx("minions-attack");
+
                 }
 
                 // Fas 3
