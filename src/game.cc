@@ -165,6 +165,9 @@ namespace feed
 
         // Audio
         Audio::instance().addMusic("menu_music", "data/sound/feed01.ogg");
+        Audio::instance().addMusic("boss_music", "data/sound/boss.ogg");
+        Audio::instance().addMusic("level01", "data/sound/level01.ogg");
+
 
         // Effects
         Audio::instance().addSoundFx("click", "data/sound/click.wav");
@@ -226,7 +229,7 @@ namespace feed
         switch (msg.type)
         {
             case MessageQueue::Message::NEW_GAME:
-                Audio::instance().pauseMusic();
+                Audio::instance().playMusic("level01");
                 current_world_ = 0;
                 loadWorld();
                 break;
@@ -300,6 +303,7 @@ namespace feed
             case MessageQueue::Message::RESUME_GAME:
                 delete game_state_.top();
                 game_state_.pop();
+                Audio::instance().resumeMusic();
                 break;
 
             case MessageQueue::Message::EXIT_TO_MAIN_MENU:
@@ -309,6 +313,8 @@ namespace feed
                     delete game_state_.top();
                     game_state_.pop();
                 }
+
+                Audio::instance().playMusic("menu_music");
                 break;
             }
 

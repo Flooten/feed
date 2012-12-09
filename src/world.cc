@@ -408,6 +408,7 @@ namespace feed
                 {
                     case SDLK_ESCAPE:
                         MessageQueue::instance().pushMessage({MessageQueue::Message::PAUSE_GAME});
+                        Audio::instance().pauseMusic();
                         break;
 
                     case SDLK_SPACE:
@@ -674,6 +675,8 @@ namespace feed
                                       300,
                                       glm::vec2(12200, 0),
                                       glm::vec2(13200, 0));
+
+                Audio::instance().playMusic("boss_music");
 
                 break;
             }
