@@ -348,6 +348,7 @@ namespace feed
             case MessageQueue::Message::WAIT_DONE:
                 delete game_state_.top();
                 game_state_.pop();
+                Audio::instance().playSoundFx("victorious");
                 loadWorld();
                 break;
 
