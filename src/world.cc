@@ -25,6 +25,7 @@
 
 #include <sstream>
 #include <stdexcept>
+#include <algorithm> 
 
 namespace feed
 {
@@ -127,6 +128,8 @@ namespace feed
                     break;
             }
         }
+
+        std::reverse(envobject_list_.begin(),envobject_list_.end());
     }
 
     World::~World()
@@ -518,6 +521,21 @@ namespace feed
                 break;
             }
 
+            case MessageQueue::Message::CHECKPOINT:
+            {
+                glm::vec2 position = player_->get_position();
+                position.y += player_->get_size().y / 2;
+
+                effect_list_.push_back(new Effect(position,
+                                                  glm::vec2(128, 128),
+                                                  glm::vec2(0, 0),
+                                                  Resources::instance()["lightning"],
+                                                  1,
+                                                  10));
+
+                break;
+            }
+
             case MessageQueue::Message::PROJECTILE_DEAD:
             {
                 for (auto it = projectile_list_.begin(); it != projectile_list_.end(); ++it)
@@ -646,7 +664,9 @@ namespace feed
             case MessageQueue::Message::FIRST_BOSS_DEAD:
                 delete boss_;
                 boss_ = nullptr;
+                Audio::instance().stopMusic();
                 Audio::instance().playSoundFx("boss-death");
+                SDL_Delay(4000);
                 MessageQueue::instance().pushMessage({MessageQueue::Message::NEXT_WORLD});
                 break;
 
