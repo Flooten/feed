@@ -25,6 +25,7 @@
 
 #include <sstream>
 #include <stdexcept>
+#include <algorithm> 
 
 namespace feed
 {
@@ -127,6 +128,8 @@ namespace feed
                     break;
             }
         }
+
+        std::reverse(envobject_list_.begin(),envobject_list_.end());
     }
 
     World::~World()
