@@ -434,10 +434,6 @@ namespace feed
                         std::cout << "Player health: " << player_->get_health() << std::endl;
                         break;
 
-                    case SDLK_i:
-                            player_->set_god_mode(!player_->godMode());
-                            break;
-
                     case SDLK_s:
                     std::cout << player_->get_position().x << " " << player_->get_position().y  << " "
                               << player_->get_velocity().x << " " << player_->get_velocity().y  << " "
@@ -1018,6 +1014,9 @@ namespace feed
             float vel_y = player_->get_velocity().y;
             player_->set_velocity(glm::vec2(160, vel_y));
         }
+
+        if (keystate[SDLK_i] && keystate[SDLK_LCTRL] && keystate[SDLK_LALT])
+            player_->set_god_mode(!player_->godMode());
     }
 
     glm::vec2 World::playerOrigin() const
