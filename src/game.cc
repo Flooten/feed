@@ -188,7 +188,7 @@ namespace feed
 
     void Game::loadWorldList()
     {
-        //world_list_.push_back("data/worlds/level1.fpq");
+        world_list_.push_back("data/worlds/level1.fpq");
         world_list_.push_back("data/worlds/level2.fpq");
     }
 
@@ -210,6 +210,9 @@ namespace feed
         }
 
         game_state_.push(new World(world_list_[current_world_]));
+
+        // Spela nivåmusik (samma för alla världar atm)
+        Audio::instance().playMusic("level01");
     }
 
     void Game::handleSDLEvent(const SDL_Event& event)
@@ -231,7 +234,6 @@ namespace feed
         switch (msg.type)
         {
             case MessageQueue::Message::NEW_GAME:
-                Audio::instance().playMusic("level01");
                 current_world_ = 0;
                 loadWorld();
                 break;

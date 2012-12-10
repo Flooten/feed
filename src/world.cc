@@ -23,21 +23,16 @@
 #include "ai.h"
 #include "firstboss.h"
 
-#include <iostream>
 #include <sstream>
 #include <stdexcept>
 
 namespace feed
 {
     World::World()
-    {
-        std::cout << "World " << this << " online" << std::endl;
-    }
+    {}
 
     World::World(const std::string& filename)
     {
-        std::cout << "Loading world " << filename << std::endl;
-
         enum
         {
             IMAGES,
@@ -132,16 +127,10 @@ namespace feed
                     break;
             }
         }
-
-        std::cout << "Number of enemies: " << enemy_list_.size() << std::endl;
-        std::cout << "Number of envobjs: " << envobject_list_.size() << std::endl;
-        std::cout << "Number of intobjs: " << intobject_list_.size() << std::endl;
     }
 
     World::~World()
     {
-        std::cout << "World " << this << " dead" << std::endl;
-
         delete player_;
         delete ui_;
 
@@ -429,12 +418,6 @@ namespace feed
                         else
                             Audio::instance().muteMusic(true);
                         break;
-
-                    case SDLK_s:
-                    std::cout << player_->get_position().x << " " << player_->get_position().y  << " "
-                              << player_->get_velocity().x << " " << player_->get_velocity().y  << " "
-                              << player_->get_health() << " " << player_->get_armor() << std::endl;
-                              break;
 
                     case SDLK_UP:
                         player_->incrementInventory();
@@ -755,8 +738,6 @@ namespace feed
                 player_->addWeapon(Weapon::SMG, ammo - 20);
             else if (type == "shotgun")
                 player_->addWeapon(Weapon::SHOTGUN, ammo - 7);
-
-            std::cout << "Adding " << type << " with " << ammo << " bullets" << std::endl;
         }
 
         player_->set_inventory_index(current_weapon);
