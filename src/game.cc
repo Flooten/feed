@@ -137,7 +137,6 @@ namespace feed
         Resources::instance().addImage("weapon-pistol", "data/gfx/pistol.png");
         Resources::instance().addImage("weapon-shotgun", "data/gfx/shotgun.png");
         Resources::instance().addImage("weapon-smg", "data/gfx/smg.png");
-        Resources::instance().addImage("checkpoint", "data/gfx/checkpoint.jpg");
         Resources::instance().addImage("armor-container", "data/gfx/shield.png");
         Resources::instance().addImage("health-container", "data/gfx/red_cross_health.png");
 
@@ -186,6 +185,9 @@ namespace feed
         Audio::instance().addSoundFx("minions-attack", "data/sound/minions-attack.wav");
         Audio::instance().addSoundFx("laugh", "data/sound/laugh.wav");
         Audio::instance().addSoundFx("heed", "data/sound/heed.wav");
+        Audio::instance().addSoundFx("victorious", "data/sound/victorious.wav");
+
+
     }
 
     void Game::loadWorldList()
@@ -347,6 +349,20 @@ namespace feed
                 delete game_state_.top();
                 game_state_.pop();
                 loadWorld();
+                break;
+
+            case MessageQueue::Message::CREDITS:
+                std::cout << "\n" << "\n" << "\n"
+                          << "                     ----------------- F.E.E.D -----------------\n"
+                          << "                     |                                         |\n"
+                          << "                     |              Joel Davidsson             |\n"
+                          << "                     |              Herman Ekwall              |\n"
+                          << "                     |              Marcus Eriksson            |\n"
+                          << "                     |              Mattias Fransson           |\n"
+                          << "                     |                                         |\n"
+                          << "                     | LitH HT2012                             |\n"
+                          << "                     -------------------------------------------\n"
+                          << std::endl;
                 break;
 
             default:

@@ -26,6 +26,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <algorithm> 
+#include <iostream>
 
 namespace feed
 {
