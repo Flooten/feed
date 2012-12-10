@@ -6,13 +6,6 @@
 
 namespace feed
 {
-    namespace
-    {
-        // Avstånd i pixlar som man studsar bort från saker vid kollision
-        const int BOUNCE_DISTANCE = 1000;
-        const float FALL_DAMAGE = 0.01f;
-    }
-
     // Returnerar sant om två objekt korsar varandra
     bool isIntersecting(const Object* obj1, const Object* obj2)
     {
@@ -69,10 +62,6 @@ namespace feed
                 {
                     new_pos.y = obj2->get_position().y - offset1.y - obj1->get_size().y;
                     obj1->set_jumping(false);
-
-                    // fallskada
-                    // int damage = obj1->get_velocity().y * FALL_DAMAGE;
-                    // obj1->addHealth(-damage);
                 }
                 else
                 {
@@ -85,13 +74,11 @@ namespace feed
             {
                 if (diff.x <= 0.0f)
                 {
-                    new_pos.x = obj2->get_position().x - offset1.x - obj1->get_size().x;// - BOUNCE_DISTANCE;
-                    //new_vel.x = BOUNCE_DISTANCE;
+                    new_pos.x = obj2->get_position().x - offset1.x - obj1->get_size().x;
                 }
                 else
                 {
-                    new_pos.x = obj2->get_position().x - offset1.x + obj2->get_size().x;// + BOUNCE_DISTANCE;
-                    //new_vel.x = BOUNCE_DISTANCE;
+                    new_pos.x = obj2->get_position().x - offset1.x + obj2->get_size().x;
                 }
             }
 
