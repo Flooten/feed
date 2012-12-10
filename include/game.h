@@ -5,7 +5,7 @@
  *                Herman Ekwall
  *                Marcus Eriksson
  *                Mattias Fransson
- * DATUM:         2012-11-21
+ * DATUM:         2012-12-10
  *
  * BESKRIVNING:   Huvudklassen för FEED. Ansvarar för SDL, resurser och "game-state".
  *
@@ -46,7 +46,7 @@ namespace feed
         std::stack<State*> game_state_;
         std::vector<std::string> world_list_;
         std::size_t current_world_ = 0;
-
+        
         SDL_Surface* screen_;
 
         bool running_ = true;

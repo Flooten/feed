@@ -14,6 +14,7 @@
 #include "resources.h"
 #include "util.h"
 #include "pausemenu.h"
+#include "wait.h"
 
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
@@ -171,7 +172,6 @@ namespace feed
         Audio::instance().addMusic("level01", "data/sound/level01.ogg");
         Audio::instance().addMusic("elevator", "data/sound/elevator.ogg");
 
-
         // Effects
         Audio::instance().addSoundFx("click", "data/sound/click.wav");
         Audio::instance().addSoundFx("pistol-fire", "data/sound/pistol-fire.wav");
@@ -186,13 +186,11 @@ namespace feed
         Audio::instance().addSoundFx("minions-attack", "data/sound/minions-attack.wav");
         Audio::instance().addSoundFx("laugh", "data/sound/laugh.wav");
         Audio::instance().addSoundFx("heed", "data/sound/heed.wav");
-
     }
 
     void Game::loadWorldList()
     {
         world_list_.push_back("data/worlds/level1.fpq");
-        world_list_.push_back("data/worlds/level2.fpq");
     }
 
     void Game::loadMenu()
@@ -339,7 +337,15 @@ namespace feed
             case MessageQueue::Message::NEXT_WORLD:
                 delete game_state_.top();
                 game_state_.pop();
+
+                // Vänta tre sekunder innan nästa värld laddas in
+                game_state_.push(new Wait(screen_, 3));
                 ++current_world_;
+                break;
+
+            case MessageQueue::Message::WAIT_DONE:
+                delete game_state_.top();
+                game_state_.pop();
                 loadWorld();
                 break;
 

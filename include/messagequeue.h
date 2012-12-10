@@ -52,7 +52,8 @@ namespace feed
                 SPAWN_ADDS_PHASE_TWO,
                 SPAWN_ADDS_PHASE_THREE,
                 FIRST_BOSS_DEAD,
-                DEAD
+                DEAD,
+                WAIT_DONE
             };
 
             Message(int type = 0, int value = 0, Object* sender = nullptr);

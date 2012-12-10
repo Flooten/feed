@@ -129,13 +129,15 @@ namespace feed
             }
         }
 
-        std::reverse(envobject_list_.begin(),envobject_list_.end());
+        // Gör så spelaren inte kan klättra på väggar
+        std::reverse(envobject_list_.begin(), envobject_list_.end());
     }
 
     World::~World()
     {
         delete player_;
         delete ui_;
+        delete boss_;
 
         for (auto e : projectile_list_)
             delete e;
@@ -147,6 +149,9 @@ namespace feed
             delete e;
 
         for (auto e : intobject_list_)
+            delete e;
+
+        for (auto e : effect_list_)
             delete e;
     }
 
@@ -666,7 +671,6 @@ namespace feed
                 boss_ = nullptr;
                 Audio::instance().stopMusic();
                 Audio::instance().playSoundFx("boss-death");
-                SDL_Delay(4000);
                 MessageQueue::instance().pushMessage({MessageQueue::Message::NEXT_WORLD});
                 break;
 

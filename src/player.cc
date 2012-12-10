@@ -94,9 +94,6 @@ namespace feed
         if (weapon != nullptr)
             weapon->update(delta_time);
 
-        if(velocity_.y > 1000)
-            MessageQueue::instance().pushMessage({MessageQueue::Message::PLAYER_DEAD, 0, this});
-
         Character::update(delta_time);
     }
 
