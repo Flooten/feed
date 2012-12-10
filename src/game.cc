@@ -129,6 +129,7 @@ namespace feed
         Resources::instance().addImage("legs-dark", "data/gfx/legs-dark.png");
         Resources::instance().addImage("blood", "data/gfx/blood.png");
         Resources::instance().addImage("smoke-jump", "data/gfx/smoke-jump.png");
+        Resources::instance().addImage("lightning", "data/gfx/lightning.png");
 
         // Containerbilder
         Resources::instance().addImage("spikes", "data/gfx/spikes.png");
@@ -170,7 +171,6 @@ namespace feed
         Audio::instance().addMusic("level01", "data/sound/level01.ogg");
         Audio::instance().addMusic("elevator", "data/sound/elevator.ogg");
 
-
         // Effects
         Audio::instance().addSoundFx("click", "data/sound/click.wav");
         Audio::instance().addSoundFx("pistol-fire", "data/sound/pistol-fire.wav");
@@ -184,6 +184,7 @@ namespace feed
         Audio::instance().addSoundFx("boss-death", "data/sound/enemy_death.wav");
         Audio::instance().addSoundFx("minions-attack", "data/sound/minions-attack.wav");
         Audio::instance().addSoundFx("laugh", "data/sound/laugh.wav");
+        Audio::instance().addSoundFx("win", "data/sound/win.wav");
     }
 
     void Game::loadWorldList()
@@ -254,6 +255,9 @@ namespace feed
                     out.close();
 
                     Audio::instance().playSoundFx("checkpoint");
+
+                    // Låt world skapa en effekt
+                    game_state_.top()->handleMessage(msg);
                 }
                 break;
             }
