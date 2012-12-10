@@ -11,7 +11,6 @@
 #include "resources.h"
 #include "messagequeue.h"
 #include "audio.h"
-#include <iostream>
 
 namespace feed
 {
@@ -31,8 +30,6 @@ namespace feed
     
     void Weapon::addAmmo(int value)
     {
-        std::cout << "Weapon: adding " << value << " ammo" << std::endl;
-
         ammo_ += value;
 
         if (ammo_ > max_ammo_)
@@ -155,7 +152,7 @@ namespace feed
                 return new Weapon(type, 5, -1, -1, Resources::instance()["weapon-shotgun"]);
 
             case BOSS_SMG:
-                return new Weapon(type, 15, -1, -1, Resources::instance()["weapon-smg"]); // max clip ej -1?!?!?
+                return new Weapon(type, 15, -1, -1, Resources::instance()["weapon-smg"]);
 
             default:
                 return nullptr;

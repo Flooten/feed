@@ -171,6 +171,7 @@ namespace feed
         Audio::instance().addMusic("level01", "data/sound/level01.ogg");
         Audio::instance().addMusic("elevator", "data/sound/elevator.ogg");
 
+
         // Effects
         Audio::instance().addSoundFx("click", "data/sound/click.wav");
         Audio::instance().addSoundFx("pistol-fire", "data/sound/pistol-fire.wav");
@@ -184,12 +185,13 @@ namespace feed
         Audio::instance().addSoundFx("boss-death", "data/sound/enemy_death.wav");
         Audio::instance().addSoundFx("minions-attack", "data/sound/minions-attack.wav");
         Audio::instance().addSoundFx("laugh", "data/sound/laugh.wav");
-        Audio::instance().addSoundFx("win", "data/sound/win.wav");
+        Audio::instance().addSoundFx("heed", "data/sound/heed.wav");
+
     }
 
     void Game::loadWorldList()
     {
-        //world_list_.push_back("data/worlds/level1.fpq");
+        world_list_.push_back("data/worlds/level1.fpq");
         world_list_.push_back("data/worlds/level2.fpq");
     }
 
@@ -211,6 +213,9 @@ namespace feed
         }
 
         game_state_.push(new World(world_list_[current_world_]));
+
+        // Spela nivåmusik (samma för alla världar atm)
+        Audio::instance().playMusic("level01");
     }
 
     void Game::handleSDLEvent(const SDL_Event& event)
@@ -232,7 +237,6 @@ namespace feed
         switch (msg.type)
         {
             case MessageQueue::Message::NEW_GAME:
-                Audio::instance().playMusic("level01");
                 current_world_ = 0;
                 loadWorld();
                 break;
