@@ -430,37 +430,11 @@ namespace feed
                             Audio::instance().muteMusic(true);
                         break;
 
-                    case SDLK_h:
-                        std::cout << "Player health: " << player_->get_health() << std::endl;
-                        break;
-
-                    case SDLK_i:
-                            player_->set_god_mode(!player_->godMode());
-                            break;
-
                     case SDLK_s:
                     std::cout << player_->get_position().x << " " << player_->get_position().y  << " "
                               << player_->get_velocity().x << " " << player_->get_velocity().y  << " "
                               << player_->get_health() << " " << player_->get_armor() << std::endl;
                               break;
-
-                    case SDLK_c:
-                    {
-                        glm::vec2 tmp = glm::vec2(mouse_position_x, mouse_position_y);
-                        tmp = util::screenToWorld(tmp, player_->get_position());
-                        
-                        std::cout << "x: " << tmp.x << " y: " << tmp.y << std::endl;
-                        break;
-                    }
-
-                    case SDLK_p:
-                    {
-                        glm::vec2 pos = util::screenToWorld(glm::vec2(mouse_position_x, mouse_position_y), player_->get_position());
-                        glm::vec2 start = pos + glm::vec2(30, 0);
-                        glm::vec2 end = pos - glm::vec2(30, 0);
-                        enemy_list_.push_back(Enemy::createGrunt(pos, start, end));
-                        break;
-                    }
 
                     case SDLK_UP:
                         player_->incrementInventory();
@@ -486,16 +460,6 @@ namespace feed
                             default:
                                 break;
                         }
-                        break;
-
-                    case SDLK_1:
-                        MessageQueue::instance().pushMessage({MessageQueue::Message::SPAWN_WALL, 0, nullptr});
-                        break;
-                    case SDLK_2:
-                        MessageQueue::instance().pushMessage({MessageQueue::Message::SPAWN_ADDS_PHASE_TWO, 0, nullptr});
-                        break;
-                    case SDLK_3:
-                        MessageQueue::instance().pushMessage({MessageQueue::Message::SPAWN_ADDS_PHASE_THREE, 0, nullptr});
                         break;
 
                     default:
@@ -1018,6 +982,9 @@ namespace feed
             float vel_y = player_->get_velocity().y;
             player_->set_velocity(glm::vec2(160, vel_y));
         }
+
+        if (keystate[SDLK_i] && keystate[SDLK_LCTRL] && keystate[SDLK_LALT])
+            player_->set_god_mode(!player_->godMode());
     }
 
     glm::vec2 World::playerOrigin() const
