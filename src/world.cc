@@ -667,6 +667,7 @@ namespace feed
                 Audio::instance().stopMusic();
                 Audio::instance().playSoundFx("boss-death");
                 SDL_Delay(4000);
+                Audio::instance().playSoundFx("victorious");
                 MessageQueue::instance().pushMessage({MessageQueue::Message::NEXT_WORLD});
                 break;
 

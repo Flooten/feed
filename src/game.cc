@@ -186,6 +186,8 @@ namespace feed
         Audio::instance().addSoundFx("minions-attack", "data/sound/minions-attack.wav");
         Audio::instance().addSoundFx("laugh", "data/sound/laugh.wav");
         Audio::instance().addSoundFx("heed", "data/sound/heed.wav");
+        Audio::instance().addSoundFx("victorious", "data/sound/victorious.wav");
+
 
     }
 
