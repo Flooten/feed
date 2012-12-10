@@ -184,6 +184,9 @@ namespace feed
         Audio::instance().addSoundFx("boss-death", "data/sound/enemy_death.wav");
         Audio::instance().addSoundFx("minions-attack", "data/sound/minions-attack.wav");
         Audio::instance().addSoundFx("laugh", "data/sound/laugh.wav");
+        Audio::instance().addSoundFx("laugh", "data/sound/laugh.wav");
+        Audio::instance().addSoundFx("heed", "data/sound/heed.wav");
+
     }
 
     void Game::loadWorldList()
