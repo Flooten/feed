@@ -1,5 +1,24 @@
 A simple platform game created as part of the course TDDC76. LiTH HT2012.
 
+Required to compile:
+SDL
+SDL_mixer
+SDL_ttf
+SDL_image
+OpenGL Mathematics (GLM) 
+
+Controlls:
+SPACE - Jump
+A - Move left
+D - Move right
+R - Reload
+M - Mute background music
+Left mouse button - Fire
+Mouse - Aim
+Mouse scroll - Change weapons
+
+Install: Compile and run feed. Make sure you have a data/saves folder. 
+
 By:
 
 Joel Davidsson
