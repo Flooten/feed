@@ -5,7 +5,7 @@
  *                Herman Ekwall
  *                Marcus Eriksson
  *                Mattias Fransson
- * DATUM:         2012-12-10
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING:   Huvudklassen för FEED. Ansvarar för SDL, resurser och "game-state".
  *

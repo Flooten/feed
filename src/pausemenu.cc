@@ -1,9 +1,9 @@
 /*
  * FILNAMN:       pausemenu.h
  * PROJEKT:       F.E.E.D.
- * PROGRAMMERARE: Marcus Eriksson   910322-1371     Y3A
+ * PROGRAMMERARE: Marcus Eriksson
  *          
- * DATUM:         2012-11-22
+ * DATUM:         2012-12-12
  *
  */
 

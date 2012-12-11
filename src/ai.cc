@@ -1,20 +1,18 @@
 /*
- * FILNAMN:       ai.h
+ * FILNAMN:       ai.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
  *                Herman Ekwall
- * DATUM:         2012-11-29
+ * DATUM:         2012-12-12
  *
  */
 
- #include "util.h"
+#include "util.h"
 #include "ai.h"
 #include "enemy.h"
 #include "player.h"
 #include "object.h"
 #include "environmentobject.h"
-#include <iostream>
-
 
 namespace feed
 {

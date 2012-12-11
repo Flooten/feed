@@ -3,7 +3,7 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
  *                Mattias Fransson
- * DATUM:         2012-12-01
+ * DATUM:         2012-12-12
  *
  */
 
@@ -11,7 +11,6 @@
 #include "messagequeue.h"
 #include "resources.h"
 #include "audio.h"
-#include <iostream>
 
 namespace feed
 {
@@ -93,6 +92,9 @@ namespace feed
 
         if (weapon != nullptr)
             weapon->update(delta_time);
+
+        if(velocity_.y > 1000)
+            MessageQueue::instance().pushMessage({MessageQueue::Message::PLAYER_DEAD});
 
         Character::update(delta_time);
     }

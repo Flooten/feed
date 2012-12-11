@@ -2,7 +2,7 @@
  * FILNAMN:       spikes.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Mattias Fransson
- * DATUM:         2012-11-30
+ * DATUM:         2012-12-12
  *
  */
 

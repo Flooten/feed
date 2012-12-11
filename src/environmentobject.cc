@@ -1,16 +1,14 @@
 /*
  * FILNAMN:       environmentobject.cc
  * PROJEKT:       F.E.E.D.
- * PROGRAMMERARE: Marcus Eriksson   910322-1371     Y3A
- * DATUM:         2012-11-16
+ * PROGRAMMERARE: Marcus Eriksson
+ * DATUM:         2012-12-12
  *
  */
 
 #include "environmentobject.h"
 #include "util.h"
 #include "messagequeue.h"
-
-#include <iostream>
 
 namespace feed
 {

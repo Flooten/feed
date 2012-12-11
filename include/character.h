@@ -3,7 +3,7 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
  *                Mattias Fransson
- * DATUM:         2012-11-29
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING: Character definerar en karaktär. Förälder till Player, Enemy och Boss. Abstrakt klass.
  *

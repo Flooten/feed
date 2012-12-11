@@ -1,10 +1,11 @@
 /*
- * FILNAMN:       boss.h
+ * FILNAMN:       firstboss.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
- * DATUM:         2012-12-07
+ *                Marcus Eriksson
+ * DATUM:         2012-12-12
  *
- * BESKRIVNING:
+ * BESKRIVNING:   Denna klass defininerar den första bossen
  *
  */
 

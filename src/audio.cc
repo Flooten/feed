@@ -1,14 +1,13 @@
 /*
  * FILNAMN:       audio.cc
  * PROJEKT:       F.E.E.D.
- * PROGRAMMERARE: Mattias Fransson 9105272612 Y3A
- * DATUM:         2012-11-18
+ * PROGRAMMERARE: Mattias Fransson
+ * DATUM:         2012-12-12
  *
  */
 
 #include "audio.h"
 
-#include <iostream>
 #include <utility>
 
 namespace feed

@@ -3,7 +3,7 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
  *                Mattias Fransson
- * DATUM:         2012-11-26
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING: Denna klass definierar en fiende. Ärver från Character
  *

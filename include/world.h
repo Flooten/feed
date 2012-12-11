@@ -5,7 +5,7 @@
  *                Herman Ekwall
  *                Marcus Eriksson
  *                Mattias Fransson
- * DATUM:         2012-12-05
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING:   World representerar en bana
  *

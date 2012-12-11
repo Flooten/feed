@@ -2,7 +2,7 @@
  * FILNAMN:       boss.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
- * DATUM:         2012-11-18
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING: Denna klass definierar boss. Ärver från Character
  *

@@ -1,11 +1,11 @@
 /*
- * FILNAMN:       gameworld.h
+ * FILNAMN:       game.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
  *                Herman Ekwall
  *                Marcus Eriksson
  *                Mattias Fransson
- * DATUM:         2012-12-09
+ * DATUM:         2012-12-12
  *
  */
 

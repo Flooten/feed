@@ -1,8 +1,8 @@
 /*
  * FILNAMN:       audio.h
  * PROJEKT:       F.E.E.D.
- * PROGRAMMERARE: Mattias Fransson 9105272612 Y3A
- * DATUM:         2012-11-18
+ * PROGRAMMERARE: Mattias Fransson
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING: Audio är en singleton som ansvarar för all ljud-hantering
  *

@@ -2,8 +2,8 @@
  * FILNAMN:       checkpoint.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
-                  Marcus Eriksson 910322-1371 Y3A
- * DATUM:         2012-11-22
+ *                Marcus Eriksson
+ * DATUM:         2012-12-12
  *
  */
 

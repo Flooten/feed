@@ -2,16 +2,14 @@
  * FILNAMN:       character.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
- *                Marcus Eriksson   910322-1371     Y3A
+ *                Marcus Eriksson
  *                Mattias Fransson
- * DATUM:         2012-11-29
+ * DATUM:         2012-12-12
  */
 
 #include "character.h"
 #include "messagequeue.h"
 #include "util.h"
-
-#include <iostream>
 
 namespace feed
 {

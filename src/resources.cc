@@ -1,10 +1,10 @@
 /*
- * FILNAMN:       resources.h
+ * FILNAMN:       resources.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
  *                Mattias Fransson
- *                Marcus Eriksson   910322-1371     Y3A
- * DATUM:         2012-12-07
+ *                Marcus Eriksson
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING:   Singleton för att hålla spelets bilder (resurser)
  *

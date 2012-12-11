@@ -3,7 +3,7 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
  *                Mattias Fransson
- * DATUM:         2012-11-28
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING: Kollisionshantering
  *

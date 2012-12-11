@@ -3,9 +3,9 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
  *                Herman Ekwall
- *                Marcus Eriksson   910322-1371     Y3A
- *                Mattias Fransson  910527-2612     Y3A
- * DATUM:         2012-11-29
+ *                Marcus Eriksson
+ *                Mattias Fransson
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING: Meddelandekö. Tar emot meddelanden från alla object, GameWorld läser kön
  *              och utför instruktionerna. MessageQueue implementeras som en singleton.

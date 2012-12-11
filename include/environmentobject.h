@@ -1,8 +1,9 @@
 /*
  * FILNAMN:       environmentobject.h
  * PROJEKT:       F.E.E.D.
- * PROGRAMMERARE: Marcus Eriksson   910322-1371     Y3A
- * DATUM:         2012-11-27
+ * PROGRAMMERARE: Marcus Eriksson
+ *                Joel Davidsson
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING: Denna klass definierar föremål som ej är fixa i bakgrunden men ej är möjliga
  *              att interagera med. Dessa objekt har möjlighet att röra sig i världen.

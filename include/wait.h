@@ -1,3 +1,13 @@
+/*
+ * FILNAMN:       wait.h
+ * PROJEKT:       F.E.E.D.
+ * PROGRAMMERARE: Mattias Fransson
+ * DATUM:         2012-12-12
+ *
+ * BESKRIVNING:   Wait, ritar ut den senate under en given tid
+ *
+ */
+
 #ifndef FEED_WAIT_H
 #define FEED_WAIT_H
 

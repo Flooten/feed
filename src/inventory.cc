@@ -2,9 +2,9 @@
  * FILNAMN:       inventory.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
- 				  Marcus Eriksson 	910322-1371 	Y3A
-                  Mattias Fransson
- * DATUM:         2012-12-01
+ *				  Marcus Eriksson
+ *                Mattias Fransson
+ * DATUM:         2012-12-12
  *
  */
 

@@ -1,15 +1,14 @@
 /*
  * FILNAMN:       projectile.cc
  * PROJEKT:       F.E.E.D.
- * PROGRAMMERARE: Marcus Eriksson 910322-1371 Y3A
- * DATUM:         2012-11-18
+ * PROGRAMMERARE: Marcus Eriksson
+ * DATUM:         2012-12-12
  *
  */
 
 #include "projectile.h"
 #include "util.h"
-#include "resources.h"
-#include <iostream>             
+#include "resources.h"       
 
 namespace feed
 {

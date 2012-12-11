@@ -1,8 +1,8 @@
 /*
  * FILNAMN:       menu.h
  * PROJEKT:       F.E.E.D.
- * PROGRAMMERARE: Marcus Eriksson 910322-1371 Y3A
- * DATUM:         2012-11-21
+ * PROGRAMMERARE: Marcus Eriksson
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING: Välkomstmenyn består av de knappar som användaren
  *              navigerar med hjälp av.

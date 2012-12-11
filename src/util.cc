@@ -2,7 +2,8 @@
  * FILNAMN:       util.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Mattias Fransson
- * DATUM:         2012-11-16
+ *                Joel Davidsson
+ * DATUM:         2012-12-12
  *
  */
 

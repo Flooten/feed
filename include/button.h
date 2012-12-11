@@ -1,8 +1,8 @@
 /*
  * FILNAMN:       button.h
  * PROJEKT:       F.E.E.D.
- * PROGRAMMERARE: Marcus Eriksson   910322-1371     Y3A
- * DATUM:         2012-11-22
+ * PROGRAMMERARE: Marcus Eriksson
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING: En knapp tillåter användaren att komma
  *              åt funktionalitet i spelet.

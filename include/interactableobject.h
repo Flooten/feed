@@ -5,7 +5,7 @@
  *                Herman Ekwall
  *                Marcus Eriksson
  *                Mattias Fransson
- * DATUM:         2012-11-16
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING: Denna klass definierar föremål som ej är fixa i bakgrunden och är möjliga
  *              att interagera med.

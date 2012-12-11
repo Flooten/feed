@@ -2,7 +2,7 @@
  * FILNAMN:       spikes.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Mattias Fransson
- * DATUM:         2012-11-30
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING: Spikar som skadar spelaren om han rör vid dem
  *

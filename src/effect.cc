@@ -1,8 +1,8 @@
 /*
  * FILNAMN:       effect.cc
  * PROJEKT:       F.E.E.D.
- * PROGRAMMERARE: Marcus Eriksson   910322-1371     Y3A
- * DATUM:         2012-11-29
+ * PROGRAMMERARE: Marcus Eriksson
+ * DATUM:         2012-12-12
  *
  */
 

@@ -1,8 +1,13 @@
+/*
+ * FILNAMN:       collision.cc
+ * PROJEKT:       F.E.E.D.
+ * PROGRAMMERARE: Mattias Fransson
+ *                Herman Ekwall
+ * DATUM:         2012-12-12
+ */
 #include "collision.h"
 #include "object.h"
 #include "character.h"
-
-#include <iostream>
 
 namespace feed
 {

@@ -5,7 +5,7 @@
  *                Herman Ekwall
  *                Marcus Eriksson
  *                Mattias Fransson
- * DATUM:         2012-12-09
+ * DATUM:         2012-12-12
  *
  */
 
@@ -26,7 +26,6 @@
 #include <sstream>
 #include <stdexcept>
 #include <algorithm> 
-#include <iostream>
 
 namespace feed
 {

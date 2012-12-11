@@ -1,8 +1,8 @@
 /*
  * FILNAMN:       projectile.h
  * PROJEKT:       F.E.E.D.
- * PROGRAMMERARE: Marcus Eriksson 910322-1371 Y3A
- * DATUM:         2012-11-18
+ * PROGRAMMERARE: Marcus Eriksson
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING: En projektil skapas när ett vapen avfyras.
  *              Vid interaktion med omgivningen används damage för 

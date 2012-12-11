@@ -1,13 +1,12 @@
 /*
  * FILNAMN:       animation.cc
  * PROJEKT:       F.E.E.D.
- * PROGRAMMERARE: Marcus Eriksson   910322-1371     Y3A
- * DATUM:         2012-11-26
+ * PROGRAMMERARE: Marcus Eriksson
+ * DATUM:         2012-12-12
  *
  */
 
 #include "animatedimage.h"
-#include <iostream>
 
 namespace feed
 {

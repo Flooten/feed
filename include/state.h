@@ -5,7 +5,7 @@
  *                Herman Ekwall
  *                Marcus Eriksson
  *                Mattias Fransson
- * DATUM:         2012-11-21
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING:   Abstrakt klass för ett state. States används för att separera delar av feed så som menyer och spelvärlden
  *

@@ -3,9 +3,10 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
  *                Mattias Fransson
- * DATUM:         2012-12-01
+ *                Joel Davidsson
+ * DATUM:         2012-12-12
  *
- * BESKRIVNING: Denna klass definierar spelaren. Ärver från Character
+ * BESKRIVNING:   Denna klass definierar spelaren. Ärver från Character
  *
  */
 

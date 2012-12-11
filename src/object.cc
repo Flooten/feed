@@ -5,12 +5,11 @@
  *                Herman Ekwall
  *                Marcus Eriksson
  *                Mattias Fransson
- * DATUM:         2012-11-15
+ * DATUM:         2012-12-12
  */
 
 #include "object.h"
 #include "util.h"
-#include <iostream>
 
 namespace feed
 {

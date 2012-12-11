@@ -3,19 +3,16 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
  *                Herman Ekwall
- *                Marcus Eriksson 910322-1371 Y3A
+ *                Marcus Eriksson
  *                Mattias Fransson
- * DATUM:         2012-11-22
+ * DATUM:         2012-12-12
  *
  */
-
 #include "mainmenu.h"
 #include "button.h"
 #include "messagequeue.h"
 #include "resources.h"
 #include "util.h"
-
-#include <iostream>
 
 namespace feed
 {

@@ -2,7 +2,7 @@
  * FILNAMN:       weaponcontainer.h
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
- * DATUM:         2012-11-16
+ * DATUM:         2012-12-12
  *
  * BESKRIVNING: När spelaren interagerar med detta objekt kommer det, om spelaren
  *  			redan har vapnet, att fyllas på med ammunition. Annars läggs det i spelarens inventory

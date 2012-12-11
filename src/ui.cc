@@ -1,16 +1,15 @@
 /*
- * FILNAMN:       ui.h
+ * FILNAMN:       ui.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
-                  Marcus Eriksson   910322-1371     Y3A
- * DATUM:         2012-12-07
+                  Marcus Eriksson
+ * DATUM:         2012-12-12
  *
  */
 
 #include "ui.h"
 #include "util.h"
 #include "player.h"
-#include <iostream>
 
 namespace feed
 {

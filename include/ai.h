@@ -3,9 +3,9 @@
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Joel Davidsson
  *                Herman Ekwall
- * DATUM:         2012-11-29
+ * DATUM:         2012-12-12
  *
- * BESKRIVNING: 
+ * BESKRIVNING:   Funktioner som används av AI:n.
  *
  */
 
