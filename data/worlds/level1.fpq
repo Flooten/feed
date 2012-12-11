@@ -1,21 +1,8 @@
-// Level 2
-
-[images]
-//sw               data/gfx/wall2sw.png
-//se               data/gfx/wall2se.png
-//ne               data/gfx/wall2ne.png
-//nw               data/gfx/wall2nw.png
-//sq               data/gfx/square.png
-
-//weapon_container bild på vapen 50X50
-armor_container   data/gfx/armor.png
-//health_container  data/gfx/red_cross_health.png
-//checkpoint        data/gfx/lightbulb.png
-player            data/gfx/icon.png
-
-[audio]
-sfx ak45 data/high.wav
-music original-score data/sound/feed01.ogg
+// Level 1
+// FILNAMN:       level1.fpq
+// PROJEKT:       F.E.E.D.
+// PROGRAMMERARE: Joel Davidsson
+// DATUM:         2012-12-12
 
 [environment_object]
 // pos.x pos.y size.x size.y vel.x vel.y hp max_health image (boundary_start.x boundary_start.y boundary_end.x boundary_end.y)
