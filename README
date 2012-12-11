@@ -7,7 +7,9 @@ SDL_ttf
 SDL_image
 OpenGL Mathematics (GLM) 
 
-Controlls:
+Install: Compile and run feed. Make sure you have a data/saves folder. 
+
+-----------------------------------
 SPACE - Jump
 A - Move left
 D - Move right
@@ -16,8 +18,7 @@ M - Mute background music
 Left mouse button - Fire
 Mouse - Aim
 Mouse scroll - Change weapons
-
-Install: Compile and run feed. Make sure you have a data/saves folder. 
+-----------------------------------
 
 By:
 
