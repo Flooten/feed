@@ -1,7 +1,8 @@
 /*
- * FILNAMN:       FirstBoss.cc
+ * FILNAMN:       firstboss.cc
  * PROJEKT:       F.E.E.D.
  * PROGRAMMERARE: Herman Ekwall
+ *                Marcus Eriksson
  * DATUM:         2012-12-12
  *
  */
