@@ -1,6 +1,6 @@
 A simple platform game created as part of the course TDDC76. LiTH HT2012.
 
-Required to compile:
+Requirements:
 SDL
 SDL_mixer
 SDL_ttf
