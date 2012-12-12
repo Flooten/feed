@@ -186,8 +186,6 @@ namespace feed
         Audio::instance().addSoundFx("laugh", "data/sound/laugh.wav");
         Audio::instance().addSoundFx("heed", "data/sound/heed.wav");
         Audio::instance().addSoundFx("victorious", "data/sound/victorious.wav");
-
-
     }
 
     void Game::loadWorldList()
